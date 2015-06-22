@@ -1,2 +1,2 @@
 # t4
-This is the readme file
+Team 4 android app project file. Proposal name for android appilication is "BiteClub."
