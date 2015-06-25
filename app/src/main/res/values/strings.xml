@@ -3,4 +3,6 @@
 
     <string name="hello_world">Hello Anybody that is paying attention!</string>
     <string name="action_settings">Settings</string>
+    <string name="largetext">This is activity main layout</string>
+    <string name="title_activity_menu">menu</string>
 </resources>
