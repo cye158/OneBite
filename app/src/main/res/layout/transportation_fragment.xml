@@ -28,7 +28,7 @@
     <Button
         android:layout_width="181dp"
         android:layout_height="wrap_content"
-        android:text="@string/button_name"
+        android:text="@string/feedMeButtonName"
         android:id="@+id/button_feedme"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.23"

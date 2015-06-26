@@ -1,18 +1,10 @@
 <resources>
     <string name="app_name">BiteClub</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
-
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_trasportation">TrasportationActivity</string>
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="button_name">Feed Me!</string>
+    <string name="hello_world">Hello Anybody that is paying attention!</string>
+    <string name="action_settings">Settings</string>
+    <string name="largetext">This is activity main layout</string>
+    <string name="title_activity_menu">menu</string>
+    <string name="feedMeButtonName">FEED ME!</string>
+    <string name="title_activity_transportation">TransportationActivity</string>
 </resources>
