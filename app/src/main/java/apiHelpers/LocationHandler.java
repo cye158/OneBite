@@ -1,8 +1,11 @@
 package apiHelpers;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -22,6 +25,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      * Data Fields
      */
     private static GoogleApiClient mGoogleClient;
+    private static Context mContext;
     private static Location mLocation;
     private static double mLongitude = 0.0;
     private static double mLatitude = 0.0;
@@ -48,6 +52,8 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+
+        this.mContext = context;
 
         Log.i("LOCATIONHANDLER", "Called LocationHandler constructor.");
     }
@@ -133,19 +139,43 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
         Log.i("LOCATION", "Latitude: " + mLatitude);
     }
 
+    /**
+     * @author Allen Space
+     * Descritpion: Handle a connection suspend from services
+     * */
     @Override
     public void onConnectionSuspended(int i) {
 
+        final ProgressDialog ringProgressDialog = ProgressDialog.show(mContext,
+                "We Have Lost connection", "Hold we will try connect!", true);
+        ringProgressDialog.setCancelable(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ringProgressDialog.dismiss();
+            }
+
+        }).start();
     }
 
+    /**
+     * @author Allen Space
+     * Description: Throws a dialog if connect fails.
+     * */
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
-    }
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-    public void DisplayMap() {
+        builder.setTitle("Google Service Lost");
 
-        Log.i("DisplayMap()", "Method call success");
+        builder.create();
+
     }
 
 }
