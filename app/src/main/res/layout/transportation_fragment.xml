@@ -31,5 +31,6 @@
         android:text="@string/button_name"
         android:id="@+id/button_feedme"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.23" />
+        android:layout_weight="0.23"
+        android:onClick="toResults"/>
 </LinearLayout>

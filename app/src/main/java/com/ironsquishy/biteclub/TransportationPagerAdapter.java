@@ -31,10 +31,10 @@ public class TransportationPagerAdapter extends FragmentPagerAdapter {
         Bundle bundle = new Bundle();
         bundle.putString(TransportationFragment.description_key, transportation_description[position]);
         bundle.putInt(TransportationFragment.image_id_key, get_device_image_id(position));
-        TransportationFragment device_fragment = new TransportationFragment();
-        device_fragment.setArguments(bundle);
+        TransportationFragment transportation_fragment = new TransportationFragment();
+        transportation_fragment.setArguments(bundle);
 
-        return device_fragment;
+        return transportation_fragment;
     }
 
     private int get_device_image_id(int position){

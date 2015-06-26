@@ -2,6 +2,7 @@ package com.ironsquishy.biteclub;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -54,6 +55,12 @@ public class TrasportationActivity extends AppCompatActivity {
         //mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setAdapter(device_pager_adapter);
         mViewPager.setCurrentItem(1);
+    }
+
+    /** Called when the user clicks the Feed Me! button */
+    public void toResults(View view) {
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
     }
 
 
