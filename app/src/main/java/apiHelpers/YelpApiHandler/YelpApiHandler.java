@@ -1,4 +1,4 @@
-package YelpAPIHandler;
+package apiHelpers.YelpApiHandler;
 
 
 import android.os.StrictMode;
@@ -23,7 +23,7 @@ import APIKeys.AuthKeys;
  * See <a href="http://www.yelp.com/developers/documentation">Yelp Documentation</a> for more info.
  *
  */
-public class YelpAPI {
+public class YelpApiHandler {
 
     private static final String API_HOST = "api.yelp.com";
     private static final String DEFAULT_TERM = "dinner";
@@ -56,7 +56,7 @@ public class YelpAPI {
      * @param token Token
      * @param tokenSecret Token secret
      */
-    public YelpAPI(String consumerKey, String consumerSecret, String token, String tokenSecret) {
+    public YelpApiHandler(String consumerKey, String consumerSecret, String token, String tokenSecret) {
         this.service =
                 new ServiceBuilder().provider(TwoStepOAuth.class).apiKey(consumerKey)
                         .apiSecret(consumerSecret).build();
@@ -124,12 +124,12 @@ public class YelpAPI {
      * <p>
      * After entering your OAuth credentials, execute <tt><b>run.sh</b></tt> to run this example.
      */
-    public static YelpAPI YelpInit() {
+    public static YelpApiHandler YelpInit() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
 
-        YelpAPI yelpApi = new YelpAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
+        YelpApiHandler yelpApi = new YelpApiHandler(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
         return yelpApi;
     }
 }
