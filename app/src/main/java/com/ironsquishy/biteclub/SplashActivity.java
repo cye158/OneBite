@@ -3,42 +3,43 @@ package com.ironsquishy.biteclub;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 /**
- * Created by Eric on 25-Jun-15.
+ * Created by Edward on 6/24/2015.
  */
-
 public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        /**
-         * Thread class to use sleep, new intent to main activity.
-         */
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally{
-                    Intent i = new Intent("com.ironsquishy.biteclub.MAINACTIVITY");
-                    startActivity(i);
-                }
+
+        final ImageView iv = (ImageView) findViewById(R.id.imageView);
+        final Animation an = AnimationUtils.loadAnimation(getBaseContext(),R.anim.rotate);
+        final Animation an2 = AnimationUtils.loadAnimation(getBaseContext(),R.anim.abc_fade_out);
+
+        iv.startAnimation(an);
+        an.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
             }
-        };
-        timerThread.start();
-    }
 
-    /**
-     * This is to prevent the user to press the back button and go back to the splash screen.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
-    }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                iv.startAnimation(an2);
+                finish();
+                Intent i = new Intent(getBaseContext(), TransportationActivity.class);
+                startActivity(i);
+            }
 
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
 }
