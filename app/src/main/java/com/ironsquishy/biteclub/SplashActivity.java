@@ -32,7 +32,9 @@ public class SplashActivity extends Activity {
             public void onAnimationEnd(Animation animation) {
                 iv.startAnimation(an2);
                 finish();
-                Intent i = new Intent(getBaseContext(), TransportationActivity.class);
+                //Intent i = new Intent(getBaseContext(), TransportationActivity.class);
+                // redirected to LocationCheckActivity
+                Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
                 startActivity(i);
             }
 
