@@ -1,11 +1,13 @@
 package com.ironsquishy.biteclub;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import apiHelpers.LocationHandler;
@@ -42,6 +44,30 @@ public class MenuActivity extends ActionBarActivity {
 
 
         Log.i("onCreate", "Successful call.");
+    }
+
+    /** Called when the user clicks the Go button - Eric */
+    public void toNavi(View view) {
+        Intent intent = new Intent(this, NaviActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Information button - Eric */
+    public void toInfo(View view) {
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Retry button - Eric */
+    public void toRetry(View view) {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Search button - Eric */
+    public void toSearch(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
     }
 
     /**

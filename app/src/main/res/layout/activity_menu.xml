@@ -19,12 +19,13 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Filters"
+        android:text="Go"
         android:id="@+id/button"
         android:background="#ffff3236"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp" />
+        android:layout_marginBottom="25dp"
+        android:onClick="toNavi"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -34,17 +35,31 @@
         android:background="#FFFF3236"
         android:layout_above="@+id/button3"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp" />
+        android:layout_marginBottom="23dp"
+        android:onClick="toInfo"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="No Hungy?"
+        android:text="Retry"
         android:id="@+id/button3"
         android:background="#FFFF3236"
+        android:onClick="toRetry"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="73dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/button4"
+        android:background="#FFFF3236"
+        android:onClick="toSearch"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,4 +69,5 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 </RelativeLayout>

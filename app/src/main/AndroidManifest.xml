@@ -59,6 +59,30 @@
             android:name=".CurrentLocationActivity"
             android:label="@string/title_activity_current_location" >
         </activity>
+        <activity
+            android:name=".NaviActivity"
+            android:label="@string/title_activity_navi"
+            android:parentActivityName=".MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ironsquishy.biteclub.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".InfoActivity"
+            android:label="@string/title_activity_info"
+            android:parentActivityName=".MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ironsquishy.biteclub.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".MenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ironsquishy.biteclub.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>

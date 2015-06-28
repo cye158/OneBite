@@ -19,5 +19,8 @@
     <string name="title_activity_current_location">CurrentLocationActivity</string>
     <string name="ask_current_location_msg">Type in the place you want to go</string>
     <string name="next_button_msg">Next</string>
+    <string name="title_activity_navi">NaviActivity</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>
