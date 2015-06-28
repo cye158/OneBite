@@ -131,5 +131,5 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/radioButton2"
         android:layout_toEndOf="@+id/radioButton2"
-        android:onClick="toMenuActivity"/>
+        android:onClick="toResults"/>
 </RelativeLayout>
