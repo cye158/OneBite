@@ -14,8 +14,7 @@
         android:minHeight="300dp"
         android:minWidth="300dp"
         android:src="@mipmap/ic_launcher"
-        android:nestedScrollingEnabled="false"
-        android:layout_marginTop="150dp" />
+        android:nestedScrollingEnabled="false" />
 
     <TextView
         android:layout_width="match_parent"

@@ -42,16 +42,16 @@ public class TransportationPagerAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0:
-                id = R.mipmap.image_car;
+                id = R.drawable.car;
                 break;
             case 1:
-                id = R.mipmap.image_bus;
+                id = R.drawable.bus;
                 break;
             case 2:
-                id = R.mipmap.image_walk;
+                id = R.drawable.walk;
                 break;
             case 3:
-                id = R.mipmap.image_uber;
+                id = R.drawable.uber;
                 break;
         }
         return id;
