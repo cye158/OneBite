@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.ironsquishy.biteclub.MapFragment;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
@@ -29,7 +30,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
     private static Location mLocation;
     private static double mLongitude = 0.0;
     private static double mLatitude = 0.0;
-    private static com.ironsquishy.biteclub.MapFragment mapFragment;
+    private static MapFragment mapFragment;
 
     //================================
     //***Constructors*****
