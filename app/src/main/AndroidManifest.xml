@@ -45,7 +45,7 @@
         <activity
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation" >
-            <intent-filter>
+            </activity>
     </application>
 
 </manifest>
