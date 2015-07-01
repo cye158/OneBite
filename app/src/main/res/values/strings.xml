@@ -8,6 +8,12 @@
     <string name="feedMeButtonName">FEED ME!</string>
     <string name="title_activity_transportation">TransportationActivity</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="largetext">This is activity main layout</string>
+    <string name="title_activity_menu">menu</string>
+    <string name="feedMeButtonName">FEED ME!</string>
+    <string name="title_activity_transportation">TransportationActivity</string>
+
     <!-- activity_location_check strings -->
     <string name="title_activity_location_check">LocationCheckActivity</string>
     <string name="location_status_msg">Location is currently off</string>
