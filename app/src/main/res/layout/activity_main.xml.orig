@@ -6,6 +6,17 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
 
+<<<<<<< HEAD
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="107dp"
+        android:text="Alert" />
+
+=======
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,4 +26,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp" />
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
 </RelativeLayout>
+

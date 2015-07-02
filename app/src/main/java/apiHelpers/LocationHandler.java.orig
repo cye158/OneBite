@@ -1,11 +1,18 @@
 package apiHelpers;
 
+<<<<<<< HEAD
+import android.content.Context;
+import android.location.Location;
+import android.os.Bundle;
+import android.os.Debug;
+=======
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -13,12 +20,25 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+<<<<<<< HEAD
+=======
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
 
 /**
  * Created by Allen Space on 6/22/2015.
  */
+<<<<<<< HEAD
+public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedListener{
+
+    /**Data Fields*/
+    private static GoogleApiClient mGoogleClient;
+    private static Location mLocation;
+    private static double mLongitude = 0.0;
+    private static double mLatitude = 0.0;
+
+=======
 public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedListener {
 
     /**
@@ -30,6 +50,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
     private static double mLongitude = 0.0;
     private static double mLatitude = 0.0;
     private static com.ironsquishy.biteclub.MapFragment mapFragment;
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
 
     //================================
     //***Constructors*****
@@ -42,82 +63,162 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
     //================================
 
     /**
+<<<<<<< HEAD
+     * @author Allen Space
+     * @param context Needed for opening google client connection.
+     *   Description: Preferable used onCreat().
+     * */
+    public LocationHandler(Context context)
+    {
+=======
      * @param context Needed for opening google client connection.
      *                Description: Preferable used onCreat().
      * @author Allen Space
      */
     public LocationHandler(Context context) {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
         mGoogleClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
+<<<<<<< HEAD
+        Log.i("LOCATIONHANDLER" , "Called LocationHandler constructor.");
+=======
         this.mContext = context;
 
         Log.i("LOCATIONHANDLER", "Called LocationHandler constructor.");
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     }
 
     /**
      * @author Allen Space
+<<<<<<< HEAD
+     * */
+=======
      */
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     public static void setmGoogleClient(GoogleApiClient mGoogleClient) {
         LocationHandler.mGoogleClient = mGoogleClient;
     }
 
     /**
+<<<<<<< HEAD
+     * @author Allen Space
+     * @param mLongitude Set new longitude coordinates.
+     *
+     * */
+=======
      * @param mLongitude Set new longitude coordinates.
      * @author Allen Space
      */
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     public static void setmLongitude(double mLongitude) {
         LocationHandler.mLongitude = mLongitude;
     }
 
 
     /**
+<<<<<<< HEAD
+     * @author Allen Space
+     * @param mLatitude Double mLatitude.
+     *
+     * Description: Setter for mLatitude data member.
+     * */
+=======
      * @param mLatitude Double mLatitude.
      *                  <p/>
      *                  Description: Setter for mLatitude data member.
      * @author Allen Space
      */
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     public static void setmLatitude(double mLatitude) {
         LocationHandler.mLatitude = mLatitude;
     }
 
     /**
+<<<<<<< HEAD
+     * @author Allen space
+     *  @return mGoogleClient Returns google client object.
+     *  @return Returns the mGoogleClient object.
+     * */
+    public static GoogleApiClient getmGoogleClient()
+    {
+=======
      * @return Returns the mGoogleClient object.
      * @author Allen space
      */
     public static GoogleApiClient getmGoogleClient() {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
         return mGoogleClient;
     }
 
     /**
+<<<<<<< HEAD
+     * @author Allen Space
+     * @return Returns the mLongitude value.
+     * */
+    public static double getmLongitude()
+    {
+=======
      * @return Returns the mLongitude value.
      * @author Allen Space
      */
     public static double getmLongitude() {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
         return mLongitude;
     }
 
     /**
+<<<<<<< HEAD
+     * @author Allen Space
+     * @return Double mLatitude value.
+     * */
+    public static double getmLatitude()
+    {
+=======
      * @return Double mLatitude value.
      * @author Allen Space
      */
     public static double getmLatitude() {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
         return mLatitude;
     }
 
     /**
      * @author Allen Space
      * Description: Initials the Google API service connection.
+<<<<<<< HEAD
+     * */
+    public void startConnect()
+    {
+=======
      */
     public void startConnect() {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
         mGoogleClient.connect();
 
     }
 
     /**
+<<<<<<< HEAD
+     * @author Allen Space
+     * @param connectionHint Gets called when connect() is called.
+     * Description: When connected to the Google API services
+     *              will create location object and set the device
+     *              longitude and latitude.
+     * */
+    @Override
+    public void onConnected(Bundle connectionHint)
+    {
+        Log.i("GOOGLE_CONNECT", "Call to onConnected.");
+
+        mLocation =LocationServices.FusedLocationApi.getLastLocation(mGoogleClient);
+
+        if(mLocation != null)
+        {
+=======
      * @param connectionHint Gets called when connect() is called.
      *                       Description: When connected to the Google API services
      *                       will create location object and set the device
@@ -131,11 +232,28 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleClient);
 
         if (mLocation != null) {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
             mLongitude = mLocation.getLongitude();
             mLatitude = mLocation.getLatitude();
         }
 
         Log.i("LOCATION", "Longitude: " + mLongitude);
+<<<<<<< HEAD
+        Log.i("LOCATION" , "Latitude: " + mLatitude);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i)
+    {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
+
+    }
+=======
         Log.i("LOCATION", "Latitude: " + mLatitude);
     }
 
@@ -178,4 +296,5 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     }
 
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
 }

@@ -1,5 +1,9 @@
 package com.ironsquishy.biteclub;
 
+<<<<<<< HEAD:app/src/main/java/com/ironsquishy/biteclub/MainActivity.java
+=======
+import android.support.v7.app.AppCompatActivity;
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196:app/src/main/java/com/ironsquishy/biteclub/NaviActivity.java
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import apiHelpers.LocationHandler;
 
 
+<<<<<<< HEAD:app/src/main/java/com/ironsquishy/biteclub/MainActivity.java
 public class MainActivity extends ActionBarActivity{
 
     static final int LOCATION_SETTINGS_REQUEST = 1;
@@ -27,10 +32,14 @@ public class MainActivity extends ActionBarActivity{
     private String address;
     private AlertDialog.Builder LocAlertBuilder;
     private AlertDialog.Builder AddAlertBuilder;
+=======
+public class NaviActivity extends AppCompatActivity {
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196:app/src/main/java/com/ironsquishy/biteclub/NaviActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD:app/src/main/java/com/ironsquishy/biteclub/MainActivity.java
         setContentView(R.layout.activity_main);
 
         this.mLocation = new LocationHandler(this);
@@ -119,6 +128,16 @@ public class MainActivity extends ActionBarActivity{
         */
 
         Log.i("OnStart", "Successful");
+=======
+        setContentView(R.layout.activity_navi);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_navi, menu);
+        return true;
+>>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196:app/src/main/java/com/ironsquishy/biteclub/NaviActivity.java
     }
 
     public boolean LocServStatus() {
