@@ -76,7 +76,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:background="#ff0000"
+        android:background="#ffa500"
         android:textColor="#ffffff"
         />
 
@@ -89,7 +89,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#ff0000"
+        android:background="#ffa500"
         android:textColor="#ffffff"/>
 
 </RelativeLayout>
