@@ -186,5 +186,38 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         markClient(googleMap);
         moveCameraToClient(googleMap);
+        addFakeMarkers(googleMap);
+    }
+
+    /**
+     * @author Guan
+     * @param latLng LatLng Object that contains latitude and longitude.
+     * @param  name Name of the location
+     * Description: Adds an orange marker to the map with giving coordinates
+     */
+    private void addLocationToMap(GoogleMap googleMap, LatLng latLng, String name) {
+        MarkerOptions marker = new MarkerOptions()
+                .position(latLng)
+                .title(name)
+                .snippet("You been to here!")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
+                );
+
+        googleMap.addMarker(marker);
+
+    }
+
+    /**
+     * @author Guan
+     * Description: Add fake markers to map for Demo purpuse
+     *              remove this when connected to history database
+     */
+    private void addFakeMarkers(GoogleMap googleMap) {
+        addLocationToMap(googleMap,new LatLng(37.774772, -122.41993), "Zuni Cafe");
+        addLocationToMap(googleMap,new LatLng(37.726821, -122.475523), "McDonald's");
+        addLocationToMap(googleMap, new LatLng(37.723984, -122.48512), "The Village Market And Pizza");
+        addLocationToMap(googleMap, new LatLng(37.717657, -122.473893), "Hall of Flame Burger");
+        addLocationToMap(googleMap, new LatLng(37.723541, -122.45455), "Pho Ha Tien");
+        addLocationToMap(googleMap, new LatLng(37.672926, -122.466196), "Round Table Pizza");
     }
 }
