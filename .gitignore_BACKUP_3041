@@ -26,6 +26,16 @@ proguard/
 # Log Files
 *.log
 
+<<<<<<< HEAD
+/.idea/*
+.DS_Store
+/build
+/captures
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2a174e643ba9c0c50b05d935a6442f4da2ef2f7b
+=======
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
@@ -39,3 +49,4 @@ proguard/
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
+>>>>>>> origin
