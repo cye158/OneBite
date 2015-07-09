@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#4CAF50"
+    android:background="#7B82B2"
     tools:context="com.ssaurel.animationsprite.MainActivity" >
     <TextView
         android:layout_width="fill_parent"
@@ -59,5 +59,15 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:layout_marginBottom="43dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bigPacMan"
+        android:layout_above="@+id/pacMan"
+        android:background="@drawable/big_pac_man_animation"
+        android:visibility="invisible"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
