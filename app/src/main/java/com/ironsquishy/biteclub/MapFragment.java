@@ -36,8 +36,6 @@ public class MapFragment extends Fragment {
     private static GoogleMap gMap;
     private static double mLongitude = LONGITUDE;
     private static double mLatitude = LATITUDE;
-    private static LocationHandler mLocation;
-
 
     /**
      * @author Allen Space
@@ -116,8 +114,8 @@ public class MapFragment extends Fragment {
      * */
     private void useClientLocation()
     {
-        mLatitude = mLocation.getmLatitude();
-        mLongitude = mLocation.getmLongitude();
+        mLatitude = LocationHandler.getmLatitude();
+        mLongitude = LocationHandler.getmLongitude();
     }
 
     /**

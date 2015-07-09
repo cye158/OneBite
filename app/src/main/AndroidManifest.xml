@@ -21,11 +21,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MenuActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash" >
             <intent-filter>
@@ -34,22 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDB7MIGJv24Wv1-7Yt29kfzIM3UPA5CD2c" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation" >
-            <intent-filter>
-                <action android:name="com.ironsquishy.biteclub.MAINACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LocationCheckActivity"
@@ -67,22 +54,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
+
         <activity
-            android:name=".InfoActivity"
-            android:label="@string/title_activity_info"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
+            android:name=".MapActivity">
+            <!--android:label="@string/title_activity_map" >-->
         </activity>
-        <activity
-            android:name=".SearchActivity"
-            android:label="@string/title_activity_search"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDB7MIGJv24Wv1-7Yt29kfzIM3UPA5CD2c" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service android:name="apiHelpers.FetchLocationAddress" />
+		
+		<activity
+            android:name="TransportationActivity"
+            android:label="@string/title_activity_transportation" >
         </activity>
+
     </application>
 
 </manifest>

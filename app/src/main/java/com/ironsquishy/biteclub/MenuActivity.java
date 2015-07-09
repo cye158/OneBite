@@ -15,13 +15,13 @@ import apiHelpers.LocationHandler;
 
 /**
  * @author Allen Space
- * Descption: Menu  activity with google maps fragment.
+ * Description: Menu  activity with google maps fragment.
  * */
 public class MenuActivity extends ActionBarActivity {
     /**Data Fields*/
     private static Randomizer mRandomizer;
     private static TextView mResultText;
-    private static LocationHandler mLocation;
+    
 
 
     /**
@@ -35,13 +35,6 @@ public class MenuActivity extends ActionBarActivity {
 
         //Text field from menu_activity.xml
         mResultText = (TextView) findViewById(R.id.resultText);
-
-        //Instantiate locationHandler object
-        mLocation = new LocationHandler(this);
-
-        //Start the connection to location service.
-        mLocation.startConnect();
-
 
         Log.i("onCreate", "Successful call.");
     }
@@ -77,29 +70,10 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        //Start process dialog
-        final ProgressDialog ringProgressDialog = ProgressDialog.show(MenuActivity.this,
-                "Whoa hold on Bro!!!", "First we have to find you!!", true);
-        ringProgressDialog.setCancelable(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                    Log.i("LOCATION", "Latitude and Longitude: " + mLocation.getmLatitude() + ", " + mLocation.getmLongitude());
-
-
-                    //Add Google maps  to activity.
-                    addFragment();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ringProgressDialog.dismiss();
-            }
-
-        }).start();
-
+        
+        //Add map fragment to be visible.
+        addFragment();
+        
         //Randomizer class instantiate
         mRandomizer = new Randomizer();
 
@@ -123,4 +97,7 @@ public class MenuActivity extends ActionBarActivity {
         transaction.add(R.id.mapView, fragment);
         transaction.commit();
     }
+
+
 }
+

@@ -7,6 +7,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import apiHelpers.FetchLocationAddress;
+import apiHelpers.LocationHandler;
+
 /**
  * Created by Edward on 6/24/2015.
  */
@@ -32,10 +35,17 @@ public class SplashActivity extends Activity {
             public void onAnimationEnd(Animation animation) {
                 iv.startAnimation(an2);
                 finish();
-                //Intent i = new Intent(getBaseContext(), TransportationActivity.class);
+                Intent i = new Intent(getBaseContext(), TransportationActivity.class);
                 // redirected to LocationCheckActivity
-                Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
-                startActivity(i);
+
+                //Get started LocationHandler and start connection.
+                LocationHandler.getInstance().setGoogleApiConnection(getBaseContext());
+                //Connect to google services.
+                LocationHandler.startConnect();
+                
+                i = new Intent(getBaseContext(), LocationCheckActivity.class);
+				startActivity(i);
+
             }
 
             @Override

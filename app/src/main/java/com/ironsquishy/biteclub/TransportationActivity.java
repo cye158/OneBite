@@ -2,6 +2,7 @@ package com.ironsquishy.biteclub;
 
 import java.util.Locale;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -18,6 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import AsyncTasks.YelpAsync;
+import Callbacks.BusinessResponseRunnable;
+import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
+
 
 public class TransportationActivity extends AppCompatActivity {
 
@@ -41,6 +47,7 @@ public class TransportationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transportation);
 
@@ -55,11 +62,41 @@ public class TransportationActivity extends AppCompatActivity {
         //mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setAdapter(device_pager_adapter);
         mViewPager.setCurrentItem(1);
+        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
+            @Override
+            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
+
+                //do stuff with businessResponse here!!!
+
+            }
+        };
+        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
+        yelpAsync.execute("restaurant", "500", "San Francisco");
+
+
     }
 
     /** Called when the user clicks the Feed Me! button */
     public void toResults(View view) {
         Intent intent = new Intent(this, MenuActivity.class);
+
+
+//        if (check if location services is on(receive from location check)){
+//        pass current location and radius defined by button to yelpAsync.
+//        }
+//        else if{
+//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
+//        }
+        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
+            @Override
+            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
+
+            }
+        };
+        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
+        yelpAsync.execute("500",null, "San Francisco");
+
+
         startActivity(intent);
     }
 
