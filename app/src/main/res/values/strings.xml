@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">BiteClub</string>
-<<<<<<< HEAD
 
-=======
     <string name="title_activity_splash">SplashActivity</string>
->>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     <string name="hello_world">Hello Anybody that is paying attention!</string>
     <string name="action_settings">Settings</string>
     <string name="largetext">This is activity main layout</string>

@@ -1,25 +1,7 @@
 package com.ironsquishy.biteclub;
 
-<<<<<<< HEAD
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-/**
- * Created by Allen Space on 6/22/2015.
- */
-public class Randomizer  {
-
-    /*** Data Fields*/
-    private Thread mThread;
-    //private SQLiteHandlers
-    private static String mReturnString;
-    private static String mFindString;
-    //private static GoogleApiClient mGoogleApiClient;
-
-=======
 import java.util.Random;
 
 /**
@@ -35,7 +17,6 @@ public class Randomizer {
     private static String mFindString;
     private static String[] stringArray = {"Ice Cream", "Donut", "Burgers", "Pizza",
                                             "Sushi", "Lollipop", "Burrito", "Tacos"};
->>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     //================================
     //***Constructors*****
     //================================
@@ -45,7 +26,6 @@ public class Randomizer {
     //================================
     //***Helpers***********
     //================================
-<<<<<<< HEAD
     //***Thread run********
     //================================
 
@@ -61,12 +41,6 @@ public class Randomizer {
                 .build();*/
     }
 
-
-    /***
-     * @author Allen Space
-     * */
-=======
-
     /**
      * @author Allen Space
      */
@@ -78,23 +52,18 @@ public class Randomizer {
     /**
      * @author Allen Space
      */
->>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
+
     public static void setmReturnString(String mReturnString) {
         Randomizer.mReturnString = mReturnString;
     }
 
     /**
      * @author Allen Space
-<<<<<<< HEAD
      * */
-=======
-     */
->>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
     public static void setmFindString(String mFindString) {
         Randomizer.mFindString = mFindString;
     }
 
-<<<<<<< HEAD
     protected synchronized void buildGoogleApiClient()
     {
 
@@ -107,7 +76,6 @@ public class Randomizer {
     {
 
     }*/
-=======
     /**
      * @return A random string.
      * @author Allen Space
@@ -117,6 +85,4 @@ public class Randomizer {
 
         return stringArray[i];
     }
-
->>>>>>> 1d101b007a310c3c70f15bb45091ca780a9aa196
 }

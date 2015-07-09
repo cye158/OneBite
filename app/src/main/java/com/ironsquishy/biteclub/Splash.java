@@ -30,7 +30,7 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                Intent i = new Intent(Splash.this, MainActivity.class);
+                Intent i = new Intent(Splash.this, NaviActivity.class);
                 startActivity(i);
 
 
