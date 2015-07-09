@@ -26,6 +26,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".MapActivity">
+            <!--android:label="@string/title_activity_map" >-->
+        </activity>
+        <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash" >
             <intent-filter>
@@ -83,6 +87,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
+        <service android:name="apiHelpers.FetchLocationAddress" />
     </application>
 
 </manifest>

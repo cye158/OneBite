@@ -1,4 +1,6 @@
-package com.ironsquishy.biteclub;
+package apiHelpers.YelpApiHandler.YelpData;
+
+import android.util.Log;
 
 import java.util.Random;
 
@@ -13,8 +15,9 @@ public class Randomizer {
     private static Random mRandom;
     private static String mReturnString;
     private static String mFindString;
-    private static String[] stringArray = {"Ice Cream", "Donut", "Burgers", "Pizza",
-                                            "Sushi", "Lollipop", "Burrito", "Tacos"};
+    private static final String TAG = "YelpData";
+    private static SearchForBusinessesResponse mBusinessResponse;
+
     //================================
     //***Constructors*****
     //================================
@@ -30,6 +33,13 @@ public class Randomizer {
      */
     public Randomizer() {
         mRandom = new Random();
+    }
+
+    public Randomizer(SearchForBusinessesResponse pBusinessResponse)
+    {
+        this.mRandom = new Random();
+
+        this.mBusinessResponse = pBusinessResponse;
     }
 
 
@@ -52,9 +62,23 @@ public class Randomizer {
      * @author Allen Space
      */
     public String getRandomString() {
-        int i = mRandom.nextInt(stringArray.length);
 
-        return stringArray[i];
+        return "Business name was null!";
+
+    }
+
+    public int getBusinessListSize()
+    {
+        return mBusinessResponse.businesses.size();
+    }
+
+    /**
+     * @author Allen Space
+     *Description: get Business name by index.
+     * */
+    public String getBusinessName(int pIndex)
+    {
+        return this.mBusinessResponse.businesses.get(pIndex).name;
     }
 
 }

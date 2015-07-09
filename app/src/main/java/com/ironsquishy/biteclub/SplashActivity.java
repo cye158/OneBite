@@ -10,6 +10,9 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import apiHelpers.LocationHandler;
+
 // TODO Remove the action bar on top. - Eric
 public class SplashActivity extends ActionBarActivity {
 
@@ -94,6 +97,11 @@ public class SplashActivity extends ActionBarActivity {
             txt.setVisibility(View.VISIBLE);
             // TODO Add better delay for text. Disappears too fast. - Eric
             finish();
+
+            //Get started LocationHandler and start connection.
+            LocationHandler.getInstance().setGoogleApiConnection(getBaseContext());
+            //Connect to google services.
+            LocationHandler.startConnect();
             Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
             startActivity(i);
         }

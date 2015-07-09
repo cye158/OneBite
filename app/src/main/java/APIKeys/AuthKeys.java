@@ -1,18 +1,16 @@
 package APIKeys;
 
 /**
- * Created by Sam on 6/22/2015.
+ * Created by darver on 6/22/2015.
  */
-
-//This structure stores our groups Yelp Authkeys, and IS NOT TO BE SHARED IN OUR REPOSITORY
 
 public class AuthKeys
 {
-    //These keys are used in YelpAPI.java
-    public static final String _CONSUMER_KEY = "CUHavPQ80nALBe0S3scASw";
-    public static final String _CONSUMER_SECRET = "SUsaVeKe5-ddqG8_z18M_8QMqXo";
-    public static final String _TOKEN = "WU9xlYXQBGvrbjdLX3xXHuAyHjWBPBNp";
-    public static final String _TOKEN_SECRET = "zLxoMkEScRyLYnRxBivXrBS1UEo";
+    //Yelp Auth keys for Oauth
+    public static final String _CONSUMER_KEY = "6IyitZr8DGLkn7XXcuW9zw";
+    public static final String _CONSUMER_SECRET = "PCzxpgdrvNmPn9mPHYKAnElts1k";
+    public static final String _TOKEN = "nclDbe2XhO0AJ5p8JB4Lab4v01k8dGZY";
+    public static final String _TOKEN_SECRET = "QOUziVu9tj0jz83WrSW37TCRKG8";
 
 
 }
