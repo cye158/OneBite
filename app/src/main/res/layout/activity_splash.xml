@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#ff0000"
+    android:background="#4CAF50"
     tools:context="com.ssaurel.animationsprite.MainActivity" >
     <TextView
         android:layout_width="fill_parent"
