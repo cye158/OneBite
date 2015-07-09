@@ -1,6 +1,5 @@
 package com.ironsquishy.biteclub;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import Callbacks.BusinessResponseRunnable;
 import apiHelpers.LocationHandler;
+import apiHelpers.YelpApiHandler.YelpData.Randomizer;
+import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
+import YelpAsync.YelpAsync;
 
 
 /**
@@ -21,7 +24,8 @@ public class MenuActivity extends ActionBarActivity {
     /**Data Fields*/
     private static Randomizer mRandomizer;
     private static TextView mResultText;
-    
+    private static String mRandomStringName;
+
 
 
     /**
@@ -41,7 +45,7 @@ public class MenuActivity extends ActionBarActivity {
 
     /** Called when the user clicks the Go button - Eric */
     public void toNavi(View view) {
-        Intent intent = new Intent(this, NaviActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
@@ -70,18 +74,28 @@ public class MenuActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        
-        //Add map fragment to be visible.
-        addFragment();
-        
-        //Randomizer class instantiate
-        mRandomizer = new Randomizer();
-
-        //Just gets a random string from randomizer
-        String pResultStr = ("Result: " + mRandomizer.getRandomString());
 
         //Set to text field.
-        mResultText.setText(pResultStr);
+
+        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
+            @Override
+            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
+                mRandomizer = new Randomizer(businessResponse);
+                mRandomStringName =  mRandomizer.getBusinessName(0);
+
+                Log.i("YelpData", "At location: " + LocationHandler.streetAddress +"., " + LocationHandler.cityAddress);
+
+                for(int i = 0; i < mRandomizer.getBusinessListSize(); i++)
+                {
+                    Log.i("YelpData", "Restuarant name: " + mRandomizer.getBusinessName(i));
+                }
+
+                mResultText.setText(mRandomStringName);
+            }
+        };
+
+        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
+        yelpAsync.execute("Restaurant", "5234.5", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
 
     }
 

@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.ironsquishy.biteclub.CurrentLocationActivity">
+    tools:context="com.ironsquishy.biteclub.CurrentLocationActivity"
+    android:background="#4CAF50">
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,13 +28,23 @@
         android:layout_alignEnd="@+id/askCurrentLocationText"
         android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="110dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next_button_msg"
-        android:id="@+id/nextButton"
-        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/currentAddress"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="60dp"
+        android:layout_alignStart="@+id/currentAddress"
+        android:layout_alignEnd="@+id/currentAddress"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_button_msg"
+            android:id="@+id/nextButton"
+            android:layout_gravity="center_horizontal"
+            android:background="#FF5722"/>
+    </LinearLayout>
 
 </RelativeLayout>
