@@ -22,5 +22,6 @@
     <string name="title_activity_navi">NaviActivity</string>
     <string name="title_activity_info">InfoActivity</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="feedme_button">Feed Me!</string>
 
 </resources>
