@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import apiHelpers.LocationHandler;
+import apiHelpers.YelpApiHandler.YelpData.Randomizer;
 
 /**
  * Created by Allen Space on 6/24/2015.
@@ -148,15 +149,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * @param pNewLong Double value passed or longitude.
      * Description: Use to add adition makers based on latitude and longitude values.
      */
-    public void addRestMark(Double pNewLat, Double pNewLong)
+    public void addRestMark(GoogleMap pGoogleMap, String pName, String pAddress, Double pNewLat, Double pNewLong)
     {
         MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng(pNewLat, pNewLat))
-                .title("Mark");
+                .position(new LatLng( pNewLat, pNewLong))
+                .snippet(pAddress)
+                .title(pName);
 
         marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
-        gMap.addMarker(marker);
+        pGoogleMap.addMarker(marker);
     }
 
     /**
@@ -177,6 +179,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         Log.i(TAG, "Building Map.");
+
+        Randomizer randomizer = new Randomizer();
+
+        addRestMark(googleMap, randomizer.mRestName, randomizer.mRestAddress, randomizer.mRestLatitude, randomizer.mRestLonigtude);
 
         markClient(googleMap);
         moveCameraToClient(googleMap);

@@ -18,6 +18,13 @@ public class Randomizer {
     private static final String TAG = "YelpData";
     private static SearchForBusinessesResponse mBusinessResponse;
 
+    /**Single Restuarant Data*/
+    public static String mRestName;
+    public static String mRestAddress;
+    public static Double mRestLatitude;
+    public static Double mRestLonigtude;
+
+
     //================================
     //***Constructors*****
     //================================
@@ -40,6 +47,12 @@ public class Randomizer {
         this.mRandom = new Random();
 
         this.mBusinessResponse = pBusinessResponse;
+
+        this.mRestName = mBusinessResponse.businesses.get(0).name;
+        this.mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
+        //Unfuck this later.
+        this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
+        this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
     }
 
 
