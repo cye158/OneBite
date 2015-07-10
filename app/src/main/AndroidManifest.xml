@@ -49,15 +49,8 @@
         <activity
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation" >
-<<<<<<< HEAD
-            </activity>
-||||||| merged common ancestors
-            <intent-filter>
-                <action android:name="com.ironsquishy.biteclub.MAINACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
+
         <activity
             android:name=".LocationCheckActivity"
             android:label="@string/title_activity_location_check" >
@@ -82,55 +75,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
-        <activity
-            android:name=".SearchActivity"
-            android:label="@string/title_activity_search"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
-        </activity>
-=======
-            <intent-filter>
-                <action android:name="com.ironsquishy.biteclub.MAINACTIVITY" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".LocationCheckActivity"
-            android:label="@string/title_activity_location_check" >
-        </activity>
-        <activity
-            android:name=".CurrentLocationActivity"
-            android:label="@string/title_activity_current_location" >
-        </activity>
-        <activity
-            android:name=".NaviActivity"
-            android:label="@string/title_activity_navi"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
-        </activity>
-        <activity
-            android:name=".InfoActivity"
-            android:label="@string/title_activity_info"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
-        </activity>
-        <activity
-            android:name=".SearchActivity"
-            android:label="@string/title_activity_search"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
-        </activity>
         <service android:name="apiHelpers.FetchLocationAddress" />
->>>>>>> afa55c48d98c5e32536783a6176cd6451bbec976
     </application>
 
 </manifest>

@@ -30,17 +30,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      */
     private static GoogleApiClient mGoogleClient;
     private static Context mContext;
-<<<<<<< HEAD
-    private static Location mLocation;
-    private static double mLongitude = 0.0;
-    private static double mLatitude = 0.0;
     private static MapFragment mapFragment;
-||||||| merged common ancestors
-    private static Location mLocation;
-    private static double mLongitude = 0.0;
-    private static double mLatitude = 0.0;
-    private static com.ironsquishy.biteclub.MapFragment mapFragment;
-=======
 
     //Following double's are set to San Francisco.
     private static double mLongitude = -122.431297;
@@ -54,7 +44,6 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
     private static LocationHandler singleLocationHandler = null;
 
     private static final String TAG = "LOCATION";
->>>>>>> afa55c48d98c5e32536783a6176cd6451bbec976
 
     //================================
     //***Constructors*****
