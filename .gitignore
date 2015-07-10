@@ -42,3 +42,4 @@ build/
 
 #for Renz computer 
 .idea/gradle.xml
+*.orig
