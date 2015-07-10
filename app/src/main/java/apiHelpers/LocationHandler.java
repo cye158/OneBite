@@ -30,6 +30,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      */
     private static GoogleApiClient mGoogleClient;
     private static Context mContext;
+    private static MapFragment mapFragment;
 
     //Following double's are set to San Francisco.
     private static double mLongitude = -122.431297;

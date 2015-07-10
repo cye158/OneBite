@@ -51,8 +51,7 @@ public class MenuActivity extends ActionBarActivity {
 
     /** Called when the user clicks the Information button - Eric */
     public void toInfo(View view) {
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
+        onStart();
     }
 
     /** Called when the user clicks the Retry button - Eric */
@@ -114,4 +113,3 @@ public class MenuActivity extends ActionBarActivity {
 
 
 }
-
