@@ -1,6 +1,5 @@
 package com.ironsquishy.biteclub;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,18 +9,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import Callbacks.BusinessResponseRunnable;
 import apiHelpers.LocationHandler;
+import apiHelpers.YelpApiHandler.YelpData.Randomizer;
+import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
+import YelpAsync.YelpAsync;
 
 
 /**
  * @author Allen Space
- * Descption: Menu  activity with google maps fragment.
+ * Description: Menu  activity with google maps fragment.
  * */
 public class MenuActivity extends ActionBarActivity {
     /**Data Fields*/
     private static Randomizer mRandomizer;
     private static TextView mResultText;
-    private static LocationHandler mLocation;
+    private static String mRandomStringName;
+
 
 
     /**
@@ -36,19 +40,12 @@ public class MenuActivity extends ActionBarActivity {
         //Text field from menu_activity.xml
         mResultText = (TextView) findViewById(R.id.resultText);
 
-        //Instantiate locationHandler object
-        mLocation = new LocationHandler(this);
-
-        //Start the connection to location service.
-        mLocation.startConnect();
-
-
         Log.i("onCreate", "Successful call.");
     }
 
     /** Called when the user clicks the Go button - Eric */
     public void toNavi(View view) {
-        Intent intent = new Intent(this, NaviActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
@@ -78,36 +75,27 @@ public class MenuActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        //Start process dialog
-        final ProgressDialog ringProgressDialog = ProgressDialog.show(MenuActivity.this,
-                "Whoa hold on Bro!!!", "First we have to find you!!", true);
-        ringProgressDialog.setCancelable(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                    Log.i("LOCATION", "Latitude and Longitude: " + mLocation.getmLatitude() + ", " + mLocation.getmLongitude());
-
-
-                    //Add Google maps  to activity.
-                    addFragment();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ringProgressDialog.dismiss();
-            }
-
-        }).start();
-
-        //Randomizer class instantiate
-        mRandomizer = new Randomizer();
-
-        //Just gets a random string from randomizer
-        String pResultStr = ("Result: " + mRandomizer.getRandomString());
-
         //Set to text field.
-        mResultText.setText(pResultStr);
+
+        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
+            @Override
+            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
+                mRandomizer = new Randomizer(businessResponse);
+                mRandomStringName =  mRandomizer.getBusinessName(0);
+
+                Log.i("YelpData", "At location: " + LocationHandler.streetAddress +"., " + LocationHandler.cityAddress);
+
+                for(int i = 0; i < mRandomizer.getBusinessListSize(); i++)
+                {
+                    Log.i("YelpData", "Restuarant name: " + mRandomizer.getBusinessName(i));
+                }
+
+                mResultText.setText(mRandomStringName);
+            }
+        };
+
+        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
+        yelpAsync.execute("Restaurant", "5234.5", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
 
     }
 
@@ -123,7 +111,10 @@ public class MenuActivity extends ActionBarActivity {
         transaction.add(R.id.mapView, fragment);
         transaction.commit();
     }
+
+
 }
+<<<<<<< HEAD
 ||||||| merged common ancestors
 =======
 package com.ironsquishy.biteclub;
@@ -227,3 +218,7 @@ public class MenuActivity extends ActionBarActivity {
     }
 }
 >>>>>>> 9cca971cb76a56959af29b9d02d5a8a8d070e2e0
+||||||| merged common ancestors
+=======
+
+>>>>>>> afa55c48d98c5e32536783a6176cd6451bbec976

@@ -13,22 +13,14 @@ import org.scribe.oauth.OAuthService;
 import APIKeys.AuthKeys;
 
 /**
- * Code sample for accessing the Yelp API V2.
- *
- * This program demonstrates the capability of the Yelp API version 2.0 by using the Search API to
- * query for businesses by a search term and location, and the Business API to query additional
- * information about the top result from the search query.
- *
- * <p>
- * See <a href="http://www.yelp.com/developers/documentation">Yelp Documentation</a> for more info.
- *
+ * class that calls the YelpAPI
  */
 public class YelpApiHandler {
 
     private static final String API_HOST = "api.yelp.com";
-    private static final String DEFAULT_TERM = "dinner";
+    private static final String DEFAULT_TERM = "restaurant";
     private static final String DEFAULT_LOCATION = "San Francisco, CA";
-    private static final int SEARCH_LIMIT = 3;
+    private static final int SEARCH_LIMIT = 20;
     private static final String SEARCH_PATH = "/v2/search";
     private static final String BUSINESS_PATH = "/v2/business";
 
@@ -37,9 +29,7 @@ public class YelpApiHandler {
      * http://www.yelp.com/developers/getting_started/api_access
      */
 
-    //Auth keys are found in Auth keys java file
-    //These keys are NOT found in the GitHub repo
-    //Please contact Sam to get the appropriate file
+
     private static final String CONSUMER_KEY = AuthKeys._CONSUMER_KEY;
     private static final String CONSUMER_SECRET = AuthKeys._CONSUMER_SECRET;
     private static final String TOKEN = AuthKeys._TOKEN;
@@ -81,19 +71,17 @@ public class YelpApiHandler {
         return sendRequestAndGetResponse(request);
     }
 
-    /**
-     * Creates and sends a request to the Business API by business ID.
-     * <p>
-     * See <a href="http://www.yelp.com/developers/documentation/v2/business">Yelp Business API V2</a>
-     * for more info.
-     *
-     * @param businessID <tt>String</tt> business ID of the requested business
-     * @return <tt>String</tt> JSON Response
-     */
-    public String searchByBusinessId(String businessID) {
-        OAuthRequest request = createOAuthRequest(BUSINESS_PATH + "/" + businessID);
+    public String oneBiteSearch(String term, String radius, String location){
+        OAuthRequest request = createOAuthRequest(SEARCH_PATH);
+        request.addQuerystringParameter("term", term);
+        request.addQuerystringParameter("location", location);
+        request.addQuerystringParameter("radius", radius);
+        request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
+
         return sendRequestAndGetResponse(request);
+
     }
+
 
     /**
      * Creates and returns an {@link OAuthRequest} based on the API endpoint specified.
@@ -119,17 +107,27 @@ public class YelpApiHandler {
         return response.getBody();
     }
 
+    private static YelpApiHandler _staticYelpObj;
+    private static Object _lockObj = new Object();
+
+
+
     /**
-     * Main entry for sample Yelp API requests.
-     * <p>
-     * After entering your OAuth credentials, execute <tt><b>run.sh</b></tt> to run this example.
+     * Created by darver on 7/2/15.
      */
-    public static YelpApiHandler YelpInit() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    public static YelpApiHandler getYelpObj() {
+        if (_staticYelpObj == null) {
+            synchronized (_lockObj) {
+                if (_staticYelpObj == null)
+                {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
 
-        StrictMode.setThreadPolicy(policy);
+                    _staticYelpObj = new YelpApiHandler(AuthKeys._CONSUMER_KEY, AuthKeys._CONSUMER_SECRET, AuthKeys._TOKEN, AuthKeys._TOKEN_SECRET);
+                }
+            }
+        }
 
-        YelpApiHandler yelpApi = new YelpApiHandler(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
-        return yelpApi;
+        return _staticYelpObj;
     }
 }
