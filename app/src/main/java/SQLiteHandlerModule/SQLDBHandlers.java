@@ -124,9 +124,9 @@ public class SQLDBHandlers extends SQLiteOpenHelper {
     /**
     * @author Allen Space
     * @param entry Entry object.
-    * @return String array.
+    * @return String.
     */
-    public String[] getEntryByObject(EntryField entry)
+    public String getEntryByObject(EntryField entry)
     {
       String dbstring = "";
       SQLiteDatabase db = getWritableDatabase();
@@ -136,9 +136,8 @@ public class SQLDBHandlers extends SQLiteOpenHelper {
       Cursor c = db.rawQuery(query, null);
 
       c.moveToFirst();
-
-      // finish return
-      return null;
+        
+      return dbstring;
     }
 
 
