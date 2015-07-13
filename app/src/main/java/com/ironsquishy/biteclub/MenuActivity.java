@@ -105,11 +105,13 @@ public class MenuActivity extends ActionBarActivity {
             }
         };
 
+        //Set and execute yelp async.
         YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
         yelpAsync.execute("Restaurant", "5234.5", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
 
     }
-
+    
+    //TODO Delete addFragment if not using.
     /**
      * @author Allen Space
      * Desciption: Private method that adds a fragment to the this activity.
