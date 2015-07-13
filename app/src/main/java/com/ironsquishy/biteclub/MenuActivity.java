@@ -1,5 +1,7 @@
 package com.ironsquishy.biteclub;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import Callbacks.BusinessResponseRunnable;
 import apiHelpers.LocationHandler;
@@ -26,7 +31,8 @@ public class MenuActivity extends ActionBarActivity {
     private static TextView mResultText;
     private static String mRandomStringName;
 
-
+    private AlertDialog.Builder filterDialog;
+    private String inputFilter = "\n Filtered: ";
 
     /**
      * @Author Allen Space
@@ -61,9 +67,15 @@ public class MenuActivity extends ActionBarActivity {
     }
 
     /** Called when the user clicks the Search button - Eric */
+    /* Being revised by Renz*/
     public void toSearch(View view) {
-        Intent intent = new Intent(this, SearchActivity.class);
-        startActivity(intent);
+        filterOption();
+        AlertDialog alert = filterDialog.create();
+        alert.show();
+
+        //Intent intent = new Intent(this, SearchActivity.class);
+        //startActivity(intent);
+
     }
 
     /**
@@ -109,6 +121,54 @@ public class MenuActivity extends ActionBarActivity {
         MapFragment fragment = new MapFragment();
         transaction.add(R.id.mapView, fragment);
         transaction.commit();
+    }
+
+    /**
+     * @author Renz
+     * Desciption: Private method that pops an dialog box to let user check the filter
+     *             to be used for next randomzed result.
+     * */
+    private void filterOption(){
+
+        //Variables and list of the filter option
+        final ArrayList arrayFilter = new ArrayList();
+        filterDialog = new AlertDialog.Builder(this);
+        final String[] strFilters = { "American", "Asian", "Chinese", "Filipino", "Italian", "Japanese",
+                "Korean", "Vietnamese", "Thai", "Vegetarian" };
+
+        //Process and filters are saved in array.
+        String filterTitle = "\nFilters added:\n";
+        filterDialog.setTitle("Filter Catergories");
+        filterDialog.setMultiChoiceItems(strFilters, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    arrayFilter.add(which);
+                } else if (arrayFilter.contains(which)) {
+                    arrayFilter.remove(Integer.valueOf(which));
+                }
+            }
+        });
+
+        filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < arrayFilter.size(); i++) {
+                    if(i == arrayFilter.size())
+                        inputFilter += strFilters[(Integer) arrayFilter.get(i)];
+                    else
+                        inputFilter += strFilters[(Integer) arrayFilter.get(i)] + ", ";
+                }
+                Toast.makeText(getApplicationContext(), inputFilter, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        filterDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "Filters have been cancelled", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
