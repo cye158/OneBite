@@ -121,6 +121,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     {
         MarkerOptions marker = new MarkerOptions()
                 .position(new LatLng(LocationHandler.getmLatitude(), LocationHandler.getmLongitude()))
+                .anchor(1,1)
                 .title("Your Position!")
                 .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
 

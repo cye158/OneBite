@@ -79,7 +79,7 @@ public class MenuActivity extends ActionBarActivity {
         BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
             @Override
             public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
-                mRandomizer = new Randomizer(businessResponse);
+                mRandomizer = new Randomizer(businessResponse, getApplicationContext());
                 mRandomStringName =  mRandomizer.getBusinessName(0);
 
                 Log.i("YelpData", "At location: " + LocationHandler.streetAddress +"., " + LocationHandler.cityAddress);
