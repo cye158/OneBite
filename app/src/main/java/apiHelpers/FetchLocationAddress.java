@@ -33,6 +33,7 @@ public class FetchLocationAddress extends IntentService{
     private static final String TAG = "apiHelpers";
 
     /**
+     * @author Allen Space
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
      * @param name Used to name the worker thread, important only for debugging.
@@ -70,7 +71,7 @@ public class FetchLocationAddress extends IntentService{
         List<Address> addresses = null;
 
         Log.i(TAG, "Beginning Bridge to Google. ");
-
+            //TODO Increase error handling integrity.
             try {
                 //Grab Device address through longitude and latitude.
                 addresses = geocoder.getFromLocation(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), 1);
@@ -91,9 +92,11 @@ public class FetchLocationAddress extends IntentService{
 
             for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
+                //TODO Delete Log for address line when not needed anymroe.
                 Log.i(TAG, "Address Line: " + addressFragments.get(i));
             }
 
+            //Set for Street and City strings.
             LocationHandler.streetAddress = addressFragments.get(0);
             LocationHandler.cityAddress = addressFragments.get(1);
 
@@ -110,7 +113,7 @@ public class FetchLocationAddress extends IntentService{
     public void onDestroy() {
         super.onDestroy();
 
-        Log.i(TAG, "Fetch Address intentService destroyed.");
+        Log.i(TAG, "FetchAddress intentService destroyed.");
 
     }
 

@@ -1,5 +1,7 @@
 package com.ironsquishy.biteclub;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import Callbacks.BusinessResponseRunnable;
 import apiHelpers.LocationHandler;
@@ -26,7 +31,8 @@ public class MenuActivity extends ActionBarActivity {
     private static TextView mResultText;
     private static String mRandomStringName;
 
-
+    private AlertDialog.Builder filterDialog;
+    private String inputFilter = "\n Filtered: ";
 
     /**
      * @Author Allen Space
@@ -57,14 +63,19 @@ public class MenuActivity extends ActionBarActivity {
 
     /** Called when the user clicks the Retry button - Eric */
     public void toRetry(View view) {
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
+        onStart();
     }
 
     /** Called when the user clicks the Search button - Eric */
+    /* Being revised by Renz*/
     public void toSearch(View view) {
-        Intent intent = new Intent(this, SearchActivity.class);
-        startActivity(intent);
+        filterOption();
+        AlertDialog alert = filterDialog.create();
+        alert.show();
+
+        //Intent intent = new Intent(this, SearchActivity.class);
+        //startActivity(intent);
+
     }
 
     /**
@@ -80,7 +91,7 @@ public class MenuActivity extends ActionBarActivity {
         BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
             @Override
             public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
-                mRandomizer = new Randomizer(businessResponse);
+                mRandomizer = new Randomizer(businessResponse, getApplicationContext());
                 mRandomStringName =  mRandomizer.getBusinessName(0);
 
                 Log.i("YelpData", "At location: " + LocationHandler.streetAddress +"., " + LocationHandler.cityAddress);
@@ -94,11 +105,13 @@ public class MenuActivity extends ActionBarActivity {
             }
         };
 
+        //Set and execute yelp async.
         YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
         yelpAsync.execute("Restaurant", "5234.5", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
 
     }
-
+    
+    //TODO Delete addFragment if not using.
     /**
      * @author Allen Space
      * Desciption: Private method that adds a fragment to the this activity.
@@ -112,6 +125,53 @@ public class MenuActivity extends ActionBarActivity {
         transaction.commit();
     }
 
+    /**
+     * @author Renz
+     * Desciption: Private method that pops an dialog box to let user check the filter
+     *             to be used for next randomzed result.
+     * */
+    private void filterOption(){
+
+        //Variables and list of the filter option
+        final ArrayList arrayFilter = new ArrayList();
+        filterDialog = new AlertDialog.Builder(this);
+        final String[] strFilters = { "American", "Asian", "Chinese", "Filipino", "Italian", "Japanese",
+                "Korean", "Vietnamese", "Thai", "Vegetarian" };
+
+        //Process and filters are saved in array.
+        String filterTitle = "\nFilters added:\n";
+        filterDialog.setTitle("Filter Catergories");
+        filterDialog.setMultiChoiceItems(strFilters, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    arrayFilter.add(which);
+                } else if (arrayFilter.contains(which)) {
+                    arrayFilter.remove(Integer.valueOf(which));
+                }
+            }
+        });
+
+        filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < arrayFilter.size(); i++) {
+                    if(i == arrayFilter.size())
+                        inputFilter += strFilters[(Integer) arrayFilter.get(i)];
+                    else
+                        inputFilter += strFilters[(Integer) arrayFilter.get(i)] + ", ";
+                }
+                Toast.makeText(getApplicationContext(), inputFilter, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        filterDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), "Filters have been cancelled", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
 }
-

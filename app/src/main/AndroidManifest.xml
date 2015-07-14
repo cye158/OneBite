@@ -49,12 +49,8 @@
         <activity
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation" >
-            <intent-filter>
-                <action android:name="com.ironsquishy.biteclub.MAINACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
+
         <activity
             android:name=".LocationCheckActivity"
             android:label="@string/title_activity_location_check" >
@@ -79,14 +75,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
-        <activity
-            android:name=".SearchActivity"
-            android:label="@string/title_activity_search"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
-        </activity>
+
         <service android:name="apiHelpers.FetchLocationAddress" />
     </application>
 

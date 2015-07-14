@@ -55,18 +55,19 @@
         android:layout_marginBottom="73dp"
         android:clickable="true" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/button4"
-        android:background="#FF5722"
-        android:onClick="toSearch"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:height="50dp" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:id="@+id/filterButton"
+            android:background="#FF5722"
+            android:onClick="toSearch"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:height="50dp" />
+
 
     <TextView
         android:layout_width="fill_parent"
@@ -95,6 +96,4 @@
         android:textSize="32dp"/>
 
 </RelativeLayout>
-
-
 

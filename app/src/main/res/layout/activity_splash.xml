@@ -60,4 +60,14 @@
         android:visibility="invisible"
         android:layout_marginBottom="43dp" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bigPacMan"
+        android:layout_above="@+id/pacMan"
+        android:background="@drawable/big_pac_man_animation"
+        android:visibility="invisible"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
