@@ -58,7 +58,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     /**
      * @author Allen Space
-     * Description: Singleton Design constructor.
+     * Description: Standard singleton design constructor.
      * */
     public static LocationHandler getInstance()
     {

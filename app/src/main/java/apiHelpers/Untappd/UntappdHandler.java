@@ -16,6 +16,7 @@ import org.json.JSONObject;
  */
 public class UntappdHandler {
 
+    /**Data Fields*/
     private static UntappdHandler singleton = null;
 
     private static final String API_HOST = "https://api.untappd.com/v4/";
@@ -30,11 +31,23 @@ public class UntappdHandler {
 
     private static final String TAG = "UNTAPPD";
 
+    //------Constructors------
+    //------Helper Methods----
+
+    /**
+     * @author Allen Space
+     * Description: Private constructor for singleton design
+     * */
     private UntappdHandler()
     {
         //singletpon
     }
 
+    /**
+     *@author Allen Space
+     * Description: Standard singleton getInstance.
+     *
+     * */
     public static UntappdHandler getInstance()
     {
         if(singleton == null)
@@ -45,6 +58,13 @@ public class UntappdHandler {
         return singleton;
     }
 
+    /**
+     * @author Allen Space
+     * @param pLatitude Double latitude values.
+     * @param pLongitude Double longitude values.
+     * @param pContext Context java object.
+     * Description: Call to populate Untappd Data POJO from the url call.
+     * */
     public void populateUntappdFeed(double pLatitude, double pLongitude, Context pContext)
     {
 
@@ -55,9 +75,10 @@ public class UntappdHandler {
 
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        //TODO Delete log outputs when there is a UI.
                         Log.i(TAG,"Returned response!");
 
+                        //Need for populating UntappdData.
                         UntappdData feed = new Gson().fromJson(response.toString(), UntappdData.class);
 
                         for(int i =0; i < feed.response.checkins.items.size(); i++) {
@@ -79,7 +100,7 @@ public class UntappdHandler {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
+                        // TODO Handle error and prompt user.
                         Log.i("UNTAPPD", "Failed Response from untappd.");
                     }
                 });
@@ -89,7 +110,12 @@ public class UntappdHandler {
         SingleRequest.getInstance(pContext).addToRequestQueue(jsObjectReq);
     }
 
-
+    /**
+     * @author Allen Space
+     * @param pLatitude Double latitude values.
+     * @param pLongitude Double longitude values.
+     * Description: Helper method for populateUntappdFeed, builds the url string.
+     * */
     private String builtURL(double pLatitude, double pLongitude)
     {
         String url =  API_HOST + ENDPOINT + LATITUDE + String.valueOf(pLatitude) + "&" + LONGITUDE

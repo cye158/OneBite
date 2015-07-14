@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+//TODO Delete This if not using for a Splash Screen.
 /**
  * Created by CYE on 6/26/15.
  */

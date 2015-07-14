@@ -136,7 +136,7 @@ public class SQLDBHandlers extends SQLiteOpenHelper {
       Cursor c = db.rawQuery(query, null);
 
       c.moveToFirst();
-        
+
       return dbstring;
     }
 

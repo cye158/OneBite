@@ -135,8 +135,9 @@ public class SplashActivity extends Activity {
                     }
                     finally
                     {
+                        //TODO Find an opitmize point to put LocationHandler instantiate
                         //Get started LocationHandler and start connection.
-                        LocationHandler.getInstance().setGoogleApiConnection(getBaseContext());
+                        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
                         //Connect to google services.
                         LocationHandler.startConnect();
                         Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
