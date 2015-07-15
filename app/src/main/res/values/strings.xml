@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BiteClub</string>
 
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">OneBite</string>
     <string name="hello_world">Hello Anybody that is paying attention!</string>
     <string name="action_settings">Settings</string>
 
