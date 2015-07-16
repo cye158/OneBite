@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,11 +29,12 @@ import YelpAsync.YelpAsync;
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends ActionBarActivity {
+public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     /**Data Fields*/
     private static Randomizer mRandomizer;
     private static TextView mResultText;
     private static String mRandomStringName;
+    private static SwipeRefreshLayout swipeRefreshLayout;
 
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
@@ -48,7 +51,7 @@ public class MenuActivity extends ActionBarActivity {
         randomizeYelpResposne();
         SystemClock.sleep(500);
 
-
+        swipeRefresh();
     }
 
     /** Called when the user clicks the Go button - Eric */
@@ -63,11 +66,6 @@ public class MenuActivity extends ActionBarActivity {
 
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
-    }
-
-    /** Called when the user clicks the Retry button - Eric */
-    public void toRetry(View view) {
-        randomizeYelpResposne();
     }
 
     /** Called when the user clicks the Search button - Eric */
@@ -166,6 +164,33 @@ public class MenuActivity extends ActionBarActivity {
         //Set and execute yelp async.
         YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable, this);
         yelpAsync.execute("Restaurant", "7000.0", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
+    }
+
+
+    /**
+     * @Author Eric Chen
+     * Description: To create pull down to refresh.
+     * */
+    private void swipeRefresh()
+    {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_menu);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+    @Override
+    public void onRefresh() {
+        //Created to simulate loading.
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do stuff here.
+                randomizeYelpResposne();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 
 }
