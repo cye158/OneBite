@@ -1,6 +1,5 @@
-package apiHelpers;
+package apiHelpers.googleapis;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +10,10 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.ironsquishy.biteclub.MapFragment;
-import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.*;
 
 /**
  * Created by Allen Space on 6/22/2015.
@@ -30,6 +25,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      */
     private static GoogleApiClient mGoogleClient;
     private static Context mContext;
+    private static MapFragment mapFragment;
 
     //Following double's are set to San Francisco.
     private static double mLongitude = -122.431297;
@@ -57,7 +53,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     /**
      * @author Allen Space
-     * Description: Singleton Design constructor.
+     * Description: Standard singleton design constructor.
      * */
     public static LocationHandler getInstance()
     {

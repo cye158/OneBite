@@ -11,11 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/ask_current_location_msg"
         android:id="@+id/askCurrentLocationText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp" />
+        android:text="Enter starting location"
+        android:layout_above="@+id/currentAddress"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -23,9 +22,11 @@
         android:inputType="textPostalAddress"
         android:ems="10"
         android:id="@+id/currentAddress"
-        android:layout_below="@+id/askCurrentLocationText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        android:autoText="false"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/askCurrentLocationText"
+        android:layout_alignEnd="@+id/askCurrentLocationText"
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:orientation="vertical"

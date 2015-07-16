@@ -1,100 +1,83 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.ironsquishy.biteclub.MenuActivity"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_menu"
     android:background="#4CAF50">
 
-    <!--
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.ironsquishy.biteclub.MapFragment"
-        android:id="@+id/fragment"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-        -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Go"
-        android:id="@+id/button"
-        android:background="#FF5722"
-        android:layout_above="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:onClick="toNavi"
-        android:clickable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Your Result:"
+                android:id="@+id/textView9"
+                android:background="#4CAF50"
+                android:textColor="#ffffff"
+                android:textSize="32dp"
+                android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Information"
-        android:id="@+id/button2"
-        android:background="#FF5722"
-        android:layout_above="@+id/button3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp"
-        android:onClick="toInfo"
-        android:clickable="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/resultText"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:background="#4CAF50"
+                android:textColor="#ffffff"
+                android:textSize="60sp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.38" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Retry"
-        android:id="@+id/button3"
-        android:background="#FF5722"
-        android:onClick="toRetry"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="73dp"
-        android:clickable="true" />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Go"
+                android:id="@+id/button"
+                android:background="#FF5722"
+                android:onClick="toNavi"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/button4"
-        android:background="#FF5722"
-        android:onClick="toSearch"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:height="50dp" />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Information"
+                android:id="@+id/button2"
+                android:background="#FF5722"
+                android:onClick="toInfo"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/resultText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:background="#4CAF50"
-        android:textColor="#ffffff"
-        android:textSize="32dp"
-        />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Filter"
+                android:id="@+id/filterButton"
+                android:background="#FF5722"
+                android:onClick="toSearch"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Your Result:"
-        android:id="@+id/textView9"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#4CAF50"
-        android:textColor="#ffffff"
-        android:textSize="32dp"/>
+        </LinearLayout>
 
-</RelativeLayout>
+    </ScrollView>
 
-
+</android.support.v4.widget.SwipeRefreshLayout>
 
