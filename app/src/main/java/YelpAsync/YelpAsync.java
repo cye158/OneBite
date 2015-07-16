@@ -74,7 +74,7 @@ public class YelpAsync extends AsyncTask<String, Void, Object> {
 
     protected void onPostExecute(Object businessObject) {
 
-        progressDialog.dismiss();
+        //progressDialog.dismiss();
         mCallback.runWithBusinessResponse((SearchForBusinessesResponse)businessObject);
 
     }

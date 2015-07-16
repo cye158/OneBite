@@ -152,8 +152,8 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
                 {
                     Log.i("YelpData", "Restuarant name: " + mRandomizer.getBusinessName(i));
                 }
-                mResultText.setText(mRandomStringName);
 
+                mResultText.setText(mRandomStringName);
             }
         };
 
@@ -186,7 +186,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
                 randomizeYelpResponse();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        }, 2000);
+        },500);
     }
 
 }

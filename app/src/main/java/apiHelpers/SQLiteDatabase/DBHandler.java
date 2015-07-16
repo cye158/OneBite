@@ -43,9 +43,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME
                 + "("
-                + COLUME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
-                + COLUME_NAME + " TEXT "
-                + COLUME_LATITUDE + " REAL "
+                + COLUME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUME_NAME + " TEXT, "
+                + COLUME_LATITUDE + " REAL, "
                 + COLUME_LONGITUDE + " REAL "
                 + ");";
 
