@@ -45,7 +45,11 @@ public class FetchUntappdData {
 
         String venueAddress = mData.response.checkins.items.get(index).venue.location.venue_address;
 
-        final String str = "Sorry, I love to drink " + drink + "\n";
+        final String str = "Created at: " + created_at + "\n"
+                            + "Comment: " + comment + "\n"
+                            + "Drink: " + drink + "\n"
+                            + "Brewery name: " + breweryName +"\n"
+                            + "At: " + venueAddress + "\n";
 
         return str;
     }

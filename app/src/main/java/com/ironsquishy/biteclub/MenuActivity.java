@@ -59,9 +59,8 @@ public class MenuActivity extends ActionBarActivity {
 
     /** Called when the user clicks the Information button - Eric */
     public void toInfo(View view) {
-
-
-        Intent intent = new Intent(this, InfoActivity.class);
+        //Untappd List.
+        Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
     }
 

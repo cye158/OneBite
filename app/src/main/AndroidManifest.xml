@@ -25,9 +25,9 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name=".MapActivity">
-            <!--android:label="@string/title_activity_map" >-->
+        <activity android:name=".MapActivity" >
+
+            <!-- android:label="@string/title_activity_map" > -->
         </activity>
         <activity
             android:name=".SplashActivity"
@@ -50,7 +50,6 @@
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation" >
         </activity>
-
         <activity
             android:name=".LocationCheckActivity"
             android:label="@string/title_activity_location_check" >
@@ -77,6 +76,11 @@
         </activity>
 
         <service android:name="apiHelpers.googleapis.FetchLocationAddress" />
+
+        <activity
+            android:name=".UntappdList"
+            android:label="@string/title_activity_untappd_list" >
+        </activity>
     </application>
 
 </manifest>
