@@ -1,7 +1,6 @@
 package com.ironsquishy.biteclub;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.SystemClock;
@@ -17,8 +16,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Callbacks.BusinessResponseRunnable;
-import apiHelpers.Untappd.FetchUntappdData;
-import apiHelpers.Untappd.UntappdData;
 import apiHelpers.googleapis.LocationHandler;
 import apiHelpers.YelpApiHandler.YelpData.Randomizer;
 import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
@@ -48,7 +45,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         mResultText = (TextView) findViewById(R.id.resultText);
-        randomizeYelpResposne();
+        randomizeYelpResponse();
         SystemClock.sleep(500);
 
         swipeRefresh();
@@ -142,7 +139,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
 
-    private void randomizeYelpResposne()
+    private void randomizeYelpResponse()
     {
         BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
             @Override
@@ -187,7 +184,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
             @Override
             public void run() {
                 //Do stuff here.
-                randomizeYelpResposne();
+                randomizeYelpResponse();
                 swipeRefreshLayout.setRefreshing(false);
             }
         }, 2000);
