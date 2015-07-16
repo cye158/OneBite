@@ -43,18 +43,17 @@ public class Randomizer {
      * @author Allen Space
      */
     public Randomizer() {
-        mRandom = new Random();
+
     }
 
     public Randomizer(SearchForBusinessesResponse pBusinessResponse, Context pContext)
     {
-        this.mRandom = new Random();
 
         this.mBusinessResponse = pBusinessResponse;
 
         this.mRestName = mBusinessResponse.businesses.get(0).name;
         this.mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
-        //Unfuck this later.
+
         this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
 
@@ -98,6 +97,37 @@ public class Randomizer {
     public String getBusinessName(int pIndex)
     {
         return this.mBusinessResponse.businesses.get(pIndex).name;
+    }
+    /**
+     * @author Allen Space
+     * */
+    public String getmRestAddress()
+    {
+        return this.mRestAddress;
+    }
+    /**
+     * @author Allen Space
+     *
+     * */
+    public double getRestLatitude()
+    {
+        return this.mRestLatitude;
+    }
+
+    /**
+     * @author Allen Space
+     * */
+    public double getRestLongitdude()
+    {
+        return this.mRestLonigtude;
+    }
+
+    /**
+     * @author Allen Space
+     * */
+    public String getmRestName()
+    {
+        return this.mRestName;
     }
 
 }

@@ -18,6 +18,7 @@ public class UntappdHandler {
 
     /**Data Fields*/
     private static UntappdHandler singleton = null;
+    private static FetchUntappdData mData;
 
     private static final String API_HOST = "https://api.untappd.com/v4/";
     private static final String ENDPOINT = "thepub/local/method_name?";
@@ -75,25 +76,12 @@ public class UntappdHandler {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        //TODO Delete log outputs when there is a UI.
+
                         Log.i(TAG,"Returned response!");
 
                         //Need for populating UntappdData.
                         UntappdData feed = new Gson().fromJson(response.toString(), UntappdData.class);
-
-                        for(int i =0; i < feed.response.checkins.items.size(); i++) {
-                            Log.i(TAG,"-------------------------------------------");
-                            Log.i(TAG, "comment id: " + feed.response.checkins.items.get(i).checkin_id);
-                            Log.i(TAG, "comment: " + feed.response.checkins.items.get(i).checkin_comment);
-                            Log.i(TAG, "created: " + feed.response.checkins.items.get(i).created_at);
-                            Log.i(TAG, "beer name: " + feed.response.checkins.items.get(i).beer.beer_name);
-                            Log.i(TAG, "beer style: " + feed.response.checkins.items.get(i).beer.beer_style);
-                            Log.i(TAG, "brewery name: " + feed.response.checkins.items.get(i).brewery.brewery_name);
-                            Log.i(TAG, "venue address: " + feed.response.checkins.items.get(i).venue.location.venue_address);
-                            Log.i(TAG, "venue city: " + feed.response.checkins.items.get(i).venue.location.venue_city);
-                            Log.i(TAG, "venue state: " + feed.response.checkins.items.get(i).venue.location.venue_state);
-
-                        }
+                        mData = new FetchUntappdData(feed);
 
                     }
                 }, new Response.ErrorListener() {

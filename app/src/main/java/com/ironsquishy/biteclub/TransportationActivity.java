@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import Callbacks.BusinessResponseRunnable;
-import apiHelpers.LocationHandler;
+import apiHelpers.googleapis.LocationHandler;
 import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
 
 /**

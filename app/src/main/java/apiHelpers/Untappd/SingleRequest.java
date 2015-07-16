@@ -30,7 +30,7 @@ public class SingleRequest {
     {
         if(mInstance == null)
         {
-            mInstance = new SingleRequest(pContext);
+            mInstance = new SingleRequest(pContext.getApplicationContext());
         }
 
         return mInstance;
