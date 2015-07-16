@@ -27,7 +27,7 @@ public class YelpAsync extends AsyncTask<String, Void, Object> {
         progressDialog = new ProgressDialog(pContext);
             mCallback = businessResponseRunnable;
     }
-
+    /** Remove this when Ed is able to add the progress dialog.
     @Override
     protected void onPreExecute() {
 
@@ -38,6 +38,7 @@ public class YelpAsync extends AsyncTask<String, Void, Object> {
         progressDialog.show();
 
     }
+    **/
 
     protected SearchForBusinessesResponse doInBackground(String... params) {
         YelpApiHandler yelpApi = YelpApiHandler.getYelpObj();
