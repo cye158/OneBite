@@ -1,4 +1,4 @@
-package SQLiteHandlerModule;
+package SQLiteHandler;
 
 /**
  * Created by Allen Space on 6/16/2015.

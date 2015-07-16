@@ -1,4 +1,4 @@
-package SQLiteHandlerModule;
+package SQLiteHandler;
 
 import android.content.ContentValues;
 import android.content.Context;
