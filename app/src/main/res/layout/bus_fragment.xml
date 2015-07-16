@@ -12,7 +12,7 @@
         android:src="@drawable/bus" />
 
     <Button
-        android:layout_width="fill_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/feedme_button"
         android:id="@+id/bus_button"
@@ -20,5 +20,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
         android:onClick="toMenuActivityBus"
-        android:background="#FF5722"/>
+        android:background="@drawable/button_shadow"/>
 </RelativeLayout>
