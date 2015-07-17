@@ -65,15 +65,15 @@ public class MarkerMapFactory {
 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
-       Marker marker = mGoogleMap.addMarker(markerOptions);
+        Marker marker = mGoogleMap.addMarker(markerOptions);
         marker.showInfoWindow();
 
         return marker;
     }
 
-    public List<MarkerOptions> createHistoryMarkers()
+    public List<Marker> createHistoryMarkers()
     {
-        List<MarkerOptions> markers;
+        List<Marker> markers;
 
         //TODO implement a list of markers from the Database.
 
