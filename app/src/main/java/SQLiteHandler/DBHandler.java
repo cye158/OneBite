@@ -78,6 +78,7 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public void addVisitedPlace(VisitedPlace place) {
 
+        //TODO add time stamp in database
         //String date = Calendar.getInstance().getTime().toString();
 
         ContentValues newPlace = new ContentValues();
@@ -170,7 +171,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public boolean isTableEmpty() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT COUNT(*) FROM " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         if (cursor.getInt(0) > 0) {
             Log.i(TAG, "Table is not empty, isTableEmpty()");
@@ -179,5 +180,16 @@ public class DBHandler extends SQLiteOpenHelper {
             Log.i(TAG, "Table is empty, isTableEmpty()");
             return true;
         }
+    }
+
+    //TODO
+    VisitedPlace[] getAllContent() {
+
+        return null;
+    }
+
+    int getNumberOfRow() {
+
+        return 0;
     }
 }
