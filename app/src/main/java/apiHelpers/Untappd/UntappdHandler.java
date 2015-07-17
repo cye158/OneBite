@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import apiHelpers.UntappdFeedManager;
+
 /**
  * Created by Allen Space on 7/12/2015.
  */
@@ -18,7 +20,7 @@ public class UntappdHandler {
 
     /**Data Fields*/
     private static UntappdHandler singleton = null;
-    private static FetchUntappdData mData;
+    private static UntappdFeedManager mData;
 
     private static final String API_HOST = "https://api.untappd.com/v4/";
     private static final String ENDPOINT = "thepub/local/method_name?";
@@ -81,7 +83,7 @@ public class UntappdHandler {
 
                         //Need for populating UntappdData.
                         UntappdData feed = new Gson().fromJson(response.toString(), UntappdData.class);
-                        mData = new FetchUntappdData(feed);
+                        mData = new UntappdFeedManager(feed);
 
                     }
                 }, new Response.ErrorListener() {

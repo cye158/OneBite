@@ -2,25 +2,23 @@ package com.ironsquishy.biteclub;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import apiHelpers.Untappd.FetchUntappdData;
+import apiHelpers.UntappdFeedManager;
 
 
 public class UntappdList extends ActionBarActivity {
 
     private static ListView untappdListView;
-    private static FetchUntappdData untappdData;
+    private static UntappdFeedManager untappdData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_untappd_list);
 
-        untappdData = new FetchUntappdData();
+        untappdData = new UntappdFeedManager();
 
         untappdListView = (ListView) findViewById(R.id.untappdList);
 

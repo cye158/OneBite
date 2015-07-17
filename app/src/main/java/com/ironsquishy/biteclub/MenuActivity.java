@@ -19,7 +19,7 @@ import Callbacks.BusinessResponseRunnable;
 import apiHelpers.googleapis.LocationHandler;
 import apiHelpers.YelpApiHandler.YelpData.Randomizer;
 import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
-import YelpAsync.YelpAsync;
+import AsyncTasks.YelpAsync;
 
 
 /**
@@ -84,7 +84,9 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
-
+        //This is to slow the UI down for Untappd to catch up.
+        //Not a permament solution need to find a better way!!
+        SystemClock.sleep(1000);
 
     }
     

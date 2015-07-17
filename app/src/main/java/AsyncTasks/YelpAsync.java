@@ -1,4 +1,4 @@
-package YelpAsync;
+package AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;

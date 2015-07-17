@@ -1,14 +1,20 @@
-package apiHelpers.Untappd;
+package apiHelpers;
+
+import android.content.Context;
 
 import java.util.List;
+
+import apiHelpers.Untappd.UntappdData;
+import apiHelpers.Untappd.UntappdHandler;
 
 /**
  * Created by Allen Space on 7/12/2015.
  */
-public class FetchUntappdData {
-    //TODO build java class to for fetching untappd data for project scope.
+public class UntappdFeedManager {
 
     private static UntappdData mData;
+
+    private static UntappdHandler mUntappdHandler;
 
     private static String createdAt;
     private static String comment;
@@ -19,12 +25,12 @@ public class FetchUntappdData {
     /**
      * @author Allen Space
      * */
-    public FetchUntappdData()
+    public UntappdFeedManager()
     {
         //default.
     }
 
-    public FetchUntappdData(UntappdData data)
+    public UntappdFeedManager(UntappdData data)
     {
         mData = data;
 
@@ -54,8 +60,30 @@ public class FetchUntappdData {
         return str;
     }
 
+
     public int getItemSize()
     {
         return mData.response.checkins.items.size();
     }
+
+    public double getSingleItemLatitude(int pIndex)
+    {
+        return mData.response.checkins.items.get(pIndex).venue.location.lat;
+    }
+
+    public double getSingleItemLongitude(int pIndex)
+    {
+        return mData.response.checkins.items.get(pIndex).venue.location.lng;
+    }
+
+    public List<UntappdData.Item> getListItems()
+    {
+        return mData.response.checkins.items;
+    }
+
+    public void populateUntappdData(double pLatitdude, double pLongitdude, Context pContext)
+    {
+        this.mUntappdHandler.getInstance().populateUntappdFeed(pLatitdude, pLongitdude, pContext);
+    }
+
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.Random;
 
 import apiHelpers.Untappd.UntappdHandler;
+import apiHelpers.UntappdFeedManager;
 
 /**
  * Created by Allen Space on 6/22/2015.
@@ -20,7 +21,7 @@ public class Randomizer {
     private static String mFindString;
     private static final String TAG = "YelpData";
     private static SearchForBusinessesResponse mBusinessResponse;
-    private static UntappdHandler mUntappdHandler;
+    private static UntappdFeedManager untappdFeedManager;
 
     /**Single Restuarant Data*/
     public static String mRestName;
@@ -48,6 +49,7 @@ public class Randomizer {
 
     public Randomizer(SearchForBusinessesResponse pBusinessResponse, Context pContext)
     {
+        untappdFeedManager = new UntappdFeedManager();
 
         this.mBusinessResponse = pBusinessResponse;
 
@@ -57,7 +59,8 @@ public class Randomizer {
         this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
 
-        this.mUntappdHandler.getInstance().populateUntappdFeed(this.mRestLatitude, this.mRestLonigtude, pContext);
+        untappdFeedManager.populateUntappdData(mRestLatitude, mRestLonigtude, pContext);
+
     }
 
 

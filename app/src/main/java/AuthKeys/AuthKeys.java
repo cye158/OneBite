@@ -1,4 +1,4 @@
-package APIKeys;
+package AuthKeys;
 
 /**
  * Created by darver on 6/22/2015.

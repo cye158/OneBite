@@ -10,7 +10,7 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
-import APIKeys.AuthKeys;
+import AuthKeys.AuthKeys;
 
 /**
  * class that calls the YelpAPI
