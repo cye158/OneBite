@@ -1,9 +1,14 @@
 package com.ironsquishy.biteclub;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import apiHelpers.UntappdFeedManager;
 
@@ -33,6 +38,15 @@ public class UntappdList extends ActionBarActivity {
 
         untappdListView.setAdapter(adapter);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.attachToListView(untappdListView);
+    }
+
+    /** Called when the user clicks the Navigate button - Eric */
+    public void toNavigation(View view) {
+        //TODO: Implement navigation mode button and remove toast package.
+        Toast.makeText(getApplicationContext(), "This should start navigation.",
+                Toast.LENGTH_LONG).show();
     }
 
 }
