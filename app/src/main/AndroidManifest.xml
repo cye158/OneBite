@@ -79,7 +79,7 @@
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
 
-        <service android:name="apiHelpers.googleapis.FetchLocationAddress" />
+        <service android:name="ApiHelpers.googleapis.FetchLocationAddress" />
 
         <activity
             android:name=".UntappdList"

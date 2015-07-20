@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import ApiManagers.LocationHandler;
-import apiHelpers.googleapis.MarkerMapFactory;
+import ApiHelpers.googleapis.MarkerMapFactory;
 
 /**
  * Created by Allen Space on 6/24/2015.

@@ -1,6 +1,6 @@
 package Callbacks;
 
-import apiHelpers.YelpApiHandler.SearchForBusinessesResponse;
+import ApiHelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
  * Created by darver on 7/7/15.

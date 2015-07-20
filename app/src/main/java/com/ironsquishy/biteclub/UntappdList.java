@@ -15,7 +15,7 @@ import com.melnykov.fab.FloatingActionButton;
 
 import Callbacks.UntappdResultRunnable;
 import ApiManagers.NetworkRequestManager;
-import apiHelpers.SelectedBusiness;
+import ApiHelpers.SelectedBusiness;
 import ApiManagers.UntappdFeedManager;
 
 
