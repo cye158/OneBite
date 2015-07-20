@@ -48,18 +48,21 @@ public class DatabaseManager {
         mDBHandler.addVisitedPlace(visitedPlace);
     }
 
-
+    /**
+     * @author Guan
+     */
     public void clearDatabase()
     {
-        //TODO find how to delete the database properly.
+        mDBHandler.deleteAllContentInTable();
     }
 
+    /**
+     * @author Guan
+     * Description: get all contents in the database
+     * @return List of VisitedPlace object, or null if no content
+     */
     public List<VisitedPlace> getAllVistedPlaces()
     {
-
-
-        return null;
+       return mDBHandler.getContentFromTable();
     }
-
-
 }
