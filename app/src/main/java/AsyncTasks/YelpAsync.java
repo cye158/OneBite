@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 import Callbacks.BusinessResponseRunnable;
 import apiHelpers.YelpApiHandler.YelpApiHandler;
-import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
+import apiHelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 import com.google.gson.Gson;
 

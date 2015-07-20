@@ -1,11 +1,12 @@
-package apiHelpers;
+package ApiManagers;
 
 import android.content.Context;
 
 import java.util.List;
 
+import ApiManagers.NetworkRequestManager;
+import Callbacks.UntappdResultRunnable;
 import apiHelpers.Untappd.UntappdData;
-import apiHelpers.Untappd.UntappdHandler;
 
 /**
  * Created by Allen Space on 7/12/2015.
@@ -14,7 +15,7 @@ public class UntappdFeedManager {
 
     private static UntappdData mData;
 
-    private static UntappdHandler mUntappdHandler;
+    private static NetworkRequestManager mNetworkRequestManager;
 
     private static String createdAt;
     private static String comment;
@@ -41,6 +42,19 @@ public class UntappdFeedManager {
      * */
     public String getShortDescription(int index)
     {
+
+        String comment = mData.response.checkins.items.get(index).checkin_comment;;
+
+        final String str = "Comment: " + comment;
+
+        return str;
+    }
+
+    /**
+     * @author Allen Space.
+     * */
+    public String getLongDescription(int index)
+    {
         String created_at = mData.response.checkins.items.get(index).created_at;
 
         String comment = mData.response.checkins.items.get(index).checkin_comment;
@@ -51,12 +65,18 @@ public class UntappdFeedManager {
 
         String venueAddress = mData.response.checkins.items.get(index).venue.location.venue_address;
 
-        final String str = "Created at: " + created_at + "\n"
-                            + "Comment: " + comment + "\n"
-                            + "Drink: " + drink + "\n"
-                            + "Brewery name: " + breweryName +"\n"
-                            + "At: " + venueAddress + "\n";
+        String str = "Drink: " + drink + "\n"
+                     + "Brewery: " + breweryName + "\n"
+                     + "Comment: " + comment + "\n"
+                     + "Venue Address: " + venueAddress + "\n";
 
+        return str;
+    }
+
+    public String getBeerTitle(int pIndex)
+    {
+        String drink = mData.response.checkins.items.get(pIndex).beer.beer_name;
+        String str ="Drink: " + drink;
         return str;
     }
 
@@ -81,9 +101,9 @@ public class UntappdFeedManager {
         return mData.response.checkins.items;
     }
 
-    public void populateUntappdData(double pLatitdude, double pLongitdude, Context pContext)
+    public void populateUntappdData(final UntappdResultRunnable pUntappdrun,double pLatitdude, double pLongitdude, Context pContext)
     {
-        this.mUntappdHandler.getInstance().populateUntappdFeed(pLatitdude, pLongitdude, pContext);
+        this.mNetworkRequestManager.getInstance().populateUntappdFeed(pUntappdrun, pLatitdude, pLongitdude, pContext);
     }
 
 }

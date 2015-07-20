@@ -1,25 +1,23 @@
 package com.ironsquishy.biteclub;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Callbacks.BusinessResponseRunnable;
-import apiHelpers.googleapis.LocationHandler;
-import apiHelpers.YelpApiHandler.YelpData.Randomizer;
-import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
-import AsyncTasks.YelpAsync;
+import Callbacks.SelectedBusinessRunnable;
+import ApiManagers.NetworkRequestManager;
+import apiHelpers.SelectedBusiness;
 
 
 /**
@@ -28,7 +26,7 @@ import AsyncTasks.YelpAsync;
  * */
 public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     /**Data Fields*/
-    private static Randomizer mRandomizer;
+    private static SelectedBusiness mSelectedBusiness;
     private static TextView mResultText;
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
@@ -45,8 +43,8 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         mResultText = (TextView) findViewById(R.id.resultText);
+
         randomizeYelpResponse();
-        SystemClock.sleep(500);
 
         swipeRefresh();
     }
@@ -62,6 +60,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
         //Untappd List.
         Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
+
     }
 
     /** Called when the user clicks the Search button - Eric */
@@ -83,10 +82,6 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override
     protected void onStart() {
         super.onStart();
-
-        //This is to slow the UI down for Untappd to catch up.
-        //Not a permament solution need to find a better way!!
-        SystemClock.sleep(1000);
 
     }
     
@@ -142,26 +137,32 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     private void randomizeYelpResponse()
     {
-        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Getting Restaurant Result.");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+        final Context context = this;
+
+        //When Volley is done responding this handles what else to execute
+        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
             @Override
-            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
-                mRandomizer = new Randomizer(businessResponse, getApplicationContext());
-                mRandomStringName =  mRandomizer.getBusinessName(0);
+            public void runWithRandomResult(SelectedBusiness randomizer) {
 
-                Log.i("YelpData", "At location: " + LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
+                //Add more stuff to do as approporiate or create more flexibility.
 
-                for(int i = 0; i < mRandomizer.getBusinessListSize(); i++)
-                {
-                    Log.i("YelpData", "Restuarant name: " + mRandomizer.getBusinessName(i));
-                }
+                mResultText.setText(randomizer.getmRestName());//This just set edit text box.
 
-                mResultText.setText(mRandomStringName);
+                progressDialog.dismiss();
             }
         };
 
-        //Set and execute yelp async.
-        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable, this);
-        yelpAsync.execute("Restaurant", "7000.0", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
+        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
+        //of use, like filters and radius.
+        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, this);
     }
 
 
@@ -188,7 +189,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
                 randomizeYelpResponse();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },500);
+        },100);
     }
 
 }

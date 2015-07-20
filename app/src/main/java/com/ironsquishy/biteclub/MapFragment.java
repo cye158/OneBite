@@ -1,5 +1,6 @@
 package com.ironsquishy.biteclub;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import apiHelpers.googleapis.LocationHandler;
-import apiHelpers.YelpApiHandler.YelpData.Randomizer;
+import ApiManagers.LocationHandler;
 import apiHelpers.googleapis.MarkerMapFactory;
 
 /**
@@ -35,6 +35,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static double mLongitude = LONGITUDE;
     private static double mLatitude = LATITUDE;
     private static LocationHandler mLocation;
+
+    private static Context mContext;
+
     private static MarkerMapFactory markerMapFactory;
 
     private static final String TAG = "LOCATION";
@@ -52,6 +55,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView = (MapView) view.findViewById(R.id.mapView);
 
         mapView.onCreate(savedInstanceState);
+
+        mContext = mapView.getContext();
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -124,7 +129,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         Log.i(TAG, "Building Map.");
 
-        populateGoogleMaps(googleMap);
+        populateGoogleMaps(googleMap, mContext);
 
     }
 
@@ -149,7 +154,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     /**
      * @author Allen Space
      * */
-    private void populateGoogleMaps(GoogleMap pGoogleMap)
+    private void populateGoogleMaps(GoogleMap pGoogleMap, Context pContext)
     {
         markerMapFactory = new MarkerMapFactory(pGoogleMap);
 
@@ -159,6 +164,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         //Client Marker.
         Marker marker = markerMapFactory.createClientMarker();
+
+        //Untappd marker generated.
+        markerMapFactory.createUntappdMarkers(pContext);
 
         //addFakeMarkers(pGoogleMap);
     }

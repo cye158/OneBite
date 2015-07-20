@@ -1,5 +1,7 @@
 package apiHelpers.googleapis;
 
+import android.content.Context;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -7,9 +9,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
-import java.util.Map;
 
-import apiHelpers.YelpApiHandler.YelpData.Randomizer;
+import ApiManagers.*;
+import Callbacks.UntappdResultRunnable;
+import apiHelpers.SelectedBusiness;
 
 /**
  * Created by Allen Space on 7/14/2015.
@@ -55,7 +58,7 @@ public class MarkerMapFactory {
      * */
     public Marker createResultMarker()
     {
-        Randomizer randomResult = new Randomizer();
+        SelectedBusiness randomResult = new SelectedBusiness();
 
 
         MarkerOptions markerOptions = new MarkerOptions()
@@ -80,13 +83,29 @@ public class MarkerMapFactory {
         return null;
     }
 
-    public List<MarkerOptions> createUntappdMarkers()
+    public void createUntappdMarkers(Context context)
     {
-        List<MarkerOptions> markers;
+        SelectedBusiness mResult = new SelectedBusiness();
 
-        //TODO implement markers for Untappd feed response.
+        UntappdResultRunnable untappdResultRunnable = new UntappdResultRunnable() {
+            @Override
+            public void runWithRandomResult(UntappdFeedManager untappdFeedData) {
+                //Adds all markers from Untapppd Data
+                for(int i = 0; i < untappdFeedData.getItemSize(); i++)
+                {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(new LatLng(untappdFeedData.getSingleItemLatitude(i), untappdFeedData.getSingleItemLongitude(i)));
+                    markerOptions.title(untappdFeedData.getBeerTitle(i));
+                    markerOptions.snippet(untappdFeedData.getShortDescription(i));
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
-        return null;
+                    Marker marker = mGoogleMap.addMarker(markerOptions);
+                }
+            }
+        };
+
+        NetworkRequestManager.getInstance().populateUntappdFeed(untappdResultRunnable, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
+
     }
 
 }

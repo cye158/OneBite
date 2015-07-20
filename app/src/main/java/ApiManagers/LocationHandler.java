@@ -1,4 +1,4 @@
-package apiHelpers.googleapis;
+package ApiManagers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +14,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.ironsquishy.biteclub.MapFragment;
+
+import apiHelpers.googleapis.FetchLocationAddress;
 
 /**
  * Created by Allen Space on 6/22/2015.

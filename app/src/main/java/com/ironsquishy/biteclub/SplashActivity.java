@@ -10,8 +10,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import apiHelpers.googleapis.LocationHandler;
+import ApiManagers.LocationHandler;
 
 
 public class SplashActivity extends Activity {

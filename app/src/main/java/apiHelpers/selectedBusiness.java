@@ -1,17 +1,16 @@
-package apiHelpers.YelpApiHandler.YelpData;
+package apiHelpers;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.Random;
 
-import apiHelpers.Untappd.UntappdHandler;
-import apiHelpers.UntappdFeedManager;
+import ApiManagers.UntappdFeedManager;
+import apiHelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
  * Created by Allen Space on 6/22/2015.
  */
-public class Randomizer {
+public class SelectedBusiness {
 
     /**
      * Data Fields
@@ -43,13 +42,12 @@ public class Randomizer {
     /**
      * @author Allen Space
      */
-    public Randomizer() {
+    public SelectedBusiness() {
 
     }
 
-    public Randomizer(SearchForBusinessesResponse pBusinessResponse, Context pContext)
+    public SelectedBusiness(SearchForBusinessesResponse pBusinessResponse, Context pContext)
     {
-        untappdFeedManager = new UntappdFeedManager();
 
         this.mBusinessResponse = pBusinessResponse;
 
@@ -59,8 +57,6 @@ public class Randomizer {
         this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
 
-        untappdFeedManager.populateUntappdData(mRestLatitude, mRestLonigtude, pContext);
-
     }
 
 
@@ -68,14 +64,14 @@ public class Randomizer {
      * @author Allen Space
      */
     public static void setmReturnString(String mReturnString) {
-        Randomizer.mReturnString = mReturnString;
+        SelectedBusiness.mReturnString = mReturnString;
     }
 
     /**
      * @author Allen Space
      */
     public static void setmFindString(String mFindString) {
-        Randomizer.mFindString = mFindString;
+        SelectedBusiness.mFindString = mFindString;
     }
 
     /**

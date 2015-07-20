@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import apiHelpers.googleapis.LocationHandler;
+import ApiManagers.LocationHandler;
 
 /**
  * Created by Allen Space on 7/2/2015.

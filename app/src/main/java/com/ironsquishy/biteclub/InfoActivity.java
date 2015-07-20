@@ -4,13 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import apiHelpers.UntappdFeedManager;
-import apiHelpers.YelpApiHandler.YelpData.Randomizer;
+import ApiManagers.UntappdFeedManager;
+import apiHelpers.SelectedBusiness;
 
 public class InfoActivity extends AppCompatActivity {
 
     private static UntappdFeedManager untappdData;
-    private static Randomizer randomizer;
+    private static SelectedBusiness SelectedBusiness;
 
 
     @Override
