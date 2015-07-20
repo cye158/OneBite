@@ -1,15 +1,25 @@
 package apiHelpers.SQLiteHandler;
 
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by Guan, Allen on 7/12/2015.
  */
 public class VisitedPlace {
 
-    /** Private data members **/
+    /**
+     * Private data members
+     * _id and _date are automatically generated when creating object
+     */
+
     private int _id;
     private String _name;
     private double _latitude;
     private double _longitude;
+    private String _date;
 
     /** Constructors **/
 
@@ -24,10 +34,7 @@ public class VisitedPlace {
      * @param _name A string value of the name of the location
      */
     public VisitedPlace(String _name) {
-        this._id = 0;
-        this._name = _name;
-        this._latitude = 0.0;
-        this._longitude = 0.0;
+        this(_name, 0.0, 0.0);
     }
 
     /**
@@ -36,10 +43,7 @@ public class VisitedPlace {
      * @param _longitude A double value of the longitude of the location
      */
     public VisitedPlace(double _latitude, double _longitude) {
-        this._id = 0;
-        this._name = null;
-        this._latitude = _latitude;
-        this._longitude = _longitude;
+        this("", _latitude, _longitude);
     }
 
     /**
@@ -53,6 +57,7 @@ public class VisitedPlace {
         this._name = _name;
         this._latitude = _latitude;
         this._longitude = _longitude;
+        this._date = getDateFromSystem();
     }
 
     /** setters **/
@@ -89,6 +94,12 @@ public class VisitedPlace {
         this._longitude = _longitude;
     }
 
+    /**
+     * Description: setting the date when visited the location
+     * @param _date A String value of the visited data
+     */
+    public void set_date(String _date) { this._date = _date;}
+
     /** getters **/
 
     /**
@@ -121,5 +132,25 @@ public class VisitedPlace {
      */
     public double get_longitude() {
         return _longitude;
+    }
+
+    /**
+     * Description: getting the date when visited the location
+     * @return _date A String value of the visited data
+     */
+    public String get_date() { return _date;}
+
+    /**
+     * Description: A helper method for getting the current date automatically
+     * @return dateInFormat A String value of the current date
+     */
+    private String getDateFromSystem() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        String dateInFormat = dateFormat.format(cal.getTime());
+
+        Log.i("Date", "The current date is " + dateInFormat);
+
+        return dateInFormat;
     }
 }
