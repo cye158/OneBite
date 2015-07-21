@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:divider="#ffd1652c"
         android:dividerHeight="5dp"
-        android:background="#ff26a928"/>
+        android:background="#ff26a928"
+        />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
@@ -23,5 +24,8 @@
         android:onClick="toNavigation"
         fab:fab_colorNormal="#ffd1652c"
         />
+
+
+
 
 </FrameLayout>

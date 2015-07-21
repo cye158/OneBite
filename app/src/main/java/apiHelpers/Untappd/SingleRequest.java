@@ -1,4 +1,4 @@
-package apiHelpers.Untappd;
+package apihelpers.Untappd;
 
 
 import android.content.Context;

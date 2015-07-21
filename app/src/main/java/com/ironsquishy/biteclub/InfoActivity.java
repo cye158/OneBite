@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import ApiManagers.UntappdFeedManager;
-import apiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 
 public class InfoActivity extends AppCompatActivity {
 

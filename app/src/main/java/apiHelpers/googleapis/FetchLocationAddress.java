@@ -1,4 +1,4 @@
-package apiHelpers.googleapis;
+package apihelpers.googleapis;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import ApiManagers.LocationHandler;
 public class FetchLocationAddress extends IntentService{
 
     //For log cat.
-    private static final String TAG = "apiHelpers";
+    private static final String TAG = "apihelpers";
 
     /**
      * @author Allen Space

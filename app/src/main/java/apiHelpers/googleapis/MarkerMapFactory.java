@@ -1,4 +1,4 @@
-package apiHelpers.googleapis;
+package apihelpers.googleapis;
 
 import android.content.Context;
 
@@ -15,6 +15,8 @@ import Callbacks.UntappdResultRunnable;
 import apiHelpers.SQLiteHandler.DBHandler;
 import apiHelpers.SQLiteHandler.VisitedPlace;
 import apiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
+
 
 /**
  * Created by Allen Space on 7/14/2015.

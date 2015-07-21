@@ -4,9 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
-import ApiManagers.NetworkRequestManager;
 import Callbacks.UntappdResultRunnable;
-import apiHelpers.Untappd.UntappdData;
+import apihelpers.Untappd.UntappdData;
 
 /**
  * Created by Allen Space on 7/12/2015.

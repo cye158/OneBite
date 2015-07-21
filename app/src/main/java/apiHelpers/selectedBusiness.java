@@ -1,11 +1,11 @@
-package apiHelpers;
+package apihelpers;
 
 import android.content.Context;
 
 import java.util.Random;
 
 import ApiManagers.UntappdFeedManager;
-import apiHelpers.YelpApiHandler.SearchForBusinessesResponse;
+import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
  * Created by Allen Space on 6/22/2015.

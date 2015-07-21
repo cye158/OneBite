@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import Callbacks.SelectedBusinessRunnable;
 import ApiManagers.NetworkRequestManager;
-import apiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 
 
 /**
@@ -25,6 +25,7 @@ import apiHelpers.SelectedBusiness;
  * Description: Menu  activity with google maps fragment.
  * */
 public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+
     /**Data Fields*/
     private static SelectedBusiness mSelectedBusiness;
     private static TextView mResultText;
@@ -72,7 +73,6 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         //Intent intent = new Intent(this, SearchActivity.class);
         //startActivity(intent);
-
     }
 
     /**

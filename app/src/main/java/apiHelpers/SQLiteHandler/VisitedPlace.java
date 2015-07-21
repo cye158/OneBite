@@ -1,4 +1,4 @@
-package apiHelpers.SQLiteHandler;
+package apihelpers.SQLiteHandler;
 
 import android.util.Log;
 

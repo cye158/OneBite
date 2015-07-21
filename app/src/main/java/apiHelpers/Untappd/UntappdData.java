@@ -1,4 +1,4 @@
-package apiHelpers.Untappd;
+package apihelpers.Untappd;
 
 import java.util.List;
 
