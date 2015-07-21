@@ -40,7 +40,7 @@ public class TransportationActivity extends FragmentActivity {
 //        pass current location and radius defined by button to yelpAsync.
 //        }
 //        else if{
-//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
+//        grab results from InputLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
 
 
@@ -55,7 +55,7 @@ public class TransportationActivity extends FragmentActivity {
 //        pass current location and radius defined by button to yelpAsync.
 //        }
 //        else if{
-//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
+//        grab results from InputLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
 
         startActivity(intent);
@@ -69,7 +69,7 @@ public class TransportationActivity extends FragmentActivity {
 //        pass current location and radius defined by button to yelpAsync.
 //        }
 //        else if{
-//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
+//        grab results from InputLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
 
         startActivity(intent);

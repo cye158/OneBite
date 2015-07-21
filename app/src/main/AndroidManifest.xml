@@ -60,7 +60,7 @@
         </activity>
 
         <activity
-            android:name=".CurrentLocationActivity"
+            android:name=".InputLocationActivity"
             android:label="@string/title_activity_current_location" >
         </activity>
         <activity

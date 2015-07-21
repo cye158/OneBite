@@ -53,11 +53,10 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         //Untappd List.
         Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
-
     }
 
     /** Called when the user clicks the Search button - Eric */
-    /* Being revised by Renz*/
+    /** Was revised - Renz (7/20/15)**/
     public void toFilter(View view) {
         FilterOption dialog = new FilterOption();
         dialog.show(getFragmentManager(), "Filter Dialog Box");

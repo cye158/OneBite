@@ -10,25 +10,29 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * Created by CYE on 7/20/15.
+ * Created by CYE on 7/16
+ * /15.
  * @author Renz
- * Desciption: Private method that pops an dialog box to let user check the filter
- *             to be used for next randomzed result.
- *
+ * Description: FilterOption class that dislays a dialog box of food categories. The user can choose
+ *             a category he/she would
  **/
 public class FilterOption extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //Variables and list of the filter option
-        final ArrayList arrayFilter = new ArrayList();
-        final String[] strFilters = {"American", "Asian", "Chinese", "Filipino", "Italian", "Japanese",
-                "Korean", "Vietnamese", "Thai", "Vegetarian"};
 
-        //Process and filters are saved in array.
+        /*List of the food category*/
+        final ArrayList arrayFilter = new ArrayList();
+        final String[] foodCuisine = { "NewAmerican", "Mexican", "Chinese", "Filipino", "Italian",
+                "Japanese", "Korean", "Vietnamese", "Thai", "Vegetarian", "Creperies", "Cafe",
+                "Desserts", "Seafood" };
+
+        /*Alert dialog declaration*/
         AlertDialog.Builder filterDialog = new AlertDialog.Builder(getActivity());
         filterDialog.setTitle("Food Category:");
-        filterDialog.setMultiChoiceItems(strFilters, null, new DialogInterface.OnMultiChoiceClickListener() {
+        filterDialog.setMultiChoiceItems(foodCuisine, null, new DialogInterface.OnMultiChoiceClickListener() {
+
+            /*Checked items from the category are saved in an array*/
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
@@ -40,27 +44,34 @@ public class FilterOption extends DialogFragment {
         });
 
         filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            String addFilter = "";
 
+            /*The array is then converted to a string with ',' to separate each item */
+            String addToFilter = "";
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 for (int i = 0; i < arrayFilter.size(); i++) {
-                    if (i == arrayFilter.size())
-                        addFilter += strFilters[(Integer) arrayFilter.get(i)];
+                    if(i != 0)
+                        addToFilter +=  "," + foodCuisine[(Integer) arrayFilter.get(i)];
                     else
-                        addFilter += strFilters[(Integer) arrayFilter.get(i)] + ", ";
+                        addToFilter += foodCuisine[(Integer) arrayFilter.get(i)];
                 }
-                Toast.makeText(getActivity(), addFilter, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
+
+                /*to be used for yelp category_filter*/
+                //addToFilter.toLowerCase();
             }
         });
 
         filterDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            /*Does nothing as filter was cancelled*/
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity(), "Filters have been cancelled", Toast.LENGTH_SHORT).show();
             }
         });
-        AlertDialog obj = filterDialog.create();
-        return obj;
+
+        AlertDialog objDialog = filterDialog.create();
+        return objDialog;
     }
 }
+
