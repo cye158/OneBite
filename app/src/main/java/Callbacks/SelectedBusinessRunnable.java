@@ -14,3 +14,4 @@ abstract public class SelectedBusinessRunnable implements Runnable {
 
     abstract public void runWithRandomResult(SelectedBusiness SelectedBusiness);
 }
+

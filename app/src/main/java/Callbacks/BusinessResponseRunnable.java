@@ -14,3 +14,4 @@ abstract public class BusinessResponseRunnable implements Runnable{
     abstract public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse);
 
 }
+

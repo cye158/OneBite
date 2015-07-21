@@ -154,3 +154,4 @@ public class VisitedPlace {
         return dateInFormat;
     }
 }
+

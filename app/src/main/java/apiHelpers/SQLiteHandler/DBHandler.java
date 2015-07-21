@@ -264,4 +264,3 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 }
 //End of Class
-

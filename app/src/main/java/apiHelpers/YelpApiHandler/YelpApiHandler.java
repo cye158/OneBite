@@ -132,4 +132,5 @@ public class YelpApiHandler {
 
         return _staticYelpObj;
     }
+
 }

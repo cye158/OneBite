@@ -66,3 +66,5 @@ public class DatabaseManager {
        return mDBHandler.getContentFromTable();
     }
 }
+
+

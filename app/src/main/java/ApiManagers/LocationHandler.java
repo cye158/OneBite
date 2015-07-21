@@ -235,3 +235,6 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     }
 }
+
+
+
