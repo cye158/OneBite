@@ -12,9 +12,7 @@ import java.util.List;
 
 import ApiManagers.*;
 import Callbacks.UntappdResultRunnable;
-import apiHelpers.SQLiteHandler.DBHandler;
-import apiHelpers.SQLiteHandler.VisitedPlace;
-import apiHelpers.SelectedBusiness;
+import apihelpers.SQLiteHandler.VisitedPlace;
 import apihelpers.SelectedBusiness;
 
 
