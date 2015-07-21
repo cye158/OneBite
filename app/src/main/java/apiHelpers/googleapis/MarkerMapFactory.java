@@ -1,4 +1,4 @@
-package ApiHelpers.googleapis;
+package apihelpers.googleapis;
 
 import android.content.Context;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 import ApiManagers.*;
 import Callbacks.UntappdResultRunnable;
-import ApiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 
 /**
  * Created by Allen Space on 7/14/2015.

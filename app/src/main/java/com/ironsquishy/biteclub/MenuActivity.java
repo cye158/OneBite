@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import Callbacks.SelectedBusinessRunnable;
 import ApiManagers.NetworkRequestManager;
-import ApiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 
 
 /**

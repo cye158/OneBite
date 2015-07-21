@@ -15,7 +15,7 @@ import com.melnykov.fab.FloatingActionButton;
 
 import Callbacks.UntappdResultRunnable;
 import ApiManagers.NetworkRequestManager;
-import ApiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 import ApiManagers.UntappdFeedManager;
 
 
@@ -36,27 +36,28 @@ public class UntappdList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_untappd_list);
 
+
+
         mSelectedBusiness = new SelectedBusiness();
 
-
-
+        refreshFeed();
     }
+
    @Override
     protected void onStart() {
-        super.onStart();
+       super.onStart();
 
-        refreshFeed();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.attachToListView(untappdListView);
     }
 
-    /** Called when the user clicks the Navigate button - Eric */
+
+    /** Called when the user clicks the Navigate button - Eric*/
     public void toNavigation(View view) {
         //TODO: Implement navigation mode button and remove toast package.
-        Toast.makeText(getApplicationContext(), "This should start navigation.",
+       Toast.makeText(getApplicationContext(), "This should start navigation.",
                 Toast.LENGTH_LONG).show();
     }
+
 
 
     private void refreshFeed()
@@ -85,6 +86,9 @@ public class UntappdList extends ActionBarActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, resource, textViewResourceID,items);
 
                 untappdListView.setAdapter(adapter);
+
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.attachToListView(untappdListView);
 
                 progressDialog.dismiss();
             }

@@ -25,10 +25,12 @@
             android:label="OneBite"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".MapActivity" >
 
-            <!-- android:label="@string/title_activity_map" > -->
+        <activity
+            android:name=".MapActivity"
+            android:label="Map">
         </activity>
+
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
@@ -40,22 +42,23 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDB7MIGJv24Wv1-7Yt29kfzIM3UPA5CD2c" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        <activity
+            android:name=".UntappdList"
+            android:label="Untappd"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation"
             android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".LocationCheckActivity"
             android:label="@string/title_activity_location_check" >
         </activity>
+
         <activity
             android:name=".CurrentLocationActivity"
             android:label="@string/title_activity_current_location" >
@@ -79,13 +82,17 @@
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
 
-        <service android:name="ApiHelpers.googleapis.FetchLocationAddress" />
+        <service android:name="apihelpers.googleapis.FetchLocationAddress" />
 
-        <activity
-            android:name=".UntappdList"
-            android:label="Untappd"
-            android:screenOrientation="portrait">
-        </activity>
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDB7MIGJv24Wv1-7Yt29kfzIM3UPA5CD2c" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>
