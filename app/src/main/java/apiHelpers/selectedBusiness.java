@@ -2,6 +2,7 @@ package apihelpers;
 
 import android.content.Context;
 
+import java.util.Collections;
 import java.util.Random;
 
 import ApiManagers.UntappdFeedManager;
@@ -48,6 +49,7 @@ public class SelectedBusiness {
 
     public SelectedBusiness(SearchForBusinessesResponse pBusinessResponse, Context pContext)
     {
+        Collections.shuffle(pBusinessResponse.businesses, new Random(System.nanoTime()));
 
         this.mBusinessResponse = pBusinessResponse;
 
@@ -127,6 +129,17 @@ public class SelectedBusiness {
     public String getmRestName()
     {
         return this.mRestName;
+    }
+
+    public void reShuffleBusinessList()
+    {
+        Collections.shuffle(mBusinessResponse.businesses, new Random(System.nanoTime()));
+
+        this.mRestName = mBusinessResponse.businesses.get(0).name;
+        this.mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
+
+        this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
+        this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
     }
 
 }

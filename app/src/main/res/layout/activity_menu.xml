@@ -33,7 +33,7 @@
                 android:id="@+id/resultText"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="10dp"
                 android:background="#4CAF50"
                 android:textColor="#ffffff"
                 android:textSize="60sp"
@@ -43,13 +43,13 @@
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Go"
+                android:text="Location"
                 android:id="@+id/button"
                 android:background="@drawable/button_shadow"
                 android:onClick="toNavi"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="60dp" />
+                android:layout_marginTop="10dp" />
 
             <Button
                 android:layout_width="200dp"
@@ -68,11 +68,21 @@
                 android:text="Filter"
                 android:id="@+id/filterButton"
                 android:background="@drawable/button_shadow"
-                android:onClick="toFilter"
+                android:onClick="toSearch"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_alignParentBottom="true"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to favorites?"
+                android:id="@+id/checkToAddFav"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:onClick="checkFavAdd" />
 
         </LinearLayout>
 

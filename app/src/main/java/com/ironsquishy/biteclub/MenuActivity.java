@@ -1,25 +1,25 @@
 package com.ironsquishy.biteclub;
 
-import android.app.ProgressDialog;
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import ApiManagers.DatabaseManager;
 import apihelpers.SelectedBusiness;
-import ApiManagers.NetworkRequestManager;
-import Callbacks.SelectedBusinessRunnable;
 
 
 /**
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     /**Data Fields*/
     private static SelectedBusiness mSelectedBusiness;
@@ -27,19 +27,44 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
 
+    private static RadioButton addToData;
+    private static DatabaseManager mDatabaseManager;
+
+    private AlertDialog.Builder filterDialog;
+    private String inputFilter = "\n Filtered: ";
+
     /**
      * @Author Allen Space
      * Description: To create the menu activity.
-     **/
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         mResultText = (TextView) findViewById(R.id.resultText);
 
-        randomizeYelpResponse();
+
+        addToData = (RadioButton) findViewById(R.id.checkToAddFav);
+
+        mDatabaseManager = new DatabaseManager(this);
+
+
+        mSelectedBusiness = new SelectedBusiness();
 
         swipeRefresh();
+    }
+
+    public void checkFavAdd(View view)
+    {
+        if(addToData.isChecked())
+        {
+            //Add to result in text view to data.
+            mDatabaseManager.addToDatabase(mRandomStringName);
+
+            Toast.makeText(getApplicationContext(), "Added to favorites.",
+                    Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     /** Called when the user clicks the Go button - Eric */
@@ -53,13 +78,18 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         //Untappd List.
         Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
+
     }
 
     /** Called when the user clicks the Search button - Eric */
-    /** Was revised - Renz (7/20/15)**/
-    public void toFilter(View view) {
-        FilterOption dialog = new FilterOption();
-        dialog.show(getFragmentManager(), "Filter Dialog Box");
+    /* Being revised by Renz*/
+    public void toSearch(View view) {
+        filterOption();
+        AlertDialog alert = filterDialog.create();
+        alert.show();
+
+        //Intent intent = new Intent(this, SearchActivity.class);
+        //startActivity(intent);
     }
 
     /**
@@ -70,36 +100,35 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
+        mRandomStringName = mSelectedBusiness.getmRestName();
+
+        mResultText.setText(mRandomStringName);
+
     }
 
+
+    /**
+     * @author Renz
+     * Desciption: Private method that pops an dialog box to let user check the filter
+     *             to be used for next randomzed result.
+     * */
+    private void filterOption(){
+        FilterOption dialog = new FilterOption();
+        dialog.show(getFragmentManager(), "Filter Dialog Box");
+    }
+
+    /**
+     * @author Allen Space
+     * Description: ReShuffles the yelp data.
+     *              And displays on screen.
+     **/
     private void randomizeYelpResponse()
     {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Getting Restaurant Result.");
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
+        mSelectedBusiness.reShuffleBusinessList();
 
-        progressDialog.show();
+        mRandomStringName = mSelectedBusiness.getmRestName();
 
-        final Context context = this;
-
-        //When Volley is done responding this handles what else to execute
-        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
-            @Override
-            public void runWithRandomResult(SelectedBusiness randomizer) {
-
-                //Add more stuff to do as approporiate or create more flexibility.
-
-                mResultText.setText(randomizer.getmRestName());//This just set edit text box.
-
-                progressDialog.dismiss();
-            }
-        };
-
-        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
-        //of use, like filters and radius.
-        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, this);
+        mResultText.setText(mRandomStringName);
     }
 
 
@@ -124,6 +153,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void run() {
                 //Do stuff here.
                 randomizeYelpResponse();
+                addToData.setChecked(false);
                 swipeRefreshLayout.setRefreshing(false);
             }
         },100);

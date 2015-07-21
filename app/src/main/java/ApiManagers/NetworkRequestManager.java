@@ -115,11 +115,11 @@ public class NetworkRequestManager {
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
     }
 
-    public void populateYelpData(final SelectedBusinessRunnable selectedBusinessRunnable, final Context pContext)
+    public void populateYelpData(final SelectedBusinessRunnable selectedBusinessRunnable,String pRadius, final Context pContext)
     {
 
 
-        final String sendJsonRequestURL =buildYelpAuthenticationUrl(LocationHandler.getmLatitude(), LocationHandler.getmLongitude());
+        final String sendJsonRequestURL =buildYelpAuthenticationUrl(pRadius, LocationHandler.getmLatitude(), LocationHandler.getmLongitude());
 
         JsonObjectRequest jsObjectReq = new JsonObjectRequest
                 (Request.Method.GET, sendJsonRequestURL, null, new Response.Listener<JSONObject>() {
@@ -132,11 +132,9 @@ public class NetworkRequestManager {
                         Log.i(YELP, "Yelp Responded, populating data for OneBite.");
 
                         SearchForBusinessesResponse businessesResponse = new Gson().fromJson(response.toString(), SearchForBusinessesResponse.class);
-                        Collections.shuffle(businessesResponse.businesses, new Random(seed));
 
-                        mSelectedBusiness = new SelectedBusiness(businessesResponse, pContext);
 
-                        selectedBusinessRunnable.runWithRandomResult(mSelectedBusiness);
+                        selectedBusinessRunnable.runWithRandomResult(businessesResponse);
 
                         Log.i(YELP, "Finished Populating Data for OneBite.");
                     }
@@ -183,11 +181,11 @@ public class NetworkRequestManager {
      *              It uses latitude and longitude points instead
      *              of string address.
      * */
-    private String buildYelpAuthenticationUrl(double pLatitdude, double pLongitude)
+    private String buildYelpAuthenticationUrl(String pRadius , double pLatitdude, double pLongitude)
     {
         //Default values.
         String term = "restaurant";
-        String radius = "7000.0";
+        String radius = pRadius;
 
         //Convert doubles to strings.
         String latitude = String.valueOf(pLatitdude);
@@ -236,4 +234,3 @@ public class NetworkRequestManager {
 
 
 }
-

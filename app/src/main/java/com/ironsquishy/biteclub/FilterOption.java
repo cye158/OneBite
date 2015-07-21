@@ -70,6 +70,7 @@ public class FilterOption extends DialogFragment {
             }
         });
 
+        setCancelable(false);
         AlertDialog objDialog = filterDialog.create();
         return objDialog;
     }

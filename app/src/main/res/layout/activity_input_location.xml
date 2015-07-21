@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/askCurrentLocationText"
+        android:layout_margin="16dp"
         android:text="Enter starting location"
-        android:layout_above="@+id/currentAddress"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -23,28 +24,19 @@
         android:ems="10"
         android:id="@+id/currentAddress"
         android:autoText="false"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/askCurrentLocationText"
-        android:layout_alignEnd="@+id/askCurrentLocationText"
-        android:layout_gravity="center" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/currentAddress"
-        android:layout_marginTop="60dp"
-        android:layout_alignStart="@+id/currentAddress"
-        android:layout_alignEnd="@+id/currentAddress"
-        android:weightSum="1">
+        android:layout_gravity="center"
+        android:layout_below="@+id/askCurrentLocationText"
+        android:layout_alignLeft="@+id/askCurrentLocationText"
+        android:layout_alignStart="@+id/askCurrentLocationText" />
 
         <Button
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next_button_msg"
-            android:id="@+id/nextButton"
+            android:text="Enter"
+            android:id="@+id/enterButton"
             android:layout_gravity="center_horizontal"
-            android:background="#FF5722"/>
-    </LinearLayout>
+            android:background="#FF5722"
+            android:layout_below="@+id/currentAddress"
+            android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

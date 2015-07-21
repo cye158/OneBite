@@ -1,6 +1,6 @@
 package Callbacks;
 
-import apihelpers.SelectedBusiness;
+import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
  * Created by Allen Space on 7/12/2015.
@@ -12,6 +12,5 @@ abstract public class SelectedBusinessRunnable implements Runnable {
 
     }
 
-    abstract public void runWithRandomResult(SelectedBusiness SelectedBusiness);
+    abstract public void runWithRandomResult(SearchForBusinessesResponse businessesResponse);
 }
-

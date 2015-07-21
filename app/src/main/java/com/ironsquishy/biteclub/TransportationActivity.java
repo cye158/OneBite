@@ -1,5 +1,6 @@
 package com.ironsquishy.biteclub;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import ApiManagers.LocationHandler;
+import ApiManagers.NetworkRequestManager;
+import Callbacks.SelectedBusinessRunnable;
+import apihelpers.SelectedBusiness;
+import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
  * Created by Eric on 7/8/2015.
@@ -16,6 +21,9 @@ import ApiManagers.LocationHandler;
 public class TransportationActivity extends FragmentActivity {
 
     ViewPager viewPager=null;
+    private static SelectedBusiness mSelectedBusiness;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +48,35 @@ public class TransportationActivity extends FragmentActivity {
 //        pass current location and radius defined by button to yelpAsync.
 //        }
 //        else if{
-//        grab results from InputLocationActivity. Continue to pass defined radius to yelpAsync
+//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Getting Restaurant Result.");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+        //final Context context = this;
+
+        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+            @Override
+            public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
+
+                mSelectedBusiness = new SelectedBusiness(businessesResponse, getBaseContext());
+
+
+                progressDialog.dismiss();
+
+            }
+        };
+
+
+        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
+        //of use, like filters and radius.
+        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, "5632.7", getBaseContext());
 
 
         startActivity(intent);
@@ -55,8 +90,36 @@ public class TransportationActivity extends FragmentActivity {
 //        pass current location and radius defined by button to yelpAsync.
 //        }
 //        else if{
-//        grab results from InputLocationActivity. Continue to pass defined radius to yelpAsync
+//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
+
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Getting Restaurant Result.");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+        //final Context context = this;
+
+        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+            @Override
+            public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
+
+                mSelectedBusiness = new SelectedBusiness(businessesResponse, getBaseContext());
+
+
+                progressDialog.dismiss();
+
+            }
+        };
+
+
+        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
+        //of use, like filters and radius.
+        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, "7000.0", getBaseContext());
 
         startActivity(intent);
     }
@@ -69,8 +132,34 @@ public class TransportationActivity extends FragmentActivity {
 //        pass current location and radius defined by button to yelpAsync.
 //        }
 //        else if{
-//        grab results from InputLocationActivity. Continue to pass defined radius to yelpAsync
+//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Getting Restaurant Result.");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+        //final Context context = this;
+
+        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+            @Override
+            public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
+
+                mSelectedBusiness = new SelectedBusiness(businessesResponse, getBaseContext());
+
+                progressDialog.dismiss();
+
+            }
+        };
+
+
+        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
+        //of use, like filters and radius.
+        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, "2414.02", getBaseContext());
 
         startActivity(intent);
     }
