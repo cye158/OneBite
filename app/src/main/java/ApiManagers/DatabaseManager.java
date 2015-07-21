@@ -65,6 +65,15 @@ public class DatabaseManager {
     {
        return mDBHandler.getContentFromTable();
     }
+
+    /**
+     * @author Guan
+     * Description: check whether the database is empty
+     * @return true if database contain no data, false otherwise
+     */
+    public boolean isDatabaseEmpty() {
+        return mDBHandler.isTableEmpty();
+    }
 }
 
 

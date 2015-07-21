@@ -67,7 +67,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      * Description: On start, creates process dialoge
      * */
     @Override
-    protected void onStart() {
+    protected void onStar
         super.onStart();
 
     }

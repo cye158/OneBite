@@ -80,16 +80,21 @@ public class DBHandler extends SQLiteOpenHelper {
      * @param place A VisitedPlace Object of new place to add to the table.
      */
     public void addVisitedPlace(VisitedPlace place) {
-        ContentValues newPlace = new ContentValues();
-        newPlace.put(COLUME_NAME, place.get_name());
-        newPlace.put(COLUME_LATITUDE, place.get_latitude());
-        newPlace.put(COLUME_LONGITUDE, place.get_longitude());
-        newPlace.put(COLUME_DATE, place.get_date());
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert(TABLE_NAME, null, newPlace);
-        db.close();
+        if (!isExistInDatabase(place.get_name(), place.get_latitude(), place.get_longitude())) {
+            ContentValues newPlace = new ContentValues();
+            newPlace.put(COLUME_NAME, place.get_name());
+            newPlace.put(COLUME_LATITUDE, place.get_latitude());
+            newPlace.put(COLUME_LONGITUDE, place.get_longitude());
+            newPlace.put(COLUME_DATE, place.get_date());
+            SQLiteDatabase db = getWritableDatabase();
+            db.insert(TABLE_NAME, null, newPlace);
+            db.close();
 
-        Log.i(TAG, "'" + place.get_name() + "'" + " has been added to the Database, addVisitedPlace()");
+            Log.i(TAG, "'" + place.get_name() + "'" + " has been added to the Database, addVisitedPlace()");
+        } else {
+            Log.i(TAG, "'" + place.get_name() + "'" + " with the same latitude and longitude already in the database");
+        }
+
     }
 
     /**
@@ -107,55 +112,30 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Description: convert all content in the database and return it as a single string.
-     * @return dbString a single string containing all the names in the database, separated by "\n".
-     */
-    public String databaseToString() {
-        String dbString = "";
-        SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE 1";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        cursor.moveToFirst();
-
-        while (!cursor.isAfterLast()) {
-            if (cursor.getString(cursor.getColumnIndex(COLUME_NAME))!= null) {
-                dbString += cursor.getString(cursor.getColumnIndex(COLUME_NAME));
-                dbString += "\n";
-            }
-        }
-
-        // some housekeeping
-        db.close();
-        cursor.close();
-
-        Log.i(TAG, "converted all content in the Database to string , databaseToString()");
-
-        return dbString;
-    }
-
-    /**
      * Description: check whether a location is exist in the database.
      * @param place the name of the location.
      * @return true if already exist in the database, false if not in the database.
      */
-    public boolean isExistInDatabase(String place) {
+    public boolean isExistInDatabase(String place, double latitude, double longitude) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUME_NAME + " = '" + place + "'";
+        String query = "SELECT * FROM " + TABLE_NAME +
+                " WHERE " + COLUME_NAME + " = '" + place + "'" +
+                " AND " + COLUME_LATITUDE + " = " + latitude +
+                " AND " + COLUME_LONGITUDE + " = " + longitude;
+
         Cursor cursor = db.rawQuery(query, null);
+        boolean existent = false;
 
         if (cursor.getCount() <= 0) {
-            cursor.close();
-            db.close();
-            Log.i(TAG, "'" + place + "'" + " not found in Database");
-            return false;
+            Log.i(TAG, "'" + place + "' (" + latitude + ", " + longitude + ") not found in Database");
         } else {
-            cursor.close();
-            db.close();
-            Log.i(TAG, "'" + place + "'" + " founded in Database");
-            return true;
+            Log.i(TAG, "'" + place + "' (" + latitude + ", " + longitude + ") founded in Database");
+            existent = true;
         }
+
+        cursor.close();
+        db.close();
+        return existent;
     }
 
     /**

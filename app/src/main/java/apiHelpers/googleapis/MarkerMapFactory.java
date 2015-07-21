@@ -12,7 +12,9 @@ import java.util.List;
 
 import ApiManagers.*;
 import Callbacks.UntappdResultRunnable;
+import apihelpers.SQLiteHandler.VisitedPlace;
 import apihelpers.SelectedBusiness;
+
 
 /**
  * Created by Allen Space on 7/14/2015.
@@ -21,6 +23,7 @@ public class MarkerMapFactory {
 
     private static MarkerOptions mMarkers;
     private static GoogleMap mGoogleMap;
+    private static DatabaseManager mDatabaseManager;
 
     /**
      * @author Allen Space
@@ -74,11 +77,27 @@ public class MarkerMapFactory {
         return marker;
     }
 
+    /**
+     * @author: Guan
+     * @return A list of Marker objects
+     */
     public List<Marker> createHistoryMarkers()
     {
-        List<Marker> markers;
+        List<VisitedPlace> restaurants;
 
-        //TODO implement a list of markers from the Database.
+        if (!mDatabaseManager.isDatabaseEmpty()) {
+            restaurants = mDatabaseManager.getAllVistedPlaces();
+
+            for (int i = 0; i < restaurants.size(); i++) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(new LatLng(restaurants.get(i).get_latitude(), restaurants.get(i).get_longitude()));
+                markerOptions.title(restaurants.get(i).get_name());
+                markerOptions.snippet("Visited " + restaurants.get(i).get_date());
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+
+                mGoogleMap.addMarker(markerOptions);
+            }
+        }
 
         return null;
     }
