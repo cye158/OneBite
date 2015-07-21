@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BiteClub</string>
 
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">OneBite</string>
     <string name="hello_world">Hello Anybody that is paying attention!</string>
     <string name="action_settings">Settings</string>
 
@@ -25,5 +25,8 @@
     <string name="title_activity_info">InfoActivity</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="feedme_button">Feed Me!</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_untappd_list">UntappdList</string>
 
 </resources>

@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ironsquishy.biteclub.UntappdList">
+
+    <ListView
+        android:id="@+id/untappdList"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:divider="#ffd1652c"
+        android:dividerHeight="5dp"
+        android:background="#ff26a928"/>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/navigation_fab"
+        android:onClick="toNavigation"
+        fab:fab_colorNormal="#ffd1652c"
+        />
+
+</FrameLayout>

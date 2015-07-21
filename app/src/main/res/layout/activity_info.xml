@@ -11,22 +11,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Restaurant rating: ****"
-        android:id="@+id/textView3"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/UntappdText"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="93dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Style: american"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="108dp" />
+        android:clickable="true"
+        android:singleLine="false"
+        android:nestedScrollingEnabled="true" />
 </RelativeLayout>

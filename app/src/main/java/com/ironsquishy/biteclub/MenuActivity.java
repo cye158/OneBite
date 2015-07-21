@@ -1,35 +1,35 @@
 package com.ironsquishy.biteclub;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Callbacks.BusinessResponseRunnable;
-import apiHelpers.LocationHandler;
-import apiHelpers.YelpApiHandler.YelpData.Randomizer;
-import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
-import YelpAsync.YelpAsync;
+import Callbacks.SelectedBusinessRunnable;
+import ApiManagers.NetworkRequestManager;
+import apiHelpers.SelectedBusiness;
 
 
 /**
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends ActionBarActivity {
+public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     /**Data Fields*/
-    private static Randomizer mRandomizer;
+    private static SelectedBusiness mSelectedBusiness;
     private static TextView mResultText;
     private static String mRandomStringName;
+    private static SwipeRefreshLayout swipeRefreshLayout;
 
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
@@ -42,11 +42,11 @@ public class MenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-        //Text field from menu_activity.xml
         mResultText = (TextView) findViewById(R.id.resultText);
 
-        Log.i("onCreate", "Successful call.");
+        randomizeYelpResponse();
+
+        swipeRefresh();
     }
 
     /** Called when the user clicks the Go button - Eric */
@@ -57,13 +57,10 @@ public class MenuActivity extends ActionBarActivity {
 
     /** Called when the user clicks the Information button - Eric */
     public void toInfo(View view) {
-        Intent intent = new Intent(this, InfoActivity.class);
+        //Untappd List.
+        Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
-    }
 
-    /** Called when the user clicks the Retry button - Eric */
-    public void toRetry(View view) {
-        onStart();
     }
 
     /** Called when the user clicks the Search button - Eric */
@@ -86,44 +83,8 @@ public class MenuActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        //Set to text field.
-
-        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
-            @Override
-            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
-                mRandomizer = new Randomizer(businessResponse, getApplicationContext());
-                mRandomStringName =  mRandomizer.getBusinessName(0);
-
-                Log.i("YelpData", "At location: " + LocationHandler.streetAddress +"., " + LocationHandler.cityAddress);
-
-                for(int i = 0; i < mRandomizer.getBusinessListSize(); i++)
-                {
-                    Log.i("YelpData", "Restuarant name: " + mRandomizer.getBusinessName(i));
-                }
-
-                mResultText.setText(mRandomStringName);
-            }
-        };
-
-        //Set and execute yelp async.
-        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
-        yelpAsync.execute("Restaurant", "5234.5", LocationHandler.streetAddress + "., " + LocationHandler.cityAddress);
-
     }
     
-    //TODO Delete addFragment if not using.
-    /**
-     * @author Allen Space
-     * Desciption: Private method that adds a fragment to the this activity.
-     *             The MapFragment fragment layout must be on the xml layout.
-     * */
-    private void addFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        MapFragment fragment = new MapFragment();
-        transaction.add(R.id.mapView, fragment);
-        transaction.commit();
-    }
 
     /**
      * @author Renz
@@ -173,5 +134,62 @@ public class MenuActivity extends ActionBarActivity {
         });
     }
 
+
+    private void randomizeYelpResponse()
+    {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Getting Restaurant Result.");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+        final Context context = this;
+
+        //When Volley is done responding this handles what else to execute
+        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+            @Override
+            public void runWithRandomResult(SelectedBusiness randomizer) {
+
+                //Add more stuff to do as approporiate or create more flexibility.
+
+                mResultText.setText(randomizer.getmRestName());//This just set edit text box.
+
+                progressDialog.dismiss();
+            }
+        };
+
+        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
+        //of use, like filters and radius.
+        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, this);
+    }
+
+
+    /**
+     * @Author Eric Chen
+     * Description: To create pull down to refresh.
+     * */
+    private void swipeRefresh()
+    {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_menu);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+    @Override
+    public void onRefresh() {
+        //Created to simulate loading.
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do stuff here.
+                randomizeYelpResponse();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        },100);
+    }
 
 }

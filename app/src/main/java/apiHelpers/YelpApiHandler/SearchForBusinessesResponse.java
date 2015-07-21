@@ -1,4 +1,4 @@
-package apiHelpers.YelpApiHandler.YelpData;
+package apiHelpers.YelpApiHandler;
 import java.util.List;
 
 
@@ -13,9 +13,8 @@ public class SearchForBusinessesResponse {
         public List<Business> businesses;
         public Region region;
         public int total;
-    }
 
-    class Business {
+    public class Business {
         public String display_phone;
         public String id;
         public String image_url;
@@ -41,7 +40,7 @@ public class SearchForBusinessesResponse {
         public Location location;
     }
 
-    class Deal {
+    public class Deal {
         public String additional_restrictions;
         public String currency_code;
         public String id;
@@ -57,7 +56,7 @@ public class SearchForBusinessesResponse {
         public List<Option> options;
     }
 
-    class Option
+    public class Option
     {
         public String formatted_original_price;
         public String formatted_price;
@@ -71,7 +70,7 @@ public class SearchForBusinessesResponse {
 
     }
 
-    class Location
+    public class Location
     {
         public List<String> address;
         public String city;
@@ -84,25 +83,34 @@ public class SearchForBusinessesResponse {
 
     }
 
-    class Coordinate
+    public class Coordinate
     {
-        double latitude;
-        double longitude;
+       public double latitude;
+        public double longitude;
     }
 
-    class Region {
+    public class Region {
         public Center center;
         public Span span;
     }
 
-    class Center
+    public class Center
     {
         public double latitude;
         public double longitude;
     }
 
-    class Span
+    public class Span
     {
         public double latitude_delta;
         public double longitude_delta;
     }
+}
+
+
+
+
+
+
+
+

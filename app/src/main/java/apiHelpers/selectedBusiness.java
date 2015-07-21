@@ -1,16 +1,16 @@
-package apiHelpers.YelpApiHandler.YelpData;
+package apiHelpers;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.Random;
 
-import apiHelpers.Untappd.UntappdHandler;
+import ApiManagers.UntappdFeedManager;
+import apiHelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
  * Created by Allen Space on 6/22/2015.
  */
-public class Randomizer {
+public class SelectedBusiness {
 
     /**
      * Data Fields
@@ -20,7 +20,7 @@ public class Randomizer {
     private static String mFindString;
     private static final String TAG = "YelpData";
     private static SearchForBusinessesResponse mBusinessResponse;
-    private static UntappdHandler mUntappdHandler;
+    private static UntappdFeedManager untappdFeedManager;
 
     /**Single Restuarant Data*/
     public static String mRestName;
@@ -42,23 +42,21 @@ public class Randomizer {
     /**
      * @author Allen Space
      */
-    public Randomizer() {
-        mRandom = new Random();
+    public SelectedBusiness() {
+
     }
 
-    public Randomizer(SearchForBusinessesResponse pBusinessResponse, Context pContext)
+    public SelectedBusiness(SearchForBusinessesResponse pBusinessResponse, Context pContext)
     {
-        this.mRandom = new Random();
 
         this.mBusinessResponse = pBusinessResponse;
 
         this.mRestName = mBusinessResponse.businesses.get(0).name;
         this.mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
-        //Unfuck this later.
+
         this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
 
-        this.mUntappdHandler.getInstance().populateUntappdFeed(this.mRestLatitude, this.mRestLonigtude, pContext);
     }
 
 
@@ -66,14 +64,14 @@ public class Randomizer {
      * @author Allen Space
      */
     public static void setmReturnString(String mReturnString) {
-        Randomizer.mReturnString = mReturnString;
+        SelectedBusiness.mReturnString = mReturnString;
     }
 
     /**
      * @author Allen Space
      */
     public static void setmFindString(String mFindString) {
-        Randomizer.mFindString = mFindString;
+        SelectedBusiness.mFindString = mFindString;
     }
 
     /**
@@ -98,6 +96,37 @@ public class Randomizer {
     public String getBusinessName(int pIndex)
     {
         return this.mBusinessResponse.businesses.get(pIndex).name;
+    }
+    /**
+     * @author Allen Space
+     * */
+    public String getmRestAddress()
+    {
+        return this.mRestAddress;
+    }
+    /**
+     * @author Allen Space
+     *
+     * */
+    public double getRestLatitude()
+    {
+        return this.mRestLatitude;
+    }
+
+    /**
+     * @author Allen Space
+     * */
+    public double getRestLongitdude()
+    {
+        return this.mRestLonigtude;
+    }
+
+    /**
+     * @author Allen Space
+     * */
+    public String getmRestName()
+    {
+        return this.mRestName;
     }
 
 }

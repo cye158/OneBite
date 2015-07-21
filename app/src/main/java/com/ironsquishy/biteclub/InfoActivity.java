@@ -2,36 +2,37 @@ package com.ironsquishy.biteclub;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.TextView;
+
+import ApiManagers.UntappdFeedManager;
+import apiHelpers.SelectedBusiness;
 
 public class InfoActivity extends AppCompatActivity {
+
+    private static UntappdFeedManager untappdData;
+    private static SelectedBusiness SelectedBusiness;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_info, menu);
-        return true;
-    }
+    protected void onStart() {
+        super.onStart();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        TextView untappdFeed = (TextView) findViewById(R.id.UntappdText);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        untappdData = new UntappdFeedManager();
+
+        for(int i = 0; i < untappdData.getItemSize(); i++)
+        {
+            untappdFeed.append(untappdData.getShortDescription(i));
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
 }

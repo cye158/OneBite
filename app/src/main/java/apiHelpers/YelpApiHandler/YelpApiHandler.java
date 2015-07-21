@@ -10,7 +10,7 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 
-import APIKeys.AuthKeys;
+import AuthKeys.YelpAuthKeys;
 
 /**
  * class that calls the YelpAPI
@@ -30,10 +30,10 @@ public class YelpApiHandler {
      */
 
 
-    private static final String CONSUMER_KEY = AuthKeys._CONSUMER_KEY;
-    private static final String CONSUMER_SECRET = AuthKeys._CONSUMER_SECRET;
-    private static final String TOKEN = AuthKeys._TOKEN;
-    private static final String TOKEN_SECRET = AuthKeys._TOKEN_SECRET;
+    private static final String CONSUMER_KEY = YelpAuthKeys._CONSUMER_KEY;
+    private static final String CONSUMER_SECRET = YelpAuthKeys._CONSUMER_SECRET;
+    private static final String TOKEN = YelpAuthKeys._TOKEN;
+    private static final String TOKEN_SECRET = YelpAuthKeys._TOKEN_SECRET;
 
     OAuthService service;
     Token accessToken;
@@ -68,6 +68,7 @@ public class YelpApiHandler {
         request.addQuerystringParameter("term", term);
         request.addQuerystringParameter("location", location);
         request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
+        //System.out.println("Querying " + request.getCompleteUrl());
         return sendRequestAndGetResponse(request);
     }
 
@@ -91,6 +92,7 @@ public class YelpApiHandler {
      */
     private OAuthRequest createOAuthRequest(String path) {
         OAuthRequest request = new OAuthRequest(Verb.GET, "http://" + API_HOST + path);
+        System.out.println("Querying " + request.getCompleteUrl());
         return request;
     }
 
@@ -101,7 +103,7 @@ public class YelpApiHandler {
      * @return <tt>String</tt> body of API response
      */
     private String sendRequestAndGetResponse(OAuthRequest request) {
-        System.out.println("Querying " + request.getCompleteUrl() + " ...");
+
         this.service.signRequest(this.accessToken, request);
         Response response = request.send();
         return response.getBody();
@@ -123,7 +125,7 @@ public class YelpApiHandler {
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
 
-                    _staticYelpObj = new YelpApiHandler(AuthKeys._CONSUMER_KEY, AuthKeys._CONSUMER_SECRET, AuthKeys._TOKEN, AuthKeys._TOKEN_SECRET);
+                    _staticYelpObj = new YelpApiHandler(YelpAuthKeys._CONSUMER_KEY, YelpAuthKeys._CONSUMER_SECRET, YelpAuthKeys._TOKEN, YelpAuthKeys._TOKEN_SECRET);
                 }
             }
         }

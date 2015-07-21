@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import Callbacks.BusinessResponseRunnable;
-import apiHelpers.LocationHandler;
-import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
+import ApiManagers.LocationHandler;
 
 /**
  * Created by Eric on 7/8/2015.
@@ -44,16 +42,8 @@ public class TransportationActivity extends FragmentActivity {
 //        else if{
 //        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
-        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
-            @Override
-            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
 
-            }
-        };
-        /*
-        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
-        yelpAsync.execute("500",null, "San Francisco");
-        */
+
         startActivity(intent);
     }
 
@@ -67,16 +57,7 @@ public class TransportationActivity extends FragmentActivity {
 //        else if{
 //        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
-        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
-            @Override
-            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
 
-            }
-        };
-        /*
-        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
-        yelpAsync.execute("500",null, "San Francisco");
-        */
         startActivity(intent);
     }
 
@@ -90,16 +71,7 @@ public class TransportationActivity extends FragmentActivity {
 //        else if{
 //        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
-        BusinessResponseRunnable businessResponseRunnable = new BusinessResponseRunnable() {
-            @Override
-            public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse) {
 
-            }
-        };
-        /*
-        YelpAsync yelpAsync = new YelpAsync(businessResponseRunnable); //"500", "San Francisco");
-        yelpAsync.execute("500",null, "San Francisco");
-        */
         startActivity(intent);
     }
 }

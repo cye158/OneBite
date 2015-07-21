@@ -1,30 +1,26 @@
 package com.ironsquishy.biteclub;
 
-import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
-import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import apiHelpers.LocationHandler;
-import apiHelpers.YelpApiHandler.YelpData.Randomizer;
+import ApiManagers.LocationHandler;
+import apiHelpers.googleapis.MarkerMapFactory;
 
 /**
  * Created by Allen Space on 6/24/2015.
@@ -39,6 +35,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static double mLongitude = LONGITUDE;
     private static double mLatitude = LATITUDE;
     private static LocationHandler mLocation;
+
+    private static Context mContext;
+
+    private static MarkerMapFactory markerMapFactory;
 
     private static final String TAG = "LOCATION";
 
@@ -55,6 +55,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView = (MapView) view.findViewById(R.id.mapView);
 
         mapView.onCreate(savedInstanceState);
+
+        mContext = mapView.getContext();
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -105,89 +107,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * @author Allen Space
-     * Description: Set the latitude and longitude variables to current device location.
-     * */
-    private void useClientLocation()
-    {
-        mLatitude = LocationHandler.getmLatitude();
-        mLongitude = LocationHandler.getmLongitude();
-    }
-
-    /**
-     * @author Allen Space
-     * Description: Sets a marker on markers postion making Rose color.
-     * */
-    private void markClient(GoogleMap pGoogleMap)
-    {
-        MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng(LocationHandler.getmLatitude(), LocationHandler.getmLongitude()))
-                .anchor(1,1)
-                .title("Your Position!")
-                .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
-
-        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-
-        pGoogleMap.addMarker(marker);
-    }
-
-    /**
-     * @author Allen Space
      * Description: Moves the postion of the camera view to clients marker.
      * */
     private void moveCameraToClient(GoogleMap pGoogleMap)
     {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(LocationHandler.getmLatitude(), LocationHandler.getmLongitude()))
-                .zoom(12)
+                .zoom(13)
                 .build();
 
         pGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    /**
-     * @author Allen Space
-     * @param pNewLat Double value passed for latitude.
-     * @param pNewLong Double value passed or longitude.
-     * Description: Use to add adition makers based on latitude and longitude values.
-     */
-    public void addRestMark(GoogleMap pGoogleMap, String pName, String pAddress, Double pNewLat, Double pNewLong)
-    {
-        MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng( pNewLat, pNewLong))
-                .snippet(pAddress)
-                .title(pName);
-
-        marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
-        pGoogleMap.addMarker(marker);
-    }
 
     /**
      * @author Allen Space
-     * Description: Checks for change in Latitude and Longitude.
+     * Description: On Map ready callback, override method is called to populate or move camera.
      * */
-    private boolean isCurrentLocation()
-    {
-        if(mLatitude != LATITUDE && mLongitude != LONGITUDE)
-        {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         Log.i(TAG, "Building Map.");
 
-        Randomizer randomizer = new Randomizer();
+        populateGoogleMaps(googleMap, mContext);
 
-        addRestMark(googleMap, randomizer.mRestName, randomizer.mRestAddress, randomizer.mRestLatitude, randomizer.mRestLonigtude);
-
-        markClient(googleMap);
-        moveCameraToClient(googleMap);
-        addFakeMarkers(googleMap);
     }
 
     /**
@@ -209,16 +152,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * @author Guan
-     * Description: Add fake markers to map for Demo purpuse
-     *              remove this when connected to history database
-     */
-    private void addFakeMarkers(GoogleMap googleMap) {
-        addLocationToMap(googleMap,new LatLng(37.774772, -122.41993), "Zuni Cafe");
-        addLocationToMap(googleMap,new LatLng(37.726821, -122.475523), "McDonald's");
-        addLocationToMap(googleMap, new LatLng(37.723984, -122.48512), "The Village Market And Pizza");
-        addLocationToMap(googleMap, new LatLng(37.717657, -122.473893), "Hall of Flame Burger");
-        addLocationToMap(googleMap, new LatLng(37.723541, -122.45455), "Pho Ha Tien");
-        addLocationToMap(googleMap, new LatLng(37.672926, -122.466196), "Round Table Pizza");
+     * @author Allen Space
+     * */
+    private void populateGoogleMaps(GoogleMap pGoogleMap, Context pContext)
+    {
+        markerMapFactory = new MarkerMapFactory(pGoogleMap);
+
+        moveCameraToClient(pGoogleMap);
+
+        Marker  restMark = markerMapFactory.createResultMarker();
+
+        //Client Marker.
+        Marker marker = markerMapFactory.createClientMarker();
+
+        //Untappd marker generated.
+        markerMapFactory.createUntappdMarkers(pContext);
+
+        //addFakeMarkers(pGoogleMap);
     }
 }
