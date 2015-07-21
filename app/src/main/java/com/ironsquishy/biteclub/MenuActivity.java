@@ -1,30 +1,25 @@
 package com.ironsquishy.biteclub;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import Callbacks.SelectedBusinessRunnable;
-import ApiManagers.NetworkRequestManager;
 import ApiHelpers.SelectedBusiness;
+import ApiManagers.NetworkRequestManager;
+import Callbacks.SelectedBusinessRunnable;
 
 
 /**
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     /**Data Fields*/
     private static SelectedBusiness mSelectedBusiness;
@@ -32,13 +27,10 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
 
-    private AlertDialog.Builder filterDialog;
-    private String inputFilter = "\n Filtered: ";
-
     /**
      * @Author Allen Space
      * Description: To create the menu activity.
-     * */
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +58,9 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Called when the user clicks the Search button - Eric */
     /* Being revised by Renz*/
-    public void toSearch(View view) {
-        filterOption();
-        AlertDialog alert = filterDialog.create();
-        alert.show();
-
-        //Intent intent = new Intent(this, SearchActivity.class);
-        //startActivity(intent);
+    public void toFilter(View view) {
+        FilterOption dialog = new FilterOption();
+        dialog.show(getFragmentManager(), "Filter Dialog Box");
     }
 
     /**
@@ -84,56 +72,6 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
         super.onStart();
 
     }
-    
-
-    /**
-     * @author Renz
-     * Desciption: Private method that pops an dialog box to let user check the filter
-     *             to be used for next randomzed result.
-     * */
-    private void filterOption(){
-
-        //Variables and list of the filter option
-        final ArrayList arrayFilter = new ArrayList();
-        filterDialog = new AlertDialog.Builder(this);
-        final String[] strFilters = { "American", "Asian", "Chinese", "Filipino", "Italian", "Japanese",
-                "Korean", "Vietnamese", "Thai", "Vegetarian" };
-
-        //Process and filters are saved in array.
-        String filterTitle = "\nFilters added:\n";
-        filterDialog.setTitle("Filter Catergories");
-        filterDialog.setMultiChoiceItems(strFilters, null, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (isChecked) {
-                    arrayFilter.add(which);
-                } else if (arrayFilter.contains(which)) {
-                    arrayFilter.remove(Integer.valueOf(which));
-                }
-            }
-        });
-
-        filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < arrayFilter.size(); i++) {
-                    if(i == arrayFilter.size())
-                        inputFilter += strFilters[(Integer) arrayFilter.get(i)];
-                    else
-                        inputFilter += strFilters[(Integer) arrayFilter.get(i)] + ", ";
-                }
-                Toast.makeText(getApplicationContext(), inputFilter, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        filterDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "Filters have been cancelled", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
 
     private void randomizeYelpResponse()
     {
