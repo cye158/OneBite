@@ -26,7 +26,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".MapActivity" >
-
             <!-- android:label="@string/title_activity_map" > -->
         </activity>
         <activity
@@ -67,7 +66,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
+                android:value=".MenuActivity" />
         </activity>
         <activity
             android:name=".InfoActivity"
@@ -76,10 +75,10 @@
             android:parentActivityName=".MenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ironsquishy.biteclub.MenuActivity" />
+                android:value=".MenuActivity" />
         </activity>
 
-        <service android:name="ApiHelpers.googleapis.FetchLocationAddress" />
+        <service android:name="apihelpers.googleapis.FetchLocationAddress" />
 
         <activity
             android:name=".UntappdList"

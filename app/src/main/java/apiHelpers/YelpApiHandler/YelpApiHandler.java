@@ -1,4 +1,4 @@
-package ApiHelpers.YelpApiHandler;
+package apihelpers.YelpApiHandler;
 
 
 import android.os.StrictMode;

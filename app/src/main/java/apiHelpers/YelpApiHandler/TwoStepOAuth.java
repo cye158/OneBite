@@ -1,4 +1,4 @@
-package ApiHelpers.YelpApiHandler;
+package apihelpers.YelpApiHandler;
 
 //import
 import org.scribe.builder.api.DefaultApi10a;

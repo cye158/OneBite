@@ -4,9 +4,9 @@ import android.content.Context;
 
 import java.util.List;
 
-import ApiHelpers.SQLiteHandler.DBHandler;
-import ApiHelpers.SQLiteHandler.VisitedPlace;
-import ApiHelpers.SelectedBusiness;
+import apihelpers.SQLiteHandler.DBHandler;
+import apihelpers.SQLiteHandler.VisitedPlace;
+import apihelpers.SelectedBusiness;
 
 /**
  * Created by Allen Space on 7/20/2015.

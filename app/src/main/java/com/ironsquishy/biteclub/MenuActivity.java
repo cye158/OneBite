@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import ApiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 import ApiManagers.NetworkRequestManager;
 import Callbacks.SelectedBusinessRunnable;
 

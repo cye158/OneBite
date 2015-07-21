@@ -1,4 +1,4 @@
-package ApiHelpers.SQLiteHandler;
+package apihelpers.SQLiteHandler;
 
 /**
  * Created by Guan, Allen on 7/12/2015.

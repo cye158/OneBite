@@ -1,16 +1,16 @@
-package ApiHelpers.googleapis;
+package apihelpers.googleapis;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import ApiManagers.LocationHandler;
 
 /**
@@ -19,7 +19,7 @@ import ApiManagers.LocationHandler;
 public class FetchLocationAddress extends IntentService{
 
     //For log cat.
-    private static final String TAG = "ApiHelpers";
+    private static final String TAG = "apihelpers";
 
     /**
      * @author Allen Space
@@ -92,7 +92,6 @@ public class FetchLocationAddress extends IntentService{
         List<Address> addresses = null;
 
         //TODO Increase error handling integrity.
-        while(geocoder.isPresent()) {
             try {
                 //Grab Device address through longitude and latitude.
                 addresses = geocoder.getFromLocation(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), 1);
@@ -120,8 +119,6 @@ public class FetchLocationAddress extends IntentService{
             LocationHandler.streetAddress = addressFragments.get(0);
             LocationHandler.cityAddress = addressFragments.get(1);
 
-            SystemClock.sleep(5000);
-        }
 
     }
 

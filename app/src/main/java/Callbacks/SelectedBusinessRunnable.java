@@ -1,6 +1,6 @@
 package Callbacks;
 
-import ApiHelpers.SelectedBusiness;
+import apihelpers.SelectedBusiness;
 
 /**
  * Created by Allen Space on 7/12/2015.
