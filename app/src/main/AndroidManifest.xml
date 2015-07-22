@@ -59,10 +59,11 @@
             android:label="@string/title_activity_location_check" >
         </activity>
 
-        <activity
+        <!--*Does not work so prolly should be removed soon*
+            activity
             android:name=".InputLocationActivity"
             android:label="@string/title_activity_current_location" >
-        </activity>
+        </activity-->
         <activity
             android:name=".NaviActivity"
             android:label="@string/title_activity_navi"
