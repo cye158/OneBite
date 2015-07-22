@@ -50,16 +50,6 @@ public class UntappdList extends ActionBarActivity {
 
     }
 
-
-    /** Called when the user clicks the Navigate button - Eric*/
-    public void toNavigation(View view) {
-        //TODO: Implement navigation mode button and remove toast package.
-       Toast.makeText(getApplicationContext(), "This should start navigation.",
-                Toast.LENGTH_LONG).show();
-    }
-
-
-
     private void refreshFeed()
     {
         final ProgressDialog progressDialog = new ProgressDialog(this);
