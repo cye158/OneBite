@@ -107,8 +107,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    }
-
     /**
      * @author Allen Space
      * Description: ReShuffles the yelp data.

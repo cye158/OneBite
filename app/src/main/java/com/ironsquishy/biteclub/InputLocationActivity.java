@@ -13,7 +13,7 @@ import android.widget.Toast;
  * Created by Renz on 7/2/2015.
  * @author Renz
  * Description: Prompts the user for an address location. The input is then pass to the
- *              location handler to get the lcoation. *Current is in the works*
+ *              location handler to get the lcoation. <CURRENTLY IN THE WORKS>
  **/
 public class InputLocationActivity extends DialogFragment implements View.OnClickListener {
 
