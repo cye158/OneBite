@@ -238,22 +238,25 @@ public class NetworkRequestManager {
 
     public static void getYelpSingleImage(final ImageViewRunnable imageViewRunnable, String URL, Context pContext)
     {
+        Log.i(YELP, "Trying to retrive the image url @ " + URL);
 
         final ImageView imageView = null;
 
         ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
 
-                imageViewRunnable.runWithImageView(imageView);
+                Log.i(YELP, "Responded with image");
+
+                imageViewRunnable.runWithImageView(bitmap);
             }
         }, 0, 0, null, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "Could not load image.");
-                imageView.setImageResource(R.drawable.pac_man_01);
+                Log.i(YELP, "Could not get image.");
 
-                imageViewRunnable.runWithImageView(imageView);
+                Bitmap bitmap = null;
+
+                imageViewRunnable.runWithImageView(bitmap);
             }
         });
 

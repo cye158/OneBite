@@ -1,16 +1,24 @@
 package com.ironsquishy.biteclub;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Network;
+import com.android.volley.toolbox.NetworkImageView;
+
 import ApiManagers.DatabaseManager;
+import ApiManagers.NetworkRequestManager;
+import Callbacks.ImageViewRunnable;
 import apihelpers.SelectedBusiness;
 
 
@@ -27,7 +35,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static SwipeRefreshLayout swipeRefreshLayout;
 
     private static TextView addToData;
+    private static ImageView mYelpImage;
+
     private static DatabaseManager mDatabaseManager;
+
+    private static Context mContext;
 
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
@@ -40,8 +52,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        mContext = this;
+
         mResultText = (TextView) findViewById(R.id.resultText);
 
+        mYelpImage = (ImageView) findViewById(R.id.YelpImage);
 
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
@@ -68,13 +83,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         startActivity(intent);
     }
 
-    /** Called when the user clicks the Information button - Eric */
-    public void toInfo(View view) {
-        //Untappd List.
-        Intent intent = new Intent(this, UntappdList.class);
-        startActivity(intent);
 
-    }
 
     /** Called when the user clicks the Search button - Eric */
     /** Revised by Renz */
@@ -91,6 +100,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -99,6 +109,21 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 mRandomStringName = mSelectedBusiness.getmRestName();
 
                 mResultText.setText(mRandomStringName);
+
+                ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
+                    @Override
+                    public void runWithImageView(Bitmap bitmap) {
+                        if(bitmap == null){
+
+                            mYelpImage.setImageResource(R.drawable.placeholder_yelp);
+
+                        }else {
+                            mYelpImage.setImageBitmap(bitmap);
+                        }
+                    }
+                };
+
+                NetworkRequestManager.getInstance().getYelpSingleImage(imageViewRunnable, mSelectedBusiness.getRestImageURL(), mContext);
             }
         }, 1000);
 
@@ -118,6 +143,21 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRandomStringName = mSelectedBusiness.getmRestName();
 
         mResultText.setText(mRandomStringName);
+
+        ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
+            @Override
+            public void runWithImageView(Bitmap bitmap) {
+                if(bitmap == null){
+
+                    mYelpImage.setImageResource(R.drawable.placeholder_yelp);
+
+                }else {
+                    mYelpImage.setImageBitmap(bitmap);
+                }
+            }
+        };
+
+        NetworkRequestManager.getInstance().getYelpSingleImage(imageViewRunnable, mSelectedBusiness.getRestImageURL(), mContext);
     }
 
 

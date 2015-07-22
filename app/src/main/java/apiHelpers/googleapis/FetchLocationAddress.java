@@ -56,6 +56,7 @@ public class FetchLocationAddress extends IntentService{
 
         String addressStr = intent.getStringExtra("address");
 
+
         if(addressStr != null)
         {
             fetchByAdress(addressStr);
@@ -82,6 +83,8 @@ public class FetchLocationAddress extends IntentService{
 
     private void fetchByAdress(String pAddress)
     {
+        Log.i(TAG, "Fetch by address.");
+
         Geocoder geocoder = new Geocoder(this, Locale.US);
 
         List<Address> addresses = null;
