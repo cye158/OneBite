@@ -156,7 +156,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * */
     private void populateGoogleMaps(GoogleMap pGoogleMap, Context pContext)
     {
-        markerMapFactory = new MarkerMapFactory(pGoogleMap);
+        markerMapFactory = new MarkerMapFactory(pGoogleMap, mContext);
 
         moveCameraToClient(pGoogleMap);
 
@@ -167,6 +167,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         //Untappd marker generated.
         markerMapFactory.createUntappdMarkers(pContext);
+
+        markerMapFactory.createHistoryMarkers();
 
         //addFakeMarkers(pGoogleMap);
     }
