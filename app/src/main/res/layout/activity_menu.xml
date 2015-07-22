@@ -113,7 +113,7 @@
                 android:layout_margin="16dp"
                 android:src="@drawable/navigation_fab"
                 android:onClick="toNavigation"
-                fab:fab_colorNormal="#ffd1652c"
+                fab:fab_colorNormal="#4B8DF9"
                 />
 
         </LinearLayout>
