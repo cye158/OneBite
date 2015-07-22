@@ -25,6 +25,8 @@ public class SelectedBusiness {
     private static Double mRestLatitude;
     private static Double mRestLonigtude;
 
+    private static String mDescription;
+
 
     //================================
     //***Constructors*****
@@ -55,6 +57,8 @@ public class SelectedBusiness {
 
         mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
+
+        mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
     }
 
 
@@ -63,14 +67,6 @@ public class SelectedBusiness {
         return mBusinessResponse.businesses.size();
     }
 
-    /**
-     * @author Allen Space
-     *Description: get Business name by index.
-     * */
-    public String getBusinessName(int pIndex)
-    {
-        return this.mBusinessResponse.businesses.get(pIndex).name;
-    }
     /**
      * @author Allen Space
      * */
@@ -103,6 +99,20 @@ public class SelectedBusiness {
         return this.mRestName;
     }
 
+    /***/
+    public String getLongDescriptionRest()
+    {
+        String str = "";
+
+        str = "Restuarant name: " + mRestName + "\n"
+               + "Restaurant address: " + mRestAddress + "\n"
+               + "Description: " + mDescription + "\n"
+               + "be Adventures!!!!!!!" + "\n";
+
+        return str;
+    }
+
+
     public void reShuffleBusinessList()
     {
         Collections.shuffle(mBusinessResponse.businesses, new Random(System.nanoTime()));
@@ -112,6 +122,7 @@ public class SelectedBusiness {
 
         mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
+        mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
     }
 
 }
