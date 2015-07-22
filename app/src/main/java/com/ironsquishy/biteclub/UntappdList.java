@@ -8,10 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.melnykov.fab.FloatingActionButton;
-
 
 import Callbacks.UntappdResultRunnable;
 import ApiManagers.NetworkRequestManager;
