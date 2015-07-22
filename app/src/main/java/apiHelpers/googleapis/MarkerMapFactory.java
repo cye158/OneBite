@@ -87,7 +87,7 @@ public class MarkerMapFactory {
         List<VisitedPlace> restaurants;
 
         if (!mDatabaseManager.isDatabaseEmpty()) {
-            restaurants = mDatabaseManager.getAllVistedPlaces();
+            restaurants = mDatabaseManager.getAllVisitedPlaces();
 
             for (int i = 0; i < restaurants.size(); i++) {
                 MarkerOptions markerOptions = new MarkerOptions();

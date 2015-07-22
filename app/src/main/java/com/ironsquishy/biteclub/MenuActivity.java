@@ -54,8 +54,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Check for favorite.**/
     public void checkFavAdd(View view)
     {
-        if(addToData.isChecked())
-        {
+        if(addToData.isChecked()) {
             //Add to result in text view to data.
             mDatabaseManager.addToDatabase(mRandomStringName);
 
