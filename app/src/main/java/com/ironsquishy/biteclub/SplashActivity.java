@@ -25,6 +25,13 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
+        //TODO Find an opitmize point to put LocationHandler instantiate
+        //Get started LocationHandler and start connection.
+        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
+        //Connect to google services.
+        LocationHandler.startConnect();
+
         orangePacMan = (ImageView)findViewById(R.id.pacMan);
         bigOrangePacMan = (ImageView)findViewById(R.id.bigPacMan);
         orangeWhole = (ImageView) findViewById(R.id.orangewhole);
@@ -133,11 +140,7 @@ public class SplashActivity extends Activity {
                     }
                     finally
                     {
-                        //TODO Find an opitmize point to put LocationHandler instantiate
-                        //Get started LocationHandler and start connection.
-                        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
-                        //Connect to google services.
-                        LocationHandler.startConnect();
+
                         Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
                         startActivity(i);
                         finish();

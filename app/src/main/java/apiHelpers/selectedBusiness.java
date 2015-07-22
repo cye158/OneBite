@@ -16,18 +16,14 @@ public class SelectedBusiness {
     /**
      * Data Fields
      */
-    private static Random mRandom;
-    private static String mReturnString;
-    private static String mFindString;
     private static final String TAG = "YelpData";
     private static SearchForBusinessesResponse mBusinessResponse;
-    private static UntappdFeedManager untappdFeedManager;
 
     /**Single Restuarant Data*/
-    public static String mRestName;
-    public static String mRestAddress;
-    public static Double mRestLatitude;
-    public static Double mRestLonigtude;
+    private static String mRestName;
+    private static String mRestAddress;
+    private static Double mRestLatitude;
+    private static Double mRestLonigtude;
 
 
     //================================
@@ -47,44 +43,20 @@ public class SelectedBusiness {
 
     }
 
-    public SelectedBusiness(SearchForBusinessesResponse pBusinessResponse, Context pContext)
+    public SelectedBusiness(SearchForBusinessesResponse pBusinessResponse)
     {
-        Collections.shuffle(pBusinessResponse.businesses, new Random(System.nanoTime()));
+        mBusinessResponse = pBusinessResponse;
 
-        this.mBusinessResponse = pBusinessResponse;
+        Collections.shuffle(mBusinessResponse.businesses, new Random(System.nanoTime()));
 
-        this.mRestName = mBusinessResponse.businesses.get(0).name;
-        this.mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
+        mRestName = mBusinessResponse.businesses.get(0).name;
 
-        this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
-        this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
+        mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
 
+        mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
+        mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
     }
 
-
-    /**
-     * @author Allen Space
-     */
-    public static void setmReturnString(String mReturnString) {
-        SelectedBusiness.mReturnString = mReturnString;
-    }
-
-    /**
-     * @author Allen Space
-     */
-    public static void setmFindString(String mFindString) {
-        SelectedBusiness.mFindString = mFindString;
-    }
-
-    /**
-     * @return A random string.
-     * @author Allen Space
-     */
-    public String getRandomString() {
-
-        return "Business name was null!";
-
-    }
 
     public int getBusinessListSize()
     {
@@ -135,11 +107,11 @@ public class SelectedBusiness {
     {
         Collections.shuffle(mBusinessResponse.businesses, new Random(System.nanoTime()));
 
-        this.mRestName = mBusinessResponse.businesses.get(0).name;
-        this.mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
+        mRestName = mBusinessResponse.businesses.get(0).name;
+        mRestAddress = mBusinessResponse.businesses.get(0).location.display_address.get(0);
 
-        this.mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
-        this.mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
+        mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
+        mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
     }
 
 }

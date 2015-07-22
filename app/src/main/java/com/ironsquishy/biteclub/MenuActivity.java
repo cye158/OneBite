@@ -48,12 +48,10 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         mDatabaseManager = new DatabaseManager(this);
 
-
-        mSelectedBusiness = new SelectedBusiness();
-
         swipeRefresh();
     }
 
+    /** Check for favorite.**/
     public void checkFavAdd(View view)
     {
         if(addToData.isChecked())
@@ -100,9 +98,16 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
-        mRandomStringName = mSelectedBusiness.getmRestName();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSelectedBusiness = new SelectedBusiness();
 
-        mResultText.setText(mRandomStringName);
+                mRandomStringName = mSelectedBusiness.getmRestName();
+
+                mResultText.setText(mRandomStringName);
+            }
+        }, 1000);
 
     }
 
@@ -124,6 +129,8 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
      **/
     private void randomizeYelpResponse()
     {
+        mSelectedBusiness = new SelectedBusiness();
+
         mSelectedBusiness.reShuffleBusinessList();
 
         mRandomStringName = mSelectedBusiness.getmRestName();
@@ -156,7 +163,7 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
                 addToData.setChecked(false);
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },100);
+        },1000);
     }
 
 }

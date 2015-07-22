@@ -65,7 +65,7 @@ public class TransportationActivity extends FragmentActivity {
             @Override
             public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
 
-                mSelectedBusiness = new SelectedBusiness(businessesResponse, getBaseContext());
+                mSelectedBusiness = new SelectedBusiness(businessesResponse);
 
 
                 progressDialog.dismiss();
@@ -108,8 +108,7 @@ public class TransportationActivity extends FragmentActivity {
             @Override
             public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
 
-                mSelectedBusiness = new SelectedBusiness(businessesResponse, getBaseContext());
-
+                mSelectedBusiness = new SelectedBusiness(businessesResponse);
 
                 progressDialog.dismiss();
 
@@ -149,7 +148,7 @@ public class TransportationActivity extends FragmentActivity {
             @Override
             public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
 
-                mSelectedBusiness = new SelectedBusiness(businessesResponse, getBaseContext());
+                mSelectedBusiness = new SelectedBusiness(businessesResponse);
 
                 progressDialog.dismiss();
 

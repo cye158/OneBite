@@ -30,9 +30,10 @@ public class MarkerMapFactory {
      *@param pGoogleMap GoogleMap java object.
      *Description: Main class constructor
      * */
-    public MarkerMapFactory(GoogleMap pGoogleMap)
+    public MarkerMapFactory(GoogleMap pGoogleMap, Context pContext)
     {
-        this.mGoogleMap =  pGoogleMap;
+        mGoogleMap =  pGoogleMap;
+        mDatabaseManager =  new DatabaseManager(pContext);
     }
 
     /**
@@ -79,9 +80,9 @@ public class MarkerMapFactory {
 
     /**
      * @author: Guan
-     * @return A list of Marker objects
+     * Description: Good job Gaun
      */
-    public List<Marker> createHistoryMarkers()
+    public void createHistoryMarkers()
     {
         List<VisitedPlace> restaurants;
 
@@ -95,11 +96,9 @@ public class MarkerMapFactory {
                 markerOptions.snippet("Visited " + restaurants.get(i).get_date());
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 
-                mGoogleMap.addMarker(markerOptions);
+                Marker marker = mGoogleMap.addMarker(markerOptions);
             }
         }
-
-        return null;
     }
 
     public void createUntappdMarkers(Context context)
