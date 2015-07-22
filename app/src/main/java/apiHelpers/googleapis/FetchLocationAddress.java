@@ -52,16 +52,17 @@ public class FetchLocationAddress extends IntentService{
     @Override
     protected void onHandleIntent(Intent intent) {
 
-
-
-
         Log.i(TAG, "Service started.");
 
+        String addressStr = intent.getStringExtra("address");
 
-
-        Log.i(TAG, "Beginning Bridge to Google. ");
-
-        fetchByDevice();
+        if(addressStr != null)
+        {
+            fetchByAdress(addressStr);
+        }else
+        {
+            fetchByDevice();
+        }
 
         Log.i(TAG, "Done extracting info soon will destroy self. ");
 
@@ -79,8 +80,27 @@ public class FetchLocationAddress extends IntentService{
 
     }
 
-    private void fetchByAdress()
+    private void fetchByAdress(String pAddress)
     {
+        Geocoder geocoder = new Geocoder(this, Locale.US);
+
+        List<Address> addresses = null;
+
+        try {
+            addresses = geocoder.getFromLocationName(pAddress,1);
+        } catch (IOException e) {
+            Log.i(TAG, "Could not get points.");
+            e.printStackTrace();
+        }
+
+        //Needs condition to handle either getting device address or other ways
+
+        //Set the first Address list to a address object..
+        Address address = addresses.get(0);
+
+        //Sets Lat lng in LocationHandler
+        LocationHandler.setmLatitude(address.getLatitude());
+        LocationHandler.setmLongitude(address.getLongitude());
 
     }
 
@@ -90,6 +110,8 @@ public class FetchLocationAddress extends IntentService{
 
         //Use for Geo coder return.
         List<Address> addresses = null;
+
+        Log.i(TAG, "Beginning Bridge to Google. ");
 
         //TODO Increase error handling integrity.
             try {
