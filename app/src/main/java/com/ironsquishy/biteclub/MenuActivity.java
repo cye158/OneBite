@@ -21,7 +21,6 @@ import ApiManagers.NetworkRequestManager;
 import Callbacks.ImageViewRunnable;
 import apihelpers.SelectedBusiness;
 
-
 /**
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
@@ -44,6 +43,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
 
+    private static TextView mExtYelpInfo;
+
     /**
      * @Author Allen Space
      * Description: To create the menu activity.
@@ -63,6 +64,18 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mDatabaseManager = new DatabaseManager(this);
 
         swipeRefresh();
+
+        mSelectedBusiness = new SelectedBusiness();
+
+        mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
+    }
+
+    /** Called when the user clicks the Information button - Eric */
+    public void toInfo(View view) {
+        //Untappd List.
+        Intent intent = new Intent(this, UntappdList.class);
+        startActivity(intent);
+
     }
 
     /** Check for favorite.**/
@@ -75,12 +88,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         Toast.makeText(getApplicationContext(), "Added to favorites.",
                 Toast.LENGTH_SHORT).show();
 
-    }
-
-    /** Called when the user clicks MORE INFO TextView - Eric */
-    public void toInfo(View view) {
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
     }
 
     /** Called when the user clicks the floating action button - Eric */
@@ -114,14 +121,16 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                 mResultText.setText(mRandomStringName);
 
+                mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
+
                 ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
                     @Override
                     public void runWithImageView(Bitmap bitmap) {
-                        if(bitmap == null){
+                        if (bitmap == null) {
 
                             mYelpImage.setImageResource(R.drawable.placeholder_yelp);
 
-                        }else {
+                        } else {
                             mYelpImage.setImageBitmap(bitmap);
                         }
                     }
@@ -147,6 +156,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRandomStringName = mSelectedBusiness.getmRestName();
 
         mResultText.setText(mRandomStringName);
+
+        mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
         ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
             @Override
