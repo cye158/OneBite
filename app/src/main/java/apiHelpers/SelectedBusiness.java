@@ -27,6 +27,8 @@ public class SelectedBusiness {
 
     private static String mDescription;
 
+    private static String mRestMobileImage;
+
 
     //================================
     //***Constructors*****
@@ -59,6 +61,9 @@ public class SelectedBusiness {
         mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
 
         mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
+
+        mRestMobileImage =   mBusinessResponse.businesses.get(0).mobile_url;
+
     }
 
 
@@ -99,6 +104,11 @@ public class SelectedBusiness {
         return this.mRestName;
     }
 
+    public String getRestImageURL()
+    {
+        return mRestMobileImage;
+    }
+
     /***/
     public String getLongDescriptionRest()
     {
@@ -123,6 +133,7 @@ public class SelectedBusiness {
         mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
         mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
+        mRestMobileImage =   mBusinessResponse.businesses.get(0).mobile_url;
     }
 
 }
