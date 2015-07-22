@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 /**
  * @author Allen Space
@@ -29,6 +31,13 @@ public class MapActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    /** Called when the user clicks the Navigate button - Eric*/
+    public void toNavigation(View view) {
+        //TODO: Implement navigation mode button and remove toast package.
+        Toast.makeText(getApplicationContext(), "This should start navigation.",
+                Toast.LENGTH_LONG).show();
     }
 
     /**
