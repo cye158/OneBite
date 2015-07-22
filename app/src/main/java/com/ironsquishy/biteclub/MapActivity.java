@@ -33,13 +33,6 @@ public class MapActivity extends ActionBarActivity {
         super.onStart();
     }
 
-    /** Called when the user clicks the Navigate button - Eric*/
-    public void toNavigation(View view) {
-        //TODO: Implement navigation mode button and remove toast package.
-        Toast.makeText(getApplicationContext(), "This should start navigation.",
-                Toast.LENGTH_LONG).show();
-    }
-
     /**
      * @author Allen Space
      * Desciption: Private method that adds a fragment to the this activity.
