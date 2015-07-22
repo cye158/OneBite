@@ -84,13 +84,13 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      * */
     public  void setGoogleApiConnection(Context pContext)
     {
-        mGoogleClient = new GoogleApiClient.Builder(pContext)
+        mGoogleClient = new GoogleApiClient.Builder(pContext.getApplicationContext())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
-        this.mContext = pContext;
+        this.mContext = pContext.getApplicationContext();
 
         Log.i(TAG, "Set Google client object.");
     }
@@ -233,6 +233,17 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
         builder.create();
 
+    }
+
+
+    public void fetchByAdress(String pAddress, Context pContext)
+    {
+        mContext = pContext.getApplicationContext();
+
+        Intent intent = new Intent(mContext, FetchLocationAddress.class);
+        intent.putExtra("address", pAddress);
+
+        mContext.startService(intent);
     }
 }
 
