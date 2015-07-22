@@ -22,4 +22,22 @@
         android:layout_marginBottom="80dp"
         android:onClick="toMenuActivityCar"
         android:background="@drawable/button_shadow"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hey lazy ass want to drive?"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Vroom VROOM!!!"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/textView11"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
