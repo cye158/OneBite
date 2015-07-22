@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
 
-    private static RadioButton addToData;
+    private static TextView addToData;
     private static DatabaseManager mDatabaseManager;
 
     private AlertDialog.Builder filterDialog;
@@ -44,7 +43,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mResultText = (TextView) findViewById(R.id.resultText);
 
 
-        addToData = (RadioButton) findViewById(R.id.checkToAddFav);
+        addToData = (TextView) findViewById(R.id.checkToAddFav);
 
         mDatabaseManager = new DatabaseManager(this);
 
@@ -54,15 +53,13 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     /** Check for favorite.**/
     public void checkFavAdd(View view)
     {
-        if(addToData.isChecked())
-        {
-            //Add to result in text view to data.
-            mDatabaseManager.addToDatabase(mRandomStringName);
+        //Add to result in text view to data.
+        mDatabaseManager.addToDatabase(mRandomStringName);
 
-            Toast.makeText(getApplicationContext(), "Added to favorites.",
-                    Toast.LENGTH_SHORT).show();
+        //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
+        Toast.makeText(getApplicationContext(), "Added to favorites.",
+                Toast.LENGTH_SHORT).show();
 
-        }
     }
 
     /** Called when the user clicks the Go button - Eric */
@@ -145,7 +142,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void run() {
                 //Do stuff here.
                 randomizeYelpResponse();
-                addToData.setChecked(false);
                 swipeRefreshLayout.setRefreshing(false);
             }
         },1000);
