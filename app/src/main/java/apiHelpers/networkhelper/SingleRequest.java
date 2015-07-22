@@ -1,4 +1,4 @@
-package apihelpers.Untappd;
+package apihelpers.networkhelper;
 
 
 import android.content.Context;

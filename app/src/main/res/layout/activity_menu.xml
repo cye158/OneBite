@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_menu"
-    android:background="#4CAF50">
+    android:background="#ff4a784e">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Restaurant Result! "
                 android:id="@+id/textView9"
-                android:background="#4CAF50"
+                android:background="#ff4a784e"
                 android:textColor="#ffffff"
                 android:textSize="32dp"
                 android:layout_gravity="center_horizontal" />
@@ -34,7 +34,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:background="#4CAF50"
+                android:background="#ff4a784e"
                 android:textColor="#ffffff"
                 android:textSize="60sp"
                 android:gravity="center_horizontal"

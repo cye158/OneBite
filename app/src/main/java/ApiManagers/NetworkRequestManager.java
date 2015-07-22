@@ -1,26 +1,28 @@
 package ApiManagers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.ironsquishy.biteclub.R;
 
 import org.json.JSONObject;
 
-import java.util.Collections;
-import java.util.Random;
-
 import AuthKeys.UntappdAuthKeys;
 import AuthKeys.YelpAuthKeys;
+import Callbacks.ImageViewRunnable;
 import Callbacks.SelectedBusinessRunnable;
 import Callbacks.UntappdResultRunnable;
 import apihelpers.SelectedBusiness;
-import apihelpers.Untappd.SingleRequest;
+import apihelpers.networkhelper.SingleRequest;
 import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
 import oauth.signpost.OAuthConsumer;
@@ -100,6 +102,7 @@ public class NetworkRequestManager {
                         pUntappdRunnable.runWithRandomResult(mData);
 
                         Log.i(TAG, "Finished populated data exiting out.");
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -107,6 +110,7 @@ public class NetworkRequestManager {
                     public void onErrorResponse(VolleyError error) {
                         // TODO Handle error and prompt user.
                         Log.i("UNTAPPD", "Failed Response from untappd.");
+
                     }
                 });
 
@@ -232,5 +236,28 @@ public class NetworkRequestManager {
         return signedQuery;
     }
 
+    public static void getYelpSingleImage(final ImageViewRunnable imageViewRunnable, String URL, Context pContext)
+    {
+
+        final ImageView imageView = null;
+
+        ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+
+                imageViewRunnable.runWithImageView(imageView);
+            }
+        }, 0, 0, null, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "Could not load image.");
+                imageView.setImageResource(R.drawable.pac_man_01);
+
+                imageViewRunnable.runWithImageView(imageView);
+            }
+        });
+
+        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
+    }
 
 }

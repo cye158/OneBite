@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -19,7 +19,7 @@ import apihelpers.SelectedBusiness;
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     /**Data Fields*/
     private static SelectedBusiness mSelectedBusiness;
@@ -79,14 +79,10 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Called when the user clicks the Search button - Eric */
-    /* Being revised by Renz*/
+    /** Revised by Renz */
     public void toSearch(View view) {
-        filterOption();
-        AlertDialog alert = filterDialog.create();
-        alert.show();
-
-        //Intent intent = new Intent(this, SearchActivity.class);
-        //startActivity(intent);
+        FilterOption dialog = new FilterOption();
+        dialog.show(getFragmentManager(), "Filter Dialog Box");
     }
 
     /**
@@ -108,17 +104,6 @@ public class MenuActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
         }, 1000);
 
-    }
-
-
-    /**
-     * @author Renz
-     * Desciption: Private method that pops an dialog box to let user check the filter
-     *             to be used for next randomzed result.
-     * */
-    private void filterOption(){
-        FilterOption dialog = new FilterOption();
-        dialog.show(getFragmentManager(), "Filter Dialog Box");
     }
 
     /**
