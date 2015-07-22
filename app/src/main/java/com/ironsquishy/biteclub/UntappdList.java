@@ -77,9 +77,6 @@ public class UntappdList extends ActionBarActivity {
 
                 untappdListView.setAdapter(adapter);
 
-                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.attachToListView(untappdListView);
-
                 progressDialog.dismiss();
             }
         };
