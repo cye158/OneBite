@@ -77,17 +77,21 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    /** Called when the user clicks the Go button - Eric */
+    /** Called when the user clicks MORE INFO TextView - Eric */
+    public void toInfo(View view) {
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the floating action button - Eric */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
-
-
-    /** Called when the user clicks the Search button - Eric */
+    /** Called when the user clicks the Filter button - Eric */
     /** Revised by Renz */
-    public void toSearch(View view) {
+    public void toFilter(View view) {
         FilterOption dialog = new FilterOption();
         dialog.show(getFragmentManager(), "Filter Dialog Box");
     }

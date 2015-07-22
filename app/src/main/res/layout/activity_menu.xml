@@ -66,6 +66,21 @@
                         android:layout_marginBottom="15dp"
                         />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#14A984"
+                        android:textSize="15sp"
+                        android:layout_below="@id/resultText"
+                        android:layout_toRightOf="@id/checkToAddFav"
+                        android:textStyle="bold"
+                        android:text="MORE INFO"
+                        android:onClick="toInfo"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="15dp"/>
+
                     <com.melnykov.fab.FloatingActionButton
                         android:id="@+id/fab"
                         android:layout_width="wrap_content"
@@ -89,7 +104,7 @@
                 android:text="Filter"
                 android:id="@+id/filterButton"
                 android:background="@drawable/button_shadow"
-                android:onClick="toSearch"
+                android:onClick="toFilter"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
