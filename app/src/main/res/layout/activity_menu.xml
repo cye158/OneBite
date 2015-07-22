@@ -65,20 +65,19 @@
                         android:layout_marginBottom="15dp"
                         />
 
-                    <TextView
+                    <com.melnykov.fab.FloatingActionButton
+                        android:id="@+id/fab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#14A984"
-                        android:textSize="15sp"
-                        android:layout_below="@id/resultText"
-                        android:layout_toRightOf="@id/checkToAddFav"
-                        android:textStyle="bold"
-                        android:text="OPEN MAP"
+                        android:layout_gravity="bottom|right"
+                        android:src="@drawable/navigation_fab"
                         android:onClick="toNavi"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginBottom="15dp"/>
+                        fab:fab_colorNormal="#4B8DF9"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/placeholder_yelp_image_id"
+                        android:layout_marginTop="-25dp"
+                        android:layout_marginRight="16dp" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -105,17 +104,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_alignParentBottom="true"/>
-
-            <com.melnykov.fab.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="16dp"
-                android:src="@drawable/navigation_fab"
-                android:onClick="toNavigation"
-                fab:fab_colorNormal="#4B8DF9"
-                />
 
         </LinearLayout>
 
