@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.ironsquishy.biteclub.InfoActivity"
     android:onClick="toInfo"
-    android:background="#4CAF50">
+    android:background="#ff4a784e">
 
     <TextView
         android:layout_width="wrap_content"
