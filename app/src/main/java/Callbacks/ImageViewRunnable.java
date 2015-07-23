@@ -1,5 +1,6 @@
 package Callbacks;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 /**
@@ -12,5 +13,5 @@ abstract public class ImageViewRunnable implements Runnable {
 
     }
 
-    abstract public void runWithImageView(ImageView imageView);
+    abstract public void runWithImageView(Bitmap bitmap);
 }

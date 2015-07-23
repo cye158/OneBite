@@ -1,19 +1,25 @@
 package com.ironsquishy.biteclub;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ApiManagers.DatabaseManager;
-import apihelpers.SelectedBusiness;
+import com.android.volley.Network;
+import com.android.volley.toolbox.NetworkImageView;
 
+import ApiManagers.DatabaseManager;
+import ApiManagers.NetworkRequestManager;
+import Callbacks.ImageViewRunnable;
+import apihelpers.SelectedBusiness;
 
 /**
  * @author Allen Space
@@ -27,11 +33,17 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
 
-    private static RadioButton addToData;
+    private static TextView addToData;
+    private static ImageView mYelpImage;
+
     private static DatabaseManager mDatabaseManager;
+
+    private static Context mContext;
 
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
+
+    private static TextView mExtYelpInfo;
 
     /**
      * @Author Allen Space
@@ -41,33 +53,21 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        mContext = this;
+
         mResultText = (TextView) findViewById(R.id.resultText);
 
+        mYelpImage = (ImageView) findViewById(R.id.YelpImage);
 
-        addToData = (RadioButton) findViewById(R.id.checkToAddFav);
+        addToData = (TextView) findViewById(R.id.checkToAddFav);
 
         mDatabaseManager = new DatabaseManager(this);
 
         swipeRefresh();
-    }
 
-    /** Check for favorite.**/
-    public void checkFavAdd(View view)
-    {
-        if(addToData.isChecked()) {
-            //Add to result in text view to data.
-            mDatabaseManager.addToDatabase(mRandomStringName);
+        mSelectedBusiness = new SelectedBusiness();
 
-            Toast.makeText(getApplicationContext(), "Added to favorites.",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    /** Called when the user clicks the Go button - Eric */
-    public void toNavi(View view) {
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
+        mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
     }
 
     /** Called when the user clicks the Information button - Eric */
@@ -78,9 +78,27 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    /** Called when the user clicks the Search button - Eric */
+    /** Check for favorite.**/
+    public void checkFavAdd(View view)
+    {
+        //Add to result in text view to data.
+        mDatabaseManager.addToDatabase(mRandomStringName);
+
+        //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
+        Toast.makeText(getApplicationContext(), "Added to favorites.",
+                Toast.LENGTH_SHORT).show();
+
+    }
+
+    /** Called when the user clicks the floating action button - Eric */
+    public void toNavi(View view) {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the Filter button - Eric */
     /** Revised by Renz */
-    public void toSearch(View view) {
+    public void toFilter(View view) {
         FilterOption dialog = new FilterOption();
         dialog.show(getFragmentManager(), "Filter Dialog Box");
     }
@@ -93,6 +111,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -101,6 +120,23 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 mRandomStringName = mSelectedBusiness.getmRestName();
 
                 mResultText.setText(mRandomStringName);
+
+                mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
+
+                ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
+                    @Override
+                    public void runWithImageView(Bitmap bitmap) {
+                        if (bitmap == null) {
+
+                            mYelpImage.setImageResource(R.drawable.placeholder_yelp);
+
+                        } else {
+                            mYelpImage.setImageBitmap(bitmap);
+                        }
+                    }
+                };
+
+                NetworkRequestManager.getInstance().getYelpSingleImage(imageViewRunnable, mSelectedBusiness.getRestImageURL(), mContext);
             }
         }, 1000);
 
@@ -120,6 +156,23 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRandomStringName = mSelectedBusiness.getmRestName();
 
         mResultText.setText(mRandomStringName);
+
+        mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
+
+        ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
+            @Override
+            public void runWithImageView(Bitmap bitmap) {
+                if(bitmap == null){
+
+                    mYelpImage.setImageResource(R.drawable.placeholder_yelp);
+
+                }else {
+                    mYelpImage.setImageBitmap(bitmap);
+                }
+            }
+        };
+
+        NetworkRequestManager.getInstance().getYelpSingleImage(imageViewRunnable, mSelectedBusiness.getRestImageURL(), mContext);
     }
 
 
@@ -144,7 +197,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void run() {
                 //Do stuff here.
                 randomizeYelpResponse();
-                addToData.setChecked(false);
                 swipeRefreshLayout.setRefreshing(false);
             }
         },1000);

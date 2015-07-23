@@ -8,15 +8,25 @@
     android:onClick="toInfo"
     android:background="#ff4a784e">
 
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Untappd Feed"
+        android:id="@+id/button3"
+        android:background="@drawable/button_shadow"
+        android:onClick="toInfo"
+        android:clickable="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="137dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/UntappdText"
+        android:id="@+id/YelpInfo"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:singleLine="false"
-        android:nestedScrollingEnabled="true" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

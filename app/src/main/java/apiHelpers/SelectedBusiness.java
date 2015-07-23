@@ -62,7 +62,7 @@ public class SelectedBusiness {
 
         mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
 
-        mRestMobileImage =   mBusinessResponse.businesses.get(0).mobile_url;
+        mRestMobileImage =   mBusinessResponse.businesses.get(0).image_url;
 
     }
 
@@ -133,7 +133,7 @@ public class SelectedBusiness {
         mRestLatitude = mBusinessResponse.businesses.get(0).location.coordinate.latitude;
         mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
         mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
-        mRestMobileImage =   mBusinessResponse.businesses.get(0).mobile_url;
+        mRestMobileImage =   mBusinessResponse.businesses.get(0).image_url;
     }
 
 }

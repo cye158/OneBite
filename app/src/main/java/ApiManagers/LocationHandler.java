@@ -238,6 +238,8 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     public void fetchByAdress(String pAddress, Context pContext)
     {
+        Log.i(TAG, "Getting by address of: " + pAddress);
+
         mContext = pContext.getApplicationContext();
 
         Intent intent = new Intent(mContext, FetchLocationAddress.class);
