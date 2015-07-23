@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.android.volley.Network;
 import com.android.volley.toolbox.NetworkImageView;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import ApiManagers.DatabaseManager;
 import ApiManagers.NetworkRequestManager;
@@ -26,7 +29,7 @@ import apihelpers.SelectedBusiness;
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener  {
 
     /**Data Fields*/
     private static SelectedBusiness mSelectedBusiness;
@@ -43,6 +46,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
+
+    private ShowcaseView showcaseView;
+    private int count = 0;
+    private Target t1,t2,t3,t4,t5;
+
 
     /**
      * @Author Allen Space
@@ -63,6 +71,22 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mDatabaseManager = new DatabaseManager(this);
 
         swipeRefresh();
+
+        t1 = new ViewTarget(R.id.YelpImage, this);
+        t2 = new ViewTarget(R.id.resultText, this);
+        t3 = new ViewTarget(R.id.checkToAddFav, this);
+        t4 = new ViewTarget(R.id.fab, this);
+        t5 = new ViewTarget(R.id.filterButton, this);
+
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(t1)
+                .setOnClickListener(this)
+                .setContentTitle(R.string.Tutorial)
+                .setContentText(R.string.Result_Page)
+                .setStyle(R.style.TutorialShowcaseStyle)
+                .build();
+        showcaseView.setButtonText("NEXT");
+
     }
 
     /** Check for favorite.**/
@@ -113,11 +137,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
                     @Override
                     public void runWithImageView(Bitmap bitmap) {
-                        if(bitmap == null){
+                        if (bitmap == null) {
 
                             mYelpImage.setImageResource(R.drawable.placeholder_yelp);
 
-                        }else {
+                        } else {
                             mYelpImage.setImageBitmap(bitmap);
                         }
                     }
@@ -184,7 +208,47 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 randomizeYelpResponse();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },1000);
+        }, 1000);
+    }
+
+
+    /**
+     * @Author Edward Yao
+     * Description: Creates click to goto next tutorial target
+     * */
+    @Override
+    public void onClick(View v) {
+        switch (count){
+            case 0:
+                showcaseView.setShowcase(t2, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Restaurant_Result));
+                break;
+            case 1:
+                showcaseView.setShowcase(t3, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
+                break;
+            case 2:
+                showcaseView.setShowcase(t4, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Navigation));
+                break;
+            case 3:
+                showcaseView.setShowcase(t5, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Filter));
+                showcaseView.setButtonText(getString(R.string.Finish));
+                break;
+            case 4:
+                showcaseView.hide();
+                Toast.makeText(getApplicationContext(), "Now You Know EVERYTHING.",
+                        Toast.LENGTH_SHORT).show();
+
+                break;
+        }
+        count++;
+
     }
 
 }
