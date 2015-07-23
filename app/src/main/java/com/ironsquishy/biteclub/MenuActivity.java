@@ -50,7 +50,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private ShowcaseView showcaseView;
     private int count = 0;
     private Target t1,t2,t3,t4,t5,t6;
-
+    
+    private static TextView mExtYelpInfo;
 
     /**
      * @Author Allen Space
@@ -69,6 +70,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
         mDatabaseManager = new DatabaseManager(this);
+        
+        mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
         swipeRefresh();
 
@@ -134,6 +137,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 mRandomStringName = mSelectedBusiness.getmRestName();
 
                 mResultText.setText(mRandomStringName);
+                
+                mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
                 ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
                     @Override
@@ -168,6 +173,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRandomStringName = mSelectedBusiness.getmRestName();
 
         mResultText.setText(mRandomStringName);
+        
+        mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
         ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
             @Override
