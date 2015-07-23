@@ -35,7 +35,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="200dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
+                        android:scaleType="fitXY"
                         android:id="@+id/YelpImage" />
 
                     <TextView
