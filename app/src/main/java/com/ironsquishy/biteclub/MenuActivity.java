@@ -98,16 +98,19 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    /** Check for favorite.**/
+    /** Check for favorite. - Guan Editted by Eric**/
     public void checkFavAdd(View view)
     {
-        //Add to result in text view to data.
-        mDatabaseManager.addToDatabase(mRandomStringName);
-
-        //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
-        Toast.makeText(getApplicationContext(), "Added to favorites.",
-                Toast.LENGTH_SHORT).show();
-
+        if (mDatabaseManager.checkIfInDatabase(mRandomStringName)){
+            Toast.makeText(getApplicationContext(), "Already added to favorites!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else{
+            //Add to result in text view to data.
+            mDatabaseManager.addToDatabase(mRandomStringName);
+            Toast.makeText(getApplicationContext(), "Added to favorites!",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /** Called when the user clicks the navigation floating action button - Eric */
