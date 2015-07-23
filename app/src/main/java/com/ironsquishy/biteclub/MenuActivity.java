@@ -76,13 +76,16 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefresh();
 
         t1 = new ViewTarget(R.id.fab, this);
+        t2 = new ViewTarget(R.id.checkToAddFav, this);
+        t3 = new ViewTarget(R.id.filter, this);
+        t4 = new ViewTarget(R.id.Untappd, this);
 
         /**Commenting out due to redundancy - Eric*/
-        //t2 = new ViewTarget(R.id.resultText, this);
+
         //t3 = new ViewTarget(R.id.fab, this);
         //t4 = new ViewTarget(R.id.checkToAddFav, this);
-        //t5 = new ViewTarget(R.id.filter, this);
-        //t6 = new ViewTarget(R.id.Untappd, this);
+
+
 
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(t1)
@@ -143,7 +146,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 mRandomStringName = mSelectedBusiness.getmRestName();
 
                 mResultText.setText(mRandomStringName);
-                
+
                 mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
                 ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
@@ -179,7 +182,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRandomStringName = mSelectedBusiness.getmRestName();
 
         mResultText.setText(mRandomStringName);
-        
+
         mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
         ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
@@ -227,29 +230,31 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
     /**
-     * @Author Edward Yao
+     * @Author Edward Yao Editted by Eric
      * Description: Creates click to goto next tutorial target
      * */
     @Override
     public void onClick(View v) {
 
         switch (count){
-            /**Commented out redundant steps
+
             case 0:
                 showcaseView.setShowcase(t2, true);
-                showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Restaurant_Result));
+                showcaseView.setContentTitle(getString(R.string.Favorites));
+                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
                 break;
             case 1:
                 showcaseView.setShowcase(t3, true);
-                showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Navigation));
+                showcaseView.setContentTitle(getString(R.string.Filter));
+                showcaseView.setContentText(getString(R.string.FilterDescription));
                 break;
             case 2:
                 showcaseView.setShowcase(t4, true);
-                showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
+                showcaseView.setContentTitle(getString(R.string.Drinks));
+                showcaseView.setContentText(getString(R.string.Untappd));
+                showcaseView.setButtonText(getString(R.string.Finish));
                 break;
+            /**Commented out redundant steps
             case 3:
                 showcaseView.setShowcase(t5, true);
                 showcaseView.setContentTitle(getString(R.string.Tutorial));
@@ -259,13 +264,13 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 showcaseView.setShowcase(t6, true);
                 showcaseView.setContentTitle(getString(R.string.Tutorial));
                 showcaseView.setContentText(getString(R.string.Untappd));
-                showcaseView.setButtonText(getString(R.string.Finish));
+
                 break;
              */
             default:
                 showcaseView.hide();
-                //Toast.makeText(getApplicationContext(), "Now You Know EVERYTHING.",
-                        //Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Enjoy!",
+                        Toast.LENGTH_SHORT).show();
                 break;
         }
         count++;
