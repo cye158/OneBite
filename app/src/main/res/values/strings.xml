@@ -41,6 +41,7 @@
     <string name="Add_To_Favorites">Click this to add the current restaurant to your favorites list</string>
     <string name="Navigation">The button here is to start the navigation from your location to the restaurant</string>
     <string name="Filter">The filter button will allow you to customize the randomization of the search toward more of your liking</string>
+    <string name="Untappd">Press this button to get a Untappd Feed</string>
     <string name="Finish">Finish</string>
 
 </resources>

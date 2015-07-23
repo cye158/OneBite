@@ -49,7 +49,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private ShowcaseView showcaseView;
     private int count = 0;
-    private Target t1,t2,t3,t4,t5;
+    private Target t1,t2,t3,t4,t5,t6;
 
 
     /**
@@ -74,9 +74,10 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         t1 = new ViewTarget(R.id.YelpImage, this);
         t2 = new ViewTarget(R.id.resultText, this);
-        t3 = new ViewTarget(R.id.checkToAddFav, this);
-        t4 = new ViewTarget(R.id.fab, this);
-        t5 = new ViewTarget(R.id.filterButton, this);
+        t3 = new ViewTarget(R.id.fab, this);
+        t4 = new ViewTarget(R.id.checkToAddFav, this);
+        t5 = new ViewTarget(R.id.filter, this);
+        t6 = new ViewTarget(R.id.Untappd, this);
 
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(t1)
@@ -227,20 +228,25 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
             case 1:
                 showcaseView.setShowcase(t3, true);
                 showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
+                showcaseView.setContentText(getString(R.string.Navigation));
                 break;
             case 2:
                 showcaseView.setShowcase(t4, true);
                 showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Navigation));
+                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
                 break;
             case 3:
                 showcaseView.setShowcase(t5, true);
                 showcaseView.setContentTitle(getString(R.string.Tutorial));
                 showcaseView.setContentText(getString(R.string.Filter));
-                showcaseView.setButtonText(getString(R.string.Finish));
                 break;
             case 4:
+                showcaseView.setShowcase(t6, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Untappd));
+                showcaseView.setButtonText(getString(R.string.Finish));
+                break;
+            case 5:
                 showcaseView.hide();
                 Toast.makeText(getApplicationContext(), "Now You Know EVERYTHING.",
                         Toast.LENGTH_SHORT).show();
