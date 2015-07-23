@@ -44,7 +44,6 @@
                         android:layout_below="@id/YelpImage"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:id="@+id/resultText"
-                        android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="#000000"
                         android:textSize="30sp"
