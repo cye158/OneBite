@@ -118,6 +118,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                             mYelpImage.setImageResource(R.drawable.placeholder_yelp);
 
                         }else {
+
                             mYelpImage.setImageBitmap(bitmap);
                         }
                     }
