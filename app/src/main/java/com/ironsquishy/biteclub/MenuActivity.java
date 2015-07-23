@@ -75,18 +75,20 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         swipeRefresh();
 
-        t1 = new ViewTarget(R.id.YelpImage, this);
-        t2 = new ViewTarget(R.id.resultText, this);
-        t3 = new ViewTarget(R.id.fab, this);
-        t4 = new ViewTarget(R.id.checkToAddFav, this);
-        t5 = new ViewTarget(R.id.filter, this);
-        t6 = new ViewTarget(R.id.Untappd, this);
+        t1 = new ViewTarget(R.id.fab, this);
+
+        /**Commenting out due to redundancy - Eric*/
+        //t2 = new ViewTarget(R.id.resultText, this);
+        //t3 = new ViewTarget(R.id.fab, this);
+        //t4 = new ViewTarget(R.id.checkToAddFav, this);
+        //t5 = new ViewTarget(R.id.filter, this);
+        //t6 = new ViewTarget(R.id.Untappd, this);
 
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(t1)
                 .setOnClickListener(this)
-                .setContentTitle(R.string.Tutorial)
-                .setContentText(R.string.Result_Page)
+                .setContentTitle(R.string.Go)
+                .setContentText(R.string.Navigation)
                 .setStyle(R.style.TutorialShowcaseStyle)
                 .build();
         showcaseView.setButtonText("NEXT");
@@ -230,7 +232,9 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      * */
     @Override
     public void onClick(View v) {
+
         switch (count){
+            /**Commented out redundant steps
             case 0:
                 showcaseView.setShowcase(t2, true);
                 showcaseView.setContentTitle(getString(R.string.Tutorial));
@@ -257,11 +261,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 showcaseView.setContentText(getString(R.string.Untappd));
                 showcaseView.setButtonText(getString(R.string.Finish));
                 break;
-            case 5:
+             */
+            default:
                 showcaseView.hide();
-                Toast.makeText(getApplicationContext(), "Now You Know EVERYTHING.",
-                        Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(getApplicationContext(), "Now You Know EVERYTHING.",
+                        //Toast.LENGTH_SHORT).show();
                 break;
         }
         count++;

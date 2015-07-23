@@ -31,6 +31,7 @@
 
     <!-- Tutorial showcase strings. -->
     <string name="Tutorial">Tutorial</string>
+    <string name="Go">Go!</string>
     <string name="Mode_Of_Transportation">Mode Of Transportation</string>
     <string name="Car_Tutorial">This page_is so select you mode of transportation which currently is on CAR</string>
     <string name="Bus_Tutorial">This page is so select you mode of transportation which currently is on BUS</string>
@@ -39,7 +40,7 @@
     <string name="Result_Page">Here is the result page of your search</string>
     <string name="Restaurant_Result">This here is the name of the restaurant</string>
     <string name="Add_To_Favorites">Click this to add the current restaurant to your favorites list</string>
-    <string name="Navigation">The button here is to start the navigation from your location to the restaurant</string>
+    <string name="Navigation">Start the navigation from your location to the restaurant!</string>
     <string name="Filter">The filter button will allow you to customize the randomization of the search toward more of your liking</string>
     <string name="Untappd">Press this button to get a Untappd Feed</string>
     <string name="Finish">Finish</string>
