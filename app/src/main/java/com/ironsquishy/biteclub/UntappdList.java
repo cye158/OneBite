@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
 import ApiManagers.NetworkRequestManager;
 import apihelpers.SelectedBusiness;
@@ -57,9 +58,13 @@ public class UntappdList extends ActionBarActivity {
         progressDialog.show();
         final Context context = this;
 
-        UntappdResultRunnable untappdResultRunnable = new UntappdResultRunnable() {
+
+
+        GeneralCallback generalCallback = new GeneralCallback() {
             @Override
-            public void runWithRandomResult(UntappdFeedManager untappdFeedManager) {
+            public void runWithResponse(Object object) {
+                UntappdFeedManager untappdFeedManager = (UntappdFeedManager) object;
+
                 untappdListView = (ListView) findViewById(R.id.untappdList);
 
                 items = new String[untappdFeedManager.getItemSize()];
@@ -74,10 +79,11 @@ public class UntappdList extends ActionBarActivity {
                 untappdListView.setAdapter(adapter);
 
                 progressDialog.dismiss();
+
             }
         };
 
-        NetworkRequestManager.getInstance().populateUntappdFeed(untappdResultRunnable, mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude(), context);
+        NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude(), context);
 
     }
 }

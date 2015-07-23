@@ -82,7 +82,7 @@ public class NetworkRequestManager {
      * @param pContext Context java object.
      * Description: Call to populate Untappd Data POJO from the url call.
      * */
-    public void populateUntappdFeed(final UntappdResultRunnable pUntappdRunnable, double pLatitude, double pLongitude, Context pContext)
+    public void populateUntappdFeed(final GeneralCallback generalCallback, double pLatitude, double pLongitude, Context pContext)
     {
 
         final String url = builtURL(pLatitude, pLongitude);
@@ -100,7 +100,7 @@ public class NetworkRequestManager {
                         UntappdData feed = new Gson().fromJson(response.toString(), UntappdData.class);
                         mData = new UntappdFeedManager(feed);
 
-                        pUntappdRunnable.runWithRandomResult(mData);
+                        generalCallback.runWithResponse(mData);
 
                         Log.i(TAG, "Finished populated data exiting out.");
 

@@ -11,9 +11,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import ApiManagers.*;
+import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
 import apihelpers.SQLiteHandler.VisitedPlace;
 import apihelpers.SelectedBusiness;
+import apihelpers.Untappd.UntappdData;
 
 
 /**
@@ -105,10 +107,11 @@ public class MarkerMapFactory {
     {
         SelectedBusiness mResult = new SelectedBusiness();
 
-        UntappdResultRunnable untappdResultRunnable = new UntappdResultRunnable() {
+        GeneralCallback generalCallback = new GeneralCallback() {
             @Override
-            public void runWithRandomResult(UntappdFeedManager untappdFeedData) {
-                //Adds all markers from Untapppd Data
+            public void runWithResponse(Object object) {
+                UntappdFeedManager untappdFeedData = (UntappdFeedManager) object;
+
                 for(int i = 0; i < untappdFeedData.getItemSize(); i++)
                 {
                     MarkerOptions markerOptions = new MarkerOptions();
@@ -122,7 +125,7 @@ public class MarkerMapFactory {
             }
         };
 
-        NetworkRequestManager.getInstance().populateUntappdFeed(untappdResultRunnable, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
+        NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
 
     }
 

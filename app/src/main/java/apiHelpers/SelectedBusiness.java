@@ -29,6 +29,8 @@ public class SelectedBusiness {
 
     private static String mRestMobileImage;
 
+    private static float mRestRating;
+
 
     //================================
     //***Constructors*****
@@ -63,6 +65,9 @@ public class SelectedBusiness {
         mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
 
         mRestMobileImage =   mBusinessResponse.businesses.get(0).image_url;
+
+        mRestRating =  mBusinessResponse.businesses.get(0).rating;
+
 
     }
 
@@ -114,10 +119,9 @@ public class SelectedBusiness {
     {
         String str = "";
 
-        str = "Restuarant name: " + mRestName + "\n"
-               + "Restaurant address: " + mRestAddress + "\n"
-               + "Description: " + mDescription + "\n"
-               + "be Adventures!!!!!!!" + "\n";
+        str = "Address: " + mRestAddress + "\n" + "\n"
+               + "Rating: " + mRestRating + "\n" + "\n"
+                + "Description: " + mDescription;
 
         return str;
     }
@@ -134,6 +138,8 @@ public class SelectedBusiness {
         mRestLonigtude = mBusinessResponse.businesses.get(0).location.coordinate.longitude;
         mDescription =  mBusinessResponse.businesses.get(0).snippet_text;
         mRestMobileImage =   mBusinessResponse.businesses.get(0).image_url;
+
+        mRestRating =  mBusinessResponse.businesses.get(0).rating;
     }
 
 }

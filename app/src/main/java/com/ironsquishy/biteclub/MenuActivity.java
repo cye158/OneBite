@@ -15,17 +15,21 @@ import android.widget.Toast;
 
 import com.android.volley.Network;
 import com.android.volley.toolbox.NetworkImageView;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import ApiManagers.DatabaseManager;
 import ApiManagers.NetworkRequestManager;
 import Callbacks.ImageViewRunnable;
 import apihelpers.SelectedBusiness;
 
+
 /**
  * @author Allen Space
  * Description: Menu  activity with google maps fragment.
  * */
-public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener  {
 
     /**Data Fields*/
     private static SelectedBusiness mSelectedBusiness;
@@ -43,6 +47,10 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
 
+    private ShowcaseView showcaseView;
+    private int count = 0;
+    private Target t1,t2,t3,t4,t5,t6;
+    
     private static TextView mExtYelpInfo;
 
     /**
@@ -62,37 +70,56 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
         mDatabaseManager = new DatabaseManager(this);
+        
+        mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
         swipeRefresh();
 
-        mSelectedBusiness = new SelectedBusiness();
+        t1 = new ViewTarget(R.id.fab, this);
+        t2 = new ViewTarget(R.id.checkToAddFav, this);
+        t3 = new ViewTarget(R.id.filter, this);
+        t4 = new ViewTarget(R.id.Untappd, this);
 
-        mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
-    }
+        /**Commenting out due to redundancy - Eric*/
 
-    /** Called when the user clicks the Information button - Eric */
-    public void toInfo(View view) {
-        //Untappd List.
-        Intent intent = new Intent(this, UntappdList.class);
-        startActivity(intent);
+        //t3 = new ViewTarget(R.id.fab, this);
+        //t4 = new ViewTarget(R.id.checkToAddFav, this);
 
-    }
 
-    /** Check for favorite.**/
-    public void checkFavAdd(View view)
-    {
-        //Add to result in text view to data.
-        mDatabaseManager.addToDatabase(mRandomStringName);
 
-        //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
-        Toast.makeText(getApplicationContext(), "Added to favorites.",
-                Toast.LENGTH_SHORT).show();
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(t1)
+                .setOnClickListener(this)
+                .setContentTitle(R.string.Go)
+                .setContentText(R.string.Navigation)
+                .setStyle(R.style.TutorialShowcaseStyle)
+                .build();
+        showcaseView.setButtonText("NEXT");
 
     }
 
-    /** Called when the user clicks the floating action button - Eric */
+    /** Check for favorite. - Guan Editted by Eric**/
+    public void checkFavAdd(View view) {
+        if (mDatabaseManager.checkIfInDatabase(mRandomStringName)) {
+            Toast.makeText(getApplicationContext(), "Already added to favorites!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            //Add to result in text view to data.
+            mDatabaseManager.addToDatabase(mRandomStringName);
+            Toast.makeText(getApplicationContext(), "Added to favorites!",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /** Called when the user clicks the navigation floating action button - Eric */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the untappdFeed button - Eric */
+    public void toInfo(View view) {
+        Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
     }
 
@@ -199,7 +226,56 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 randomizeYelpResponse();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },1000);
+        }, 1000);
+    }
+
+
+    /**
+     * @Author Edward Yao Editted by Eric
+     * Description: Creates click to goto next tutorial target
+     * */
+    @Override
+    public void onClick(View v) {
+
+        switch (count){
+
+            case 0:
+                showcaseView.setShowcase(t2, true);
+                showcaseView.setContentTitle(getString(R.string.Favorites));
+                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
+                break;
+            case 1:
+                showcaseView.setShowcase(t3, true);
+                showcaseView.setContentTitle(getString(R.string.Filter));
+                showcaseView.setContentText(getString(R.string.FilterDescription));
+                break;
+            case 2:
+                showcaseView.setShowcase(t4, true);
+                showcaseView.setContentTitle(getString(R.string.Drinks));
+                showcaseView.setContentText(getString(R.string.Untappd));
+                showcaseView.setButtonText(getString(R.string.Finish));
+                break;
+            /**Commented out redundant steps
+            case 3:
+                showcaseView.setShowcase(t5, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Filter));
+                break;
+            case 4:
+                showcaseView.setShowcase(t6, true);
+                showcaseView.setContentTitle(getString(R.string.Tutorial));
+                showcaseView.setContentText(getString(R.string.Untappd));
+
+                break;
+             */
+            default:
+                showcaseView.hide();
+                Toast.makeText(getApplicationContext(), "Enjoy!",
+                        Toast.LENGTH_SHORT).show();
+                break;
+        }
+        count++;
+
     }
 
 }
