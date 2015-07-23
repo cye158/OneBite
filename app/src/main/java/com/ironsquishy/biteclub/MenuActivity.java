@@ -99,13 +99,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     /** Check for favorite. - Guan Editted by Eric**/
-    public void checkFavAdd(View view)
-    {
-        if (mDatabaseManager.checkIfInDatabase(mRandomStringName)){
+    public void checkFavAdd(View view) {
+        if (mDatabaseManager.checkIfInDatabase(mRandomStringName)) {
             Toast.makeText(getApplicationContext(), "Already added to favorites!",
                     Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             //Add to result in text view to data.
             mDatabaseManager.addToDatabase(mRandomStringName);
             Toast.makeText(getApplicationContext(), "Added to favorites!",
