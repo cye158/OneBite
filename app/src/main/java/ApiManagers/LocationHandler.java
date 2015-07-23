@@ -27,7 +27,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      */
     private static GoogleApiClient mGoogleClient;
     private static Context mContext;
-    private static MapFragment mapFragment;
+   // private static MapFragment mapFragment;
 
     //Following double's are set to San Francisco.
     private static double mLongitude = -122.431297;
@@ -90,7 +90,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
                 .addApi(LocationServices.API)
                 .build();
 
-        this.mContext = pContext.getApplicationContext();
+        mContext = pContext.getApplicationContext();
 
         Log.i(TAG, "Set Google client object.");
     }
