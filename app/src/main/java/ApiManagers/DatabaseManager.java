@@ -50,6 +50,7 @@ public class DatabaseManager {
 
     /**
      * @author Guan
+     * Description: Delete all content in the database
      */
     public void clearDatabase()
     {
@@ -61,7 +62,7 @@ public class DatabaseManager {
      * Description: get all contents in the database
      * @return List of VisitedPlace object, or null if no content
      */
-    public List<VisitedPlace> getAllVistedPlaces()
+    public List<VisitedPlace> getAllVisitedPlaces()
     {
        return mDBHandler.getContentFromTable();
     }
@@ -73,6 +74,31 @@ public class DatabaseManager {
      */
     public boolean isDatabaseEmpty() {
         return mDBHandler.isTableEmpty();
+    }
+
+    /**
+     * @author Guan
+     * Description: remove the a record in the database
+     * @param place A String of the name of the location to be remove
+     */
+    public void removeFromDatabase(String place) {
+        VisitedPlace visitedPlace = new VisitedPlace(place,
+                mSelectedBusiness.getRestLatitude(),
+                mSelectedBusiness.getRestLongitdude());
+
+        mDBHandler.deleteVisitedPlace(visitedPlace);
+    }
+
+    /**
+     * @author Guan
+     * Description: checking if the inputed location is in the database
+     * @param place A String of the name of the location to be check
+     * @return  true if is already in the database, false otherwise
+     */
+    public boolean checkIfInDatabase(String place) {
+        return mDBHandler.isExistInDatabase(place,
+                mSelectedBusiness.getRestLatitude(),
+                mSelectedBusiness.getRestLongitdude());
     }
 }
 

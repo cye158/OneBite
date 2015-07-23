@@ -99,16 +99,20 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      * Description: remove the row corresponding to the inputed location name.
-     * @param placeName the name of location.
+     * @param place VisitedPlace object of location.
      */
-    public void deleteVisitedPlace(String placeName) {
+    public void deleteVisitedPlace(VisitedPlace place) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE "
-                + COLUME_NAME + "=\"" + placeName + "\";");
+        db.execSQL("DELETE FROM " + TABLE_NAME +
+                " WHERE " + COLUME_NAME + " = '" + place.get_name() + "'" +
+                " AND " + COLUME_LATITUDE + " = " + place.get_latitude() +
+                " AND " + COLUME_LONGITUDE + " = " + place.get_longitude());
 
         db.close();
 
-        Log.i(TAG, "'" + placeName + "'" + " has been deleted in the Database, deleteVisitedPlace()");
+        Log.i(TAG, "'" + place.get_name() + "' (" + place.get_latitude() +
+                ", " + place.get_longitude() + ") " +
+                " has been deleted in the Database");
     }
 
     /**
