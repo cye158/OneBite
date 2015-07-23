@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
+import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
 import apihelpers.Untappd.UntappdData;
 
@@ -100,9 +101,23 @@ public class UntappdFeedManager {
         return mData.response.checkins.items;
     }
 
-    public void populateUntappdData(final UntappdResultRunnable pUntappdrun,double pLatitdude, double pLongitdude, Context pContext)
+    /**
+     * @author Allen Space
+     * */
+    public void populateUntappdData(double pLatitdude, double pLongitude, Context pContext)
     {
-        this.mNetworkRequestManager.getInstance().populateUntappdFeed(pUntappdrun, pLatitdude, pLongitdude, pContext);
+        GeneralCallback generalCallback = new GeneralCallback() {
+            @Override
+            public void runWithResponse(Object object) {
+
+                UntappdData data = (UntappdData) object;
+
+                mData = data;
+
+            }
+        };
+
+        NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, pLatitdude, pLongitude, pContext);
     }
 
 }
