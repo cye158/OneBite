@@ -50,6 +50,7 @@ public class DatabaseManager {
 
     /**
      * @author Guan
+     * Description: Delete all content in the database
      */
     public void clearDatabase()
     {
@@ -86,6 +87,18 @@ public class DatabaseManager {
                 mSelectedBusiness.getRestLongitdude());
 
         mDBHandler.deleteVisitedPlace(visitedPlace);
+    }
+
+    /**
+     * @author Guan
+     * Description: checking if the inputed location is in the database
+     * @param place A String of the name of the location to be check
+     * @return  true if is already in the database, false otherwise
+     */
+    public boolean checkIfInDatabase(String place) {
+        return mDBHandler.isExistInDatabase(place,
+                mSelectedBusiness.getRestLatitude(),
+                mSelectedBusiness.getRestLongitdude());
     }
 }
 
