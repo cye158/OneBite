@@ -2,6 +2,7 @@ package com.ironsquishy.biteclub;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,8 +12,11 @@ import android.view.View;
 
 import ApiManagers.LocationHandler;
 import ApiManagers.NetworkRequestManager;
+import Callbacks.BusinessResponseRunnable;
+import Callbacks.GeneralCallback;
 import Callbacks.SelectedBusinessRunnable;
 import apihelpers.SelectedBusiness;
+import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
 
 /**
@@ -42,6 +46,7 @@ public class TransportationActivity extends FragmentActivity {
 
     /** Called when the user clicks the Feed Me! button for bus */
     public void toMenuActivityBus(View view) {
+
         Intent intent = new Intent(this, MenuActivity.class);
 
 //        if (check if location services is on(receive from location check)){
@@ -59,26 +64,15 @@ public class TransportationActivity extends FragmentActivity {
 
         progressDialog.show();
 
-        //final Context context = this;
-
-        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+        GeneralCallback generalCallback = new GeneralCallback() {
             @Override
-            public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
-
-                mSelectedBusiness = new SelectedBusiness(businessesResponse);
-
-
+            public void runWithResponse(Object object) {
+                mSelectedBusiness = new SelectedBusiness((SearchForBusinessesResponse) object);
                 progressDialog.dismiss();
-
             }
         };
 
-
-        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
-        //of use, like filters and radius.
-        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, "5632.7", getBaseContext());
-
-
+        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "5632.7", getBaseContext());
         startActivity(intent);
     }
 
@@ -93,7 +87,6 @@ public class TransportationActivity extends FragmentActivity {
 //        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
 //        }
 
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         progressDialog.setMessage("Getting Restaurant Result.");
@@ -102,23 +95,16 @@ public class TransportationActivity extends FragmentActivity {
 
         progressDialog.show();
 
-        //final Context context = this;
 
-        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+        GeneralCallback generalCallback = new GeneralCallback() {
             @Override
-            public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
-
-                mSelectedBusiness = new SelectedBusiness(businessesResponse);
-
+            public void runWithResponse(Object object) {
+                mSelectedBusiness = new SelectedBusiness((SearchForBusinessesResponse) object);
                 progressDialog.dismiss();
-
             }
         };
 
-
-        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
-        //of use, like filters and radius.
-        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, "7000.0", getBaseContext());
+        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "7000.00", getBaseContext());
 
         startActivity(intent);
     }
@@ -142,23 +128,16 @@ public class TransportationActivity extends FragmentActivity {
 
         progressDialog.show();
 
-        //final Context context = this;
 
-        SelectedBusinessRunnable selectedBusinessRunnable = new SelectedBusinessRunnable() {
+        GeneralCallback generalCallback = new GeneralCallback() {
             @Override
-            public void runWithRandomResult(SearchForBusinessesResponse businessesResponse) {
-
-                mSelectedBusiness = new SelectedBusiness(businessesResponse);
-
+            public void runWithResponse(Object object) {
+                mSelectedBusiness = new SelectedBusiness((SearchForBusinessesResponse) object);
                 progressDialog.dismiss();
-
             }
         };
 
-
-        //Like yelp async this is the volley doing the same thing we can expand parameters for ease
-        //of use, like filters and radius.
-        NetworkRequestManager.getInstance().populateYelpData(selectedBusinessRunnable, "2414.02", getBaseContext());
+        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "2414.02", getBaseContext());
 
         startActivity(intent);
     }

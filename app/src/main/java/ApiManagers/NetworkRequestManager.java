@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import AuthKeys.UntappdAuthKeys;
 import AuthKeys.YelpAuthKeys;
+import Callbacks.GeneralCallback;
 import Callbacks.ImageViewRunnable;
 import Callbacks.SelectedBusinessRunnable;
 import Callbacks.UntappdResultRunnable;
@@ -119,7 +120,7 @@ public class NetworkRequestManager {
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
     }
 
-    public void populateYelpData(final SelectedBusinessRunnable selectedBusinessRunnable,String pRadius, final Context pContext)
+    public void populateYelpData(final GeneralCallback generalCallback,String pRadius, final Context pContext)
     {
 
 
@@ -137,8 +138,7 @@ public class NetworkRequestManager {
 
                         SearchForBusinessesResponse businessesResponse = new Gson().fromJson(response.toString(), SearchForBusinessesResponse.class);
 
-
-                        selectedBusinessRunnable.runWithRandomResult(businessesResponse);
+                        generalCallback.runWithResponse(businessesResponse);
 
                         Log.i(YELP, "Finished Populating Data for OneBite.");
                     }
