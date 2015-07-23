@@ -75,4 +75,3 @@ public class FilterOption extends DialogFragment {
         return objDialog;
     }
 }
-
