@@ -103,7 +103,7 @@
                         android:id="@+id/YelpInfo"
                         android:layout_below="@id/checkToAddFav"
                         android:layout_marginTop="15dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginBottom="15dp"
                         />
                 </RelativeLayout>
