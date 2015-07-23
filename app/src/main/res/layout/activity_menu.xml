@@ -35,7 +35,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="200dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
+                        android:scaleType="fitXY"
                         android:id="@+id/YelpImage" />
 
                     <TextView
@@ -72,6 +72,7 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#14A984"
                         android:textSize="15sp"
+                        android:id="@+id/filter"
                         android:layout_below="@id/resultText"
                         android:layout_toRightOf="@id/checkToAddFav"
                         android:textStyle="bold"
@@ -113,7 +114,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Untappd Feed"
-                android:id="@+id/button2"
+                android:id="@+id/Untappd"
                 android:background="@drawable/button_shadow"
                 android:onClick="toInfo"
                 android:clickable="true"
