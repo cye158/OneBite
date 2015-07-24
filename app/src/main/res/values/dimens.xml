@@ -7,5 +7,6 @@
     <dimen name="showcase_radius">94dp</dimen>
     <dimen name="showcase_radius_inner">96dp</dimen>
     <dimen name="showcase_radius_outer">98dp</dimen>
-
+    <dimen name="button_margin">50dp</dimen>
+    
 </resources>

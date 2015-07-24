@@ -116,8 +116,9 @@ public class SelectedBusiness {
     {
         String str = "";
 
-        str = "Restaurant address: " + mRestAddress + "\n"
-               + "Ratings: " + mRestRating;
+        str = "Address: " + mRestAddress + "\n" + "\n"
+               + "Rating: " + mRestRating + "\n" + "\n"
+                + "Description: " + mDescription;
 
         return str;
     }
