@@ -11,7 +11,7 @@ import apihelpers.Untappd.UntappdData;
 /**
  * Created by Allen Space on 7/12/2015.
  */
-public class UntappdFeedManager {
+public class UntappdManager {
 
     private static UntappdData mData;
 
@@ -26,12 +26,12 @@ public class UntappdFeedManager {
     /**
      * @author Allen Space
      * */
-    public UntappdFeedManager()
+    public UntappdManager()
     {
         //default.
     }
 
-    public UntappdFeedManager(UntappdData data)
+    public UntappdManager(UntappdData data)
     {
         mData = data;
 

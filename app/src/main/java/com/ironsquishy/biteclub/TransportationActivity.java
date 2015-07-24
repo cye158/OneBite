@@ -2,7 +2,6 @@ package com.ironsquishy.biteclub;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,12 +11,9 @@ import android.view.View;
 
 import ApiManagers.LocationHandler;
 import ApiManagers.NetworkRequestManager;
-import Callbacks.BusinessResponseRunnable;
 import Callbacks.GeneralCallback;
-import Callbacks.SelectedBusinessRunnable;
 import apihelpers.SelectedBusiness;
-import apihelpers.Untappd.UntappdData;
-import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
+import apihelpers.YelpApiHandler.YelpData;
 
 /**
  * Created by Eric on 7/8/2015.
@@ -67,12 +63,13 @@ public class TransportationActivity extends FragmentActivity {
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-                mSelectedBusiness = new SelectedBusiness((SearchForBusinessesResponse) object);
+                mSelectedBusiness = new SelectedBusiness((YelpData) object);
                 progressDialog.dismiss();
             }
         };
 
         NetworkRequestManager.getInstance().populateYelpData(generalCallback, "5632.7", getBaseContext());
+
         startActivity(intent);
     }
 
@@ -99,7 +96,7 @@ public class TransportationActivity extends FragmentActivity {
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-                mSelectedBusiness = new SelectedBusiness((SearchForBusinessesResponse) object);
+                mSelectedBusiness = new SelectedBusiness((YelpData) object);
                 progressDialog.dismiss();
             }
         };
@@ -132,7 +129,7 @@ public class TransportationActivity extends FragmentActivity {
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-                mSelectedBusiness = new SelectedBusiness((SearchForBusinessesResponse) object);
+                mSelectedBusiness = new SelectedBusiness((YelpData) object);
                 progressDialog.dismiss();
             }
         };

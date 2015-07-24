@@ -12,10 +12,8 @@ import java.util.List;
 
 import ApiManagers.*;
 import Callbacks.GeneralCallback;
-import Callbacks.UntappdResultRunnable;
 import apihelpers.SQLiteHandler.VisitedPlace;
 import apihelpers.SelectedBusiness;
-import apihelpers.Untappd.UntappdData;
 
 
 /**
@@ -110,7 +108,7 @@ public class MarkerMapFactory {
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-                UntappdFeedManager untappdFeedData = (UntappdFeedManager) object;
+                UntappdManager untappdFeedData = (UntappdManager) object;
 
                 for(int i = 0; i < untappdFeedData.getItemSize(); i++)
                 {

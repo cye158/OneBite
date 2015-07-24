@@ -5,21 +5,19 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import Callbacks.GeneralCallback;
-import Callbacks.UntappdResultRunnable;
 import ApiManagers.NetworkRequestManager;
 import apihelpers.SelectedBusiness;
-import ApiManagers.UntappdFeedManager;
+import ApiManagers.UntappdManager;
 
 
 public class UntappdList extends ActionBarActivity {
 
     private static ListView untappdListView;
-    private static UntappdFeedManager untappdData;
+    private static UntappdManager untappdData;
     private static SelectedBusiness mSelectedBusiness;
 
     private static SwipeRefreshLayout swipeRefreshLayout;
@@ -33,9 +31,6 @@ public class UntappdList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_untappd_list);
 
-
-
-        mSelectedBusiness = new SelectedBusiness();
 
         refreshFeed();
     }
@@ -57,33 +52,9 @@ public class UntappdList extends ActionBarActivity {
 
         progressDialog.show();
         final Context context = this;
+        progressDialog.dismiss();
 
 
-
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                UntappdFeedManager untappdFeedManager = (UntappdFeedManager) object;
-
-                untappdListView = (ListView) findViewById(R.id.untappdList);
-
-                items = new String[untappdFeedManager.getItemSize()];
-
-                for(int i = 0; i < untappdFeedManager.getItemSize();i++)
-                {
-                    items[i] = untappdFeedManager.getLongDescription(i);
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, resource, textViewResourceID,items);
-
-                untappdListView.setAdapter(adapter);
-
-                progressDialog.dismiss();
-
-            }
-        };
-
-        NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude(), context);
 
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,23 +16,27 @@ import android.widget.Toast;
 
 import com.android.volley.Network;
 import com.android.volley.toolbox.NetworkImageView;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import ApiManagers.DatabaseManager;
 import ApiManagers.NetworkRequestManager;
+import Callbacks.GeneralCallback;
 import Callbacks.ImageViewRunnable;
 import apihelpers.SelectedBusiness;
 
 
 /**
  * @author Allen Space
- * Description: Menu  activity with google maps fragment.
- * */
-public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener  {
+ *         Description: Menu  activity with google maps fragment.
+ */
+public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    /**Data Fields*/
+    /**
+     * Data Fields
+     */
     private static SelectedBusiness mSelectedBusiness;
     private static TextView mResultText;
     private static String mRandomStringName;
@@ -47,16 +52,12 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     private AlertDialog.Builder filterDialog;
     private String inputFilter = "\n Filtered: ";
 
-    private ShowcaseView showcaseView;
-    private int count = 0;
-    private Target t1,t2,t3,t4,t5,t6;
-    
     private static TextView mExtYelpInfo;
 
     /**
      * @Author Allen Space
      * Description: To create the menu activity.
-     * */
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,37 +71,24 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
         mDatabaseManager = new DatabaseManager(this);
-        
+
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                randomizeYelpResponse();
+            }
+        }, 1000);
+
+
         swipeRefresh();
-
-        t1 = new ViewTarget(R.id.fab, this);
-        t2 = new ViewTarget(R.id.checkToAddFav, this);
-        t3 = new ViewTarget(R.id.filter, this);
-        t4 = new ViewTarget(R.id.Untappd, this);
-
-        /**Commenting out due to redundancy - Eric*/
-
-        //t3 = new ViewTarget(R.id.fab, this);
-        //t4 = new ViewTarget(R.id.checkToAddFav, this);
-
-
-
-        showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(t1)
-                .setOnClickListener(this)
-                .setContentTitle(R.string.Go)
-                .setContentText(R.string.Navigation)
-                .setStyle(R.style.TutorialShowcaseStyle)
-                .build();
-        showcaseView.setButtonText("NEXT");
-
     }
 
-    /** Check for favorite.**/
-    public void checkFavAdd(View view)
-    {
+    /**
+     * Check for favorite.*
+     */
+    public void checkFavAdd(View view) {
         //Add to result in text view to data.
         mDatabaseManager.addToDatabase(mRandomStringName);
 
@@ -110,20 +98,26 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    /** Called when the user clicks the navigation floating action button - Eric */
+    /**
+     * Called when the user clicks the navigation floating action button - Eric
+     */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
-    /** Called when the user clicks the untappdFeed button - Eric */
+    /**
+     * Called when the user clicks the untappdFeed button - Eric
+     */
     public void toInfo(View view) {
         Intent intent = new Intent(this, UntappdList.class);
         startActivity(intent);
     }
 
     /** Called when the user clicks the Filter button - Eric */
-    /** Revised by Renz */
+    /**
+     * Revised by Renz
+     */
     public void toFilter(View view) {
         FilterOption dialog = new FilterOption();
         dialog.show(getFragmentManager(), "Filter Dialog Box");
@@ -132,49 +126,21 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     /**
      * @Author Allen Space
      * Description: On start, creates process dialoge
-     * */
+     */
     @Override
     protected void onStart() {
         super.onStart();
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSelectedBusiness = new SelectedBusiness();
-
-                mRandomStringName = mSelectedBusiness.getmRestName();
-
-                mResultText.setText(mRandomStringName);
-
-                mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
-
-                ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
-                    @Override
-                    public void runWithImageView(Bitmap bitmap) {
-                        if (bitmap == null) {
-
-                            mYelpImage.setImageResource(R.drawable.placeholder_yelp);
-
-                        } else {
-                            mYelpImage.setImageBitmap(bitmap);
-                        }
-                    }
-                };
-
-                NetworkRequestManager.getInstance().getYelpSingleImage(imageViewRunnable, mSelectedBusiness.getRestImageURL(), mContext);
-            }
-        }, 1000);
 
     }
 
     /**
      * @author Allen Space
      * Description: ReShuffles the yelp data.
-     *              And displays on screen.
-     **/
-    private void randomizeYelpResponse()
-    {
+     * And displays on screen.
+     */
+    private void randomizeYelpResponse() {
         mSelectedBusiness = new SelectedBusiness();
 
         mSelectedBusiness.reShuffleBusinessList();
@@ -185,29 +151,30 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
-        ImageViewRunnable imageViewRunnable = new ImageViewRunnable() {
-            @Override
-            public void runWithImageView(Bitmap bitmap) {
-                if(bitmap == null){
+       final GeneralCallback generalCallback = new GeneralCallback() {
+           @Override
+           public void runWithResponse(Object object) {
 
-                    mYelpImage.setImageResource(R.drawable.placeholder_yelp);
+               Bitmap bitmap = (Bitmap) object;
 
-                }else {
-                    mYelpImage.setImageBitmap(bitmap);
-                }
-            }
-        };
+               if (bitmap == null) {
 
-        NetworkRequestManager.getInstance().getYelpSingleImage(imageViewRunnable, mSelectedBusiness.getRestImageURL(), mContext);
+                   mYelpImage.setImageResource(R.drawable.placeholder_yelp);
+
+               } else
+                   mYelpImage.setImageBitmap(bitmap);
+           }
+       };
+
+        NetworkRequestManager.getInstance().getYelpSingleImage( generalCallback, mSelectedBusiness.getRestImageURL(), mContext);
     }
 
 
     /**
      * @Author Eric Chen
      * Description: To create pull down to refresh.
-     * */
-    private void swipeRefresh()
-    {
+     */
+    private void swipeRefresh() {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_menu);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -215,6 +182,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 android.R.color.holo_red_light);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
+
     @Override
     public void onRefresh() {
         //Created to simulate loading.
@@ -229,52 +197,5 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
 
-    /**
-     * @Author Edward Yao Editted by Eric
-     * Description: Creates click to goto next tutorial target
-     * */
-    @Override
-    public void onClick(View v) {
-
-        switch (count){
-
-            case 0:
-                showcaseView.setShowcase(t2, true);
-                showcaseView.setContentTitle(getString(R.string.Favorites));
-                showcaseView.setContentText(getString(R.string.Add_To_Favorites));
-                break;
-            case 1:
-                showcaseView.setShowcase(t3, true);
-                showcaseView.setContentTitle(getString(R.string.Filter));
-                showcaseView.setContentText(getString(R.string.FilterDescription));
-                break;
-            case 2:
-                showcaseView.setShowcase(t4, true);
-                showcaseView.setContentTitle(getString(R.string.Drinks));
-                showcaseView.setContentText(getString(R.string.Untappd));
-                showcaseView.setButtonText(getString(R.string.Finish));
-                break;
-            /**Commented out redundant steps
-            case 3:
-                showcaseView.setShowcase(t5, true);
-                showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Filter));
-                break;
-            case 4:
-                showcaseView.setShowcase(t6, true);
-                showcaseView.setContentTitle(getString(R.string.Tutorial));
-                showcaseView.setContentText(getString(R.string.Untappd));
-
-                break;
-             */
-            default:
-                showcaseView.hide();
-                Toast.makeText(getApplicationContext(), "Enjoy!",
-                        Toast.LENGTH_SHORT).show();
-                break;
-        }
-        count++;
-
-    }
 
 }
