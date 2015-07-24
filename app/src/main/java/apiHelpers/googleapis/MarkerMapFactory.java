@@ -11,9 +11,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import ApiManagers.*;
-import Callbacks.GeneralCallback;
 import apihelpers.SQLiteHandler.VisitedPlace;
-import apihelpers.SelectedBusiness;
+import apihelpers.YelpApiHandler.Restaurant;
 
 
 /**
@@ -24,6 +23,7 @@ public class MarkerMapFactory {
     private static MarkerOptions mMarkers;
     private static GoogleMap mGoogleMap;
     private static DatabaseManager mDatabaseManager;
+    private static Restaurant mRestaurant;
 
     /**
      * @author Allen Space
@@ -34,6 +34,11 @@ public class MarkerMapFactory {
     {
         mGoogleMap =  pGoogleMap;
         mDatabaseManager =  new DatabaseManager(pContext);
+    }
+
+    public MarkerMapFactory(Restaurant pRestaurant)
+    {
+        mRestaurant = pRestaurant;
     }
 
     /**
@@ -62,13 +67,10 @@ public class MarkerMapFactory {
      * */
     public Marker createResultMarker()
     {
-        SelectedBusiness randomResult = new SelectedBusiness();
-
 
         MarkerOptions markerOptions = new MarkerOptions()
-                .position(new LatLng(randomResult.getRestLatitude(), randomResult.getRestLongitdude()))
-                .snippet(randomResult.getmRestAddress())
-                .title(randomResult.getmRestName());
+                .position(new LatLng(mRestaurant.getmLatitude(), mRestaurant.getmLongitude()))
+                .title(mRestaurant.getmRestName());
 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 

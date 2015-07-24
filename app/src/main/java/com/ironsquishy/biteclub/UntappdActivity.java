@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import ApiManagers.LocationHandler;
 import ApiManagers.UntappdManager;
 import apihelpers.SelectedBusiness;
 
@@ -27,11 +28,15 @@ public class UntappdActivity extends ActionBarActivity {
 
     private static SelectedBusiness mSelectedBusiness;
 
+    private static Intent mIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_untappd);
+
+        mIntent =  this.getIntent();
 
         mUntappdManager = new UntappdManager();
 
@@ -45,7 +50,7 @@ public class UntappdActivity extends ActionBarActivity {
 
         mSelectedBusiness = new SelectedBusiness();
 
-        mUntappdManager.populateUntappdData(mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude(), mContext);
+        mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
         displayRestaurant();
 
@@ -54,7 +59,9 @@ public class UntappdActivity extends ActionBarActivity {
 
     private void displayRestaurant()
     {
-        mRestResult.setText(mSelectedBusiness.getmRestName());
+        final String restaurantRslt = mIntent.getStringExtra("restname");
+
+        mRestResult.setText(restaurantRslt);
     }
 
     private void displayPopularDrink()
@@ -77,25 +84,5 @@ public class UntappdActivity extends ActionBarActivity {
        mRndDrink.setText(mUntappdManager.getRandomDrink());
     }
 
-    private void handleUntappdManger()
-    {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Getting Info....");
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        mUntappdManager = new UntappdManager();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do stuff here.
-                mUntappdManager.populateUntappdData(mSelectedBusiness.getRestLatitude(),mSelectedBusiness.getRestLongitdude(), mContext);
-                progressDialog.dismiss();
-            }
-        }, 1000);
-
-
-    }
 
 }

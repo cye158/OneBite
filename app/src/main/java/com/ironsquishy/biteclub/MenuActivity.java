@@ -23,9 +23,11 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import ApiManagers.DatabaseManager;
 import ApiManagers.NetworkRequestManager;
+import ApiManagers.RestaurantManager;
 import Callbacks.GeneralCallback;
 import Callbacks.ImageViewRunnable;
 import apihelpers.SelectedBusiness;
+import apihelpers.YelpApiHandler.Restaurant;
 
 
 /**
@@ -37,10 +39,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     /**
      * Data Fields
      */
-    private static SelectedBusiness mSelectedBusiness;
     private static TextView mResultText;
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
+    private static RestaurantManager mRestaurantManager;
+    private static Restaurant mRestaurant;
 
     private static TextView addToData;
     private static ImageView mYelpImage;
@@ -74,13 +77,9 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                randomizeYelpResponse();
-            }
-        }, 1000);
+        mRestaurantManager = new RestaurantManager();
 
+        randomizeYelpResponse();
 
         swipeRefresh();
     }
@@ -111,6 +110,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      */
     public void toInfo(View view) {
         Intent intent = new Intent(this, UntappdActivity.class);
+        intent.putExtra("restname", mRestaurant.getmRestName());
         startActivity(intent);
     }
 
@@ -131,8 +131,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
-
-
     }
 
     /**
@@ -141,32 +139,17 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      * And displays on screen.
      */
     private void randomizeYelpResponse() {
-        mSelectedBusiness = new SelectedBusiness();
 
-        mSelectedBusiness.reShuffleBusinessList();
+        //Get a random restuarant.
+        mRestaurant = mRestaurantManager.getRandRestCar();
 
-        mRandomStringName = mSelectedBusiness.getmRestName();
+        //Set the Text name.
+        mResultText.setText(mRestaurant.getmRestName());
 
-        mResultText.setText(mRandomStringName);
+        //Set the Descripiton and ratings
 
-        mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
+        mExtYelpInfo.setText(mRestaurant.getmDescription() + "\n" + mRestaurant.getmRatings());
 
-       final GeneralCallback generalCallback = new GeneralCallback() {
-           @Override
-           public void runWithResponse(Object object) {
-
-               Bitmap bitmap = (Bitmap) object;
-
-               if (bitmap == null) {
-
-                   mYelpImage.setImageResource(R.drawable.placeholder_yelp);
-
-               } else
-                   mYelpImage.setImageBitmap(bitmap);
-           }
-       };
-
-        NetworkRequestManager.getInstance().getYelpSingleImage( generalCallback, mSelectedBusiness.getRestImageURL(), mContext);
     }
 
 

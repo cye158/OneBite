@@ -9,6 +9,7 @@ import java.util.Random;
 import Callbacks.GeneralCallback;
 import apihelpers.YelpApiHandler.Restaurant;
 import apihelpers.YelpApiHandler.YelpData;
+import apihelpers.googleapis.MarkerMapFactory;
 
 /**
  * Created by Whomever.
@@ -38,8 +39,12 @@ public class RestaurantManager {
         //Shuffle all because it is max radius
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
+        Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
+
+        new MarkerMapFactory(restaurant);
+
         //Returns a random restuarant name.
-        return new Restaurant(mYelpData.businesses.get(0));
+        return restaurant;
     }
 
     public Restaurant getRandRestBus()
@@ -62,7 +67,12 @@ public class RestaurantManager {
 
             if(origin.distanceTo(location) <= BusRadius)
             {
-                return new Restaurant(mYelpData.businesses.get(i));
+                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+
+                new MarkerMapFactory(restaurant);
+
+                //Returns a random restuarant name.
+                return restaurant;
             }
         }
 
@@ -91,7 +101,12 @@ public class RestaurantManager {
             //Checks it is in Walking radius.
             if(origin.distanceTo(restlocation) <= WalkRadius)
             {
-                return new Restaurant(mYelpData.businesses.get(i));
+                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+
+                new MarkerMapFactory(restaurant);
+
+                //Returns a random restuarant name.
+                return restaurant;
             }
         }
 
