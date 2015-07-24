@@ -1,8 +1,11 @@
 package ApiManagers;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
@@ -14,6 +17,8 @@ import apihelpers.Untappd.UntappdData;
 public class UntappdManager {
 
     private static UntappdData mData;
+
+    private static List<UntappdData.Item> mItems;
 
     private static NetworkRequestManager mNetworkRequestManager;
 
@@ -34,6 +39,8 @@ public class UntappdManager {
     public UntappdManager(UntappdData data)
     {
         mData = data;
+
+        mItems = mData.response.checkins.items;
 
     }
     /**
@@ -101,6 +108,14 @@ public class UntappdManager {
         return mData.response.checkins.items;
     }
 
+    public String getRandomDrink()
+    {
+        Log.i("UNTAPPD", "Number of Beers: " + mData.response.checkins.items.size());
+        Collections.shuffle(mData.response.checkins.items, new Random(System.nanoTime()));
+
+        return mData.response.checkins.items.get(0).beer.beer_name;
+    }
+
     /**
      * @author Allen Space
      * */
@@ -110,9 +125,9 @@ public class UntappdManager {
             @Override
             public void runWithResponse(Object object) {
 
-                UntappdData data = (UntappdData) object;
+                mData = (UntappdData) object;
 
-                mData = data;
+                Log.i("UNTAPPD", "Manager retrieved data...");
 
             }
         };

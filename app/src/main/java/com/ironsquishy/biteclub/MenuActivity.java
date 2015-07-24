@@ -110,7 +110,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      * Called when the user clicks the untappdFeed button - Eric
      */
     public void toInfo(View view) {
-        Intent intent = new Intent(this, UntappdList.class);
+        Intent intent = new Intent(this, UntappdActivity.class);
         startActivity(intent);
     }
 
