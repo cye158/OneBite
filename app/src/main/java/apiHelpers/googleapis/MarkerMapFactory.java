@@ -102,7 +102,7 @@ public class MarkerMapFactory {
     }
 
     public void createUntappdMarkers(Context context)
-    {
+    {   /*
         SelectedBusiness mResult = new SelectedBusiness();
 
         GeneralCallback generalCallback = new GeneralCallback() {
@@ -124,7 +124,7 @@ public class MarkerMapFactory {
         };
 
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
-
+        */
     }
 
 }
