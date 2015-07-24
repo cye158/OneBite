@@ -1,12 +1,9 @@
 package apihelpers;
 
-import android.content.Context;
-
 import java.util.Collections;
 import java.util.Random;
 
-import ApiManagers.UntappdFeedManager;
-import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
+import apihelpers.YelpApiHandler.YelpData;
 
 /**
  * Created by Allen Space on 6/22/2015.
@@ -17,7 +14,7 @@ public class SelectedBusiness {
      * Data Fields
      */
     private static final String TAG = "YelpData";
-    private static SearchForBusinessesResponse mBusinessResponse;
+    private static YelpData mBusinessResponse;
 
     /**Single Restuarant Data*/
     private static String mRestName;
@@ -49,7 +46,7 @@ public class SelectedBusiness {
 
     }
 
-    public SelectedBusiness(SearchForBusinessesResponse pBusinessResponse)
+    public SelectedBusiness(YelpData pBusinessResponse)
     {
         mBusinessResponse = pBusinessResponse;
 

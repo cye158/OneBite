@@ -1,6 +1,6 @@
 package Callbacks;
 
-import ApiManagers.UntappdFeedManager;
+import ApiManagers.UntappdManager;
 
 /**
  * Created by Allen Space on 7/18/2015.
@@ -11,5 +11,5 @@ abstract public class UntappdResultRunnable implements Runnable {
 
     }
 
-    abstract public void runWithRandomResult(UntappdFeedManager untappdFeedManager);
+    abstract public void runWithRandomResult(UntappdManager untappdManager);
 }

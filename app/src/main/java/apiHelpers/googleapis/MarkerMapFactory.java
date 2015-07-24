@@ -12,10 +12,8 @@ import java.util.List;
 
 import ApiManagers.*;
 import Callbacks.GeneralCallback;
-import Callbacks.UntappdResultRunnable;
 import apihelpers.SQLiteHandler.VisitedPlace;
 import apihelpers.SelectedBusiness;
-import apihelpers.Untappd.UntappdData;
 
 
 /**
@@ -104,13 +102,13 @@ public class MarkerMapFactory {
     }
 
     public void createUntappdMarkers(Context context)
-    {
+    {   /*
         SelectedBusiness mResult = new SelectedBusiness();
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-                UntappdFeedManager untappdFeedData = (UntappdFeedManager) object;
+                UntappdManager untappdFeedData = (UntappdManager) object;
 
                 for(int i = 0; i < untappdFeedData.getItemSize(); i++)
                 {
@@ -126,7 +124,7 @@ public class MarkerMapFactory {
         };
 
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
-
+        */
     }
 
 }
