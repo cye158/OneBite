@@ -7,22 +7,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /**
- * Created by CYE on 7/16
- * /15.
+ * Created by CYE on 7/16/15.
  * @author Renz
  * Description: FilterOption class that dislays a dialog box of food categories. The user can choose
  *             a category he/she would
  **/
 public class FilterOption extends DialogFragment {
 
-    final int FILTER_LIST_SIZE = 14;
-    SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+//    final int FILTER_LIST_SIZE = 14;
+//    SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class FilterOption extends DialogFragment {
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
                     arrayFilter.add(which);
-                    saveFilter(,isChecked);
+                   // saveFilter(,isChecked);
                 } else if (arrayFilter.contains(which)) {
                     arrayFilter.remove(Integer.valueOf(which));
                 }
@@ -68,7 +66,7 @@ public class FilterOption extends DialogFragment {
                 Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
 
                 /*to be used for yelp category_filter*/
-                //addToFilter.toLowerCase();
+                //
             }
         });
 
