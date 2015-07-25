@@ -1,6 +1,5 @@
 package com.ironsquishy.biteclub;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,12 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import ApiManagers.LocationHandler;
-import ApiManagers.NetworkRequestManager;
 import ApiManagers.RestaurantManager;
-import Callbacks.GeneralCallback;
-import apihelpers.SelectedBusiness;
-import apihelpers.YelpApiHandler.Restaurant;
-import apihelpers.YelpApiHandler.YelpData;
 
 /**
  * Created by Eric on 7/8/2015.

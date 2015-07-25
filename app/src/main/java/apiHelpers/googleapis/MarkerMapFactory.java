@@ -86,6 +86,7 @@ public class MarkerMapFactory {
      */
     public void createHistoryMarkers()
     {
+        /*
         List<VisitedPlace> restaurants;
 
         if (!mDatabaseManager.isDatabaseEmpty()) {
@@ -101,6 +102,7 @@ public class MarkerMapFactory {
                 Marker marker = mGoogleMap.addMarker(markerOptions);
             }
         }
+        */
     }
 
     public void createUntappdMarkers(Context context)

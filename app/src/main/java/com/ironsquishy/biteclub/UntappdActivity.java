@@ -1,21 +1,15 @@
 package com.ironsquishy.biteclub;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import ApiManagers.LocationHandler;
 import ApiManagers.UntappdManager;
-import apihelpers.SelectedBusiness;
 
 
 public class UntappdActivity extends ActionBarActivity {
@@ -25,8 +19,6 @@ public class UntappdActivity extends ActionBarActivity {
     private static TextView mRndDrink;
     private static Context mContext;
     private static UntappdManager mUntappdManager;
-
-    private static SelectedBusiness mSelectedBusiness;
 
     private static Intent mIntent;
 
@@ -47,8 +39,6 @@ public class UntappdActivity extends ActionBarActivity {
         //mPopDrink = (EditText) findViewById(R.id.PopDrinkResult);
 
         mRndDrink = (TextView) findViewById(R.id.RndDrinkRslt);
-
-        mSelectedBusiness = new SelectedBusiness();
 
         mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 

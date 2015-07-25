@@ -1,10 +1,18 @@
 package ApiManagers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.beust.jcommander.Strings;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
@@ -116,11 +124,35 @@ public class UntappdManager {
         return mData.response.checkins.items.get(0).beer.beer_name;
     }
 
+    public List<String> getFilledComments()
+    {
+        List<String> filledComments = new ArrayList<String>();
+
+        int count = 0;
+
+        for(int i = 0; i < mData.response.checkins.items.size();i++)
+        {
+          if(mData.response.checkins.items.get(i).checkin_comment != "")
+          {
+              filledComments.add(mData.response.checkins.items.get(i).checkin_comment);
+          }
+        }
+
+        return filledComments;
+    }
+
     /**
      * @author Allen Space
      * */
     public void populateUntappdData(double pLatitdude, double pLongitude, Context pContext)
     {
+        final ProgressDialog progressDialog = new ProgressDialog(pContext);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setTitle("Loading....");
+        progressDialog.setMessage("Getting Untappd data.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
@@ -129,6 +161,7 @@ public class UntappdManager {
 
                 Log.i("UNTAPPD", "Manager retrieved data...");
 
+                progressDialog.dismiss();
             }
         };
 
