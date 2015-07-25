@@ -11,11 +11,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import ApiManagers.*;
-import Callbacks.GeneralCallback;
-import Callbacks.UntappdResultRunnable;
 import apihelpers.SQLiteHandler.VisitedPlace;
-import apihelpers.SelectedBusiness;
-import apihelpers.Untappd.UntappdData;
+import apihelpers.YelpApiHandler.Restaurant;
 
 
 /**
@@ -26,6 +23,7 @@ public class MarkerMapFactory {
     private static MarkerOptions mMarkers;
     private static GoogleMap mGoogleMap;
     private static DatabaseManager mDatabaseManager;
+    private static Restaurant mRestaurant;
 
     /**
      * @author Allen Space
@@ -36,6 +34,11 @@ public class MarkerMapFactory {
     {
         mGoogleMap =  pGoogleMap;
         mDatabaseManager =  new DatabaseManager(pContext);
+    }
+
+    public MarkerMapFactory(Restaurant pRestaurant)
+    {
+        mRestaurant = pRestaurant;
     }
 
     /**
@@ -64,13 +67,10 @@ public class MarkerMapFactory {
      * */
     public Marker createResultMarker()
     {
-        SelectedBusiness randomResult = new SelectedBusiness();
-
 
         MarkerOptions markerOptions = new MarkerOptions()
-                .position(new LatLng(randomResult.getRestLatitude(), randomResult.getRestLongitdude()))
-                .snippet(randomResult.getmRestAddress())
-                .title(randomResult.getmRestName());
+                .position(new LatLng(mRestaurant.getmLatitude(), mRestaurant.getmLongitude()))
+                .title(mRestaurant.getmRestName());
 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
@@ -86,6 +86,7 @@ public class MarkerMapFactory {
      */
     public void createHistoryMarkers()
     {
+        /*
         List<VisitedPlace> restaurants;
 
         if (!mDatabaseManager.isDatabaseEmpty()) {
@@ -101,16 +102,17 @@ public class MarkerMapFactory {
                 Marker marker = mGoogleMap.addMarker(markerOptions);
             }
         }
+        */
     }
 
     public void createUntappdMarkers(Context context)
-    {
+    {   /*
         SelectedBusiness mResult = new SelectedBusiness();
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-                UntappdFeedManager untappdFeedData = (UntappdFeedManager) object;
+                UntappdManager untappdFeedData = (UntappdManager) object;
 
                 for(int i = 0; i < untappdFeedData.getItemSize(); i++)
                 {
@@ -126,7 +128,7 @@ public class MarkerMapFactory {
         };
 
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
-
+        */
     }
 
 }

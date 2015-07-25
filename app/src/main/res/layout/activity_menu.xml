@@ -35,8 +35,9 @@
                         android:layout_width="fill_parent"
                         android:layout_height="200dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:id="@+id/YelpImage" />
+                        android:scaleType="fitXY"
+                        android:id="@+id/YelpImage"
+                        android:src="@drawable/placeholder_yelp"/>
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -44,7 +45,6 @@
                         android:layout_below="@id/YelpImage"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:id="@+id/resultText"
-                        android:gravity="center"
                         android:textStyle="bold"
                         android:textColor="#000000"
                         android:textSize="30sp"
@@ -83,6 +83,12 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="15dp"/>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_below="@id/filter"/>
+
                     <com.melnykov.fab.FloatingActionButton
                         android:id="@+id/fab"
                         android:layout_width="wrap_content"
@@ -104,7 +110,7 @@
                         android:id="@+id/YelpInfo"
                         android:layout_below="@id/checkToAddFav"
                         android:layout_marginTop="15dp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginBottom="15dp"
                         />
                 </RelativeLayout>

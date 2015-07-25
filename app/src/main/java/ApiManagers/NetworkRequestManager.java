@@ -2,9 +2,7 @@ package ApiManagers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -12,27 +10,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.ironsquishy.biteclub.R;
 
 import org.json.JSONObject;
 
-import AuthKeys.UntappdAuthKeys;
-import AuthKeys.YelpAuthKeys;
 import Callbacks.GeneralCallback;
-import Callbacks.ImageViewRunnable;
-import Callbacks.SelectedBusinessRunnable;
-import Callbacks.UntappdResultRunnable;
-import apihelpers.SelectedBusiness;
+
+import apihelpers.Untappd.UntappdApiHandler;
+import apihelpers.YelpApiHandler.YelpApiHandler;
+import apihelpers.YelpApiHandler.YelpData;
 import apihelpers.networkhelper.SingleRequest;
 import apihelpers.Untappd.UntappdData;
-import apihelpers.YelpApiHandler.SearchForBusinessesResponse;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.signature.HmacSha1MessageSigner;
-import oauth.signpost.signature.QueryStringSigningStrategy;
+
 
 /**
  * Created by Allen Space on 7/12/2015.
@@ -41,8 +29,8 @@ public class NetworkRequestManager {
 
     /**Data Fields*/
     private static NetworkRequestManager singleton = null;
-    private static UntappdFeedManager mData;
-    private static SelectedBusiness mSelectedBusiness;
+    private static UntappdManager mData;
+
 
     //Log cat tags....
     private static final String TAG = "UNTAPPD";
@@ -84,8 +72,7 @@ public class NetworkRequestManager {
      * */
     public void populateUntappdFeed(final GeneralCallback generalCallback, double pLatitude, double pLongitude, Context pContext)
     {
-
-        final String url = builtURL(pLatitude, pLongitude);
+        final String url = new UntappdApiHandler().untappdURL(pLatitude, pLongitude);
 
 
         JsonObjectRequest jsObjectReq = new JsonObjectRequest
@@ -97,8 +84,7 @@ public class NetworkRequestManager {
                         Log.i(TAG,"Returned response, populating Untappd data for OneBite.");
 
                         //Need for populating UntappdData.
-                        UntappdData feed = new Gson().fromJson(response.toString(), UntappdData.class);
-                        mData = new UntappdFeedManager(feed);
+                        UntappdData mData = new Gson().fromJson(response.toString(), UntappdData.class);
 
                         generalCallback.runWithResponse(mData);
 
@@ -120,11 +106,17 @@ public class NetworkRequestManager {
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
     }
 
+
+    /**
+     * @author Allen Space
+     *
+     * */
     public void populateYelpData(final GeneralCallback generalCallback,String pRadius, final Context pContext)
     {
+        final double latitude = LocationHandler.getmLatitude();
+        final double longitude = LocationHandler.getmLongitude();
 
-
-        final String sendJsonRequestURL =buildYelpAuthenticationUrl(pRadius, LocationHandler.getmLatitude(), LocationHandler.getmLongitude());
+        final String sendJsonRequestURL = new YelpApiHandler().buildYelpAuthenticationUrl(pRadius, latitude, longitude);
 
         JsonObjectRequest jsObjectReq = new JsonObjectRequest
                 (Request.Method.GET, sendJsonRequestURL, null, new Response.Listener<JSONObject>() {
@@ -136,7 +128,7 @@ public class NetworkRequestManager {
 
                         Log.i(YELP, "Yelp Responded, populating data for OneBite.");
 
-                        SearchForBusinessesResponse businessesResponse = new Gson().fromJson(response.toString(), SearchForBusinessesResponse.class);
+                        YelpData businessesResponse = new Gson().fromJson(response.toString(), YelpData.class);
 
                         generalCallback.runWithResponse(businessesResponse);
 
@@ -155,92 +147,18 @@ public class NetworkRequestManager {
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
     }
 
-    /**
-     * @author Allen Space
-     * @param pLatitude Double latitude values.
-     * @param pLongitude Double longitude values.
-     * Description: Helper method for populateUntappdFeed, builds the url string.
-     * */
-    private String builtURL(double pLatitude, double pLongitude)
-    {
-        String url = UntappdAuthKeys.API_HOST
-                + UntappdAuthKeys.ENDPOINT
-                + UntappdAuthKeys.LATITUDE
-                + String.valueOf(pLatitude) + "&"
-                + UntappdAuthKeys.LONGITUDE
-                + String.valueOf(pLongitude) + "&"
-                + UntappdAuthKeys.CLIENT_ID
-                + UntappdAuthKeys.ClientID + "&"
-                + UntappdAuthKeys.CLIENT_SECRET
-                + UntappdAuthKeys.ClientSecret;
-
-        return url;
-    }
 
     /**
      * @author Allen Space
-     * @param pLatitdude Double for location.
-     * @param pLongitude Double for location.
-     * Description: Builds and signs the URL request for Yelp.
-     *              It uses latitude and longitude points instead
-     *              of string address.
+     * @param generalCallback Callback object.
+     * @param URL The url string for picture.
+     * @param pContext needs the context it came from.
+     *
+     * Description: Gets a bitmap object of image from the internet.
      * */
-    private String buildYelpAuthenticationUrl(String pRadius , double pLatitdude, double pLongitude)
-    {
-        //Default values.
-        String term = "restaurant";
-        String radius = pRadius;
-
-        //Convert doubles to strings.
-        String latitude = String.valueOf(pLatitdude);
-        String longitude = String.valueOf(pLongitude);
-
-        //URL building.
-        String signedQuery = "";
-        String requestUrl = String.format(
-                "http://api.yelp.com/v2/search?term=%s&offset=%d&radius_filter=%s&ll=%s,%s",
-                Uri.encode(term), 0, radius, latitude + "", longitude + "");
-
-        //OAuthentication Protocal with Sign Post Library.
-        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(YelpAuthKeys._CONSUMER_KEY, YelpAuthKeys._CONSUMER_SECRET);
-
-        consumer.setMessageSigner(new HmacSha1MessageSigner());
-        consumer.setTokenWithSecret(YelpAuthKeys._TOKEN, YelpAuthKeys._TOKEN_SECRET);
-        consumer.setSendEmptyTokens(true);
-
-        consumer.setSigningStrategy(new QueryStringSigningStrategy());
-
-        //Sign the URL.
-        try {
-            Log.i(YELP, "Signing url request.");
-
-            signedQuery = consumer.sign(requestUrl);
-
-        } catch (OAuthMessageSignerException e) {
-
-            Log.e(YELP, "OAuthMessageSignerException thrown");
-            e.printStackTrace();
-
-        } catch (OAuthExpectationFailedException e) {
-
-            Log.e(YELP, "OAuthExpectationFailedException thrown.");
-            e.printStackTrace();
-
-        } catch (OAuthCommunicationException e) {
-
-            Log.e(YELP, "OAuthCommunicationException thrown.");
-            e.printStackTrace();
-        }
-
-        //Returned Signed and authenticated URL string.
-        return signedQuery;
-    }
-
-    public static void getYelpSingleImage(final ImageViewRunnable imageViewRunnable, String URL, Context pContext)
+    public static void getYelpSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
     {
         Log.i(YELP, "Trying to retrive the image url @ " + URL);
-
-        final ImageView imageView = null;
 
         ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
             @Override
@@ -248,7 +166,7 @@ public class NetworkRequestManager {
 
                 Log.i(YELP, "Responded with image");
 
-                imageViewRunnable.runWithImageView(bitmap);
+                generalCallback.runWithResponse(bitmap);
             }
         }, 0, 0, null, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
@@ -256,7 +174,7 @@ public class NetworkRequestManager {
 
                 Bitmap bitmap = null;
 
-                imageViewRunnable.runWithImageView(bitmap);
+                generalCallback.runWithResponse(bitmap);
             }
         });
 

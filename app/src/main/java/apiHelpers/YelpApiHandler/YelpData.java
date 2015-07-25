@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by darver on 7/2/15.
  */
-public class SearchForBusinessesResponse {
+public class YelpData {
 
         public List<Business> businesses;
         public Region region;
@@ -35,7 +35,7 @@ public class SearchForBusinessesResponse {
         public int review_count;
 
         public List<Deal> deals;
-        public List<List<String>> caetgories;
+        public List<List<String>> categories;
 
         public Location location;
     }

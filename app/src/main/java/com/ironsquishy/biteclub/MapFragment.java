@@ -166,11 +166,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Marker marker = markerMapFactory.createClientMarker();
 
         //Untappd marker generated.
-        markerMapFactory.createUntappdMarkers(pContext);
+        //markerMapFactory.createUntappdMarkers(pContext);
 
-        markerMapFactory.createHistoryMarkers();
+        //markerMapFactory.createHistoryMarkers();
 
-        //addFakeMarkers(pGoogleMap);
     }
 
 }
