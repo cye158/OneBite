@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -18,45 +19,68 @@ import java.util.ArrayList;
  *             a category he/she would
  **/
 public class FilterOption extends DialogFragment {
+    SharedPreferences filter_pref;
+    Editor editor;
 
-//    final int FILTER_LIST_SIZE = 14;
-//    SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+    // Shared Preference file name
+    private static final String PREF_NAME = "Pref";
+
+    // Shared Preferences Key
+    public static final String KEY_NAME = "name";
+    public static final Boolean KEY_VALUE = false;
+
+
+    /*List of the food category*/
+    final ArrayList arrayFilter = new ArrayList();
+    final String[] foodCuisine = { "NewAmerican", "Mexican", "Chinese", "Filipino", "Italian",
+            "Japanese", "Korean", "Vietnamese", "Thai", "Vegetarian", "Creperies", "Cafe",
+            "Desserts", "Seafood" };
+
+    boolean[] itemsChecked = { false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false };
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        /*List of the food category*/
-        final ArrayList arrayFilter = new ArrayList();
-        final String[] foodCuisine = { "NewAmerican", "Mexican", "Chinese", "Filipino", "Italian",
-                "Japanese", "Korean", "Vietnamese", "Thai", "Vegetarian", "Creperies", "Cafe",
-                "Desserts", "Seafood" };
-
-        //load pref
+        //loads the preference saved
+        //for(int i=0; i<itemsChecked.length; i++){
+        //    itemsChecked[i] = loadFilter(i);
+        //}
 
         /*Alert dialog declaration*/
         AlertDialog.Builder filterDialog = new AlertDialog.Builder(getActivity());
         filterDialog.setTitle("Food Category:");
-        filterDialog.setMultiChoiceItems(foodCuisine, null, new DialogInterface.OnMultiChoiceClickListener() {
+        filterDialog.setMultiChoiceItems(foodCuisine, itemsChecked, new DialogInterface.OnMultiChoiceClickListener() {
 
             /*Checked items from the category are saved in an array*/
             @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            public void onClick(DialogInterface dialog, int index, boolean isChecked) {
+
                 if (isChecked) {
-                    arrayFilter.add(which);
-                   // saveFilter(,isChecked);
-                } else if (arrayFilter.contains(which)) {
-                    arrayFilter.remove(Integer.valueOf(which));
+                    arrayFilter.add(index);
+                    //store checked filter
+                    saveFilter(index, isChecked);
+                } else {
+                    //arrayFilter.remove(Integer.valueOf(index));
+                    arrayFilter.remove(index);
+                    //store unchecked filter
+                    saveFilter(index, false);
                 }
             }
         });
 
         filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            //commit pref
 
             /*The array is then converted to a string with ',' to separate each item */
             String addToFilter = "";
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                //commit and save the preference for next run
+                //commitPref();
+
                 for (int i = 0; i < arrayFilter.size(); i++) {
                     if(i != 0)
                         addToFilter +=  "," + foodCuisine[(Integer) arrayFilter.get(i)];
@@ -66,7 +90,7 @@ public class FilterOption extends DialogFragment {
                 Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
 
                 /*to be used for yelp category_filter*/
-                //
+                //addToFilter.toLowerCase();
             }
         });
 
@@ -78,20 +102,29 @@ public class FilterOption extends DialogFragment {
             }
         });
 
+        //dialog cannot be cancelled if out of bounds of the dialog is clicked
         setCancelable(false);
+
         AlertDialog objDialog = filterDialog.create();
         return objDialog;
     }
 
-    public void saveFilter(int index, Boolean isChecked) {
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check" + index, isChecked);
+    /*Stores pref into a file named filter_pref*/
+    public void saveFilter(int  index, Boolean isChecked) {
+        filter_pref = getActivity().getSharedPreferences("filter_pref", Context.MODE_PRIVATE);
+        editor = filter_pref.edit();
+        editor.putBoolean("filters" + index, isChecked);
+    }
+
+    /*Saves changes in made to filter_pref*/
+    public void commitPref(){
         editor.commit();
     }
 
-    public void loadFilter(int index) {
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        sharedPreferences.getBoolean("check" + index, false);
+    /*Loads the pref by checking the boolean from the passed index marker*/
+    public boolean loadFilter(int index) {
+        filter_pref = getActivity().getSharedPreferences("filter_pref", Context.MODE_PRIVATE);
+        return filter_pref.getBoolean("filters" + index, false);
     }
+
 }
