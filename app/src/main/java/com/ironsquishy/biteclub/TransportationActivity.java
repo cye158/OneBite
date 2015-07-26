@@ -47,7 +47,7 @@ public class TransportationActivity extends FragmentActivity {
     /** Called when the user clicks the Feed Me! button for car*/
     public void toMenuActivityCar(View view) {
 
-        Intent intent = new Intent(this, MenuActivity.class);
+        Intent intent = new Intent(this, ResultActivity.class);
 
         startActivity(intent);
     }
