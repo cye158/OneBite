@@ -18,6 +18,7 @@ import java.util.Random;
 import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
 import apihelpers.Untappd.UntappdData;
+import apihelpers.YelpApiHandler.YelpData;
 
 /**
  * Created by Allen Space on 7/12/2015.
@@ -139,6 +140,15 @@ public class UntappdManager {
         }
 
         return filledComments;
+    }
+
+    public String getPopularBeerStyle()
+    {
+        final String str;
+
+        
+
+        return null;
     }
 
     /**
