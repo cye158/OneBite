@@ -123,8 +123,6 @@ public class DBHandler extends SQLiteOpenHelper {
     public boolean isExistInDatabase(String place, double latitude, double longitude) {
         SQLiteDatabase db = getReadableDatabase();
 
-
-
         String query = "SELECT * FROM " + TABLE_NAME +
                 " WHERE " + COLUME_NAME + " = ?" +
                 " AND " + COLUME_LATITUDE + " = " + latitude +
