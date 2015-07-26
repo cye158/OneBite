@@ -76,7 +76,9 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      */
     public void checkFavAdd(View view) {
         //Add to result in text view to data.
-        mDatabaseManager.addToDatabase(mRandomStringName);
+        mDatabaseManager.addToDatabase(mRestaurant.getmRestName(),
+                mRestaurant.getmLatitude(),
+                mRestaurant.getmLongitude());
 
         //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
         Toast.makeText(getApplicationContext(), "Added to favorites.",

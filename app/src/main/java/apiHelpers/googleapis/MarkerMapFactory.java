@@ -1,12 +1,16 @@
 package apihelpers.googleapis;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.ironsquishy.biteclub.R;
 
 import java.util.List;
 
@@ -72,7 +76,7 @@ public class MarkerMapFactory {
                 .position(new LatLng(mRestaurant.getmLatitude(), mRestaurant.getmLongitude()))
                 .title(mRestaurant.getmRestName());
 
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.burger));
 
         Marker marker = mGoogleMap.addMarker(markerOptions);
         marker.showInfoWindow();
@@ -86,7 +90,6 @@ public class MarkerMapFactory {
      */
     public void createHistoryMarkers()
     {
-        /*
         List<VisitedPlace> restaurants;
 
         if (!mDatabaseManager.isDatabaseEmpty()) {
@@ -97,12 +100,11 @@ public class MarkerMapFactory {
                 markerOptions.position(new LatLng(restaurants.get(i).get_latitude(), restaurants.get(i).get_longitude()));
                 markerOptions.title(restaurants.get(i).get_name());
                 markerOptions.snippet("Visited " + restaurants.get(i).get_date());
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.star));
 
                 Marker marker = mGoogleMap.addMarker(markerOptions);
             }
         }
-        */
     }
 
     public void createUntappdMarkers(Context context)
@@ -121,6 +123,9 @@ public class MarkerMapFactory {
                     markerOptions.title(untappdFeedData.getBeerTitle(i));
                     markerOptions.snippet(untappdFeedData.getShortDescription(i));
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+
+                    // use this line for custom marker
+                    //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.beer));
 
                     Marker marker = mGoogleMap.addMarker(markerOptions);
                 }
