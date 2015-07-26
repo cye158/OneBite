@@ -40,12 +40,14 @@ public class DatabaseManager {
 
 
     /**
-     * @author Allen Space
+     * @author Allen Space, Edited by Guan
      * */
-    public void addToDatabase(String pNewPlace)
+    public void addToDatabase(String pNewPlace, Double latitude, Double longitude)
     {
         //VisitedPlace visitedPlace = new VisitedPlace(pNewPlace, mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude());
         //mDBHandler.addVisitedPlace(visitedPlace);
+
+        mDBHandler.addVisitedPlace(new VisitedPlace(pNewPlace, latitude, longitude));
     }
 
     /**
