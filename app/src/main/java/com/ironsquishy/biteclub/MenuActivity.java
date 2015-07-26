@@ -3,29 +3,18 @@ package com.ironsquishy.biteclub;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Network;
-import com.android.volley.toolbox.NetworkImageView;
-import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.Target;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
-
 import ApiManagers.DatabaseManager;
-import ApiManagers.NetworkRequestManager;
-import Callbacks.GeneralCallback;
-import Callbacks.ImageViewRunnable;
-import apihelpers.SelectedBusiness;
+import ApiManagers.RestaurantManager;
+import apihelpers.YelpApiHandler.Restaurant;
 
 
 /**
@@ -37,10 +26,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     /**
      * Data Fields
      */
-    private static SelectedBusiness mSelectedBusiness;
     private static TextView mResultText;
     private static String mRandomStringName;
     private static SwipeRefreshLayout swipeRefreshLayout;
+    private static RestaurantManager mRestaurantManager;
+    private static Restaurant mRestaurant;
 
     private static TextView addToData;
     private static ImageView mYelpImage;
@@ -74,13 +64,9 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                randomizeYelpResponse();
-            }
-        }, 1000);
+        mRestaurantManager = new RestaurantManager();
 
+        randomizeYelpResponse();
 
         swipeRefresh();
     }
@@ -110,7 +96,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      * Called when the user clicks the untappdFeed button - Eric
      */
     public void toInfo(View view) {
-        Intent intent = new Intent(this, UntappdList.class);
+        Intent intent = new Intent(this, UntappdActivity.class);
+        intent.putExtra("restname", mRestaurant.getmRestName());
         startActivity(intent);
     }
 
@@ -131,8 +118,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onStart() {
         super.onStart();
 
-
-
     }
 
     /**
@@ -141,32 +126,17 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
      * And displays on screen.
      */
     private void randomizeYelpResponse() {
-        mSelectedBusiness = new SelectedBusiness();
 
-        mSelectedBusiness.reShuffleBusinessList();
+        //Get a random restuarant.
+        mRestaurant = mRestaurantManager.getRandRestCar();
 
-        mRandomStringName = mSelectedBusiness.getmRestName();
+        //Set the Text name.
+        mResultText.setText(mRestaurant.getmRestName());
 
-        mResultText.setText(mRandomStringName);
+        //Set the Descripiton and ratings
 
-        mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
+        mExtYelpInfo.setText(mRestaurant.getmDescription() + "\n" + mRestaurant.getmRatings());
 
-       final GeneralCallback generalCallback = new GeneralCallback() {
-           @Override
-           public void runWithResponse(Object object) {
-
-               Bitmap bitmap = (Bitmap) object;
-
-               if (bitmap == null) {
-
-                   mYelpImage.setImageResource(R.drawable.placeholder_yelp);
-
-               } else
-                   mYelpImage.setImageBitmap(bitmap);
-           }
-       };
-
-        NetworkRequestManager.getInstance().getYelpSingleImage( generalCallback, mSelectedBusiness.getRestImageURL(), mContext);
     }
 
 

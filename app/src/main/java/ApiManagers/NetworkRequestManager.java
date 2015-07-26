@@ -2,9 +2,7 @@ package ApiManagers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,7 +14,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import Callbacks.GeneralCallback;
-import apihelpers.SelectedBusiness;
+
 import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.YelpApiHandler.YelpApiHandler;
 import apihelpers.YelpApiHandler.YelpData;
@@ -32,7 +30,7 @@ public class NetworkRequestManager {
     /**Data Fields*/
     private static NetworkRequestManager singleton = null;
     private static UntappdManager mData;
-    private static SelectedBusiness mSelectedBusiness;
+
 
     //Log cat tags....
     private static final String TAG = "UNTAPPD";

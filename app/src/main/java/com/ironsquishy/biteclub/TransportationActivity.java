@@ -1,6 +1,5 @@
 package com.ironsquishy.biteclub;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,10 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import ApiManagers.LocationHandler;
-import ApiManagers.NetworkRequestManager;
-import Callbacks.GeneralCallback;
-import apihelpers.SelectedBusiness;
-import apihelpers.YelpApiHandler.YelpData;
+import ApiManagers.RestaurantManager;
 
 /**
  * Created by Eric on 7/8/2015.
@@ -21,7 +17,7 @@ import apihelpers.YelpApiHandler.YelpData;
 public class TransportationActivity extends FragmentActivity {
 
     ViewPager viewPager=null;
-    private static SelectedBusiness mSelectedBusiness;
+    private static RestaurantManager mRestaurantManager;
 
 
     @Override
@@ -33,11 +29,11 @@ public class TransportationActivity extends FragmentActivity {
         viewPager.setAdapter(new TransportationPagerAdapter(fragmentManager));
         viewPager.setCurrentItem(1);
 
-        Double dlatitude = LocationHandler.getmLatitude();
-        Double dlongitude = LocationHandler.getmLongitude();
+        //Call to Populate yelp data !!!!
+        mRestaurantManager = new RestaurantManager();
+        mRestaurantManager.populateYelpData(LocationHandler.getmLatitude(),LocationHandler.getmLongitude(), this);
 
-        String sLatitude = Double.toString(dlatitude);
-        String sLongitude = Double.toString(dlongitude);
+
     }
 
     /** Called when the user clicks the Feed Me! button for bus */
@@ -45,96 +41,21 @@ public class TransportationActivity extends FragmentActivity {
 
         Intent intent = new Intent(this, MenuActivity.class);
 
-//        if (check if location services is on(receive from location check)){
-//        pass current location and radius defined by button to yelpAsync.
-//        }
-//        else if{
-//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
-//        }
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Getting Restaurant Result.");
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-
-        progressDialog.show();
-
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                mSelectedBusiness = new SelectedBusiness((YelpData) object);
-                progressDialog.dismiss();
-            }
-        };
-
-        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "5632.7", getBaseContext());
-
         startActivity(intent);
     }
 
     /** Called when the user clicks the Feed Me! button for car*/
     public void toMenuActivityCar(View view) {
+
         Intent intent = new Intent(this, MenuActivity.class);
-
-//        if (check if location services is on(receive from location check)){
-//        pass current location and radius defined by button to yelpAsync.
-//        }
-//        else if{
-//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
-//        }
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Getting Restaurant Result.");
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-
-        progressDialog.show();
-
-
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                mSelectedBusiness = new SelectedBusiness((YelpData) object);
-                progressDialog.dismiss();
-            }
-        };
-
-        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "7000.00", getBaseContext());
 
         startActivity(intent);
     }
 
     /** Called when the user clicks the Feed Me! button for walk*/
     public void toMenuActivityWalk(View view) {
+
         Intent intent = new Intent(this, MenuActivity.class);
-
-//        if (check if location services is on(receive from location check)){
-//        pass current location and radius defined by button to yelpAsync.
-//        }
-//        else if{
-//        grab results from CurrentLocationActivity. Continue to pass defined radius to yelpAsync
-//        }
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Getting Restaurant Result.");
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-
-        progressDialog.show();
-
-
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                mSelectedBusiness = new SelectedBusiness((YelpData) object);
-                progressDialog.dismiss();
-            }
-        };
-
-        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "2414.02", getBaseContext());
 
         startActivity(intent);
     }

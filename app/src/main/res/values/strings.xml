@@ -47,5 +47,6 @@
     <string name="FilterDescription">Don\'t like certain foods? Use the filter to fine tune your choices.</string>
     <string name="Untappd">Interested in alcohol? Checkout out our Untappd feed or you can find them on the map also.</string>
     <string name="Finish">Finish</string>
+    <string name="title_activity_untappd">UntappdActivity</string>
 
 </resources>
