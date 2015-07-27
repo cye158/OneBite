@@ -71,7 +71,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
-        mDatabaseManager = new DatabaseManager(this);
+        mDatabaseManager = DatabaseManager.getInstance(this);
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 

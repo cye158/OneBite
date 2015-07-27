@@ -15,6 +15,7 @@ public class DatabaseManager {
 
     /** Data Fields */
     private static DBHandler mDBHandler;
+    private static DatabaseManager databaseManager = null;
 
 
     //----Class Structure-------
@@ -26,12 +27,17 @@ public class DatabaseManager {
     /**
      * @author Allen Space
      * */
-    public DatabaseManager(Context pContext)
+    private DatabaseManager()
     {
-        mDBHandler = new DBHandler(pContext, null, null, 1);
-
         //This might change to businessDataManager.
+    }
 
+    public static DatabaseManager getInstance(Context pContext) {
+        if (databaseManager == null) {
+            databaseManager = new DatabaseManager();
+            mDBHandler = new DBHandler(pContext, null, null, 1);
+        }
+        return databaseManager;
     }
 
     //TODO put Getter methods
