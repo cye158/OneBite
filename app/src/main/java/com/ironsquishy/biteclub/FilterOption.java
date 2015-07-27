@@ -1,4 +1,4 @@
-package com.cye.testapp;
+package com.ironsquishy.biteclub;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
