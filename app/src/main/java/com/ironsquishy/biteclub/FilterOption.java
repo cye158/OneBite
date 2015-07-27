@@ -90,7 +90,7 @@ public class FilterOption extends DialogFragment {
                 Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
 
                 /*to be used for yelp category_filter*/
-                //addToFilter.toLowerCase();
+                //-->>>> addToFilter.toLowerCase();
             }
         });
 
