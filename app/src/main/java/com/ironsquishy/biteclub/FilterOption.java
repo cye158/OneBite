@@ -1,4 +1,4 @@
-package com.ironsquishy.biteclub;
+package com.cye.testapp;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,16 +19,9 @@ import java.util.ArrayList;
  *             a category he/she would
  **/
 public class FilterOption extends DialogFragment {
-    SharedPreferences filter_pref;
-    Editor editor;
 
-    // Shared Preference file name
-    private static final String PREF_NAME = "Pref";
-
-    // Shared Preferences Key
-    public static final String KEY_NAME = "name";
-    public static final Boolean KEY_VALUE = false;
-
+    /*The array is then converted to a string with ',' to separate each item */
+    String addToFilter = "";
 
     /*List of the food category*/
     final ArrayList arrayFilter = new ArrayList();
@@ -44,9 +37,15 @@ public class FilterOption extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         //loads the preference saved
-        //for(int i=0; i<itemsChecked.length; i++){
-        //    itemsChecked[i] = loadFilter(i);
-        //}
+        for(int i=0; i<itemsChecked.length; i++){
+            itemsChecked[i] = loadFilter(i);
+            if(itemsChecked[i]==true){
+                if(!addToFilter.equals(""))
+                    addToFilter +=  "," + foodCuisine[i];
+                else
+                    addToFilter += foodCuisine[i];
+            }
+        }
 
         /*Alert dialog declaration*/
         AlertDialog.Builder filterDialog = new AlertDialog.Builder(getActivity());
@@ -58,13 +57,17 @@ public class FilterOption extends DialogFragment {
             public void onClick(DialogInterface dialog, int index, boolean isChecked) {
 
                 if (isChecked) {
+
                     arrayFilter.add(index);
-                    //store checked filter
+
+                    /*store checked filter*/
                     saveFilter(index, isChecked);
+
                 } else {
-                    //arrayFilter.remove(Integer.valueOf(index));
-                    arrayFilter.remove(index);
-                    //store unchecked filter
+
+                    arrayFilter.remove(Integer.valueOf(index));
+
+                    /*store unchecked filter*/
                     saveFilter(index, false);
                 }
             }
@@ -72,25 +75,21 @@ public class FilterOption extends DialogFragment {
 
         filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
-            /*The array is then converted to a string with ',' to separate each item */
-            String addToFilter = "";
-
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                //commit and save the preference for next run
-                //commitPref();
-
                 for (int i = 0; i < arrayFilter.size(); i++) {
-                    if(i != 0)
-                        addToFilter +=  "," + foodCuisine[(Integer) arrayFilter.get(i)];
+                    if (!addToFilter.equals(""))
+                        addToFilter += "," + foodCuisine[(Integer) arrayFilter.get(i)];
                     else
                         addToFilter += foodCuisine[(Integer) arrayFilter.get(i)];
                 }
-                Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
 
-                /*to be used for yelp category_filter*/
-                //-->>>> addToFilter.toLowerCase();
+                /*
+                To be used for yelp category_filter
+                */
+                //addToFilter.toLowerCase();
             }
         });
 
@@ -98,31 +97,38 @@ public class FilterOption extends DialogFragment {
             /*Does nothing as filter was cancelled*/
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "Filters have been cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Filters cancelled", Toast.LENGTH_SHORT).show();
             }
         });
 
-        //dialog cannot be cancelled if out of bounds of the dialog is clicked
+        Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
+
+        /*Dialog cannot be cancelled if out of bounds of the dialog is clicked*/
         setCancelable(false);
 
         AlertDialog objDialog = filterDialog.create();
         return objDialog;
     }
 
-    /*Stores pref into a file named filter_pref*/
+    /*
+    Shared preference method to store the pref into a file named filter_pref and is committed
+    for every change made to the filter.
+    */
     public void saveFilter(int  index, Boolean isChecked) {
+        SharedPreferences filter_pref;
+        Editor editor;
         filter_pref = getActivity().getSharedPreferences("filter_pref", Context.MODE_PRIVATE);
         editor = filter_pref.edit();
         editor.putBoolean("filters" + index, isChecked);
-    }
-
-    /*Saves changes in made to filter_pref*/
-    public void commitPref(){
         editor.commit();
     }
 
-    /*Loads the pref by checking the boolean from the passed index marker*/
+    /*
+    Loads the boolean from filter_pref by suing the index and returns it. Returns false as a
+    default if file is empty.
+    */
     public boolean loadFilter(int index) {
+        SharedPreferences filter_pref;
         filter_pref = getActivity().getSharedPreferences("filter_pref", Context.MODE_PRIVATE);
         return filter_pref.getBoolean("filters" + index, false);
     }
