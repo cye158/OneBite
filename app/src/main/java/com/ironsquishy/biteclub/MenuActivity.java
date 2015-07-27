@@ -64,7 +64,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
-        mRestaurantManager = new RestaurantManager();
+        mRestaurantManager = RestaurantManager.getInstance();
 
         randomizeYelpResponse();
 
