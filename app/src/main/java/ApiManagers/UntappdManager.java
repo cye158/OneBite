@@ -1,19 +1,33 @@
 package ApiManagers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.beust.jcommander.Strings;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
 
 import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
 import apihelpers.Untappd.UntappdData;
+import apihelpers.YelpApiHandler.YelpData;
 
 /**
  * Created by Allen Space on 7/12/2015.
  */
-public class UntappdFeedManager {
+public class UntappdManager {
 
     private static UntappdData mData;
+
+    private static List<UntappdData.Item> mItems;
 
     private static NetworkRequestManager mNetworkRequestManager;
 
@@ -26,14 +40,16 @@ public class UntappdFeedManager {
     /**
      * @author Allen Space
      * */
-    public UntappdFeedManager()
+    public UntappdManager()
     {
         //default.
     }
 
-    public UntappdFeedManager(UntappdData data)
+    public UntappdManager(UntappdData data)
     {
         mData = data;
+
+        mItems = mData.response.checkins.items;
 
     }
     /**
@@ -101,19 +117,61 @@ public class UntappdFeedManager {
         return mData.response.checkins.items;
     }
 
+    public String getRandomDrink()
+    {
+        Log.i("UNTAPPD", "Number of Beers: " + mData.response.checkins.items.size());
+        Collections.shuffle(mData.response.checkins.items, new Random(System.nanoTime()));
+
+        return mData.response.checkins.items.get(0).beer.beer_name;
+    }
+
+    public List<String> getFilledComments()
+    {
+        List<String> filledComments = new ArrayList<String>();
+
+        int count = 0;
+
+        for(int i = 0; i < mData.response.checkins.items.size();i++)
+        {
+          if(mData.response.checkins.items.get(i).checkin_comment != "")
+          {
+              filledComments.add(mData.response.checkins.items.get(i).checkin_comment);
+          }
+        }
+
+        return filledComments;
+    }
+
+    public String getPopularBeerStyle()
+    {
+        final String str;
+
+        
+
+        return null;
+    }
+
     /**
      * @author Allen Space
      * */
     public void populateUntappdData(double pLatitdude, double pLongitude, Context pContext)
     {
+        final ProgressDialog progressDialog = new ProgressDialog(pContext);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setTitle("Loading....");
+        progressDialog.setMessage("Getting Untappd data.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
 
-                UntappdData data = (UntappdData) object;
+                mData = (UntappdData) object;
 
-                mData = data;
+                Log.i("UNTAPPD", "Manager retrieved data...");
 
+                progressDialog.dismiss();
             }
         };
 

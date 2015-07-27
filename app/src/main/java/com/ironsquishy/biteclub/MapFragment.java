@@ -160,7 +160,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         moveCameraToClient(pGoogleMap);
 
-        Marker  restMark = markerMapFactory.createResultMarker();
+        Marker restMark = markerMapFactory.createResultMarker();
 
         //Client Marker.
         Marker marker = markerMapFactory.createClientMarker();
@@ -168,9 +168,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         //Untappd marker generated.
         markerMapFactory.createUntappdMarkers(pContext);
 
+        // display favorites markers
         markerMapFactory.createHistoryMarkers();
 
-        //addFakeMarkers(pGoogleMap);
     }
 
 }

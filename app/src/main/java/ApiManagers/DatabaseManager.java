@@ -6,7 +6,7 @@ import java.util.List;
 
 import apihelpers.SQLiteHandler.DBHandler;
 import apihelpers.SQLiteHandler.VisitedPlace;
-import apihelpers.SelectedBusiness;
+
 
 /**
  * Created by Allen Space on 7/20/2015.
@@ -15,7 +15,7 @@ public class DatabaseManager {
 
     /** Data Fields */
     private static DBHandler mDBHandler;
-    private static SelectedBusiness mSelectedBusiness;
+
 
     //----Class Structure-------
     //----Constructor-----------
@@ -31,7 +31,7 @@ public class DatabaseManager {
         mDBHandler = new DBHandler(pContext, null, null, 1);
 
         //This might change to businessDataManager.
-        mSelectedBusiness = new SelectedBusiness();
+
     }
 
     //TODO put Getter methods
@@ -40,12 +40,14 @@ public class DatabaseManager {
 
 
     /**
-     * @author Allen Space
+     * @author Allen Space, Edited by Guan
      * */
-    public void addToDatabase(String pNewPlace)
+    public void addToDatabase(String pNewPlace, Double latitude, Double longitude)
     {
-        VisitedPlace visitedPlace = new VisitedPlace(pNewPlace, mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude());
-        mDBHandler.addVisitedPlace(visitedPlace);
+        //VisitedPlace visitedPlace = new VisitedPlace(pNewPlace, mSelectedBusiness.getRestLatitude(), mSelectedBusiness.getRestLongitdude());
+        //mDBHandler.addVisitedPlace(visitedPlace);
+
+        mDBHandler.addVisitedPlace(new VisitedPlace(pNewPlace, latitude, longitude));
     }
 
     /**
@@ -82,11 +84,11 @@ public class DatabaseManager {
      * @param place A String of the name of the location to be remove
      */
     public void removeFromDatabase(String place) {
-        VisitedPlace visitedPlace = new VisitedPlace(place,
-                mSelectedBusiness.getRestLatitude(),
-                mSelectedBusiness.getRestLongitdude());
+        //VisitedPlace visitedPlace = new VisitedPlace(place,
+                //mSelectedBusiness.getRestLatitude(),
+                //mSelectedBusiness.getRestLongitdude());
 
-        mDBHandler.deleteVisitedPlace(visitedPlace);
+        //mDBHandler.deleteVisitedPlace(visitedPlace);
     }
 
     /**
@@ -96,9 +98,10 @@ public class DatabaseManager {
      * @return  true if is already in the database, false otherwise
      */
     public boolean checkIfInDatabase(String place) {
-        return mDBHandler.isExistInDatabase(place,
-                mSelectedBusiness.getRestLatitude(),
-                mSelectedBusiness.getRestLongitdude());
+        //return mDBHandler.isExistInDatabase(place,
+                //mSelectedBusiness.getRestLatitude(),
+                //mSelectedBusiness.getRestLongitdude());
+        return false;
     }
 }
 

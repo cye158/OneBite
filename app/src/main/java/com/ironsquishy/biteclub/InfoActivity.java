@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import ApiManagers.UntappdFeedManager;
-import apihelpers.SelectedBusiness;
+
 
 public class InfoActivity extends AppCompatActivity {
 
     private static TextView mExtYelpInfo;
-    private static SelectedBusiness mSelectedBusiness;
 
 
     @Override
@@ -22,7 +20,7 @@ public class InfoActivity extends AppCompatActivity {
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
-        mSelectedBusiness = new SelectedBusiness();
+
 
     }
 
@@ -30,7 +28,6 @@ public class InfoActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mExtYelpInfo.setText(mSelectedBusiness.getLongDescriptionRest());
 
     }
 
