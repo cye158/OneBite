@@ -97,11 +97,11 @@ public class DatabaseManager {
      * @param place A String of the name of the location to be check
      * @return  true if is already in the database, false otherwise
      */
-    public boolean checkIfInDatabase(String place) {
+    public boolean checkIfInDatabase(String place, Double latitude, Double longitude) {
         //return mDBHandler.isExistInDatabase(place,
                 //mSelectedBusiness.getRestLatitude(),
                 //mSelectedBusiness.getRestLongitdude());
-        return false;
+        return mDBHandler.isExistInDatabase(place, latitude, longitude);
     }
 }
 
