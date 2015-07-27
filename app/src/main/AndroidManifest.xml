@@ -74,6 +74,13 @@
                 android:value="com.ironsquishy.biteclub.MenuActivity" />
         </activity>
 
+        <!-- New menu activity -> result -->
+        <activity
+            android:name=".ResultActivity"
+            android:label="Result" >
+            
+        </activity>
+
         <service android:name="apihelpers.googleapis.FetchLocationAddress" />
 
         <meta-data

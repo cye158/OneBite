@@ -1,8 +1,7 @@
 package apihelpers.YelpApiHandler;
 
+import android.graphics.Bitmap;
 import android.util.Log;
-
-import java.util.List;
 
 /**
  * Created by Allen Space on 7/24/2015.
@@ -13,11 +12,13 @@ public class Restaurant {
     /**Data Fields**/
     private String mRestName;
     private String mDescription;
+    private Bitmap mRestImage;//this handles the displayed yelp image, but won't be in the restaurant object
     private double mLatitude;
     private double mLongitude;
     private double mRatings;
 
-    private YelpData.Business restaurant;
+
+    private apihelpers.YelpApiHandler.YelpData.Business restaurant;
 
 
     public Restaurant()
@@ -36,9 +37,9 @@ public class Restaurant {
 
     public Restaurant(Object object)
     {
-        if(object instanceof  YelpData.Business)
+        if(object instanceof  apihelpers.YelpApiHandler.YelpData.Business)
         {
-            restaurant = (YelpData.Business) object;
+            restaurant = (apihelpers.YelpApiHandler.YelpData.Business) object;
 
             this.mRestName = restaurant.name;
             this.mDescription = restaurant.snippet_text;
@@ -61,6 +62,11 @@ public class Restaurant {
     public String getmDescription() {
         return mDescription;
     }
+
+    public void setmRestImage(Bitmap mRestImage)  { this.mRestImage = mRestImage; }
+    //insert here so could be used in the restaurant manager class to insert
+
+    public Bitmap getmRestImage(){ return mRestImage; }
 
     public void setmDescription(String mDescription) {
         this.mDescription = mDescription;

@@ -160,15 +160,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         moveCameraToClient(pGoogleMap);
 
-        Marker  restMark = markerMapFactory.createResultMarker();
+        Marker restMark = markerMapFactory.createResultMarker();
 
         //Client Marker.
         Marker marker = markerMapFactory.createClientMarker();
 
         //Untappd marker generated.
-        //markerMapFactory.createUntappdMarkers(pContext);
+        markerMapFactory.createUntappdMarkers(pContext);
 
-        //markerMapFactory.createHistoryMarkers();
+        // display favorites markers
+        markerMapFactory.createHistoryMarkers();
 
     }
 

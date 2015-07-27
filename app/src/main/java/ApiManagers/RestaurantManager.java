@@ -1,6 +1,7 @@
 package ApiManagers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Collections;
@@ -18,6 +19,7 @@ public class RestaurantManager {
 
     /**Data Fields**/
     private static YelpData mYelpData; //This will need to populated before hand!!!!!!!!!!!!!
+    private static Bitmap mYelpImage; //
 
     private Restaurant mRestaurant;    //Creating resulting restaurant.
 
@@ -42,6 +44,9 @@ public class RestaurantManager {
         Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
 
         new MarkerMapFactory(restaurant);
+
+        //insert restaurant image so front-end won't make a second call
+        restaurant.setmRestImage(mYelpImage);
 
         //Returns a random restuarant name.
         return restaurant;
@@ -70,6 +75,9 @@ public class RestaurantManager {
                 Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
 
                 new MarkerMapFactory(restaurant);
+
+                //insert image from here
+                restaurant.setmRestImage(mYelpImage);
 
                 //Returns a random restuarant name.
                 return restaurant;
@@ -105,6 +113,9 @@ public class RestaurantManager {
 
                 new MarkerMapFactory(restaurant);
 
+                //insert image from here
+                restaurant.setmRestImage(mYelpImage);
+
                 //Returns a random restuarant name.
                 return restaurant;
             }
@@ -125,6 +136,19 @@ public class RestaurantManager {
         };
 
         NetworkRequestManager.getInstance().populateYelpData(generalCallback,"8046.72", pContext);
+    }
+
+    //one call for all pass with the URL
+    public void getYelpSingleImage(String URL, Context pContext){
+
+        GeneralCallback generalCallback = new GeneralCallback() {
+            @Override
+            public void runWithResponse(Object object) {
+                mYelpImage = (Bitmap) object;
+            }
+        };
+
+        NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback,"",pContext);
     }
 
 

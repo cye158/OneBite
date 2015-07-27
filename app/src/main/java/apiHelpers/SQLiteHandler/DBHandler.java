@@ -122,12 +122,14 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public boolean isExistInDatabase(String place, double latitude, double longitude) {
         SQLiteDatabase db = getReadableDatabase();
+
         String query = "SELECT * FROM " + TABLE_NAME +
-                " WHERE " + COLUME_NAME + " = '" + place + "'" +
+                " WHERE " + COLUME_NAME + " = ?" +
                 " AND " + COLUME_LATITUDE + " = " + latitude +
                 " AND " + COLUME_LONGITUDE + " = " + longitude;
 
-        Cursor cursor = db.rawQuery(query, null);
+        // 2nd param: fixing escape sequence bugs for SQLite query
+        Cursor cursor = db.rawQuery(query, new String[] {place});
         boolean existent = false;
 
         if (cursor.getCount() <= 0) {
