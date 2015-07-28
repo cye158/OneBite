@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ApiManagers.LocationHandler;
+import EULA.EULA;
 
 
 public class SplashActivity extends Activity {
@@ -24,7 +25,7 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        new EULA(this).show();
 
         //TODO Find an opitmize point to put LocationHandler instantiate
         //Get started LocationHandler and start connection.
