@@ -132,12 +132,16 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
     /** Check for favorite. - Guan Editted by Eric**/
     public void checkFavAdd(View view) {
-        if (mDatabaseManager.checkIfInDatabase(mRandomStringName)) {
+        if (mDatabaseManager.checkIfInDatabase(mRestaurant.getmRestName(),
+                mRestaurant.getmLatitude(),
+                mRestaurant.getmLongitude())) {
             Toast.makeText(getApplicationContext(), "Already added to favorites!",
                     Toast.LENGTH_SHORT).show();
         } else {
             //Add to result in text view to data.
-            mDatabaseManager.addToDatabase(mRandomStringName);
+            mDatabaseManager.addToDatabase(mRestaurant.getmRestName(),
+                    mRestaurant.getmLatitude(),
+                    mRestaurant.getmLongitude());
             Toast.makeText(getApplicationContext(), "Added to favorites!",
                     Toast.LENGTH_SHORT).show();
         }
