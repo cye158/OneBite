@@ -81,6 +81,16 @@
 
         </activity>
 
+        <!-- Untappd activity as a dialog of ResultActivity-->
+        <activity
+            android:name=".UntappdActivity"
+            android:label="@string/title_activity_untappd"
+            android:theme="@android:style/Theme.Holo.Dialog">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ironsquishy.biteclub.ResultActivity" />
+        </activity>
+
         <service android:name="apihelpers.googleapis.FetchLocationAddress" />
 
         <meta-data
@@ -90,10 +100,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".UntappdActivity"
-            android:label="@string/title_activity_untappd" >
-        </activity>
+
     </application>
 
 </manifest>

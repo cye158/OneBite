@@ -146,7 +146,6 @@ public class UntappdManager {
     {
         final String str;
 
-        
 
         return null;
     }

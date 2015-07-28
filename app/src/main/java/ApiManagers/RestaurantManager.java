@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
@@ -20,6 +21,7 @@ public class RestaurantManager {
     /**Data Fields**/
     private static YelpData mYelpData; //This will need to populated before hand!!!!!!!!!!!!!
     private static Bitmap mYelpImage; //
+    private static Context mContext;
 
     private Restaurant mRestaurant;    //Creating resulting restaurant.
 
@@ -30,14 +32,19 @@ public class RestaurantManager {
     //----Override methods---
     //----Helpers, wrappers--
 
-
     public RestaurantManager()
     {
-        //Default constructor.
+        //Default Constructor
+    }
+
+    public RestaurantManager(Context pContext)
+    {
+        mContext = pContext;
     }
 
     public Restaurant getRandRestCar()
     {
+
         //Shuffle all because it is max radius
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
@@ -148,8 +155,18 @@ public class RestaurantManager {
             }
         };
 
-        NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback,"",pContext);
+        NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, "", pContext);
     }
 
+    private List<YelpData.Business> getRestuarantBasedOnFilter(String[] filterString)
+    {
+        //For  or while to check which Restaurants fit the filter options.
+
+        //Conditon statement.
+
+        //once all are collected return list.
+
+        return null;
+    }
 
 }
