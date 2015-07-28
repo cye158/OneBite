@@ -28,6 +28,7 @@ public class YelpData {
         public String snippet_text;
         public String url;
 
+
         public Boolean is_claimed;
         public Boolean is_closed;
 
