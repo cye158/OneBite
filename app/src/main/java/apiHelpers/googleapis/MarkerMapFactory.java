@@ -37,7 +37,7 @@ public class MarkerMapFactory {
     public MarkerMapFactory(GoogleMap pGoogleMap, Context pContext)
     {
         mGoogleMap =  pGoogleMap;
-        mDatabaseManager =  new DatabaseManager(pContext);
+        mDatabaseManager = DatabaseManager.getInstance(pContext);
     }
 
     public MarkerMapFactory(Restaurant pRestaurant)

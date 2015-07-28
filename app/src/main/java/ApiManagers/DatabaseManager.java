@@ -15,6 +15,7 @@ public class DatabaseManager {
 
     /** Data Fields */
     private static DBHandler mDBHandler;
+    private static DatabaseManager databaseManager = null;
 
 
     //----Class Structure-------
@@ -26,12 +27,17 @@ public class DatabaseManager {
     /**
      * @author Allen Space
      * */
-    public DatabaseManager(Context pContext)
+    private DatabaseManager()
     {
-        mDBHandler = new DBHandler(pContext, null, null, 1);
-
         //This might change to businessDataManager.
+    }
 
+    public static DatabaseManager getInstance(Context pContext) {
+        if (databaseManager == null) {
+            databaseManager = new DatabaseManager();
+            mDBHandler = new DBHandler(pContext, null, null, 1);
+        }
+        return databaseManager;
     }
 
     //TODO put Getter methods
@@ -97,11 +103,11 @@ public class DatabaseManager {
      * @param place A String of the name of the location to be check
      * @return  true if is already in the database, false otherwise
      */
-    public boolean checkIfInDatabase(String place) {
+    public boolean checkIfInDatabase(String place, Double latitude, Double longitude) {
         //return mDBHandler.isExistInDatabase(place,
                 //mSelectedBusiness.getRestLatitude(),
                 //mSelectedBusiness.getRestLongitdude());
-        return false;
+        return mDBHandler.isExistInDatabase(place, latitude, longitude);
     }
 }
 

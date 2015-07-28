@@ -30,7 +30,7 @@ public class TransportationActivity extends FragmentActivity {
         viewPager.setCurrentItem(1);
 
         //Call to Populate yelp data !!!!
-        mRestaurantManager = new RestaurantManager();
+        mRestaurantManager = RestaurantManager.getInstance();
         mRestaurantManager.populateYelpData(LocationHandler.getmLatitude(),LocationHandler.getmLongitude(), this);
 
 
@@ -47,7 +47,7 @@ public class TransportationActivity extends FragmentActivity {
     /** Called when the user clicks the Feed Me! button for car*/
     public void toMenuActivityCar(View view) {
 
-        Intent intent = new Intent(this, MenuActivity.class);
+        Intent intent = new Intent(this, ResultActivity.class);
 
         startActivity(intent);
     }

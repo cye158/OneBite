@@ -71,13 +71,13 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
-        mDatabaseManager = new DatabaseManager(this);
+        mDatabaseManager = DatabaseManager.getInstance(this);
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
         mMoreYelpInfo = (TextView) findViewById(R.id.MoreYelpInfo);
 
-        mRestaurantManager = new RestaurantManager();
+        mRestaurantManager = RestaurantManager.getInstance();
 
         randomizeYelpResponse();
 
@@ -134,7 +134,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void checkFavAdd(View view) {
         //Add to result in text view to data.
-        mDatabaseManager.addToDatabase(mRandomStringName);
+        mDatabaseManager.addToDatabase(mRestaurant.getmRestName(),
+                mRestaurant.getmLatitude(),
+                mRestaurant.getmLongitude());
 
         //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
         Toast.makeText(getApplicationContext(), "Added to favorites.",
