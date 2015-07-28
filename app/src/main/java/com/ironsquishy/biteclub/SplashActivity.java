@@ -1,6 +1,7 @@
 package com.ironsquishy.biteclub;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ApiManagers.LocationHandler;
+import ApiManagers.RestaurantManager;
 
 
 public class SplashActivity extends Activity {
@@ -18,6 +20,8 @@ public class SplashActivity extends Activity {
     TextView txt;
     ImageView orangePacMan, orangeWhole, orangeBite, oneBite, bigOrangePacMan;
     Animation animationSlideInRight, animationSlideOutLeft, animationFadeIn, animationSlideInLeft;
+    private RestaurantManager mRestaurantManager;
+    private static Context mContext;
 
     /** Called when the activity is first created. */
     @Override
@@ -31,6 +35,8 @@ public class SplashActivity extends Activity {
         LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
         //Connect to google services.
         LocationHandler.startConnect();
+
+        mContext = this;
 
         orangePacMan = (ImageView)findViewById(R.id.pacMan);
         bigOrangePacMan = (ImageView)findViewById(R.id.bigPacMan);
@@ -133,6 +139,10 @@ public class SplashActivity extends Activity {
             {
                 public void run() {
                     try {
+
+                        //Call to Populate yelp data !!!!
+                        mRestaurantManager = RestaurantManager.getInstance();
+                        mRestaurantManager.populateYelpData(LocationHandler.getmLatitude(),LocationHandler.getmLongitude(), mContext);
                         sleep(2000);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
