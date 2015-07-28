@@ -194,7 +194,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //Set the Descripiton and ratings
 
-        mExtYelpInfo.setText("Address: " + "\n" + "Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+        //TODO: ADD MORE YELP INFO STRINGS
+        mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
         mMoreYelpInfo.setText(mRestaurant.getmDescription());
 
     }
