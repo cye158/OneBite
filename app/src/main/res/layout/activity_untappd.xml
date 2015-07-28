@@ -6,35 +6,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.ironsquishy.biteclub.UntappdActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Most Popular Drink:"
-        android:id="@+id/PopTitle"
-        android:layout_marginTop="49dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Comment"
-        android:layout_below="@+id/PopTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:onClick="onCommentClick"
-        android:text="Know one&apos;s onions" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pick me a drink!"
         android:id="@+id/RandomDrink"
         android:onClick="onRandomDrink"
-        android:layout_above="@+id/RndDrinkRslt"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -44,40 +22,16 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/ResturantRslt"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_toEndOf="@+id/textView6"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/RndDrinkRslt"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/RandomDrink"
-        android:layout_toEndOf="@+id/RandomDrink"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="IPA"
-        android:id="@+id/textView5"
-        android:layout_alignTop="@+id/PopTitle"
-        android:layout_alignLeft="@+id/RndDrinkRslt"
-        android:layout_alignStart="@+id/RndDrinkRslt" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Nearby"
-        android:id="@+id/textView6"
-        android:layout_alignBottom="@+id/ResturantRslt"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/RandomDrink"
+        android:layout_alignLeft="@+id/RandomDrink"
+        android:layout_alignStart="@+id/RandomDrink" />
 
 </RelativeLayout>

@@ -242,7 +242,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom|right"
                                 android:layout_below="@id/YelpInfo"
-                                android:text="Show Info"/>
+                                android:text="More Info"/>
 
                         </LinearLayout>
 

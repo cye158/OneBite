@@ -23,6 +23,8 @@ public class RestaurantManager {
 
     private Restaurant mRestaurant;    //Creating resulting restaurant.
 
+    private static RestaurantManager mRestaurantManager = null;
+
     //----Class Structure---!
     //----Constructors-------
     //----Getters------------
@@ -31,9 +33,17 @@ public class RestaurantManager {
     //----Helpers, wrappers--
 
 
-    public RestaurantManager()
+    private RestaurantManager()
     {
         //Default constructor.
+    }
+
+    public static RestaurantManager getInstance() {
+        if (mRestaurantManager == null) {
+            mRestaurantManager = new RestaurantManager();
+        }
+
+        return mRestaurantManager;
     }
 
     public Restaurant getRandRestCar()
