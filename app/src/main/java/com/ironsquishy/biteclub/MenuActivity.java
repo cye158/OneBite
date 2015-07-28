@@ -60,11 +60,11 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
-        mDatabaseManager = new DatabaseManager(this);
+        mDatabaseManager = DatabaseManager.getInstance(this);
 
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
-        mRestaurantManager = new RestaurantManager();
+        mRestaurantManager = RestaurantManager.getInstance();
 
         randomizeYelpResponse();
 
