@@ -80,7 +80,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mRestaurantManager = RestaurantManager.getInstance();
 
         randomizeYelpResponse();
-
+        
+        swipeRefresh();
 
         expandInfo = (TextView) findViewById(R.id.showInfo);
         collapseInfo = (TextView) findViewById(R.id.hideInfo);
