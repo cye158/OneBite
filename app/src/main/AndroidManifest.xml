@@ -27,7 +27,8 @@
         </activity>
         <activity
             android:name=".MapActivity"
-            android:label="Map" >
+            android:label="Map"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SplashActivity"
@@ -52,7 +53,8 @@
 
         <activity
             android:name=".LocationCheckActivity"
-            android:label="@string/title_activity_location_check" >
+            android:label="@string/title_activity_location_check"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
@@ -77,7 +79,8 @@
         <!-- New menu activity -> result -->
         <activity
             android:name=".ResultActivity"
-            android:label="Result" >
+            android:label="Result"
+            android:screenOrientation="portrait" >
 
         </activity>
 
@@ -85,7 +88,8 @@
         <activity
             android:name=".UntappdActivity"
             android:label="@string/title_activity_untappd"
-            android:theme="@android:style/Theme.Holo.Dialog">
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ironsquishy.biteclub.ResultActivity" />
