@@ -144,7 +144,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .position(latLng)
                 .title(name)
                 .snippet("You been to here!")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
                 );
 
         googleMap.addMarker(marker);
