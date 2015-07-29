@@ -95,8 +95,7 @@ public class RestaurantManager {
                 new MarkerMapFactory(restaurant);
 
                 //insert image from here
-                restaurant.setmRestImage(mYelpImage);
-
+                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
                 //Returns a random restuarant name.
                 return restaurant;
             }
@@ -132,7 +131,7 @@ public class RestaurantManager {
                 new MarkerMapFactory(restaurant);
 
                 //insert image from here
-                restaurant.setmRestImage(mYelpImage);
+                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //Returns a random restuarant name.
                 return restaurant;
@@ -196,6 +195,8 @@ public class RestaurantManager {
                 }
             };
 
+            URL = URL.replaceAll("ms.jpg","o.jpg");
+
             NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, URL, pContext);
 
         }else
@@ -236,8 +237,6 @@ public class RestaurantManager {
         return null; //if cannot find one restaurant's style matches the user's selection
 
     }//this handles the filter-ed restaurant within the Car distance
-
-
 
 
 }

@@ -37,6 +37,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private static SwipeRefreshLayout swipeRefreshLayout;
     private static RestaurantManager mRestaurantManager;
     private static Restaurant mRestaurant;
+    private final static int WALK = 0;
+    private final static int BUS = 1;
+    private final static int CAR = 2;
 
     private static TextView addToData;
     private static ImageView mYelpImage;
@@ -79,7 +82,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        randomizeYelpResponse();
+        randomizeYelpResponse(CAR);
         
         swipeRefresh();
 
@@ -98,16 +101,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                mRestaurant = mRestaurantManager.getRandRestCar();
-
-                //Set the Text name.
-                mResultText.setText(mRestaurant.getmRestName());
-
-                //Set the Description and ratings
-
-                //TODO: ADD MORE YELP INFO STRINGS
-                mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-                mMoreYelpInfo.setText(mRestaurant.getmDescription());
+                randomizeYelpResponse(CAR);
                 Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
             }
@@ -116,17 +110,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         //This one Buses
         bus_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                mRestaurant = mRestaurantManager.getRandRestBus();
-
-                //Set the Text name.
-                mResultText.setText(mRestaurant.getmRestName());
-
-                //Set the Description and ratings
-
-                //TODO: ADD MORE YELP INFO STRINGS
-                mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-                mMoreYelpInfo.setText(mRestaurant.getmDescription());
-                Toast.makeText(getApplicationContext(), "Public transport distance restaurants shown",
+                randomizeYelpResponse(BUS);
+                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -134,16 +119,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         //This one walks
         walk_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                mRestaurant = mRestaurantManager.getRandRestWalk();
-
-                //Set the Text name.
-                mResultText.setText(mRestaurant.getmRestName());
-
-                //Set the Description and ratings
-
-                //TODO: ADD MORE YELP INFO STRINGS
-                mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-                mMoreYelpInfo.setText(mRestaurant.getmDescription());
+                randomizeYelpResponse(WALK);
                 Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
             }
@@ -246,21 +222,54 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * Description: ReShuffles the yelp data.
      * And displays on screen.
      */
-    private void randomizeYelpResponse() {
+    private void randomizeYelpResponse(int tranState) {
 
-        //Get a random restuarant.
-        mRestaurant = mRestaurantManager.getRandRestCar();
+        if(tranState == WALK) {
+            //Get a random restuarant.
+            mRestaurant = mRestaurantManager.getRandRestWalk();
 
-        //Set the Text name.
-        mResultText.setText(mRestaurant.getmRestName());
+            //Set the Text name.
+            mResultText.setText(mRestaurant.getmRestName());
 
-        mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
-        //Set the Descripiton and ratings
+            //Set the Descripiton and ratings
 
-        //TODO: ADD MORE YELP INFO STRINGS
-        mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-        mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            //TODO: ADD MORE YELP INFO STRINGS
+            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+
+        }else if(tranState == BUS)
+        {
+            //Get a random restuarant.
+            mRestaurant = mRestaurantManager.getRandRestBus();
+
+            //Set the Text name.
+            mResultText.setText(mRestaurant.getmRestName());
+
+            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
+            //Set the Descripiton and ratings
+
+            //TODO: ADD MORE YELP INFO STRINGS
+            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+        }else if(tranState == CAR)
+        {
+            //Get a random restuarant.
+            mRestaurant = mRestaurantManager.getRandRestCar();
+
+            //Set the Text name.
+            mResultText.setText(mRestaurant.getmRestName());
+
+            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
+            //Set the Descripiton and ratings
+
+            //TODO: ADD MORE YELP INFO STRINGS
+            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+        }
 
     }
 
@@ -285,7 +294,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             public void run() {
 
 
-                randomizeYelpResponse();
+                randomizeYelpResponse(CAR);
                 swipeRefreshLayout.setRefreshing(false);
             }
 
