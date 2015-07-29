@@ -96,14 +96,19 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         walk_button = (ImageView) findViewById(R.id.walk_button);
 
 
-        //I made a button guys!!!! Darin
-        //This one Cars
+        /**
+         * @Author Darin modified by Eric
+         * Description: Transportation modes
+         */
 
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
                 Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001_selected);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
             }
         });
 
@@ -113,6 +118,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 randomizeYelpResponse(BUS);
                 Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000_selected);
+                walk_button.setImageResource(R.drawable.walk_icon000);
             }
         });
 
@@ -122,6 +130,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 randomizeYelpResponse(WALK);
                 Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000_selected);
             }
         });
 
