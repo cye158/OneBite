@@ -258,11 +258,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
             //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+            setYelpInfo();
 
         }else if(tranState == BUS)
         {
@@ -275,11 +271,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
             //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+            setYelpInfo();
         }else if(tranState == CAR)
         {
             //Get a random restuarant.
@@ -292,10 +284,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
             //Set the Descripiton and ratings
 
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+            setYelpInfo();
         }
 
     }
@@ -393,6 +382,17 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
         return animator;
+    }
+
+    /**
+     * @Author Eric Chen
+     * Description: Gets yelp information from Restaraunt class
+     */
+    private void setYelpInfo() {
+        //TODO: ADD MORE YELP INFO STRINGS
+        mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+        mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
     }
 }
 
