@@ -242,51 +242,27 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     }
 
     /**
-     * @author Allen Space
+     * @author Allen Space optimized by Eric
      * Description: ReShuffles the yelp data.
      * And displays on screen.
      */
     private void randomizeYelpResponse(int tranState) {
 
-        if(tranState == WALK) {
-            //Get a random restuarant.
-            mRestaurant = mRestaurantManager.getRandRestWalk();
-
-            //Set the Text name.
-            mResultText.setText(mRestaurant.getmRestName());
-
-            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
-
-            //Set the Descripiton and ratings
-            setYelpInfo();
-
-        }else if(tranState == BUS)
-        {
-            //Get a random restuarant.
-            mRestaurant = mRestaurantManager.getRandRestBus();
-
-            //Set the Text name.
-            mResultText.setText(mRestaurant.getmRestName());
-
-            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
-
-            //Set the Descripiton and ratings
-            setYelpInfo();
-        }else if(tranState == CAR)
-        {
-            //Get a random restuarant.
-            mRestaurant = mRestaurantManager.getRandRestCar();
-
-            //Set the Text name.
-            mResultText.setText(mRestaurant.getmRestName());
-
-            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
-
-            //Set the Descripiton and ratings
-
-            setYelpInfo();
+        switch (tranState) {
+            case WALK:
+                //Get a random restuarant based on walking distance
+                mRestaurant = mRestaurantManager.getRandRestWalk();
+                break;
+            case BUS:
+                //Get a random restuarant based on bus distance
+                mRestaurant = mRestaurantManager.getRandRestBus();
+                break;
+            case CAR:
+                //Get a random restuarant based on driving distance
+                mRestaurant = mRestaurantManager.getRandRestCar();
+                break;
         }
-
+        setYelpInfo();
     }
 
     /**
@@ -386,9 +362,15 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
     /**
      * @Author Eric Chen
-     * Description: Gets yelp information from Restaraunt class
+     * Description: Gets yelp information from Restaurant class
      */
     private void setYelpInfo() {
+        //Set the Text name.
+        mResultText.setText(mRestaurant.getmRestName());
+
+        mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
+        //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
         mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
         mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
