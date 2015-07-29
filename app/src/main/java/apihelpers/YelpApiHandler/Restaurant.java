@@ -52,8 +52,8 @@ public class Restaurant {
             this.mLatitude = restaurant.location.coordinate.latitude;
             this.mLongitude = restaurant.location.coordinate.longitude;
             this.mRatings = restaurant.rating;
-            this.mRestImage = restaurant.businesses.image_url;
-            this.mRatingImage = restaurant.businesses.rating_img_url_small;
+//            this.mRestImage = restaurant.businesses.image_url;
+//            this.mRatingImage = restaurant.businesses.rating_img_url_small;
             this.mCategogy = restaurant.categories;
 
 
