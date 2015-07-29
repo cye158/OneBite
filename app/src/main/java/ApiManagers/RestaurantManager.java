@@ -14,7 +14,7 @@ import apihelpers.YelpApiHandler.YelpData;
 import apihelpers.googleapis.MarkerMapFactory;
 
 /**
- * Created by Whomever.
+ * Created by Whomever and Darin.
  */
 public class RestaurantManager {
 
@@ -195,6 +195,9 @@ public class RestaurantManager {
 
                 }
             };
+
+            URL = URL.replaceAll("ms.jpg" , "o.jpg"); //replace the image size
+
 
             NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, URL, pContext);
 
