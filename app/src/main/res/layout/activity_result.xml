@@ -79,208 +79,213 @@
             android:fillViewport="true"
             android:weightSum="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/transportation_header"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    card_view:cardCornerRadius="4dp"
-                    card_view:cardElevation="15sp">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/YelpImage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="200dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/placeholder_yelp" />
-
-                        <View
-                            android:id="@+id/boarderLine"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/YelpImage"
-                            android:background="@android:color/darker_gray" />
-
-                        <com.melnykov.fab.FloatingActionButton
-                            android:id="@+id/Untappd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@id/YelpImage"
-                            android:layout_gravity="bottom|right"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="-25dp"
-                            android:onClick="toInfo"
-                            fab:fab_colorNormal="#FFCC00"
-                            android:src="@drawable/untappdhq2"/>
-
-                        <TextView
-                            android:id="@+id/filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginRight="15dp"
-                            android:background="#795548"
-                            android:onClick="toFilter"
-                            android:text="  FILTER  "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#14A984"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/resultText"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/YelpImage"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="30dp"
-                            android:gravity="center"
-                            android:text="Restaurant Name Here"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#000000"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/addFavButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/resultText"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/add_to_favorites" />
-
-                        <TextView
-                            android:id="@+id/checkToAddFav"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/resultText"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_toRightOf="@+id/addFavButton"
-                            android:onClick="checkFavAdd"
-                            android:text="ADD TO FAVORITES"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#14A984"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/naviIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/addFavButton"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/location_icon_new_small" />
-
-                        <TextView
-                            android:id="@+id/checkToNavi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/addFavButton"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_toRightOf="@+id/naviIcon"
-                            android:onClick="toNavi"
-                            android:text="NAVIGATION"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#14A984"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/checkToNavi"
-                            android:background="@android:color/darker_gray" />
-
-                        <LinearLayout
-                            android:id="@+id/YelpInfoHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/naviIcon"
-                            android:layout_marginBottom="0dp"
-                            android:layout_marginLeft="0dp"
-                            android:layout_marginRight="0dp"
-                            android:layout_marginTop="0dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium">
-
-
-                            <TextView
-                                android:id="@+id/YelpInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/YelpInfoHeader"
-                                android:layout_marginBottom="15dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="15dp"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                />
-
-                            <TextView
-                                android:id="@+id/showInfo"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom|right"
-                                android:layout_below="@id/YelpInfo"
-                                android:text="More Info"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/YelpInfoExpand"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/YelpInfoHeader"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:background="#fafafa"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/MoreYelpInfo"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/YelpInfoExpand"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                />
-
-                            <TextView
-                                android:id="@+id/hideInfo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom|right"
-                                android:layout_weight="3"
-                                android:text="Hide Info"
-                                />
-
-                        </LinearLayout>
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/transportation_header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transportation_header"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="15sp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/YelpImage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/placeholder_yelp" />
+
+                <View
+                    android:id="@+id/boarderLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/YelpImage"
+                    android:background="@android:color/darker_gray" />
+
+                <com.melnykov.fab.FloatingActionButton
+                    android:id="@+id/Untappd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/YelpImage"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="-25dp"
+                    android:onClick="toInfo"
+                    fab:fab_colorNormal="#FFCC00"
+                    android:src="@drawable/untappdhq2"/>
+
+                <TextView
+                    android:id="@+id/filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="15dp"
+                    android:background="#795548"
+                    android:onClick="toFilter"
+                    android:text="  FILTER  "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#14A984"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/resultText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/YelpImage"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:text="Restaurant Name Here"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#000000"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/addFavButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/resultText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/add_to_favorites" />
+
+                <TextView
+                    android:id="@+id/checkToAddFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/resultText"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/addFavButton"
+                    android:onClick="checkFavAdd"
+                    android:text="ADD TO FAVORITES"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#14A984"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/naviIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/addFavButton"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/location_icon_new_small" />
+
+                <TextView
+                    android:id="@+id/checkToNavi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/addFavButton"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/naviIcon"
+                    android:onClick="toNavi"
+                    android:text="NAVIGATION"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#14A984"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/checkToNavi"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:id="@+id/YelpInfoHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/naviIcon"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium">
+
+
+                    <TextView
+                        android:id="@+id/YelpInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/YelpInfoHeader"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        />
+
+                    <TextView
+                        android:id="@+id/showInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_below="@id/YelpInfo"
+                        android:text="More Info"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/YelpInfoExpand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/YelpInfoHeader"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#fafafa"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/MoreYelpInfo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/YelpInfoExpand"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        />
+
+                    <TextView
+                        android:id="@+id/hideInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_weight="3"
+                        android:text="Hide Info"
+                        />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
 </RelativeLayout>

@@ -94,7 +94,6 @@
         <activity
             android:name=".UntappdActivity"
             android:label="@string/title_activity_untappd"
-            android:theme="@android:style/Theme.Holo.Dialog"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

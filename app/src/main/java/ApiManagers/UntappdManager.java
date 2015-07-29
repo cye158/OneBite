@@ -10,9 +10,11 @@ import com.beust.jcommander.Strings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
@@ -168,6 +170,7 @@ public class UntappdManager {
 
                 mData = (UntappdData) object;
 
+                mItems = mData.response.checkins.items;
                 Log.i("UNTAPPD", "Manager retrieved data...");
 
                 progressDialog.dismiss();
@@ -177,5 +180,64 @@ public class UntappdManager {
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, pLatitdude, pLongitude, pContext);
     }
 
+    public String getMostPopularDrink()
+    {
+        List<String> mostBeers = new ArrayList<String>();
+        List<String> allBeers = new ArrayList<String>();
+
+        String finalResult;
+
+        for(int i = 0; i < mItems.size(); i++)
+        {
+            allBeers.add(mItems.get(i).beer.beer_name);
+        }
+
+        mostBeers = mode(allBeers);
+
+        if(mostBeers.size() < 1){
+
+            finalResult = mostBeers.get(0);
+             return finalResult;
+        }else{
+
+            Collections.shuffle(mostBeers, new Random(System.nanoTime()));
+
+            finalResult = mostBeers.get(0);
+
+         return finalResult;
+        }
+    }
+
+    //Thank you RosettaCode
+    public static <T> List<T> mode(List<? extends T> coll) {
+        Map<T, Integer> seen = new HashMap<T, Integer>();
+        int max = 0;
+        List<T> maxElems = new ArrayList<T>();
+        for (T value : coll) {
+            if (seen.containsKey(value))
+                seen.put(value, seen.get(value) + 1);
+            else
+                seen.put(value, 1);
+            if (seen.get(value) > max) {
+                max = seen.get(value);
+                maxElems.clear();
+                maxElems.add(value);
+            } else if (seen.get(value) == max) {
+                maxElems.add(value);
+            }
+        }
+        return maxElems;
+    }
+
+    //Trying to catch object.
+    public UntappdManager getReadyUntappd(Context pContex, double pLatitude, double pLongitude)
+    {
+        UntappdManager untappdManager = new UntappdManager();
+
+
+        untappdManager.populateUntappdData(pLatitude,pLongitude, pContex);
+
+        return untappdManager;
+    }
 }
 

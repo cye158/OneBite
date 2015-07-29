@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -193,9 +195,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * Called when the user clicks the untappdFeed FAB - Eric
      */
     public void toInfo(View view) {
-        Intent intent = new Intent(this, UntappdActivity.class);
-        intent.putExtra("restname", mRestaurant.getmRestName());
-        startActivity(intent);
+        Intent i = new Intent(this, UntappdActivity.class);
+        i.putExtra("restname", mRandomStringName);
+        startActivity(i);
     }
 
     /** Called when the user clicks the Filter button - Eric */
