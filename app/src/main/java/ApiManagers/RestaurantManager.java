@@ -63,7 +63,9 @@ public class RestaurantManager {
         //insert restaurant image so front-end won't make a second call
         restaurant.setmRestImage(mYelpData.businesses.get(0).restImage);
 
+        //insert restaurant ratings
 
+        restaurant.setmRatingImage(mYelpData.businesses.get(0).restRatings);
 
 
         //Returns a random restuarant name.
@@ -96,6 +98,9 @@ public class RestaurantManager {
 
                 //insert image from here
                 restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
+
+                //Insert image rating to restaurant
+                restaurant.setmRatingImage(mYelpData.businesses.get(i).restRatings);
 
                 //Returns a random restuarant name.
                 return restaurant;
@@ -134,6 +139,9 @@ public class RestaurantManager {
                 //insert image from here
                 restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
+                //Insert to rating image to restuarant object.
+                restaurant.setmRatingImage(mYelpData.businesses.get(i).restRatings);
+
                 //Returns a random restuarant name.
                 return restaurant;
             }
@@ -170,7 +178,7 @@ public class RestaurantManager {
             //Get restaurant image..
             getYelpSingleImage(mYelpData.businesses.get(i).image_url, context, count, true);
 
-            getYelpSingleImage(mYelpData.businesses.get(i).rating_img_url_small, context, count, false);
+            getYelpSingleImage(mYelpData.businesses.get(i).rating_img_url_large, context, count, false);
 
             count++;
 

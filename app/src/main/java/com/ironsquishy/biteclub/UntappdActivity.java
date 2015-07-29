@@ -49,7 +49,7 @@ public class UntappdActivity extends Activity{
 
         mUntappdManager = new UntappdManager();
 
-        mUntappdManager.getReadyUntappd(mContext, LocationHandler.getmLatitude(), LocationHandler.getmLongitude());
+        mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
         displayResultDrink();
 

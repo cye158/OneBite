@@ -20,6 +20,8 @@ public class Restaurant {
     private double mLongitude;
     private double mRatings;
     private List<List<String>> mCategogy;
+    private int mReviewCount;
+    private boolean mIsClosed;
 
 
     private apihelpers.YelpApiHandler.YelpData.Business restaurant;
@@ -52,9 +54,12 @@ public class Restaurant {
             this.mLatitude = restaurant.location.coordinate.latitude;
             this.mLongitude = restaurant.location.coordinate.longitude;
             this.mRatings = restaurant.rating;
-//            this.mRestImage = restaurant.businesses.image_url;
-//            this.mRatingImage = restaurant.businesses.rating_img_url_small;
+
             this.mCategogy = restaurant.categories;
+
+            this.mIsClosed = restaurant.is_closed;
+
+            this.mReviewCount = restaurant.review_count;
 
 
         }else{
@@ -74,12 +79,19 @@ public class Restaurant {
         return mDescription;
     }
 
-    public void setmRestImage(Bitmap mRestImage)  { this.mRestImage = mRestImage; }
-    //insert here so could be used in the restaurant manager class to insert
+    public void setmRatingImage(Bitmap pRatingImage)
+    {
+        this.mRatingImage = pRatingImage;
+    }
 
+    //Picture of Restuarant from yelp.
+    public void setmRestImage(Bitmap mRestImage)  { this.mRestImage = mRestImage; }
+
+    //Image of the restuarant ratings from Yelp
     public void getRatingImage(Bitmap mRatingImage){ this.mRatingImage = mRatingImage;}
 
     public Bitmap getmRestImage(){ return mRestImage; }
+
 
     public void setmDescription(String mDescription) {
         this.mDescription = mDescription;
@@ -102,7 +114,7 @@ public class Restaurant {
     }
 
     public double getmRatings() {
-        return mRatings;
+        return this.mRatings;
     }
 
     public void setmRatings(double mRatings) {
@@ -110,4 +122,14 @@ public class Restaurant {
     }
 
     public List<List<String> >getCategory(List<List<String>> mCategogies){ return this.mCategogy; }
+
+    public boolean getIsClosed()
+    {
+        return this.mIsClosed;
+    }
+
+    public int getReviewCount()
+    {
+        return this.mReviewCount;
+    }
 }

@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ApiManagers.DatabaseManager;
+import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
+import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
 
 
@@ -39,6 +41,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private static SwipeRefreshLayout swipeRefreshLayout;
     private static RestaurantManager mRestaurantManager;
     private static Restaurant mRestaurant;
+
+    private static UntappdManager mUntappdManager;
+
     private final static int WALK = 0;
     private final static int BUS = 1;
     private final static int CAR = 2;
@@ -83,6 +88,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mMoreYelpInfo = (TextView) findViewById(R.id.MoreYelpInfo);
 
         mRestaurantManager = RestaurantManager.getInstance();
+
+        mUntappdManager = new UntappdManager();
 
         randomizeYelpResponse(CAR);
         
@@ -199,6 +206,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
+
+        //This is important for Untappd activity, needs population data.
+
+
         startActivity(intent);
     }
 
