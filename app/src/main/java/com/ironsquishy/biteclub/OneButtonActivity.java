@@ -1,8 +1,11 @@
 package com.ironsquishy.biteclub;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -28,6 +31,8 @@ public class OneButtonActivity extends Activity {
     Animation oneButtonPulseAnimation, oneButtonStopPulseAnimation;
     MediaPlayer oneButtonPing;
 
+    private Context mContext;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,36 +44,46 @@ public class OneButtonActivity extends Activity {
         oneButton = (Button)findViewById(R.id.one_button);
         oneButtonPulse = (ImageView)findViewById(R.id.one_button_pulse);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         oneButtonPulseAnimation = AnimationUtils.loadAnimation(this,R.anim.one_button_pulse_animation);
         oneButtonPulseAnimation.setAnimationListener(animationPulseListener);
         oneButtonStopPulseAnimation = AnimationUtils.loadAnimation(this,R.anim.one_button_pulse_animation);
 
         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
 
+        mContext = this;
+
         oneButton.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // Start
-                        oneButton.setBackground(getResources().getDrawable(R.drawable.one_button_pressed));
+                        oneButton.setBackgroundResource(R.drawable.one_button_pressed);
                         oneButton.setTextSize(22);
                         oneButtonPulse.setAnimation(oneButtonStopPulseAnimation);
-                        oneButtonPulse.clearAnimation();;
-
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // End
-                        oneButton.setBackground(getResources().getDrawable(R.drawable.one_button));
-                        oneButton.setTextSize(25);
+                        oneButtonPulse.clearAnimation();
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         oneButtonPing.start();
                         break;
+                    case MotionEvent.ACTION_UP:
+                        // End
+                        oneButton.setBackgroundResource(R.drawable.one_button);
+                        oneButton.setTextSize(25);
+
+                        Intent i = new Intent(mContext, ResultActivity.class);
+                        startActivity(i);
+                        break;
                 }
+                SystemClock.sleep(750);
                 return false;
             }
         });
-
     }
 
     @Override
