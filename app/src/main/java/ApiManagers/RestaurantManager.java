@@ -95,7 +95,7 @@ public class RestaurantManager {
                 new MarkerMapFactory(restaurant);
 
                 //insert image from here
-                restaurant.setmRestImage(mYelpImage);
+                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //Returns a random restuarant name.
                 return restaurant;
@@ -132,7 +132,7 @@ public class RestaurantManager {
                 new MarkerMapFactory(restaurant);
 
                 //insert image from here
-                restaurant.setmRestImage(mYelpImage);
+                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //Returns a random restuarant name.
                 return restaurant;
