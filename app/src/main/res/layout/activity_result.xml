@@ -132,16 +132,18 @@
                             android:id="@+id/filter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginRight="15dp"
-                            android:background="#795548"
                             android:onClick="toFilter"
-                            android:text="  FILTER  "
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="FILTER"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="#14A984"
                             android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:layout_below="@id/resultText"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            />
 
                         <TextView
                             android:id="@+id/resultText"
