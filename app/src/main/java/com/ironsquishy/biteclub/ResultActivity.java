@@ -184,6 +184,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 collapse();
             }
         });
+
     }
 
     /** Check for favorite. - Guan Editted by Eric and Darin**/
@@ -252,6 +253,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //Set the Text name.
         mResultText.setText(mRestaurant.getmRestName());
+
+        mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
         //Set the Descripiton and ratings
 

@@ -25,6 +25,12 @@
             android:label="OneBite"
             android:screenOrientation="portrait" >
         </activity>
+
+        <activity
+            android:name=".OneButtonActivity"
+            android:label="One">
+        </activity>
+
         <activity
             android:name=".MapActivity"
             android:label="Map"

@@ -29,9 +29,7 @@ public class TransportationActivity extends FragmentActivity {
         viewPager.setAdapter(new TransportationPagerAdapter(fragmentManager));
         viewPager.setCurrentItem(1);
 
-        //Call to Populate yelp data !!!!
-        mRestaurantManager = RestaurantManager.getInstance();
-        mRestaurantManager.populateYelpData(LocationHandler.getmLatitude(),LocationHandler.getmLongitude(), this);
+
 
 
     }

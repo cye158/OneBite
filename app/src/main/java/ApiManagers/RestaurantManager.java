@@ -3,6 +3,7 @@ package ApiManagers;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.util.Log;
 
 import java.util.Collections;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class RestaurantManager {
     /**Data Fields**/
     private static YelpData mYelpData; //This will need to populated before hand!!!!!!!!!!!!!
     private static Bitmap mYelpImage; //
+    private static Context mContext; //Volly need to pass in the context
 
     private Restaurant mRestaurant;    //Creating resulting restaurant.
 
@@ -51,12 +53,18 @@ public class RestaurantManager {
         //Shuffle all because it is max radius
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
+
+
+
         Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
 
         new MarkerMapFactory(restaurant);
 
         //insert restaurant image so front-end won't make a second call
-        restaurant.setmRestImage(mYelpImage);
+        restaurant.setmRestImage(mYelpData.businesses.get(0).restImage);
+
+
+
 
         //Returns a random restuarant name.
         return restaurant;
@@ -135,13 +143,15 @@ public class RestaurantManager {
     }
 
     //One call for all pass in the LocationHandler Lat and Long.
-    public void populateYelpData(double pLatitude, double pLongitude, Context pContext)
+    public void populateYelpData(double pLatitude, double pLongitude, final Context pContext)
     {
         //Simplify the callback process.
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
                 mYelpData = (YelpData) object;
+
+                getAllRestuarantImages(pContext);
             }
         };
 
@@ -149,18 +159,85 @@ public class RestaurantManager {
         NetworkRequestManager.getInstance().populateYelpData(generalCallback,"8046.72", pContext);
     }
 
-    //one call for all pass with the URL
-    public void getYelpSingleImage(String URL, Context pContext){
+    private void getAllRestuarantImages(Context pContext)
+    {
+        final Context context = pContext;
 
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                mYelpImage = (Bitmap) object;
-            }
-        };
+        int count = 0;
 
-        NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback,"",pContext);
+        for (int i = 0; i < mYelpData.businesses.size();i++)
+        {
+            //Get restaurant image..
+            getYelpSingleImage(mYelpData.businesses.get(i).image_url, context, count, true);
+
+            getYelpSingleImage(mYelpData.businesses.get(i).rating_img_url_small, context, count, false);
+
+            count++;
+
+        }
     }
+
+    //one call for all pass with the URL
+    public void getYelpSingleImage(String URL, Context pContext, final int index, boolean flag){
+
+        if (flag == true) {
+
+
+
+            GeneralCallback generalCallback = new GeneralCallback() {
+                @Override
+                public void runWithResponse(Object object) {
+                    mYelpImage = (Bitmap) object;
+
+                    mYelpData.businesses.get(index).restImage = mYelpImage;
+
+                    Log.i("YelpData", "Image count: " + index);
+
+                }
+            };
+
+            NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, URL, pContext);
+
+        }else
+        {
+
+            GeneralCallback generalCallback = new GeneralCallback() {
+                @Override
+                public void runWithResponse(Object object) {
+                    mYelpImage = (Bitmap) object;
+
+                    mYelpData.businesses.get(index).restRatings = mYelpImage;
+
+                    Log.i("YelpData", "Image count: " + index);
+
+                }
+            };
+
+            NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, URL, pContext);
+        }
+    }
+
+
+    private Restaurant getCarRestBasedOnFilter(String[] filter){
+
+
+        //Shuffle all because it is max radius
+        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+
+        for (int i=0; i < mYelpData.businesses.size(); i++){
+            if(mYelpData.businesses.get(i).categories.equals(filter) ){
+
+                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+
+                return restaurant;
+            }
+
+        }
+        return null; //if cannot find one restaurant's style matches the user's selection
+
+    }//this handles the filter-ed restaurant within the Car distance
+
+
 
 
 }
