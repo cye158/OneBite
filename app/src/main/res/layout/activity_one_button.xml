@@ -9,24 +9,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:text="Press The Button"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="One Bite, One Button, One Result"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:textSize="35dp"
-        android:textColor="#FFFFFF"
-        android:id="@+id/one_button_title"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/moto"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="So We Can Feed You"
-        android:textColor="#FFFFFF"
-        android:id="@+id/one_button_title2"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/one_button"
@@ -34,7 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/one_button"
         android:scaleType="center"
-        android:text="Search For Food"
+        android:text="Press Me \nSo We Can \nFeed You"
         android:textSize="25dp"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
@@ -51,37 +43,24 @@
         android:layout_centerHorizontal="true"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="One Bite, One Button, One Result"
-        android:textColor="#FFFFFF"
-        android:id="@+id/moto"
-        android:layout_marginBottom="35dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Powered By Untappd"
-        android:textColor="#FFFFFF"
-        android:id="@+id/pwrbyuntappd"
+        android:id="@+id/untappdlogo"
+        android:src="@drawable/untappd_logo"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Powered By Yelp"
-        android:textColor="#FFFFFF"
-        android:id="@+id/pwrbyyelp"
+        android:id="@+id/yelplogo"
+        android:src="@drawable/yelplogo"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
 
 
 </RelativeLayout>

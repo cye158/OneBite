@@ -23,7 +23,8 @@
 
         <activity
             android:name=".OneButtonActivity"
-            android:label="One">
+            android:label="One"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

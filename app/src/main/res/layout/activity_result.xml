@@ -28,7 +28,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="vertical"
-            android:text="Modes of Transportation: "
+            android:text="How Would You \nLike To Get There? "
             android:textStyle="bold" />
 
         <ImageView
@@ -217,7 +217,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_toRightOf="@+id/naviIcon"
                             android:onClick="toNavi"
-                            android:text="NAVIGATION"
+                            android:text="SHOW ON MAP"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="#14A984"
                             android:textSize="15sp"
