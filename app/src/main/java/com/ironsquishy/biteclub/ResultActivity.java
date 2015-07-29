@@ -94,7 +94,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mUntappdManager = new UntappdManager();
 
         randomizeYelpResponse(CAR);
-        
+
         swipeRefresh();
 
         expandInfo = (TextView) findViewById(R.id.showInfo);
@@ -376,9 +376,18 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
-        mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-        mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+
+        String closedStatus;
+        if (mRestaurant.getIsClosed()){
+            closedStatus = "CLOSED";
+        }
+        else
+            closedStatus = "OPEN";
+
+        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
+                "The Restaurant is currently: " + closedStatus + "\n" +
+                "Distance: ");
+        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription());
     }
 }
 
