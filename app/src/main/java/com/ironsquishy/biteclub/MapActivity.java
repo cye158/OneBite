@@ -1,9 +1,11 @@
 package com.ironsquishy.biteclub;
 
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,12 +34,33 @@ public class MapActivity extends ActionBarActivity {
         mDatabaseManager = DatabaseManager.getInstance(this);
     }
 
-    /** Clear history. - Eric**/
+    /**
+     * @author: Eric Edited by Guan
+     * Description: delete all content in the database when user click on a button
+     * @param view View object
+     */
     public void clearHistory(View view) {
-        mDatabaseManager.clearDatabase();
-        recreate();
-        Toast.makeText(getApplicationContext(), "History Cleared.",
-                Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this)
+                .setTitle("Deleting Favorites")
+                .setMessage("Are you sure you want to delete all favorites?")
+                .setPositiveButton("YOLO!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDatabaseManager.clearDatabase();
+                        recreate();
+                        Toast.makeText(getApplicationContext(), "All favorites Cleared.",
+                                Toast.LENGTH_SHORT).show();
+
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Just kidding!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     /**
@@ -63,6 +86,8 @@ public class MapActivity extends ActionBarActivity {
         transaction.add(R.id.mapView, fragment);
         transaction.commit();
     }
+
+
 }
 
 

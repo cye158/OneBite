@@ -20,7 +20,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear History"
+        android:text="Clear Favorites"
         android:id="@+id/clear_history"
         android:background="@drawable/button_shadow"
         android:onClick="clearHistory"
