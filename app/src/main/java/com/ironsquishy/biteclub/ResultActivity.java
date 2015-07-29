@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ApiManagers.DatabaseManager;
+import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
+import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
 
 
@@ -37,6 +41,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private static SwipeRefreshLayout swipeRefreshLayout;
     private static RestaurantManager mRestaurantManager;
     private static Restaurant mRestaurant;
+
+    private static UntappdManager mUntappdManager;
+
     private final static int WALK = 0;
     private final static int BUS = 1;
     private final static int CAR = 2;
@@ -81,6 +88,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mMoreYelpInfo = (TextView) findViewById(R.id.MoreYelpInfo);
 
         mRestaurantManager = RestaurantManager.getInstance();
+
+        mUntappdManager = new UntappdManager();
 
         randomizeYelpResponse(CAR);
         
@@ -197,6 +206,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
+
+        //This is important for Untappd activity, needs population data.
+
+
         startActivity(intent);
     }
 
@@ -204,9 +217,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * Called when the user clicks the untappdFeed FAB - Eric
      */
     public void toInfo(View view) {
-        Intent intent = new Intent(this, UntappdActivity.class);
-        intent.putExtra("restname", mRestaurant.getmRestName());
-        startActivity(intent);
+        Intent i = new Intent(this, UntappdActivity.class);
+        i.putExtra("restname", mRandomStringName);
+        startActivity(i);
     }
 
     /** Called when the user clicks the Filter button - Eric */
@@ -245,11 +258,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
             //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+            setYelpInfo();
 
         }else if(tranState == BUS)
         {
@@ -262,11 +271,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
             //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+            setYelpInfo();
         }else if(tranState == CAR)
         {
             //Get a random restuarant.
@@ -279,10 +284,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
             //Set the Descripiton and ratings
 
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+            setYelpInfo();
         }
 
     }
@@ -380,6 +382,17 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
         return animator;
+    }
+
+    /**
+     * @Author Eric Chen
+     * Description: Gets yelp information from Restaraunt class
+     */
+    private void setYelpInfo() {
+        //TODO: ADD MORE YELP INFO STRINGS
+        mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+        mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
     }
 }
 

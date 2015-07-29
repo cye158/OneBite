@@ -1,6 +1,7 @@
 package com.ironsquishy.biteclub;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -30,6 +31,7 @@ public class OneButtonActivity extends Activity {
     Button oneButton;
     Animation oneButtonPulseAnimation, oneButtonStopPulseAnimation;
     MediaPlayer oneButtonPing;
+    ProgressDialog progressDialog;
 
     private Context mContext;
 
@@ -38,6 +40,8 @@ public class OneButtonActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_button);
+
+        progressDialog = CustomProgressDialog.initiateProgressDialog(this);
 
         oneButtonPing = MediaPlayer.create(this, R.raw.sonar_three_ping);
 
@@ -66,21 +70,25 @@ public class OneButtonActivity extends Activity {
                         // Start
                         oneButton.setBackgroundResource(R.drawable.one_button_pressed);
                         oneButton.setTextSize(22);
-                        oneButtonPulse.setAnimation(oneButtonStopPulseAnimation);
+                        oneButtonPulse.setAnimation(oneButtonPulseAnimation);
                         oneButtonPulse.clearAnimation();
-                        oneButtonPulse.startAnimation(oneButtonPulseAnimation);
-                        oneButtonPing.start();
+                        if (oneButtonPing.isPlaying()) {
+                            oneButtonPing.reset();
+                            oneButtonPing.release();
+                            oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
+
+                        }
                         break;
                     case MotionEvent.ACTION_UP:
                         // End
                         oneButton.setBackgroundResource(R.drawable.one_button);
                         oneButton.setTextSize(25);
-
-                        Intent i = new Intent(mContext, ResultActivity.class);
-                        startActivity(i);
+                        oneButtonPing.start();
+                        oneButtonPulse.startAnimation(oneButtonPulseAnimation);
+                        progressDialog.show();
                         break;
                 }
-                SystemClock.sleep(750);
+
                 return false;
             }
         });
@@ -92,6 +100,15 @@ public class OneButtonActivity extends Activity {
         super.onPause();
         oneButtonPulse.clearAnimation();
         oneButtonPing.stop();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        oneButtonPing.reset();
+        oneButtonPing.release();
+        oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
+
     }
 
     AnimationListener animationPulseListener = new AnimationListener(){
@@ -115,27 +132,6 @@ public class OneButtonActivity extends Activity {
 
         }};
 
-    AnimationListener animationStopPulseListener = new AnimationListener(){
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            // TODO Auto-generated method stub
-            oneButtonPulse.clearAnimation();
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-            // TODO Auto-generated method stub
-            oneButtonPulse.clearAnimation();
-
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-            // TODO Auto-generated method stub
-            oneButtonPulse.clearAnimation();
-
-        }};
 
 
 }

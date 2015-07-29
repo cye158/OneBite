@@ -1,12 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.ironsquishy.biteclub.UntappdFragment">
+    android:layout_height="match_parent" tools:context="com.ironsquishy.biteclub.UntappdFragment"
+    android:background="#330033">
 
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+        android:id="@+id/UntappdCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/transportation_header"
@@ -99,7 +100,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/MoreYelpInfo"
+                android:id="@+id/UntappdComments"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/YelpInfoExpand"

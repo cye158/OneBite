@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -25,7 +27,9 @@ public class UntappdActivity extends Activity{
     private static TextView mRndDrink;
     private static Context mContext;
     private static UntappdManager mUntappdManager;
-    private static List<UntappdData.Beer> mBeerList = null;
+    private static List<String> mBeerList = null;
+    private static TextView mResultTextView;
+    private static TextView mComments;
 
     private static Intent mIntent;
 
@@ -33,25 +37,29 @@ public class UntappdActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_untappd);
+        setContentView(R.layout.untappd_activity);
 
         mIntent =  this.getIntent();
 
         mContext = this;
 
+        mResultTextView = (TextView) findViewById(R.id.resultText);
+
+        mComments = (TextView) findViewById(R.id.UntappdComments);
+
         mUntappdManager = new UntappdManager();
-
-        mRestResult = (TextView) findViewById(R.id.ResturantRslt);
-
-        mRndDrink = (TextView) findViewById(R.id.RndDrinkRslt);
 
         mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
-        //mPopDrink = (EditText) findViewById(R.id.PopDrinkResult);
+        displayResultDrink();
 
-        //displayRestaurant();
+    }
 
-        //handleUntappdManger();
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        displayResultDrink();
     }
 
     private void displayRestaurant()
@@ -75,11 +83,27 @@ public class UntappdActivity extends Activity{
         startActivity(intent);
     }
 
-    /**When user clicks on Randomize Drink*/
-    public void onRandomDrink(View view)
+    private void displayResultDrink()
     {
-       mRndDrink.setText(mUntappdManager.getRandomDrink());
-    }
+        //Created to simulate loading.
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
+                mResultTextView.setText(mUntappdManager.getMostPopularDrink());
+
+                /*
+                mBeerList = mUntappdManager.getFilledComments();
+
+                for(int i = 0; i < mBeerList.size(); i++)
+                {
+                    mComments.append(mBeerList.get(i) + "\n");
+                }
+                */
+            }
+
+        }, 2000);
+
+    }
 
 }
