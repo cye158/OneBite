@@ -116,13 +116,6 @@
                             android:layout_alignLeft="@+id/resultText"
                             android:layout_alignStart="@+id/resultText" />
 
-                        <View
-                            android:id="@+id/boarderLine"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@id/YelpImage"
-                            android:background="@android:color/darker_gray" />
-
                         <com.melnykov.fab.FloatingActionButton
                             android:id="@+id/Untappd"
                             android:layout_width="wrap_content"

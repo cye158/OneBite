@@ -52,7 +52,7 @@ public class InputLocationActivity extends DialogFragment implements View.OnClic
             LocationHandler.getInstance().fetchByAdress(AddressSTR, mContext);
 
             dismiss();
-            startActivity(new Intent(this.getActivity(), TransportationActivity.class));
+            startActivity(new Intent(this.getActivity(), OneButtonActivity.class));
             Toast.makeText(getActivity(), "Location has been entered",
                     Toast.LENGTH_SHORT).show();
         }
