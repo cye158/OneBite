@@ -27,7 +27,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         new EULA(this).show();
 
-        //TODO Find an opitmize point to put LocationHandler instantiate
+        //TODO Find an optimal point to put LocationHandler instantiation
         //Get started LocationHandler and start connection.
         LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
         //Connect to google services.

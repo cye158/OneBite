@@ -93,6 +93,62 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         walk_button = (ImageView) findViewById(R.id.walk_button);
 
 
+        //I made a button guys!!!! Darin
+        //This one Cars
+
+        car_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                mRestaurant = mRestaurantManager.getRandRestCar();
+
+                //Set the Text name.
+                mResultText.setText(mRestaurant.getmRestName());
+
+                //Set the Description and ratings
+
+                //TODO: ADD MORE YELP INFO STRINGS
+                mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+                mMoreYelpInfo.setText(mRestaurant.getmDescription());
+                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //This one Buses
+        bus_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                mRestaurant = mRestaurantManager.getRandRestBus();
+
+                //Set the Text name.
+                mResultText.setText(mRestaurant.getmRestName());
+
+                //Set the Description and ratings
+
+                //TODO: ADD MORE YELP INFO STRINGS
+                mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+                mMoreYelpInfo.setText(mRestaurant.getmDescription());
+                Toast.makeText(getApplicationContext(), "Public transport distance restaurants shown",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //This one walks
+        walk_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                mRestaurant = mRestaurantManager.getRandRestWalk();
+
+                //Set the Text name.
+                mResultText.setText(mRestaurant.getmRestName());
+
+                //Set the Description and ratings
+
+                //TODO: ADD MORE YELP INFO STRINGS
+                mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+                mMoreYelpInfo.setText(mRestaurant.getmDescription());
+                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mLinearLayout.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 
@@ -130,7 +186,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         });
     }
 
-    /** Check for favorite. - Guan Editted by Eric**/
+    /** Check for favorite. - Guan Editted by Eric and Darin**/
     public void checkFavAdd(View view) {
         if (mDatabaseManager.checkIfInDatabase(mRestaurant.getmRestName(),
                 mRestaurant.getmLatitude(),
@@ -147,8 +203,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         }
     }
 
+
     /**
-     * Called when the user clicks the navigation floating action button - Eric
+     * Called when the user clicks the navigation button - Eric
      */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
@@ -156,7 +213,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     }
 
     /**
-     * Called when the user clicks the untappdFeed button - Eric
+     * Called when the user clicks the untappdFeed FAB - Eric
      */
     public void toInfo(View view) {
         Intent intent = new Intent(this, UntappdActivity.class);
@@ -223,11 +280,15 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Do stuff here.
+
+
                 randomizeYelpResponse();
                 swipeRefreshLayout.setRefreshing(false);
             }
+
         }, 1000);
+
+
     }
 
     /**
