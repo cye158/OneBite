@@ -80,7 +80,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mRestaurantManager = RestaurantManager.getInstance();
 
         randomizeYelpResponse();
-
+        
+        swipeRefresh();
 
         expandInfo = (TextView) findViewById(R.id.showInfo);
         collapseInfo = (TextView) findViewById(R.id.hideInfo);
@@ -127,21 +128,24 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 collapse();
             }
         });
+
     }
 
-    /**
-     * Check for favorite.*
-     */
+    /** Check for favorite. - Guan Editted by Eric**/
     public void checkFavAdd(View view) {
-        //Add to result in text view to data.
-        mDatabaseManager.addToDatabase(mRestaurant.getmRestName(),
+        if (mDatabaseManager.checkIfInDatabase(mRestaurant.getmRestName(),
                 mRestaurant.getmLatitude(),
-                mRestaurant.getmLongitude());
-
-        //TODO There should be a check to see if it has already been added to favorites, then the toast message should say "already added"
-        Toast.makeText(getApplicationContext(), "Added to favorites.",
-                Toast.LENGTH_SHORT).show();
-
+                mRestaurant.getmLongitude())) {
+            Toast.makeText(getApplicationContext(), "Already added to favorites!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            //Add to result in text view to data.
+            mDatabaseManager.addToDatabase(mRestaurant.getmRestName(),
+                    mRestaurant.getmLatitude(),
+                    mRestaurant.getmLongitude());
+            Toast.makeText(getApplicationContext(), "Added to favorites!",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -193,9 +197,12 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         //Set the Text name.
         mResultText.setText(mRestaurant.getmRestName());
 
+        mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
         //Set the Descripiton and ratings
 
-        mExtYelpInfo.setText("Address: " + "\n" + "Ratings: " + String.valueOf(mRestaurant.getmRatings()));
+        //TODO: ADD MORE YELP INFO STRINGS
+        mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
         mMoreYelpInfo.setText(mRestaurant.getmDescription());
 
     }

@@ -1,4 +1,6 @@
 package apihelpers.YelpApiHandler;
+import android.graphics.Bitmap;
+
 import java.util.List;
 
 
@@ -39,6 +41,9 @@ public class YelpData {
         public List<List<String>> categories;
 
         public Location location;
+
+        public Bitmap restImage;
+        public Bitmap restRatings;
     }
 
     public class Deal {

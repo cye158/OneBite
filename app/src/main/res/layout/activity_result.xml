@@ -16,7 +16,7 @@
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="#00bcd4"
+        android:background="#4285F4"
         android:orientation="horizontal">
 
         <TextView
@@ -125,7 +125,8 @@
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="-25dp"
                             android:onClick="toInfo"
-                            fab:fab_colorNormal="#4B8DF9" />
+                            fab:fab_colorNormal="#FFCC00"
+                            android:src="@drawable/untappdhq2"/>
 
                         <TextView
                             android:id="@+id/filter"
@@ -242,7 +243,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom|right"
                                 android:layout_below="@id/YelpInfo"
-                                android:text="Show Info"/>
+                                android:text="More Info"/>
 
                         </LinearLayout>
 
@@ -253,7 +254,7 @@
                             android:layout_below="@id/YelpInfoHeader"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
-                            android:background="#FFF"
+                            android:background="#fafafa"
                             android:orientation="vertical">
 
                             <TextView
