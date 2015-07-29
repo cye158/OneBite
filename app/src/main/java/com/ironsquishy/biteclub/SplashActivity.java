@@ -150,7 +150,7 @@ public class SplashActivity extends Activity {
                     finally
                     {
 
-                        Intent i = new Intent(getBaseContext(), OneButtonActivity.class);
+                        Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
                         startActivity(i);
                         finish();
                     }
