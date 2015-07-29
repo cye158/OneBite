@@ -98,14 +98,19 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         walk_button = (ImageView) findViewById(R.id.walk_button);
 
 
-        //I made a button guys!!!! Darin
-        //This one Cars
+        /**
+         * @Author Darin modified by Eric
+         * Description: Transportation modes
+         */
 
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
                 Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001_selected);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
             }
         });
 
@@ -115,6 +120,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 randomizeYelpResponse(BUS);
                 Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000_selected);
+                walk_button.setImageResource(R.drawable.walk_icon000);
             }
         });
 
@@ -124,6 +132,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 randomizeYelpResponse(WALK);
                 Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000_selected);
             }
         });
 
@@ -238,8 +249,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
 
         }else if(tranState == BUS)
         {
@@ -254,8 +266,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
         }else if(tranState == CAR)
         {
             //Get a random restuarant.
@@ -269,8 +282,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
         }
 
     }
@@ -330,7 +344,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             public void onAnimationEnd(Animator animator) {
                 //Height=0, but it set visibility to GONE
                 mLinearLayout.setVisibility(View.GONE);
-                expandInfo.setText("Show Info");
+                expandInfo.setText("More Info");
             }
 
             @Override
