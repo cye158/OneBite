@@ -21,6 +21,7 @@ public class RestaurantManager {
     /**Data Fields**/
     private static YelpData mYelpData; //This will need to populated before hand!!!!!!!!!!!!!
     private static Bitmap mYelpImage; //
+    private static Context mContext; //Volly need to pass in the context
 
     private Restaurant mRestaurant;    //Creating resulting restaurant.
 
@@ -52,12 +53,18 @@ public class RestaurantManager {
         //Shuffle all because it is max radius
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
+
+
+
         Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
 
         new MarkerMapFactory(restaurant);
 
         //insert restaurant image so front-end won't make a second call
         restaurant.setmRestImage(mYelpData.businesses.get(0).restImage);
+
+
+
 
         //Returns a random restuarant name.
         return restaurant;
@@ -208,6 +215,28 @@ public class RestaurantManager {
             NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, URL, pContext);
         }
     }
+
+
+    private Restaurant getCarRestBasedOnFilter(String[] filter){
+
+
+        //Shuffle all because it is max radius
+        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+
+        for (int i=0; i < mYelpData.businesses.size(); i++){
+            if(mYelpData.businesses.get(i).categories.equals(filter) ){
+
+                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+
+                return restaurant;
+            }
+
+        }
+        return null; //if cannot find one restaurant's style matches the user's selection
+
+    }//this handles the filter-ed restaurant within the Car distance
+
+
 
 
 }
