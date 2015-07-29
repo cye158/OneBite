@@ -49,7 +49,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int CAR = 2;
 
     private static TextView addToData;
-    private static ImageView mYelpImage;
+    private static ImageView mYelpImage, mYelpRating;
 
     private static DatabaseManager mDatabaseManager;
 
@@ -78,6 +78,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mResultText = (TextView) findViewById(R.id.resultText);
 
         mYelpImage = (ImageView) findViewById(R.id.YelpImage);
+
+        mYelpRating = (ImageView) findViewById(R.id.YelpRating);
 
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
@@ -369,6 +371,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mResultText.setText(mRestaurant.getmRestName());
 
         mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
+        mYelpRating.setImageBitmap(mRestaurant.getmRatingImage());
 
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS

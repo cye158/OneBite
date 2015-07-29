@@ -87,8 +87,7 @@ public class Restaurant {
     //Picture of Restuarant from yelp.
     public void setmRestImage(Bitmap mRestImage)  { this.mRestImage = mRestImage; }
 
-    //Image of the restuarant ratings from Yelp
-    public void getRatingImage(Bitmap mRatingImage){ this.mRatingImage = mRatingImage;}
+    public Bitmap getmRatingImage() { return mRatingImage; }
 
     public Bitmap getmRestImage(){ return mRestImage; }
 
