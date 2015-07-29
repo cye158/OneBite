@@ -7,12 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import ApiManagers.DatabaseManager;
+import apihelpers.YelpApiHandler.Restaurant;
+
 /**
  * @author Allen Space
  * Description: This was created to have a standalone activity of maps.
  *
  * */
 public class MapActivity extends ActionBarActivity {
+
+    private static Restaurant mRestaurant;
+    private static DatabaseManager mDatabaseManager;
 
     /**
      * @author Allen Space
@@ -22,6 +28,16 @@ public class MapActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mDatabaseManager = DatabaseManager.getInstance(this);
+    }
+
+    /** Clear history. - Eric**/
+    public void clearHistory(View view) {
+        mDatabaseManager.clearDatabase();
+        recreate();
+        Toast.makeText(getApplicationContext(), "History Cleared.",
+                Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -48,3 +64,5 @@ public class MapActivity extends ActionBarActivity {
         transaction.commit();
     }
 }
+
+

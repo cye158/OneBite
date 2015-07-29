@@ -17,4 +17,17 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear History"
+        android:id="@+id/clear_history"
+        android:background="@drawable/button_shadow"
+        android:onClick="clearHistory"
+        android:clickable="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-50dp"
+        android:textSize="10sp"
+        android:layout_below="@id/fragment"/>
+
 </RelativeLayout>
