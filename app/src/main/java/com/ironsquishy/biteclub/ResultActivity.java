@@ -247,8 +247,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
 
         }else if(tranState == BUS)
         {
@@ -263,8 +264,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
         }else if(tranState == CAR)
         {
             //Get a random restuarant.
@@ -278,8 +280,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Ratings: " + String.valueOf(mRestaurant.getmRatings()));
-            mMoreYelpInfo.setText(mRestaurant.getmDescription());
+            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
+            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
+                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
         }
 
     }
@@ -339,7 +342,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             public void onAnimationEnd(Animator animator) {
                 //Height=0, but it set visibility to GONE
                 mLinearLayout.setVisibility(View.GONE);
-                expandInfo.setText("Show Info");
+                expandInfo.setText("More Info");
             }
 
             @Override
