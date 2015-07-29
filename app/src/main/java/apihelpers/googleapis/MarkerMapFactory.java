@@ -1,6 +1,7 @@
 package apihelpers.googleapis;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 
@@ -21,6 +22,7 @@ import apihelpers.YelpApiHandler.Restaurant;
 
 /**
  * Created by Allen Space on 7/14/2015.
+ * Edited by Guan
  */
 public class MarkerMapFactory {
 
@@ -28,6 +30,7 @@ public class MarkerMapFactory {
     private static GoogleMap mGoogleMap;
     private static DatabaseManager mDatabaseManager;
     private static Restaurant mRestaurant;
+    private static Context context;
 
     /**
      * @author Allen Space
@@ -38,6 +41,7 @@ public class MarkerMapFactory {
     {
         mGoogleMap =  pGoogleMap;
         mDatabaseManager =  DatabaseManager.getInstance(pContext);
+        context = pContext;
     }
 
     public MarkerMapFactory(Restaurant pRestaurant)
@@ -65,7 +69,7 @@ public class MarkerMapFactory {
 
 
     /**
-     * @author Allen Space
+     * @author Allen Space Edited by Guan
      * @return Marker java object
      * Description: Factory method that will create the resulting marker from yelp response.
      * */
@@ -76,7 +80,9 @@ public class MarkerMapFactory {
                 .position(new LatLng(mRestaurant.getmLatitude(), mRestaurant.getmLongitude()))
                 .title(mRestaurant.getmRestName());
 
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.burger));
+        Bitmap burgerIcon = convertToBitmapMarkers(R.drawable.burger);
+
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(burgerIcon));
 
         Marker marker = mGoogleMap.addMarker(markerOptions);
         marker.showInfoWindow();
@@ -86,7 +92,20 @@ public class MarkerMapFactory {
 
     /**
      * @author: Guan
-     * Description: Good job Gaun
+     * Description: turn a resource image into bitmap and resized to google marker's size
+     * @param id the resource ID of the image data
+     * @return Bitmap object of resized image
+     */
+    private Bitmap convertToBitmapMarkers(int id) {
+        Bitmap marker = BitmapFactory.decodeResource(context.getResources(), id);
+        marker = Bitmap.createScaledBitmap(marker, 170, 200, false);
+
+        return marker;
+    }
+
+    /**
+     * @author: Guan
+     * Description: populate google map with custom markers of user's favorite location
      */
     public void createHistoryMarkers()
     {
@@ -95,12 +114,14 @@ public class MarkerMapFactory {
         if (!mDatabaseManager.isDatabaseEmpty()) {
             restaurants = mDatabaseManager.getAllVisitedPlaces();
 
+            Bitmap starIcon = convertToBitmapMarkers(R.drawable.star);
+
             for (int i = 0; i < restaurants.size(); i++) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(new LatLng(restaurants.get(i).get_latitude(), restaurants.get(i).get_longitude()));
                 markerOptions.title(restaurants.get(i).get_name());
                 markerOptions.snippet("Visited " + restaurants.get(i).get_date());
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.star));
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(starIcon));
 
                 Marker marker = mGoogleMap.addMarker(markerOptions);
             }
