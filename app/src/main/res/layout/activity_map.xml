@@ -26,8 +26,9 @@
         android:onClick="clearHistory"
         android:clickable="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-50dp"
         android:textSize="10sp"
-        android:layout_below="@id/fragment"/>
+        android:layout_alignTop="@+id/fragment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
