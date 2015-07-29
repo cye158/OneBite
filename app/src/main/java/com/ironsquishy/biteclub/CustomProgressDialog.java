@@ -65,7 +65,7 @@ public class CustomProgressDialog extends ProgressDialog {
 
         //creates the slide to left animation
         animationToLeft = new TranslateAnimation(1500, -275, 0, 0);
-        animationToLeft.setDuration(2000);
+        animationToLeft.setDuration(3000);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
