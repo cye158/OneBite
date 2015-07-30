@@ -88,8 +88,12 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mUntappdManager = new UntappdManager();
 
+        car_button = (ImageView) findViewById(R.id.car_button);
+        bus_button = (ImageView) findViewById(R.id.bus_button);
+        walk_button = (ImageView) findViewById(R.id.walk_button);
+
         //loads the mode of transportation from last session;
-        transportModePreference = (defaultTransportation);
+        transportModePreference = loadTransportation(defaultTransportation);
         randomizeYelpResponse(transportModePreference);
 
         swipeRefresh();
@@ -99,11 +103,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mLinearLayout = (LinearLayout) findViewById(R.id.YelpInfoExpand);
 
-        car_button = (ImageView) findViewById(R.id.car_button);
-        bus_button = (ImageView) findViewById(R.id.bus_button);
-        walk_button = (ImageView) findViewById(R.id.walk_button);
-
-
         /**
          * @Author Darin modified by Eric
          * Description: Transportation modes
@@ -112,15 +111,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
-
                 //saves the mode of transportation chosen.
                 saveTransportation(CAR);
-
-                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
-                        Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001_selected);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000);
             }
         });
 
@@ -131,12 +123,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //saves the mode of transportation chosen.
                 saveTransportation(BUS);
-
-                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
-                        Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000_selected);
-                walk_button.setImageResource(R.drawable.walk_icon000);
             }
         });
 
@@ -147,12 +133,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //saves the mode of transportation chosen.
                 saveTransportation(WALK);
-
-                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
-                        Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000_selected);
             }
         });
 
@@ -261,14 +241,34 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
+                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
+                        Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000_selected);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+
                 //Get a random restuarant based on walking distance
                 mRestaurant = mRestaurantManager.getRandRestWalk();
                 break;
+
             case BUS:
+                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
+                        Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001_selected);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+
                 //Get a random restuarant based on bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
                 break;
+
             case CAR:
+                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
+                        Toast.LENGTH_SHORT).show();
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+
                 //Get a random restuarant based on driving distance
                 mRestaurant = mRestaurantManager.getRandRestCar();
                 break;
