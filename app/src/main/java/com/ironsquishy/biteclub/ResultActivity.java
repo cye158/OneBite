@@ -375,7 +375,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
-        mYelpRating.setImageBitmap(mRestaurant.getmRatingImage());
+        mYelpRating.setImageBitmap(mRestaurant.getRatingImage());
 
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
