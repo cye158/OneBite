@@ -243,7 +243,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
-                Toast.makeText(getApplicationContext(), "Restaurants within walking distance shown",
+                Toast.makeText(getApplicationContext(), "A restaurant within walking distance is shown",
                         Toast.LENGTH_SHORT).show();
                 highlightSelection(WALK);
 
@@ -252,7 +252,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 break;
 
             case BUS:
-                Toast.makeText(getApplicationContext(), "Restaurants within bus distance shown",
+                Toast.makeText(getApplicationContext(), "A restaurant within bus distance is shown",
                         Toast.LENGTH_SHORT).show();
                 highlightSelection(BUS);
 
@@ -261,7 +261,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 break;
 
             case CAR:
-                Toast.makeText(getApplicationContext(), "Restaurants within driving distance shown",
+                Toast.makeText(getApplicationContext(), "A restaurant within driving distance is shown",
                         Toast.LENGTH_SHORT).show();
                 highlightSelection(CAR);
 
