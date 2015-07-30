@@ -8,9 +8,14 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import apihelpers.YelpApiHandler.Restaurant;
+import ApiManagers.RestaurantManager;
 
 /**
  * Created by CYE on 7/16/15.
@@ -41,6 +46,7 @@ public class FilterOption extends DialogFragment {
             itemsChecked[i] = loadFilter(i);
             if(itemsChecked[i]==true){
                 addFilter.add(foodCuisine[i]);
+
             }
         }
 
@@ -70,9 +76,24 @@ public class FilterOption extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
+
+
+                //ArrayList al=new ArrayList();
+                RestaurantManager obj = RestaurantManager.getInstance();
+
 
                 //Toast.makeText(getActivity(), addFilter.toString(), Toast.LENGTH_SHORT).show();
+
+
+                obj.getFilterRestCar(addFilter);
+
+                String matchedRestaurantName = obj.getFilterRestCar(addFilter).getmRestName().toString();
+                Log.i("YelpData", "We recommend going to: " + matchedRestaurantName);
+
+//              @Lijie this is just for the demo, will change after milestone 2 demo
+                Toast.makeText(getActivity(), "We recommend going to: " + matchedRestaurantName,Toast.LENGTH_SHORT).show();
+
             }
         });
 

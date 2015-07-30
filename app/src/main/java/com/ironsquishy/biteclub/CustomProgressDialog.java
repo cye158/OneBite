@@ -3,6 +3,7 @@ package com.ironsquishy.biteclub;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -72,14 +73,15 @@ public class CustomProgressDialog extends ProgressDialog {
         animation = (AnimationDrawable) orangePacMan.getBackground();
 
         //creates the slide to left animation
-        animationToLeft = new TranslateAnimation(1500, -275, 0, 0);
-        animationToLeft.setDuration(3000);
+        animationToLeft = new TranslateAnimation(1500, -675, 0, 0);
+        animationToLeft.setDuration(2500);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
         //sets string text to layout
         String textLeft = "DETECTING NEARBY RESTAURANTS!";
         nowSearchingText.setText(textLeft);
+        nowSearchingText.setTextColor(Color.parseColor("#FFFFFF"));
         nowSearchingText.setTypeface(null, Typeface.BOLD);
 
 
