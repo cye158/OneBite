@@ -41,8 +41,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/transportation"
             android:onClick="toCar"
-            android:layout_weight="1"
-            android:src="@drawable/car_icon001" />
+            android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/bus_button"
@@ -52,8 +51,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/car_button"
             android:onClick="toBus"
-            android:layout_weight="1"
-            android:src="@drawable/bus_icon000" />
+            android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/walk_button"
@@ -63,8 +61,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/bus_button"
             android:onClick="toWalk"
-            android:layout_weight="1"
-            android:src="@drawable/walk_icon000" />
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -132,7 +129,10 @@
                             android:layout_marginTop="-25dp"
                             android:onClick="toInfo"
                             fab:fab_colorNormal="#FFCC00"
-                            android:src="@drawable/untappdhq2"/>
+                            android:src="@drawable/untappd_fab"
+                            android:adjustViewBounds="true"
+                            android:maxWidth="15dp"
+                            android:maxHeight="15dp"/>
 
                         <TextView
                             android:id="@+id/filter"
@@ -178,8 +178,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/resultText"
                             android:adjustViewBounds="true"
-                            android:maxWidth="25dp"
-                            android:maxHeight="25dp"
+                            android:maxWidth="30dp"
+                            android:maxHeight="30dp"
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
@@ -208,8 +208,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/addFavButton"
                             android:adjustViewBounds="true"
-                            android:maxWidth="25dp"
-                            android:maxHeight="25dp"
+                            android:maxWidth="30dp"
+                            android:maxHeight="30dp"
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
@@ -222,8 +222,8 @@
                             android:layout_below="@id/resultText"
                             android:layout_toLeftOf="@id/filter"
                             android:adjustViewBounds="true"
-                            android:maxWidth="25dp"
-                            android:maxHeight="25dp"
+                            android:maxWidth="30dp"
+                            android:maxHeight="30dp"
                             android:padding="1dp"
                             android:layout_marginRight="15dp"
                             android:layout_marginTop="10dp"

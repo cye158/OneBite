@@ -20,9 +20,6 @@ import java.util.ArrayList;
  **/
 public class FilterOption extends DialogFragment {
 
-    /*The array is then converted to a string with ',' to separate each item */
-    //String addToFilter = "";
-
     /*List of the food category*/
     ArrayList addFilter = new ArrayList();
     final String[] foodCuisine = { "NewAmerican", "Mexican", "Chinese", "Filipino", "Italian",
