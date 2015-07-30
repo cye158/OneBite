@@ -398,17 +398,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                                 );
     }
 
-<<<<<<< HEAD
-        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                "The Restaurant is currently: " + closedStatus + "\n" +
-                "Distance: ");
-        mMoreYelpInfo.setText("Style: " + mRestaurant.getmCuisineStyle());
-||||||| merged common ancestors
-        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                "The Restaurant is currently: " + closedStatus + "\n" +
-                "Distance: ");
-        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription());
-=======
 
     /** Shared preference for transportation by Renz - 7/29/15 **/
     /*
@@ -461,7 +450,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 walk_button.setImageResource(R.drawable.walk_icon000);
                 break;
         }
->>>>>>> 217db0fd833411e479f343a7361999fb2430431d
     }
 }
 
