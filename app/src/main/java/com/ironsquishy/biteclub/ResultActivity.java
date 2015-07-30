@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -394,8 +396,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                                 //"Distance: " + mRestaurant.getDistance()
                                 );
         mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n"
-                                //"Phone Number: " + mRestaurant.getPhoneNumber()
-                                );
+                //"Phone Number: " + mRestaurant.getPhoneNumber()
+        );
     }
 
 
@@ -423,33 +425,52 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
         return transport_pref.getInt("transportation_mode", defaultTransportation);
     }
-        /**
+
+    /**
      * @Author Eric Chen
      * Description: This highlights the transportation mode.
-     */
+     *
+     * Edited the icons and rescaling by Renz 7/30/15
+     **/
     private void highlightSelection(int transportation) {
         switch (transportation){
             case CAR:
-                car_button.setImageResource(R.drawable.car_icon001_selected);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                car_button.setImageBitmap(toBitmap(R.drawable.car_s));
+                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
                 break;
             case BUS:
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000_selected);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                car_button.setImageBitmap(toBitmap(R.drawable.car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.bus_s));
+                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
                 break;
             case WALK:
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+                car_button.setImageBitmap(toBitmap(R.drawable.car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.walk_s));
                 break;
             default:
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                car_button.setImageBitmap(toBitmap(R.drawable.car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
                 break;
         }
+    }
+
+    /**
+     *
+     * Copied & modified from google marker class to be used in this class - Renz 7/30/15
+     *
+     * @author: Guan
+     * Description: turn a non .bmp image into bitmap and resize to prevent blurriness
+     * @param id the resource ID of the image data
+     * @return Bitmap object of resized image
+     *
+     */
+    private Bitmap toBitmap(int id) {
+        Bitmap marker = BitmapFactory.decodeResource(this.getResources(), id);
+        marker = Bitmap.createScaledBitmap(marker, 220, 220, true);
+        return marker;
     }
 }
 

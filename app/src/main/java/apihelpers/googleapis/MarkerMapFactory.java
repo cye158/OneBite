@@ -99,7 +99,7 @@ public class MarkerMapFactory {
      */
     private Bitmap convertToBitmapMarkers(int id) {
         Bitmap marker = BitmapFactory.decodeResource(context.getResources(), id);
-        marker = Bitmap.createScaledBitmap(marker, 175, 200, false);
+        marker = Bitmap.createScaledBitmap(marker, 200, 225, false);
 
         return marker;
     }
@@ -124,7 +124,7 @@ public class MarkerMapFactory {
                 markerOptions.snippet("Visited " + restaurants.get(i).get_date());
                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(starIcon));
 
-                Marker marker = mGoogleMap.addMarker(markerOptions);
+                mGoogleMap.addMarker(markerOptions);
             }
         }
     }

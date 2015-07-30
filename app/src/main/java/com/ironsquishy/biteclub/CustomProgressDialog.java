@@ -78,7 +78,7 @@ public class CustomProgressDialog extends ProgressDialog {
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
         //sets string text to layout
-        String textLeft = "Now Searching";
+        String textLeft = "DETECTING NEARBY RESTAURANTS!";
         nowSearchingText.setText(textLeft);
         nowSearchingText.setTypeface(null, Typeface.BOLD);
 
