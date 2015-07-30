@@ -3,10 +3,8 @@ package apihelpers.googleapis;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -15,7 +13,8 @@ import com.ironsquishy.biteclub.R;
 
 import java.util.List;
 
-import ApiManagers.*;
+import ApiManagers.DatabaseManager;
+import ApiManagers.LocationHandler;
 import apihelpers.SQLiteHandler.VisitedPlace;
 import apihelpers.YelpApiHandler.Restaurant;
 
@@ -23,6 +22,7 @@ import apihelpers.YelpApiHandler.Restaurant;
 /**
  * Created by Allen Space on 7/14/2015.
  * Edited by Guan
+ * Edited by Renz icons 7/29/15
  */
 public class MarkerMapFactory {
 
@@ -61,7 +61,8 @@ public class MarkerMapFactory {
                 .title("You")
                 .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
 
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        Bitmap userIcon = convertToBitmapMarkers(R.drawable.user);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(userIcon));
         Marker  clientMarker = mGoogleMap.addMarker(markerOptions);
 
         return clientMarker;
@@ -98,7 +99,7 @@ public class MarkerMapFactory {
      */
     private Bitmap convertToBitmapMarkers(int id) {
         Bitmap marker = BitmapFactory.decodeResource(context.getResources(), id);
-        marker = Bitmap.createScaledBitmap(marker, 170, 200, false);
+        marker = Bitmap.createScaledBitmap(marker, 175, 200, false);
 
         return marker;
     }
