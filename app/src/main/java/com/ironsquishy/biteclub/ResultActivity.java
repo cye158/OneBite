@@ -391,13 +391,20 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         else
             closedStatus = "OPEN";
             */
+        double distanceMiles;
+        double distanceMeters;
 
-        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n"
-                                //"Distance: " + mRestaurant.getDistance()
-                                );
-        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n"
-                //"Phone Number: " + mRestaurant.getPhoneNumber()
-        );
+        distanceMeters = mRestaurant.getDistancefrom();
+
+        distanceMiles = distanceMeters * 0.000621371;
+
+        String distanceFrom = String.format("%.2f", distanceMiles);
+
+        mExtYelpInfo.setText("Cuisine Style: " + mRestaurant.getmCuisineStyle() + "\n" +
+                                "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
+                                "Distance: " + distanceFrom + " miles away");
+        mMoreYelpInfo.setText("Phone Number: " + mRestaurant.getPhoneNumber() + "\n" +
+                "Description: " + mRestaurant.getmDescription());
     }
 
 
