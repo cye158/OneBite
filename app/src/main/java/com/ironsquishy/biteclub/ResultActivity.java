@@ -369,7 +369,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
-        mYelpRating.setImageBitmap(mRestaurant.getmRatingImage());
+        mYelpRating.setImageBitmap(mRestaurant.getRatingImage());
 
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
@@ -383,8 +383,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
                 "The Restaurant is currently: " + closedStatus + "\n" +
-                "Distance: ");
-        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription());
+                "Distance: " +"\n");
+        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n");
     }
 
     /** Shared preference for transportation by Renz - 7/29/15 **/

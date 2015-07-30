@@ -1,23 +1,20 @@
 package com.ironsquishy.biteclub;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import ApiManagers.LocationHandler;
 import ApiManagers.UntappdManager;
-import apihelpers.Untappd.UntappdData;
+import apihelpers.Untappd.OneUntappd;
 
 
 public class UntappdActivity extends Activity{
@@ -30,6 +27,10 @@ public class UntappdActivity extends Activity{
     private static List<String> mBeerList = null;
     private static TextView mResultTextView;
     private static TextView mComments;
+
+    private static ImageView mImageView;
+
+    private static OneUntappd mOneUntappd;
 
     private static Intent mIntent;
 
@@ -45,11 +46,11 @@ public class UntappdActivity extends Activity{
 
         mResultTextView = (TextView) findViewById(R.id.resultText);
 
-        mComments = (TextView) findViewById(R.id.UntappdComments);
+        mImageView = (ImageView) findViewById(R.id.YelpImage);
 
         mUntappdManager = new UntappdManager();
 
-        mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+        mOneUntappd = mUntappdManager.getMostPopularDrink();
 
         displayResultDrink();
 
@@ -90,19 +91,32 @@ public class UntappdActivity extends Activity{
             @Override
             public void run() {
 
-                mResultTextView.setText(mUntappdManager.getMostPopularDrink());
+                mResultTextView.setText(mOneUntappd.getBeerName());
 
-                /*
-                mBeerList = mUntappdManager.getFilledComments();
+                mImageView.setImageBitmap(mOneUntappd.getBeerImage());
 
-                for(int i = 0; i < mBeerList.size(); i++)
-                {
-                    mComments.append(mBeerList.get(i) + "\n");
-                }
-                */
             }
 
-        }, 2000);
+        }, 500);
+
+    }
+
+
+    private void waitForUntappd() throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

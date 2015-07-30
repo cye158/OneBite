@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
+import ApiManagers.UntappdManager;
 
 /**
  * Created by Edward Yao on 7/28/2015.
@@ -43,6 +44,8 @@ public class OneButtonActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_button);
+
+        mContext = this;
 
         progressDialog = CustomProgressDialog.initiateProgressDialog(this);
 
@@ -97,6 +100,10 @@ public class OneButtonActivity extends Activity {
             }
         });
         RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+
+        UntappdManager untappdManager = new UntappdManager();
+
+        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }
 
     @Override
