@@ -79,16 +79,18 @@ public class Restaurant {
         return mDescription;
     }
 
-    public void setmRatingImage(Bitmap pRatingImage)
+    public void setRatingImage(Bitmap bitmap)
     {
-        this.mRatingImage = pRatingImage;
+        this.mRatingImage = bitmap;
     }
-
     //Picture of Restuarant from yelp.
     public void setmRestImage(Bitmap mRestImage)  { this.mRestImage = mRestImage; }
 
     //Image of the restuarant ratings from Yelp
-    public void getRatingImage(Bitmap mRatingImage){ this.mRatingImage = mRatingImage;}
+    public Bitmap getRatingImage()
+    {
+        return this.mRatingImage;
+    }
 
     public Bitmap getmRestImage(){ return mRestImage; }
 

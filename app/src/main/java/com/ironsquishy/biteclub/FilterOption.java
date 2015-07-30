@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class FilterOption extends DialogFragment {
 
     /*The array is then converted to a string with ',' to separate each item */
-    String addToFilter = "";
+    //String addToFilter = "";
 
     /*List of the food category*/
-    final ArrayList arrayFilter = new ArrayList();
+    ArrayList addFilter = new ArrayList();
     final String[] foodCuisine = { "NewAmerican", "Mexican", "Chinese", "Filipino", "Italian",
             "Japanese", "Korean", "Vietnamese", "Thai", "Vegetarian", "Creperies", "Cafe",
             "Desserts", "Seafood" };
@@ -40,10 +40,7 @@ public class FilterOption extends DialogFragment {
         for(int i=0; i<itemsChecked.length; i++){
             itemsChecked[i] = loadFilter(i);
             if(itemsChecked[i]==true){
-                if(!addToFilter.equals(""))
-                    addToFilter +=  "," + foodCuisine[i];
-                else
-                    addToFilter += foodCuisine[i];
+                addFilter.add(foodCuisine[i]);
             }
         }
 
@@ -57,16 +54,11 @@ public class FilterOption extends DialogFragment {
             public void onClick(DialogInterface dialog, int index, boolean isChecked) {
 
                 if (isChecked) {
-
-                    arrayFilter.add(index);
-
+                    addFilter.add(foodCuisine[index]);
                     /*store checked filter*/
                     saveFilter(index, isChecked);
-
                 } else {
-
-                    arrayFilter.remove(Integer.valueOf(index));
-
+                    addFilter.remove(foodCuisine[index]);
                     /*store unchecked filter*/
                     saveFilter(index, false);
                 }
@@ -78,22 +70,14 @@ public class FilterOption extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                for (int i = 0; i < arrayFilter.size(); i++) {
-                    if (!addToFilter.equals(""))
-                        addToFilter += "," + foodCuisine[(Integer) arrayFilter.get(i)];
-                    else
-                        addToFilter += foodCuisine[(Integer) arrayFilter.get(i)];
-                }
                 Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
 
-                /*
-                To be used for yelp category_filter
-                */
-                //addToFilter.toLowerCase();
+                //Toast.makeText(getActivity(), addFilter.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
         filterDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
             /*Does nothing as filter was cancelled*/
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -101,7 +85,7 @@ public class FilterOption extends DialogFragment {
             }
         });
 
-        Toast.makeText(getActivity(), addToFilter, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"", Toast.LENGTH_SHORT).show();
 
         /*Dialog cannot be cancelled if out of bounds of the dialog is clicked*/
         setCancelable(false);

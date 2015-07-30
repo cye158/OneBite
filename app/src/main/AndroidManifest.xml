@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".OneButtonActivity"
-            android:label="One" >
+            android:label="One"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MapActivity"

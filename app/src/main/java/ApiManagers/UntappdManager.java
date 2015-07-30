@@ -2,6 +2,7 @@ package ApiManagers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -19,6 +20,7 @@ import java.util.Random;
 
 import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
+import apihelpers.Untappd.OneUntappd;
 import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.YelpData;
 
@@ -38,6 +40,10 @@ public class UntappdManager {
     private static String drink;
     private static String breweryName;
     private static String venueAddress;
+
+    private static Bitmap mBitmap;
+
+    private static OneUntappd mOneUntappd;
 
     /**
      * @author Allen Space
@@ -155,7 +161,7 @@ public class UntappdManager {
     /**
      * @author Allen Space
      * */
-    public void populateUntappdData(double pLatitdude, double pLongitude, Context pContext)
+    public void populateUntappdData(double pLatitdude, double pLongitude, final Context pContext)
     {
         final ProgressDialog progressDialog = new ProgressDialog(pContext);
         progressDialog.setIndeterminate(true);
@@ -171,6 +177,8 @@ public class UntappdManager {
                 mData = (UntappdData) object;
 
                 mItems = mData.response.checkins.items;
+
+                getAllBeerImages(pContext);
                 Log.i("UNTAPPD", "Manager retrieved data...");
 
                 progressDialog.dismiss();
@@ -180,12 +188,13 @@ public class UntappdManager {
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, pLatitdude, pLongitude, pContext);
     }
 
-    public String getMostPopularDrink()
+    public OneUntappd getMostPopularDrink()
     {
         List<String> mostBeers = new ArrayList<String>();
         List<String> allBeers = new ArrayList<String>();
 
         String finalResult;
+        Bitmap finalResultImage;
 
         for(int i = 0; i < mItems.size(); i++)
         {
@@ -197,14 +206,19 @@ public class UntappdManager {
         if(mostBeers.size() < 1){
 
             finalResult = mostBeers.get(0);
-             return finalResult;
+
+            finalResultImage = getBeerImageFromMostBeer(finalResult);
+
+             return new OneUntappd(finalResult,finalResultImage);
         }else{
 
             Collections.shuffle(mostBeers, new Random(System.nanoTime()));
 
             finalResult = mostBeers.get(0);
 
-         return finalResult;
+            finalResultImage = getBeerImageFromMostBeer(finalResult);
+
+         return new OneUntappd(finalResult, finalResultImage);
         }
     }
 
@@ -229,15 +243,55 @@ public class UntappdManager {
         return maxElems;
     }
 
-    //Trying to catch object.
-    public UntappdManager getReadyUntappd(Context pContex, double pLatitude, double pLongitude)
+
+    private void getUntappdBeerImage(String URL, Context pContext, final int count)
     {
-        UntappdManager untappdManager = new UntappdManager();
+
+        GeneralCallback generalCallback = new GeneralCallback() {
+            @Override
+            public void runWithResponse(Object object) {
+
+                mBitmap = (Bitmap) object;
+
+                mItems.get(count).beerImage = mBitmap;
+
+                Log.i("UNTAPPD", "Set Bitmap image");
+            }
+        };
+
+        NetworkRequestManager.getInstance().getUntappdSingleImage(generalCallback, URL, pContext);
+
+    }
+
+    private void getAllBeerImages(final Context pContext)
+    {
+        int count = 0;
+
+        for (int i = 0; i < mItems.size();i++)
+        {
+            //Get restaurant image..
+            getUntappdBeerImage(mItems.get(i).beer.beer_label, pContext, count);
+
+            count++;
+
+        }
+    }
+
+    private Bitmap getBeerImageFromMostBeer(String finalResult)
+    {
+        Bitmap bitmap = null;
 
 
-        untappdManager.populateUntappdData(pLatitude,pLongitude, pContex);
+        for(int i = 0; i < mItems.size();i++)
+        {
+            if(mItems.get(i).beer.beer_name == finalResult && mItems.get(i).beer.beer_label != "")
+            {
+                return mItems.get(i).beerImage;
+            }
+        }
 
-        return untappdManager;
+
+        return null;
     }
 }
 

@@ -141,7 +141,7 @@ public class SplashActivity extends Activity {
                 public void run() {
                     try {
 
-                        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+//                        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
                         sleep(2000);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block

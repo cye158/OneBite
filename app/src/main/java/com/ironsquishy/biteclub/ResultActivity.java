@@ -3,15 +3,12 @@ package com.ironsquishy.biteclub;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ApiManagers.DatabaseManager;
-import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
@@ -47,16 +43,15 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int WALK = 0;
     private final static int BUS = 1;
     private final static int CAR = 2;
+    private static int defaultTransportation = 2;
+    private int transportModePreference = defaultTransportation;
 
     private static TextView addToData;
-    private static ImageView mYelpImage;
+    private static ImageView mYelpImage, mYelpRating;
 
     private static DatabaseManager mDatabaseManager;
 
     private static Context mContext;
-
-    private AlertDialog.Builder filterDialog;
-    private String inputFilter = "\n Filtered: ";
 
     private static TextView mExtYelpInfo, mMoreYelpInfo;
 
@@ -70,7 +65,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * Description: To create the menu activity.
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         mContext = this;
@@ -78,6 +73,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mResultText = (TextView) findViewById(R.id.resultText);
 
         mYelpImage = (ImageView) findViewById(R.id.YelpImage);
+
+        mYelpRating = (ImageView) findViewById(R.id.YelpRating);
 
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
@@ -91,8 +88,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mUntappdManager = new UntappdManager();
 
-        randomizeYelpResponse(CAR);
-        
+        //loads the mode of transportation from last session;
+        transportModePreference = (defaultTransportation);
+        randomizeYelpResponse(transportModePreference);
+
         swipeRefresh();
 
         expandInfo = (TextView) findViewById(R.id.showInfo);
@@ -113,6 +112,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(CAR);
+
                 Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001_selected);
@@ -125,6 +128,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         bus_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(BUS);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(BUS);
+
                 Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001);
@@ -137,6 +144,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         walk_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(WALK);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(WALK);
+
                 Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001);
@@ -276,6 +287,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        Toast.makeText(getApplicationContext(), "Swipe down for another choice!",
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -285,8 +299,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             @Override
             public void run() {
 
-
-                randomizeYelpResponse(CAR);
+                randomizeYelpResponse(transportModePreference);
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -370,11 +383,48 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
+        mYelpRating.setImageBitmap(mRestaurant.getRatingImage());
+
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
-        mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-        mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+
+        String closedStatus;
+        if (mRestaurant.getIsClosed()){
+            closedStatus = "CLOSED";
+        }
+        else
+            closedStatus = "OPEN";
+
+        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
+                "The Restaurant is currently: " + closedStatus + "\n" +
+                "Distance: " +"\n");
+        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n");
+    }
+
+
+    /** Shared preference for transportation by Renz - 7/29/15 **/
+    /*
+        Save method to store the transportation mode preference into a file named
+        "transport_preference". The file will be used by loadTransportation method.
+    */
+    public void saveTransportation(int defaultTransportation) {
+        SharedPreferences transport_pref;
+        SharedPreferences.Editor editor;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        editor = transport_pref.edit();
+        editor.putInt("transportation_mode", defaultTransportation);
+        editor.commit();
+    }
+
+    /*
+        Load method that loads the mode of transportation from "transport_preference" file. Then
+        passes the integer that corresponds to the saved transportation mode as the new
+        defaultTransportation. If the file is empty then it returns the same mode(default value).
+    */
+    public Integer loadTransportation(int defaultTransportation) {
+        SharedPreferences transport_pref;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        return transport_pref.getInt("transportation_mode", defaultTransportation);
     }
 }
 

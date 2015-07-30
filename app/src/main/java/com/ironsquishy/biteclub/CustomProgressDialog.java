@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -34,6 +37,11 @@ public class CustomProgressDialog extends ProgressDialog {
         CustomProgressDialog dialog = new CustomProgressDialog(context);
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.y = 200;
+        dialog.getWindow().setAttributes(params);
         return dialog;
     }
 
@@ -59,7 +67,7 @@ public class CustomProgressDialog extends ProgressDialog {
         //sets animation to layout as a background image
         orangePacMan.setBackgroundResource(R.drawable.pac_man_progress_dialog_animation);
         orangePacMan.bringToFront();
-        orangePacMan.setTranslationX(-10);
+        orangePacMan.setTranslationX(-5);
 
         animation = (AnimationDrawable) orangePacMan.getBackground();
 
@@ -73,6 +81,7 @@ public class CustomProgressDialog extends ProgressDialog {
         String textLeft = "Now Searching";
         nowSearchingText.setText(textLeft);
         nowSearchingText.setTypeface(null, Typeface.BOLD);
+
 
         oneButtonPingFeedback = MediaPlayer.create(getContext(), R.raw.sonar_one_ping_feedback);
 
