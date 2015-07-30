@@ -29,7 +29,7 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new EULA(this).show();
+        //new EULA(this).show();
 
         //TODO Find an optimal point to put LocationHandler instantiation
         //Get started LocationHandler and start connection.

@@ -22,6 +22,10 @@ public class Restaurant {
     private List<List<String>> mCategogy;
     private int mReviewCount;
     private boolean mIsClosed;
+    private String mCuisineStyle;
+    private double mDistancefrom;
+
+    private String mPhoneNumber;
 
 
     private apihelpers.YelpApiHandler.YelpData.Business restaurant;
@@ -60,6 +64,8 @@ public class Restaurant {
             this.mIsClosed = restaurant.is_closed;
 
             this.mReviewCount = restaurant.review_count;
+
+            this.mPhoneNumber = restaurant.phone;
 
 
         }else{
@@ -133,5 +139,33 @@ public class Restaurant {
     public int getReviewCount()
     {
         return this.mReviewCount;
+    }
+
+    public void setmCuisineStyle(String cuisineStyle)
+    {
+        this.mCuisineStyle = cuisineStyle;
+    }
+
+    public String getmCuisineStyle()
+    {
+        return this.mCuisineStyle;
+    }
+
+    public void setDistanceFrom(float distance)
+    {
+        this.mDistancefrom = distance;
+    }
+
+    public double getDistancefrom()
+    {
+        return this.mDistancefrom;
+    }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public void setPhoneNumber(String mPhoneNumber) {
+        this.mPhoneNumber = mPhoneNumber;
     }
 }

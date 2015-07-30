@@ -3,15 +3,12 @@ package com.ironsquishy.biteclub;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ApiManagers.DatabaseManager;
-import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
@@ -47,6 +43,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int WALK = 0;
     private final static int BUS = 1;
     private final static int CAR = 2;
+    private static int defaultTransportation = 2;
+    private int transportModePreference = defaultTransportation;
 
     private static TextView addToData;
     private static ImageView mYelpImage, mYelpRating;
@@ -54,9 +52,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private static DatabaseManager mDatabaseManager;
 
     private static Context mContext;
-
-    private AlertDialog.Builder filterDialog;
-    private String inputFilter = "\n Filtered: ";
 
     private static TextView mExtYelpInfo, mMoreYelpInfo;
 
@@ -70,7 +65,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * Description: To create the menu activity.
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         mContext = this;
@@ -93,7 +88,13 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mUntappdManager = new UntappdManager();
 
-        randomizeYelpResponse(CAR);
+        car_button = (ImageView) findViewById(R.id.car_button);
+        bus_button = (ImageView) findViewById(R.id.bus_button);
+        walk_button = (ImageView) findViewById(R.id.walk_button);
+
+        //loads the mode of transportation from last session;
+        transportModePreference = loadTransportation(defaultTransportation);
+        randomizeYelpResponse(transportModePreference);
 
         swipeRefresh();
 
@@ -101,11 +102,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         collapseInfo = (TextView) findViewById(R.id.hideInfo);
 
         mLinearLayout = (LinearLayout) findViewById(R.id.YelpInfoExpand);
-
-        car_button = (ImageView) findViewById(R.id.car_button);
-        bus_button = (ImageView) findViewById(R.id.bus_button);
-        walk_button = (ImageView) findViewById(R.id.walk_button);
-
 
         /**
          * @Author Darin modified by Eric
@@ -115,11 +111,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
-                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
-                        Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001_selected);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                //saves the mode of transportation chosen.
+                saveTransportation(CAR);
             }
         });
 
@@ -127,11 +120,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         bus_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(BUS);
-                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
-                        Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000_selected);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(BUS);
             }
         });
 
@@ -139,11 +130,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         walk_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(WALK);
-                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
-                        Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(WALK);
             }
         });
 
@@ -252,14 +241,28 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
+                Toast.makeText(getApplicationContext(), "Restaurants within walking distance shown",
+                        Toast.LENGTH_SHORT).show();
+                highlightSelection(WALK);
+
                 //Get a random restuarant based on walking distance
                 mRestaurant = mRestaurantManager.getRandRestWalk();
                 break;
+
             case BUS:
+                Toast.makeText(getApplicationContext(), "Restaurants within bus distance shown",
+                        Toast.LENGTH_SHORT).show();
+                highlightSelection(BUS);
+
                 //Get a random restuarant based on bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
                 break;
+
             case CAR:
+                Toast.makeText(getApplicationContext(), "Restaurants within driving distance shown",
+                        Toast.LENGTH_SHORT).show();
+                highlightSelection(CAR);
+
                 //Get a random restuarant based on driving distance
                 mRestaurant = mRestaurantManager.getRandRestCar();
                 break;
@@ -280,7 +283,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         swipeRefreshLayout.setOnRefreshListener(this);
 
         Toast.makeText(getApplicationContext(), "Swipe down for another choice!",
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -289,9 +292,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-
-                randomizeYelpResponse(CAR);
+                transportModePreference = loadTransportation(defaultTransportation);
+                randomizeYelpResponse(transportModePreference);
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -380,17 +382,86 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
 
-        String closedStatus;
+        /*String closedStatus;
         if (mRestaurant.getIsClosed()){
             closedStatus = "CLOSED";
         }
         else
             closedStatus = "OPEN";
+            */
 
+        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n"
+                                //"Distance: " + mRestaurant.getDistance()
+                                );
+        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n"
+                                //"Phone Number: " + mRestaurant.getPhoneNumber()
+                                );
+    }
+
+<<<<<<< HEAD
+        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
+                "The Restaurant is currently: " + closedStatus + "\n" +
+                "Distance: ");
+        mMoreYelpInfo.setText("Style: " + mRestaurant.getmCuisineStyle());
+||||||| merged common ancestors
         mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
                 "The Restaurant is currently: " + closedStatus + "\n" +
                 "Distance: ");
         mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription());
+=======
+
+    /** Shared preference for transportation by Renz - 7/29/15 **/
+    /*
+        Save method to store the transportation mode preference into a file named
+        "transport_preference". The file will be used by loadTransportation method.
+    */
+    public void saveTransportation(int defaultTransportation) {
+        SharedPreferences transport_pref;
+        SharedPreferences.Editor editor;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        editor = transport_pref.edit();
+        editor.putInt("transportation_mode", defaultTransportation);
+        editor.commit();
+    }
+
+    /*
+        Load method that loads the mode of transportation from "transport_preference" file. Then
+        passes the integer that corresponds to the saved transportation mode as the new
+        defaultTransportation. If the file is empty then it returns the same mode(default value).
+    */
+    public Integer loadTransportation(int defaultTransportation) {
+        SharedPreferences transport_pref;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        return transport_pref.getInt("transportation_mode", defaultTransportation);
+    }
+        /**
+     * @Author Eric Chen
+     * Description: This highlights the transportation mode.
+     */
+    private void highlightSelection(int transportation) {
+        switch (transportation){
+            case CAR:
+                car_button.setImageResource(R.drawable.car_icon001_selected);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+                break;
+            case BUS:
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000_selected);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+                break;
+            case WALK:
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+                break;
+            default:
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+                break;
+        }
+>>>>>>> 217db0fd833411e479f343a7361999fb2430431d
     }
 }
 

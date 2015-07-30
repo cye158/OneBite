@@ -1,16 +1,12 @@
 package com.ironsquishy.biteclub;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +16,6 @@ import java.util.List;
 import ApiManagers.LocationHandler;
 import ApiManagers.UntappdManager;
 import apihelpers.Untappd.OneUntappd;
-import apihelpers.Untappd.UntappdData;
 
 
 public class UntappdActivity extends Activity{
@@ -54,6 +49,8 @@ public class UntappdActivity extends Activity{
 
         mImageView = (ImageView) findViewById(R.id.YelpImage);
 
+
+
         mUntappdManager = new UntappdManager();
 
         mOneUntappd = mUntappdManager.getMostPopularDrink();
@@ -67,6 +64,12 @@ public class UntappdActivity extends Activity{
         super.onStart();
 
         displayResultDrink();
+    }
+
+    public void toUntappdList(View view)
+    {
+        Intent intent = new Intent(this, UntappdList.class);
+        startActivity(intent);
     }
 
     private void displayRestaurant()

@@ -20,27 +20,27 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
             android:name=".OneButtonActivity"
             android:label="One"
             android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name=".MapActivity"
             android:label="Map"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait" >
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".UntappdList"
@@ -52,11 +52,10 @@
             android:label="@string/title_activity_transportation"
             android:screenOrientation="portrait" >
         </activity>
-
         <activity
             android:name=".LocationCheckActivity"
             android:label="@string/title_activity_location_check"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- New menu activity -> result -->
@@ -64,14 +63,13 @@
             android:name=".ResultActivity"
             android:label="Result"
             android:screenOrientation="portrait" >
-
         </activity>
 
-        <!-- Untappd activity as a dialog of ResultActivity-->
+        <!-- Untappd activity as a dialog of ResultActivity -->
         <activity
             android:name=".UntappdActivity"
             android:label="@string/title_activity_untappd"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ironsquishy.biteclub.ResultActivity" />
@@ -86,7 +84,16 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity
+            android:name=".EulaActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
