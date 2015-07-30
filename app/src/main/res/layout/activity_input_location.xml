@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.ironsquishy.biteclub.InputLocationActivity"
-    android:background="#9C2217"
+    android:background="#330033"
     android:focusableInTouchMode="true">
 
     <TextView
@@ -16,7 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/ask_user_location"
         android:layout_margin="16dp"
-        android:text="Enter Your Location"
+        android:text="Enter An Address"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold|normal"

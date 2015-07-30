@@ -105,7 +105,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="200dp"
                             android:adjustViewBounds="true"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/placeholder_yelp" />
                             
                         <ImageView

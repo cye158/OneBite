@@ -16,6 +16,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import ApiManagers.LocationHandler;
+import ApiManagers.RestaurantManager;
+
 /**
  * Created by Edward Yao on 7/28/2015.
  */
@@ -90,8 +93,10 @@ public class OneButtonActivity extends Activity {
                 }
 
                 return false;
+
             }
         });
+        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }
 
     @Override
