@@ -292,7 +292,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 randomizeYelpResponse(transportModePreference);
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -382,15 +381,15 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         //Set the Descripiton and ratings
         //TODO: ADD MORE YELP INFO STRINGS
 
-        String closedStatus;
+        /*String closedStatus;
         if (mRestaurant.getIsClosed()){
             closedStatus = "CLOSED";
         }
         else
             closedStatus = "OPEN";
+            */
 
-        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                                "The Restaurant is currently: " + closedStatus + "\n"
+        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n"
                                 //"Distance: " + mRestaurant.getDistance()
                                 );
         mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n"
