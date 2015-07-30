@@ -47,6 +47,8 @@
             android:label="Untappd"
             android:screenOrientation="portrait" >
         </activity>
+
+
         <activity
             android:name=".TransportationActivity"
             android:label="@string/title_activity_transportation"
