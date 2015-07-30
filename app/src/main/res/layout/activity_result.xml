@@ -138,7 +138,7 @@
                             android:onClick="toFilter"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:text="FILTER"
+                            android:text="FILTER FOOD"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="#14A984"
                             android:textSize="15sp"
@@ -162,6 +162,12 @@
                             android:textColor="#000000"
                             android:textSize="30sp"
                             android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/resultText"
+                            android:background="@android:color/darker_gray" />
 
                         <ImageView
                             android:id="@+id/addFavButton"
