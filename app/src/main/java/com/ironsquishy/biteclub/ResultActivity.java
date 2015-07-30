@@ -3,15 +3,12 @@ package com.ironsquishy.biteclub;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ApiManagers.DatabaseManager;
-import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
@@ -47,6 +43,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int WALK = 0;
     private final static int BUS = 1;
     private final static int CAR = 2;
+    private static int DEF_VAL= 2;
+    private int transportModePreference = DEF_VAL;
 
     private static TextView addToData;
     private static ImageView mYelpImage, mYelpRating;
@@ -54,9 +52,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private static DatabaseManager mDatabaseManager;
 
     private static Context mContext;
-
-    private AlertDialog.Builder filterDialog;
-    private String inputFilter = "\n Filtered: ";
 
     private static TextView mExtYelpInfo, mMoreYelpInfo;
 
@@ -93,7 +88,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mUntappdManager = new UntappdManager();
 
-        randomizeYelpResponse(CAR);
+        randomizeYelpResponse(transportModePreference);
 
         swipeRefresh();
 
@@ -290,8 +285,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             @Override
             public void run() {
 
-
-                randomizeYelpResponse(CAR);
+                randomizeYelpResponse(transportModePreference);
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -391,6 +385,30 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 "The Restaurant is currently: " + closedStatus + "\n" +
                 "Distance: ");
         mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription());
+    }
+
+    /** Shared preference for transportation by Renz - 7/29/15 **/
+    /*
+        Method to store the transporttion mode preference into a file named
+        "transport_pref" and is committed to be used for next time app runs.
+    */
+    public void saveFilter(int mode) {
+        SharedPreferences transport_pref;
+        SharedPreferences.Editor editor;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_pref", Context.MODE_PRIVATE);
+        editor = transport_pref.edit();
+        editor.putInt("transportation", mode);
+        editor.commit();
+    }
+
+    /*
+        Loads the mode of transportation from "transport_pref" from the saved preference above to
+        let the user  again. If the file is empty then it returns the same mode back.
+    */
+    public Integer loadFilter(int mode) {
+        SharedPreferences transport_pref;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_pref", Context.MODE_PRIVATE);
+        return transport_pref.getInt("transportation", mode);
     }
 }
 
