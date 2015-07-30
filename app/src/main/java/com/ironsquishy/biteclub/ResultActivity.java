@@ -43,8 +43,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int WALK = 0;
     private final static int BUS = 1;
     private final static int CAR = 2;
-    private static int DEF_VAL= 2;
-    private int transportModePreference = DEF_VAL;
+    private static int defaultTransportation = 2;
+    private int transportModePreference = defaultTransportation;
 
     private static TextView addToData;
     private static ImageView mYelpImage, mYelpRating;
@@ -65,7 +65,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * Description: To create the menu activity.
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         mContext = this;
@@ -88,6 +88,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mUntappdManager = new UntappdManager();
 
+        //loads the mode of transportation from last session;
+        transportModePreference = (defaultTransportation);
         randomizeYelpResponse(transportModePreference);
 
         swipeRefresh();
@@ -110,6 +112,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(CAR);
+
                 Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001_selected);
@@ -122,6 +128,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         bus_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(BUS);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(BUS);
+
                 Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001);
@@ -134,6 +144,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         walk_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(WALK);
+
+                //saves the mode of transportation chosen.
+                saveTransportation(WALK);
+
                 Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001);
@@ -387,28 +401,30 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n");
     }
 
+
     /** Shared preference for transportation by Renz - 7/29/15 **/
     /*
-        Method to store the transporttion mode preference into a file named
-        "transport_pref" and is committed to be used for next time app runs.
+        Save method to store the transportation mode preference into a file named
+        "transport_preference". The file will be used by loadTransportation method.
     */
-    public void saveFilter(int mode) {
+    public void saveTransportation(int defaultTransportation) {
         SharedPreferences transport_pref;
         SharedPreferences.Editor editor;
-        transport_pref = getApplicationContext().getSharedPreferences("transport_pref", Context.MODE_PRIVATE);
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
         editor = transport_pref.edit();
-        editor.putInt("transportation", mode);
+        editor.putInt("transportation_mode", defaultTransportation);
         editor.commit();
     }
 
     /*
-        Loads the mode of transportation from "transport_pref" from the saved preference above to
-        let the user  again. If the file is empty then it returns the same mode back.
+        Load method that loads the mode of transportation from "transport_preference" file. Then
+        passes the integer that corresponds to the saved transportation mode as the new
+        defaultTransportation. If the file is empty then it returns the same mode(default value).
     */
-    public Integer loadFilter(int mode) {
+    public Integer loadTransportation(int defaultTransportation) {
         SharedPreferences transport_pref;
-        transport_pref = getApplicationContext().getSharedPreferences("transport_pref", Context.MODE_PRIVATE);
-        return transport_pref.getInt("transportation", mode);
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        return transport_pref.getInt("transportation_mode", defaultTransportation);
     }
 }
 
