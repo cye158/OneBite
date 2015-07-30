@@ -3,6 +3,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_menu"
+    android:background="#330033"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="0dp"
@@ -16,7 +17,7 @@
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="#4285F4"
+        android:background="#FFCC33"
         android:orientation="horizontal">
 
         <TextView
@@ -27,7 +28,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="vertical"
-            android:text="Modes of Transportation: "
+            android:text="How Would You \nLike To Get There? "
             android:textStyle="bold" />
 
         <ImageView
@@ -104,7 +105,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="200dp"
                             android:adjustViewBounds="true"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/placeholder_yelp" />
                             
                         <ImageView
@@ -137,7 +138,7 @@
                             android:onClick="toFilter"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:text="FILTER"
+                            android:text="FILTER FOOD"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="#14A984"
                             android:textSize="15sp"
@@ -161,6 +162,12 @@
                             android:textColor="#000000"
                             android:textSize="30sp"
                             android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/resultText"
+                            android:background="@android:color/darker_gray" />
 
                         <ImageView
                             android:id="@+id/addFavButton"
@@ -196,6 +203,16 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/location_icon_new_small" />
 
+                        <ImageView
+                            android:id="@+id/filterIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/resultText"
+                            android:layout_toLeftOf="@id/filter"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/filter_icon" />
+
                         <TextView
                             android:id="@+id/checkToNavi"
                             android:layout_width="wrap_content"
@@ -206,7 +223,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_toRightOf="@+id/naviIcon"
                             android:onClick="toNavi"
-                            android:text="NAVIGATION"
+                            android:text="SHOW ON MAP"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="#14A984"
                             android:textSize="15sp"

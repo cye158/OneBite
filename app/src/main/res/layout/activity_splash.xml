@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#ff4a784e"
+    android:background="#330033"
     tools:context="com.ssaurel.animationsprite.MainActivity" >
     <TextView
         android:layout_width="fill_parent"
@@ -59,7 +59,7 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:textSize="20sp"
-        android:layout_marginBottom="43dp"
+        android:layout_marginBottom="50dp"
         android:textColor="#FFFFFF" />
 
     <ImageView
@@ -71,5 +71,24 @@
         android:visibility="invisible"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/untappdlogo"
+        android:src="@drawable/untappd_logo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yelplogo"
+        android:src="@drawable/yelplogo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

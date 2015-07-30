@@ -49,7 +49,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int CAR = 2;
 
     private static TextView addToData;
-    private static ImageView mYelpImage, mYelpRatings;
+    private static ImageView mYelpImage, mYelpRating;
 
     private static DatabaseManager mDatabaseManager;
 
@@ -79,6 +79,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mYelpImage = (ImageView) findViewById(R.id.YelpImage);
 
+        mYelpRating = (ImageView) findViewById(R.id.YelpRating);
+
         addToData = (TextView) findViewById(R.id.checkToAddFav);
 
         mDatabaseManager = DatabaseManager.getInstance(this);
@@ -87,14 +89,12 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mMoreYelpInfo = (TextView) findViewById(R.id.MoreYelpInfo);
 
-        mYelpRatings = (ImageView) findViewById(R.id.YelpRating);
-
         mRestaurantManager = RestaurantManager.getInstance();
 
         mUntappdManager = new UntappdManager();
 
         randomizeYelpResponse(CAR);
-        
+
         swipeRefresh();
 
         expandInfo = (TextView) findViewById(R.id.showInfo);
@@ -208,6 +208,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
+
+        //This is important for Untappd activity, needs population data.
+
+
         startActivity(intent);
     }
 
@@ -216,13 +220,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void toInfo(View view) {
         Intent i = new Intent(this, UntappdActivity.class);
-
-
-
         i.putExtra("restname", mRandomStringName);
-
-
-
         startActivity(i);
     }
 
@@ -246,68 +244,27 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     }
 
     /**
-     * @author Allen Space
+     * @author Allen Space optimized by Eric
      * Description: ReShuffles the yelp data.
      * And displays on screen.
      */
     private void randomizeYelpResponse(int tranState) {
 
-        if(tranState == WALK) {
-            //Get a random restuarant.
-            mRestaurant = mRestaurantManager.getRandRestWalk();
-
-            //Set the Text name.
-            mResultText.setText(mRestaurant.getmRestName());
-
-            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
-
-            mYelpRatings.setImageBitmap(mRestaurant.getRatingImage());
-
-            //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
-
-        }else if(tranState == BUS)
-        {
-            //Get a random restuarant.
-            mRestaurant = mRestaurantManager.getRandRestBus();
-
-            //Set the Text name.
-            mResultText.setText(mRestaurant.getmRestName());
-
-            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
-
-            mYelpRatings.setImageBitmap(mRestaurant.getRatingImage());
-
-            //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
-        }else if(tranState == CAR)
-        {
-            //Get a random restuarant.
-            mRestaurant = mRestaurantManager.getRandRestCar();
-
-            //Set the Text name.
-            mResultText.setText(mRestaurant.getmRestName());
-
-            mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
-
-            mYelpRatings.setImageBitmap(mRestaurant.getRatingImage());
-
-            //Set the Descripiton and ratings
-
-            //TODO: ADD MORE YELP INFO STRINGS
-            mExtYelpInfo.setText("Cuisine Type" + "\n" + "Price" + "\n" + "isClosed");
-            mMoreYelpInfo.setText("Hours: " + "\n" + "Monday" + "\n" + "Tuesday" + "\n" +
-                    "Wednesday" + "\n" + "Friday" + "\n" + mRestaurant.getmDescription());
+        switch (tranState) {
+            case WALK:
+                //Get a random restuarant based on walking distance
+                mRestaurant = mRestaurantManager.getRandRestWalk();
+                break;
+            case BUS:
+                //Get a random restuarant based on bus distance
+                mRestaurant = mRestaurantManager.getRandRestBus();
+                break;
+            case CAR:
+                //Get a random restuarant based on driving distance
+                mRestaurant = mRestaurantManager.getRandRestCar();
+                break;
         }
-
+        setYelpInfo();
     }
 
     /**
@@ -321,6 +278,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        Toast.makeText(getApplicationContext(), "Swipe down for another choice!",
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -403,6 +363,34 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
         return animator;
+    }
+
+    /**
+     * @Author Eric Chen
+     * Description: Gets yelp information from Restaurant class
+     */
+    private void setYelpInfo() {
+        //Set the Text name.
+        mResultText.setText(mRestaurant.getmRestName());
+
+        mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
+        mYelpRating.setImageBitmap(mRestaurant.getmRatingImage());
+
+        //Set the Descripiton and ratings
+        //TODO: ADD MORE YELP INFO STRINGS
+
+        String closedStatus;
+        if (mRestaurant.getIsClosed()){
+            closedStatus = "CLOSED";
+        }
+        else
+            closedStatus = "OPEN";
+
+        mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
+                "The Restaurant is currently: " + closedStatus + "\n" +
+                "Distance: ");
+        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription());
     }
 }
 

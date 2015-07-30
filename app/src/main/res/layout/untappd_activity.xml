@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.ironsquishy.biteclub.UntappdFragment">
+    android:layout_height="match_parent" tools:context="com.ironsquishy.biteclub.UntappdFragment"
+    android:background="#330033">
 
     <!-- TODO: Update blank fragment layout -->
 
