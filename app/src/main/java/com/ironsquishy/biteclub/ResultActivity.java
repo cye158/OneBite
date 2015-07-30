@@ -292,6 +292,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                transportModePreference = loadTransportation(defaultTransportation);
                 randomizeYelpResponse(transportModePreference);
                 swipeRefreshLayout.setRefreshing(false);
             }
