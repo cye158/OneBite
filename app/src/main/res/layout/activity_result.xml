@@ -110,13 +110,14 @@
                             android:src="@drawable/placeholder_yelp" />
                             
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="120dp"
+                            android:layout_height="80dp"
                             android:id="@+id/YelpRating"
                             android:src="@drawable/placeholder_rating"
                             android:layout_alignTop="@+id/Untappd"
                             android:layout_alignLeft="@+id/resultText"
-                            android:layout_alignStart="@+id/resultText" />
+                            android:layout_alignStart="@+id/resultText"
+                            android:layout_marginTop="-40dp"/>
 
                         <com.melnykov.fab.FloatingActionButton
                             android:id="@+id/Untappd"
