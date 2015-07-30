@@ -241,21 +241,21 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
-                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
+                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
                 car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000_selected);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000_selected);
 
                 //Get a random restuarant based on walking distance
                 mRestaurant = mRestaurantManager.getRandRestWalk();
                 break;
 
             case BUS:
-                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
+                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001_selected);
-                bus_button.setImageResource(R.drawable.bus_icon000);
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000_selected);
                 walk_button.setImageResource(R.drawable.walk_icon000);
 
                 //Get a random restuarant based on bus distance
@@ -263,11 +263,11 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 break;
 
             case CAR:
-                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
+                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
                         Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
+                car_button.setImageResource(R.drawable.car_icon001_selected);
                 bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+                walk_button.setImageResource(R.drawable.walk_icon000);
 
                 //Get a random restuarant based on driving distance
                 mRestaurant = mRestaurantManager.getRandRestCar();
