@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BiteClub</string>
+    <string name="app_name">OneBite</string>
 
     <string name="title_activity_splash">OneBite</string>
     <string name="hello_world">Hello Anybody that is paying attention!</string>
@@ -50,8 +50,80 @@
     <string name="title_activity_untappd">UntappdActivity</string>
 
 
-    <string name="updates">updates?</string>
-<!-- TODO: Remove or change this placeholder text -->
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- EULA string values -->
+    <string name="title_activity_eula">EulaActivity</string>
+    <string name="updates">updates?</string>
+    <string name="agree_eula">Use OneBite</string>
+    <string name="disagree_eula">Stay Hungry</string>
+    <string name="eula_title">End User License Agreement</string>
+
+    <string name="eula_copyright">
+        COPYRIGHTS:
+        Copyright 2015 BiteClub. All Rights Reserved.
+        The OneBite software is Copyright 2015 BiteClub. All
+        rights reserved. This software may not, in whole or in any part, be
+        copied, reproduced, transmitted, translated (into any language, natural
+        or computer), stored in a retrieval system, reduced to any electronic
+        medium or machine readable format, or by any other form or means
+        without prior consent, in writing, from BiteClub.
+        You are granted a limited license to use this software. The software
+        may be used or copied only in accordance with the terms of that
+        license, which is described in the following paragraphs.
+    </string>
+
+    <string name="eula_license">
+        LICENSE:
+        THE SOFTWARE SHALL BE TAKEN TO MEAN THE SOFTWARE
+        CONTAINED IN THIS PACKAGE AND ANY SUBEQUENT
+        VERSIONS OR UPGRADES RECEIVED AS A RESULT OF HAVING
+        PURCHASED THIS PACKAGE. BUYER SHALL BE TAKEN AS
+        THE ORIGINAL PURCHASER OF THE SOFTWARE.
+        BUYER HAS THE NONEXCLUSIVE RIGHT TO USE THE
+        SOFTWARE ONLY ON A SINGLE COMPUTER. BUYER MAY NOT
+        ELECTRONICALLY TRANSFER THE PROGRAM FROM ONE
+        COMPUTER TO ANOTHER OVER ANY TYPE OF NETWORK.
+        BUYER MAY NOT DISTRIBUTE COPIES OF THE SOFTWARE OR
+        THE ACCOMPANYING DOCUMENTATION TO OTHERS EITHER
+        FOR A FEE OR WITHOUT CHARGE. BUYER MAY NOT MODIFY
+        OR TRANSLATE THE PROGRAM OR DOCUMENTATION. USER
+        MAY NOT DISASSEMBLE THE PROGRAM OR ALLOW IT TO BE
+        DISASSEMBLED INTO ITS CONTITUENT SOURCE CODE.
+        BUYER USEAGE OF THE SOFTWARE INDICATES HIS OR HER
+        ACCEPTANCE OF THESE TERMS AND CONDITIONS. IF BUYER
+        DOES NOT AGREE TO THESE CONDITIONS, RETURN THE
+        DISTRIBUTION MEDIA, DOCUMENTATION, AND ASSOCIATED
+        MATERIALS TO THE VENDOR FROM WHOM THE SOFTWARE
+        WAS PURCHASED, AND ERASE THE SOFTWARE FROM ANY
+        AND ALL STORAGE DEVICES UPON WHICH IT MAY HAVE BEEN
+        INSTALLED. THIS LICENSE AGREEMENT SHALL BE GOVERNED
+        BY THE LAWS OF THE UNITED STATES OF AMERICA, CALIFORNIA
+        AND SHALL INURE TO THE BENEFIT OF BITECLUB OR ITS ASSIGNS.
+    </string>
+
+    <string name="eula_disclaimer">
+        DISCLAIMER AND LIMITATION OF LIABILITY:
+        BUYER ACKNOWLEDGES THAT THE SOFTWARE MAY NOT BE
+        FREE FROM DEFECTS AND MAY NOT SATISFY ALL OF THE
+        NEEDS OF THE BUYER. BITECLUB WARRANTS ALL MEDIA ON
+        WHICH THE SOFTWARE IS DISTRIBUTED FOR 60 DAYS TO BE
+        FREE FROM DEFECTS IN MATERIALS AND WORKMANSHIP UNDER
+        NORMAL USE. THE SOFTWARE AND ANY ACCOMPANYING WRITTEN
+        MATERIALS ARE LICENSED AS IS.EXCLUSIVE REMEDY OF THE
+        BUYER DURING THE WARRANTY PERIOD SHALL CONSIST OF
+        REPLACEMENT OF DISTRIBUTION MEDIA IF DETERMINED TO
+        BE FAULTY. IN NO EVENT WILL BITECLUB BE LIABLE FOR
+        DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL DAMAGE
+        OR DAMAGES RESULTING FROM LOSS OF USE, OR LOSS OF
+        ANTICIPATED PROFITS RESULTING FROM ANY DEFECT IN THE
+        PROGRAM, EVEN IF IT HAS BEEN ADVISED OF THE
+        POSSIBILITY OF SUCH DAMAGE. SOME LAWS DO NOT ALLOW
+        THE EXCLUSION OR LIMITATION OF IMPLIED WARRANTIES OR
+        LIABILITIES FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES,
+        SO THE ABOVE LIMITATIONS OR EXCLUSION MAY NOT APPLY.
+    </string>
 
 </resources>
