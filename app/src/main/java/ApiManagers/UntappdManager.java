@@ -163,12 +163,12 @@ public class UntappdManager {
      * */
     public void populateUntappdData(double pLatitdude, double pLongitude, final Context pContext)
     {
-        final ProgressDialog progressDialog = new ProgressDialog(pContext);
+        /*final ProgressDialog progressDialog = new ProgressDialog(pContext);
         progressDialog.setIndeterminate(true);
         progressDialog.setTitle("Loading....");
         progressDialog.setMessage("Getting Untappd data.");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressDialog.show();*/
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
@@ -181,7 +181,7 @@ public class UntappdManager {
                 getAllBeerImages(pContext);
                 Log.i("UNTAPPD", "Manager retrieved data...");
 
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
         };
 

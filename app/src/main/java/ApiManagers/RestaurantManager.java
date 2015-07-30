@@ -6,6 +6,7 @@ import android.location.Location;
 import android.util.Log;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
@@ -53,10 +54,25 @@ public class RestaurantManager {
         //Shuffle all because it is max radius
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
+        //Set origin location.
+        Location origin = new Location("origin");
+        origin.setLatitude(LocationHandler.getmLatitude());
+        origin.setLongitude(LocationHandler.getmLongitude());
 
-
+        //Set given Restuarant location.
+        Location location = new Location("newLocation");
+        location.setLatitude(mYelpData.businesses.get(0).location.coordinate.latitude);
+        location.setLongitude(mYelpData.businesses.get(0).location.coordinate.longitude);
 
         Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
+
+        restaurant.setDistanceFrom(origin.distanceTo(location));
+
+        List<List<String>> Matrix = null;
+
+        Matrix = mYelpData.businesses.get(0).categories;
+
+        restaurant.setmCuisineStyle(Matrix.get(0).get(0));
 
         new MarkerMapFactory(restaurant);
 
@@ -94,7 +110,15 @@ public class RestaurantManager {
             {
                 Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
 
+                restaurant.setDistanceFrom(origin.distanceTo(location));
+
                 new MarkerMapFactory(restaurant);
+
+                List<List<String>> Matrix = null;
+
+                Matrix = mYelpData.businesses.get(0).categories;
+
+                restaurant.setmCuisineStyle(Matrix.get(0).get(0));
 
                 //insert image from here
                 restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
@@ -134,7 +158,15 @@ public class RestaurantManager {
             {
                 Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
 
+                restaurant.setDistanceFrom(origin.distanceTo(restlocation));
+
                 new MarkerMapFactory(restaurant);
+
+                List<List<String>> Matrix = null;
+
+                Matrix = mYelpData.businesses.get(0).categories;
+
+                restaurant.setmCuisineStyle(Matrix.get(0).get(0));
 
                 //insert image from here
                 restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);

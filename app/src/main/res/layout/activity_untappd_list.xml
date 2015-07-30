@@ -8,9 +8,9 @@
         android:id="@+id/untappdList"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:divider="#ffd1652c"
-        android:dividerHeight="5dp"
-        android:background="#330033"
+        android:divider="#FF330000"
+        android:dividerHeight="3dp"
+        android:background="#00000000"
         />
 
 </RelativeLayout>
