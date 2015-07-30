@@ -181,4 +181,30 @@ public class NetworkRequestManager {
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
     }
 
+    public static void getUntappdSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
+    {
+
+        Log.i(TAG, "Trying to retrive the image url @ " + URL);
+
+        ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap bitmap) {
+
+                Log.i(TAG, "Responded with image");
+
+                generalCallback.runWithResponse(bitmap);
+            }
+        }, 0, 0, null, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError error) {
+                Log.i(YELP, "Could not get image.");
+
+                Bitmap bitmap = null;
+
+                generalCallback.runWithResponse(bitmap);
+            }
+        });
+
+        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
+    }
+
 }

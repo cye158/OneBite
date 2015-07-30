@@ -16,6 +16,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import ApiManagers.LocationHandler;
+import ApiManagers.UntappdManager;
+
 /**
  * Created by Edward Yao on 7/28/2015.
  */
@@ -40,6 +43,11 @@ public class OneButtonActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_button);
+
+        mContext = this;
+
+        //This will need to change before beta!!
+
 
         progressDialog = CustomProgressDialog.initiateProgressDialog(this);
 
@@ -92,6 +100,9 @@ public class OneButtonActivity extends Activity {
                 return false;
             }
         });
+
+        UntappdManager mUntappdManager = new UntappdManager();
+        mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }
 
     @Override

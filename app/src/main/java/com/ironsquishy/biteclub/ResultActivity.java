@@ -49,7 +49,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int CAR = 2;
 
     private static TextView addToData;
-    private static ImageView mYelpImage;
+    private static ImageView mYelpImage, mYelpRatings;
 
     private static DatabaseManager mDatabaseManager;
 
@@ -86,6 +86,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mExtYelpInfo = (TextView) findViewById(R.id.YelpInfo);
 
         mMoreYelpInfo = (TextView) findViewById(R.id.MoreYelpInfo);
+
+        mYelpRatings = (ImageView) findViewById(R.id.YelpRating);
 
         mRestaurantManager = RestaurantManager.getInstance();
 
@@ -206,10 +208,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void toNavi(View view) {
         Intent intent = new Intent(this, MapActivity.class);
-
-        //This is important for Untappd activity, needs population data.
-
-
         startActivity(intent);
     }
 
@@ -218,7 +216,13 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     public void toInfo(View view) {
         Intent i = new Intent(this, UntappdActivity.class);
+
+
+
         i.putExtra("restname", mRandomStringName);
+
+
+
         startActivity(i);
     }
 
@@ -257,6 +261,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
+            mYelpRatings.setImageBitmap(mRestaurant.getRatingImage());
+
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
@@ -274,6 +280,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
 
+            mYelpRatings.setImageBitmap(mRestaurant.getRatingImage());
+
             //Set the Descripiton and ratings
 
             //TODO: ADD MORE YELP INFO STRINGS
@@ -289,6 +297,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             mResultText.setText(mRestaurant.getmRestName());
 
             mYelpImage.setImageBitmap(mRestaurant.getmRestImage());
+
+            mYelpRatings.setImageBitmap(mRestaurant.getRatingImage());
 
             //Set the Descripiton and ratings
 
