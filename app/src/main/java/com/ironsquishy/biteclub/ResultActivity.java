@@ -241,33 +241,27 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
-                Toast.makeText(getApplicationContext(), "Walking distance restaurants shown",
+                Toast.makeText(getApplicationContext(), "Restaurants within walking distance shown",
                         Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+                highlightSelection(WALK);
 
                 //Get a random restuarant based on walking distance
                 mRestaurant = mRestaurantManager.getRandRestWalk();
                 break;
 
             case BUS:
-                Toast.makeText(getApplicationContext(), "Bus distance restaurants shown",
+                Toast.makeText(getApplicationContext(), "Restaurants within bus distance shown",
                         Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001);
-                bus_button.setImageResource(R.drawable.bus_icon000_selected);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                highlightSelection(BUS);
 
                 //Get a random restuarant based on bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
                 break;
 
             case CAR:
-                Toast.makeText(getApplicationContext(), "Driving distance restaurants shown",
+                Toast.makeText(getApplicationContext(), "Restaurants within driving distance shown",
                         Toast.LENGTH_SHORT).show();
-                car_button.setImageResource(R.drawable.car_icon001_selected);
-                bus_button.setImageResource(R.drawable.bus_icon000);
-                walk_button.setImageResource(R.drawable.walk_icon000);
+                highlightSelection(CAR);
 
                 //Get a random restuarant based on driving distance
                 mRestaurant = mRestaurantManager.getRandRestCar();
@@ -289,7 +283,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         swipeRefreshLayout.setOnRefreshListener(this);
 
         Toast.makeText(getApplicationContext(), "Swipe down for another choice!",
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -396,9 +390,12 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             closedStatus = "OPEN";
 
         mExtYelpInfo.setText("Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                "The Restaurant is currently: " + closedStatus + "\n" +
-                "Distance: " +"\n");
-        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n");
+                                "The Restaurant is currently: " + closedStatus + "\n"
+                                //"Distance: " + mRestaurant.getDistance()
+                                );
+        mMoreYelpInfo.setText("Description: " + mRestaurant.getmDescription() + "\n"
+                                //"Phone Number: " + mRestaurant.getPhoneNumber()
+                                );
     }
 
 
@@ -425,6 +422,34 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         SharedPreferences transport_pref;
         transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
         return transport_pref.getInt("transportation_mode", defaultTransportation);
+    }
+        /**
+     * @Author Eric Chen
+     * Description: This highlights the transportation mode.
+     */
+    private void highlightSelection(int transportation) {
+        switch (transportation){
+            case CAR:
+                car_button.setImageResource(R.drawable.car_icon001_selected);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+                break;
+            case BUS:
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000_selected);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+                break;
+            case WALK:
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000_selected);
+                break;
+            default:
+                car_button.setImageResource(R.drawable.car_icon001);
+                bus_button.setImageResource(R.drawable.bus_icon000);
+                walk_button.setImageResource(R.drawable.walk_icon000);
+                break;
+        }
     }
 }
 
