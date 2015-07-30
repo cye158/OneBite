@@ -67,14 +67,15 @@ public class CustomProgressDialog extends ProgressDialog {
         animation = (AnimationDrawable) orangePacMan.getBackground();
 
         //creates the slide to left animation
-        animationToLeft = new TranslateAnimation(1500, -275, 0, 0);
-        animationToLeft.setDuration(3000);
+        animationToLeft = new TranslateAnimation(1500, -675, 0, 0);
+        animationToLeft.setDuration(2500);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
         //sets string text to layout
         String textLeft = "Now Searching";
         nowSearchingText.setText(textLeft);
+        nowSearchingText.setTextColor(Color.parseColor("#FFFFFF"));
         nowSearchingText.setTypeface(null, Typeface.BOLD);
         nowSearchingText.setTextColor(Color.WHITE);
         nowSearchingText.setTextSize(15);

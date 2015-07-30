@@ -29,8 +29,8 @@
             android:layout_marginRight="20dp"
             android:orientation="vertical"
             android:layout_weight="3"
-            android:textSize="14dp"
-            android:text="TRANSPORTATION \n TO GET THERE:"
+            android:textSize="11dp"
+            android:text="SEARCH BY MODE\nOF TRANSPORTATION:"
             android:textStyle="bold" />
 
         <ImageView
@@ -190,9 +190,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/resultText"
-
                             android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
                             android:layout_toRightOf="@+id/addFavButton"
                             android:onClick="checkFavAdd"
@@ -225,7 +224,7 @@
                             android:maxWidth="30dp"
                             android:maxHeight="30dp"
                             android:padding="1dp"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginTop="10dp"
                             android:src="@drawable/result_filter" />
 
@@ -235,7 +234,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/addFavButton"
                             android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="15dp"
                             android:layout_toRightOf="@+id/naviIcon"
                             android:onClick="toNavi"

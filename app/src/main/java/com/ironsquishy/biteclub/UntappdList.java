@@ -1,11 +1,19 @@
 package com.ironsquishy.biteclub;
 
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
+
+import ApiManagers.UntappdManager;
 
 
 public class UntappdList extends ActionBarActivity {
 
-    /*private static ListView untappdListView;
+    private static ListView untappdListView;
     private static UntappdManager mUntappdManager;
     private static List<String> mComments;
     private static String[] mFilledComments;
@@ -34,7 +42,7 @@ public class UntappdList extends ActionBarActivity {
         mUntappdListV.setAdapter(adapter);
 
 
-    }*/
+    }
 
 }
 

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -88,6 +89,41 @@ public class RestaurantManager {
         return restaurant;
     }
 
+    public Restaurant getFilterRestCar(ArrayList filter)
+    {
+        //Shuffle all because it is max radius
+        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+
+
+
+        for (int i=0; i < mYelpData.businesses.size(); i++){
+
+            for(int j=0; j <filter.size(); j++){
+
+//                Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
+//                Log.i("YelpData", "Rest name: " + matchedRestaurant.getmRestName());
+//                Log.i("YelpData", "filter name: " + filter.get(j).toString().toLowerCase());
+//                Log.i("YelpData", "Category name: " + mYelpData.businesses.get(i).categories.get(0).get(1));
+                if(mYelpData.businesses.get(i).categories.get(0).get(1).equals((filter.get(j).toString().toLowerCase()))) {
+
+                    Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
+//
+//                    Log.i("YelpData", "Rest name: " + matchedRestaurant.getmRestName());
+                    return matchedRestaurant;
+
+
+                }
+
+
+            }
+
+        }
+
+        Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(0));
+        return matchedRestaurant; //if cannot find one restaurant's style matches the user's selection
+
+
+    }
     public Restaurant getRandRestBus()
     {
         final double BusRadius = 5632.7; //Bus radius in meters.
@@ -261,24 +297,7 @@ public class RestaurantManager {
     }
 
 
-    private Restaurant getCarRestBasedOnFilter(String[] filter){
 
-
-        //Shuffle all because it is max radius
-        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
-
-        for (int i=0; i < mYelpData.businesses.size(); i++){
-            if(mYelpData.businesses.get(i).categories.equals(filter) ){
-
-                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
-
-                return restaurant;
-            }
-
-        }
-        return null; //if cannot find one restaurant's style matches the user's selection
-
-    }//this handles the filter-ed restaurant within the Car distance
 
 
 
