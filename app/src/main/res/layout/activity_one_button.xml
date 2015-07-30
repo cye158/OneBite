@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#330033"
-    android:padding="3dp">
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,9 +26,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/one_button"
         android:scaleType="center"
-        android:text="F E E D  M E !"
-        android:textSize="30dp"
-        android:textStyle="bold"
+        android:text="Press Me \nSo We Can \nFeed You"
+        android:textSize="25dp"
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
@@ -43,43 +42,25 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         />
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/untappdlogo"
-        android:src="@drawable/untappd_logo"
-        android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:maxHeight="40dp"
-        android:padding="3dp"
+        android:src="@drawable/untappdlogo"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/one_button"
-        android:layout_alignEnd="@+id/one_button" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yelplogo"
-        android:src="@drawable/yelp_logo"
-        android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:maxHeight="40dp"
-        android:padding="3dp"
-        android:layout_alignTop="@+id/untappdlogo"
-        android:layout_toLeftOf="@+id/untappdlogo"
-        android:layout_toStartOf="@+id/untappdlogo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="HINT: Push button to show restaurant results"
-        android:textSize="9dp"
-        android:id="@+id/textView3"
-        android:textColor="@color/dim_foreground_disabled_material_dark"
-        android:layout_marginBottom="46dp"
-        android:layout_alignBottom="@+id/one_button"
-        android:layout_centerHorizontal="true" />
+        android:src="@drawable/yelplogo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
