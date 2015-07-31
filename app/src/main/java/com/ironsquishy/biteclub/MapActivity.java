@@ -1,9 +1,16 @@
 package com.ironsquishy.biteclub;
 
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.Toast;
+
+import ApiManagers.DatabaseManager;
+import apihelpers.YelpApiHandler.Restaurant;
 
 /**
  * @author Allen Space
@@ -11,6 +18,9 @@ import android.os.Bundle;
  *
  * */
 public class MapActivity extends ActionBarActivity {
+
+    private static Restaurant mRestaurant;
+    private static DatabaseManager mDatabaseManager;
 
     /**
      * @author Allen Space
@@ -20,6 +30,37 @@ public class MapActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mDatabaseManager = DatabaseManager.getInstance(this);
+    }
+
+    /**
+     * @author: Eric Edited by Guan
+     * Description: delete all content in the database when user click on a button
+     * @param view View object
+     */
+    public void clearHistory(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle("Deleting Favorites")
+                .setMessage("Are you sure you want to delete all favorites?")
+                .setPositiveButton("YOLO!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDatabaseManager.clearDatabase();
+                        recreate();
+                        Toast.makeText(getApplicationContext(), "All favorites Cleared.",
+                                Toast.LENGTH_SHORT).show();
+
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Just kidding!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     /**
@@ -45,4 +86,8 @@ public class MapActivity extends ActionBarActivity {
         transaction.add(R.id.mapView, fragment);
         transaction.commit();
     }
+
+
 }
+
+

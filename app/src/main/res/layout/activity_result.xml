@@ -1,0 +1,326 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_menu"
+    android:background="#330033"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp">
+
+    <LinearLayout
+        android:id="@+id/transportation_header"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#FFCC33"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/transportation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:textSize="11dp"
+            android:text="SEARCH BY MODE\nOF TRANSPORTATION:"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/car_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/transportation"
+            android:onClick="toCar"
+            android:layout_weight="1"
+            android:src="@drawable/car_icon001" />
+
+        <ImageView
+            android:id="@+id/bus_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/car_button"
+            android:onClick="toBus"
+            android:layout_weight="1"
+            android:src="@drawable/bus_icon000" />
+
+        <ImageView
+            android:id="@+id/walk_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/bus_button"
+            android:onClick="toWalk"
+            android:layout_weight="1"
+            android:src="@drawable/walk_icon000" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transportation_header">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/transportation_header"
+            android:layout_marginTop="-5dp"
+            android:fillViewport="true"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transportation_header"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="15sp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/YelpImage"
+                            android:layout_width="fill_parent"
+                            android:layout_height="200dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/placeholder_yelp" />
+                            
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="80dp"
+                            android:id="@+id/YelpRating"
+                            android:src="@drawable/placeholder_rating"
+                            android:layout_alignTop="@+id/Untappd"
+                            android:layout_alignLeft="@+id/resultText"
+                            android:layout_alignStart="@+id/resultText"
+                            android:layout_marginTop="-40dp"/>
+
+                        <com.melnykov.fab.FloatingActionButton
+                            android:id="@+id/Untappd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@id/YelpImage"
+                            android:layout_gravity="bottom|right"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="-25dp"
+                            android:onClick="toInfo"
+                            fab:fab_colorNormal="#FFCC00"
+                            android:src="@drawable/untappdhq2"/>
+
+                        <TextView
+                            android:id="@+id/filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="toFilter"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="FILTER CUISINE"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#14A984"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_below="@id/resultText"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="15dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/resultText"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/YelpImage"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="Restaurant Name Here"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#000000"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/resultText"
+                            android:background="@android:color/darker_gray" />
+
+                        <ImageView
+                            android:id="@+id/addFavButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/resultText"
+                            android:adjustViewBounds="true"
+                            android:maxWidth="25dp"
+                            android:maxHeight="25dp"
+                            android:padding="1dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/result_fave" />
+
+                        <TextView
+                            android:id="@+id/checkToAddFav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/resultText"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/addFavButton"
+                            android:onClick="checkFavAdd"
+                            android:text="ADD TO FAVORITES"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#14A984"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/naviIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/addFavButton"
+                            android:adjustViewBounds="true"
+                            android:maxWidth="25dp"
+                            android:maxHeight="25dp"
+                            android:padding="1dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/result_map" />
+
+                        <ImageView
+                            android:id="@+id/filterIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/resultText"
+                            android:layout_toLeftOf="@id/filter"
+                            android:adjustViewBounds="true"
+                            android:maxWidth="25dp"
+                            android:maxHeight="25dp"
+                            android:padding="1dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/result_filter" />
+
+                        <TextView
+                            android:id="@+id/checkToNavi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/addFavButton"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/naviIcon"
+                            android:onClick="toNavi"
+                            android:text="SHOW ON MAP"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#14A984"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/yelpInfoDivider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/checkToNavi"
+                            android:background="@android:color/darker_gray" />
+
+                        <LinearLayout
+                            android:id="@+id/YelpInfoHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/yelpInfoDivider"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium">
+
+
+                            <TextView
+                                android:id="@+id/YelpInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/YelpInfoHeader"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                />
+
+                            <TextView
+                                android:id="@+id/showInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|right"
+                                android:layout_below="@id/YelpInfo"
+                                android:text="More Info"/>
+
+                            <View
+                                android:id="@+id/yelpMoreInfoDivider"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/showInfo"
+                                android:background="@android:color/darker_gray" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/YelpInfoExpand"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/YelpInfoHeader"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#fafafa"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/MoreYelpInfo"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/YelpInfoExpand"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                />
+
+                            <TextView
+                                android:id="@+id/hideInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|right"
+                                android:layout_weight="3"
+                                android:text="Hide Info"
+                                />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

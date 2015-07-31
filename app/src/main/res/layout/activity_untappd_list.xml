@@ -1,0 +1,17 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ironsquishy.biteclub.UntappdList">
+
+    <ListView
+        android:id="@+id/untappdList"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:divider="#FF330000"
+        android:dividerHeight="3dp"
+        android:background="#00000000"
+        />
+
+</RelativeLayout>
+

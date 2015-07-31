@@ -1,6 +1,6 @@
 package Callbacks;
 
-import apiHelpers.YelpApiHandler.YelpData.SearchForBusinessesResponse;
+import apihelpers.YelpApiHandler.YelpData;
 
 /**
  * Created by darver on 7/7/15.
@@ -11,6 +11,7 @@ abstract public class BusinessResponseRunnable implements Runnable{
 
     }
 
-    abstract public void runWithBusinessResponse(SearchForBusinessesResponse businessResponse);
+    abstract public void runWithBusinessResponse(YelpData businessResponse);
 
 }
+

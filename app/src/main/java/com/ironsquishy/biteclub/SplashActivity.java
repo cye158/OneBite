@@ -1,18 +1,19 @@
 package com.ironsquishy.biteclub;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import apiHelpers.LocationHandler;
+import ApiManagers.LocationHandler;
+import ApiManagers.RestaurantManager;
+import EULA.EULA;
 
 
 public class SplashActivity extends Activity {
@@ -21,11 +22,22 @@ public class SplashActivity extends Activity {
     ImageView orangePacMan, orangeWhole, orangeBite, oneBite, bigOrangePacMan;
     Animation animationSlideInRight, animationSlideOutLeft, animationFadeIn, animationSlideInLeft;
 
+    private Context mContext;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        //new EULA(this).show();
+
+        //TODO Find an optimal point to put LocationHandler instantiation
+        //Get started LocationHandler and start connection.
+        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
+        //Connect to google services.
+        LocationHandler.startConnect();
+
+        mContext = this;
 
         orangePacMan = (ImageView)findViewById(R.id.pacMan);
         bigOrangePacMan = (ImageView)findViewById(R.id.bigPacMan);
@@ -128,6 +140,8 @@ public class SplashActivity extends Activity {
             {
                 public void run() {
                     try {
+
+//                        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
                         sleep(2000);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
@@ -135,10 +149,7 @@ public class SplashActivity extends Activity {
                     }
                     finally
                     {
-                        //Get started LocationHandler and start connection.
-                        LocationHandler.getInstance().setGoogleApiConnection(getBaseContext());
-                        //Connect to google services.
-                        LocationHandler.startConnect();
+
                         Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
                         startActivity(i);
                         finish();

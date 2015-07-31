@@ -5,4 +5,18 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- Tutorial Showcase theme. -->
+    <style name="TutorialShowcaseStyle" parent="ShowcaseView.Light">
+        <item name="sv_backgroundColor">#Dc808080</item>
+        <item name="sv_showcaseColor">#000</item>
+        <item name="sv_titleTextAppearance">@style/TutorialTitleColor</item>
+        <item name="sv_detailTextAppearance">@style/TutorialTextColor</item>
+    </style>
+    <style name="TutorialTitleColor" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">#FFF</item>
+    </style>
+    <style name="TutorialTextColor" parent="android:style/TextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>

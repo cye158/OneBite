@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#7B82B2"
+    android:background="#330033"
     tools:context="com.ssaurel.animationsprite.MainActivity" >
     <TextView
         android:layout_width="fill_parent"
@@ -53,12 +53,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let Us Decide What To Eat."
+        android:text="Let US decide what YOU eat."
         android:id="@+id/textView"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
-        android:layout_marginBottom="43dp" />
+        android:textSize="20sp"
+        android:layout_marginBottom="50dp"
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -69,5 +71,24 @@
         android:visibility="invisible"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/untappdlogo"
+        android:src="@drawable/untappdlogo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yelplogo"
+        android:src="@drawable/yelplogo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

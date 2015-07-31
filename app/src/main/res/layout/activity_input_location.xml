@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.ironsquishy.biteclub.InputLocationActivity"
+    android:background="#fafafa"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/ask_user_location"
+        android:layout_margin="16dp"
+        android:text="Enter An Address"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold|normal"
+        android:visibility="visible"
+        android:textColor="@color/abc_secondary_text_material_light"
+        android:singleLine="false"
+        android:password="false"
+        android:phoneNumber="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:hint=""
+        android:ems="10"
+        android:id="@+id/input_address"
+        android:layout_gravity="center"
+        android:layout_below="@+id/ask_user_location"
+        android:textAlignment="center"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter"
+            android:id="@+id/enterButton"
+            android:layout_gravity="center_horizontal"
+            android:background="#FFCC33"
+            android:layout_below="@+id/input_address"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="setAddress" />
+
+</RelativeLayout>
