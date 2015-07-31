@@ -72,30 +72,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/untappdlogo"
-        android:src="@drawable/untappd_logo"
-        android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:maxHeight="40dp"
-        android:padding="3dp"
-        android:layout_alignTop="@+id/yelplogo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:src="@drawable/untappdlogo"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yelplogo"
-        android:src="@drawable/yelp_logo"
-        android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:maxHeight="40dp"
-        android:padding="3dp"
+        android:src="@drawable/yelplogo"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/untappdlogo"
-        android:layout_toStartOf="@+id/untappdlogo" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

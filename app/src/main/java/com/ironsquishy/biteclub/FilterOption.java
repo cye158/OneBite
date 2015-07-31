@@ -12,9 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import apihelpers.YelpApiHandler.Restaurant;
 import ApiManagers.RestaurantManager;
 
 /**
@@ -24,6 +22,9 @@ import ApiManagers.RestaurantManager;
  *             a category he/she would
  **/
 public class FilterOption extends DialogFragment {
+
+    /*The array is then converted to a string with ',' to separate each item */
+    //String addToFilter = "";
 
     /*List of the food category*/
     ArrayList addFilter = new ArrayList();
