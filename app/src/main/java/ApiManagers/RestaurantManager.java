@@ -305,7 +305,7 @@ public class RestaurantManager {
 
             for(int i = 0; i < FiltersArray.size(); i++)
             {
-                if(FiltersArray.get(i).toString() == pRestaurant.categories.get(0).get(1).toString())
+                if(FiltersArray.get(i).toString().toLowerCase() == pRestaurant.categories.get(0).get(1).toString().toLowerCase())
                 {
                     Log.i("categ","categ: " + pRestaurant.categories.get(0).get(1).toString());
                     return true;
