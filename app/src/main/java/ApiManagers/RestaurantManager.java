@@ -2,16 +2,13 @@ package ApiManagers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
-import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.Restaurant;
 import apihelpers.YelpApiHandler.YelpData;
 import apihelpers.googleapis.LocationHelper;
@@ -31,7 +28,7 @@ public class RestaurantManager {
 
     private static RestaurantManager mRestaurantManager = null;
 
-    private static List<String> FiltersArray = null;
+    private static ArrayList<String> FiltersArray;
 
     //----Class Structure---!
     //----Constructors-------
@@ -302,14 +299,15 @@ public class RestaurantManager {
 
     private Boolean doesFitFilter(YelpData.Business pRestaurant)
     {
-        if(FiltersArray == null) {
+        if(FiltersArray==null) {
             return true; //That means all were check or none.
-        }else{
+        }else {
 
             for(int i = 0; i < FiltersArray.size(); i++)
             {
-                if(FiltersArray.get(i) == pRestaurant.categories.get(0).get(1))
+                if(FiltersArray.get(i).toString() == pRestaurant.categories.get(0).get(1).toString())
                 {
+                    Log.i("sent list","filter: " + pRestaurant.categories.get(0).get(1).toString());
                     return true;
                 }
             }
@@ -320,9 +318,10 @@ public class RestaurantManager {
     }
 
     //Set the array list.
-    public void setFilters(Object object)
+    public void setFilters(ArrayList<String> object)
     {
-        this.FiltersArray = (List<String>) object;
+        FiltersArray = (ArrayList<String>) object.clone();
+        Log.i("sent list","filter: " + FiltersArray);
     }
 
 }
