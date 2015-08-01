@@ -61,35 +61,40 @@ public class RestaurantManager {
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
         //keep reshuffling until one is found.
-        while(!doesFitFilter(mYelpData.businesses.get(0)))
-        {
-            Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+
+        for(int i =0; i < mYelpData.businesses.size(); i++) {
+
+            if (doesFitFilter(mYelpData.businesses.get(i)))
+            {
+
+                double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
+                double destLng = mYelpData.businesses.get(i).location.coordinate.longitude;
+
+                LocationHelper somelocation = new LocationHelper(originLat, originLat, destLat, destLng);
+
+                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+
+                new MarkerMapFactory(restaurant);
+
+                restaurant.setDistanceFrom((float) somelocation.getDistanceFromOrigin());
+
+                //Set the restaurents filter.
+                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
+
+                //insert restaurant image so front-end won't make a second call
+                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
+
+                //insert restaurant ratings
+
+                restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+
+
+                //Returns a random restuarant name.
+                return restaurant;
+            }
         }
 
-        double destLat = mYelpData.businesses.get(0).location.coordinate.latitude;
-        double destLng = mYelpData.businesses.get(0).location.coordinate.longitude;
-
-        LocationHelper somelocation = new LocationHelper(originLat, originLat, destLat, destLng);
-
-        Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
-
-        new MarkerMapFactory(restaurant);
-
-        restaurant.setDistanceFrom((float) somelocation.getDistanceFromOrigin());
-
-        restaurant.setmCuisineStyle(mYelpData.businesses.get(0).categories.get(0).get(0));
-
-        //insert restaurant image so front-end won't make a second call
-        restaurant.setmRestImage(mYelpData.businesses.get(0).restImage);
-
-        //insert restaurant ratings
-
-        restaurant.setRatingImage(mYelpData.businesses.get(0).restRatings);
-
-
-        //Returns a random restuarant name.
-        return restaurant;
-
+        return null;
 
     }
 
@@ -299,16 +304,20 @@ public class RestaurantManager {
 
     private Boolean doesFitFilter(YelpData.Business pRestaurant)
     {
+
         if(FiltersArray==null) {
             return true; //That means all were check or none.
         }else {
 
-            for(int i = 0; i < FiltersArray.size(); i++)
-            {
-                if(FiltersArray.get(i) == pRestaurant.categories.get(0).get(1))
-                {
-                    Log.i("categ","categ: " + pRestaurant.categories.get(0).get(1));
+            for(int i = 0; i < FiltersArray.size(); i++) {
 
+                Log.i("categ",FiltersArray.get(i).toLowerCase() + " == " + pRestaurant.categories.get(0).get(1)
+                        +"?");
+
+                if(pRestaurant.categories.get(0).get(1).equals((FiltersArray.get(i)
+                        .toLowerCase())))
+                {
+                    Log.i("categ", "I FOUND ONE!!!!");
                     return true;
                 }
             }
@@ -321,8 +330,8 @@ public class RestaurantManager {
     //Set the array list.
     public void setFilters(ArrayList<String> object)
     {
-        FiltersArray = (ArrayList<String>) object.clone();
-        Log.i("filter","filter: " + FiltersArray);
+        FiltersArray =  object;
+        Log.i("YelpData","filter: " + FiltersArray);
     }
 
 }

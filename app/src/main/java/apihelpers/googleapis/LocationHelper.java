@@ -39,6 +39,7 @@ public class LocationHelper {
         this.mDest = pDest;
     }
 
+    //Overloaded
     public double getDistanceFromOrigin()
     {
         //Set origin location.
@@ -54,6 +55,7 @@ public class LocationHelper {
         return origin.distanceTo(location);
     }
 
+    //Overloaded
     public double getDistanceFromOrigin(double pOriginLat, double pOriginLng, double pDestLat,
                                         double pDestLng)
     {
@@ -68,6 +70,12 @@ public class LocationHelper {
         location.setLongitude(pDestLng);
 
         return origin.distanceTo(location);
+    }
+
+    //Overloaded
+    public double getDistanceFromOrigin(Location pOrigin, Location pDest)
+    {
+        return pOrigin.distanceTo(pDest);
     }
 
 }
