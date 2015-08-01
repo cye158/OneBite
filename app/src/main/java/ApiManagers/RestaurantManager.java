@@ -28,7 +28,7 @@ public class RestaurantManager {
 
     private static RestaurantManager mRestaurantManager = null;
 
-    private static ArrayList<String> FiltersArray;
+    private static ArrayList<String> FiltersArray = null;
 
     //----Class Structure---!
     //----Constructors-------
@@ -307,7 +307,7 @@ public class RestaurantManager {
             {
                 if(FiltersArray.get(i).toString() == pRestaurant.categories.get(0).get(1).toString())
                 {
-                    Log.i("sent list","filter: " + pRestaurant.categories.get(0).get(1).toString());
+                    Log.i("categ","categ: " + pRestaurant.categories.get(0).get(1).toString());
                     return true;
                 }
             }
@@ -321,7 +321,7 @@ public class RestaurantManager {
     public void setFilters(ArrayList<String> object)
     {
         FiltersArray = (ArrayList<String>) object.clone();
-        Log.i("sent list","filter: " + FiltersArray);
+        Log.i("filter","filter: " + FiltersArray);
     }
 
 }
