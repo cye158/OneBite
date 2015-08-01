@@ -2,16 +2,16 @@ package ApiManagers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
 import apihelpers.YelpApiHandler.Restaurant;
 import apihelpers.YelpApiHandler.YelpData;
+import apihelpers.googleapis.LocationHelper;
 import apihelpers.googleapis.MarkerMapFactory;
 
 /**
@@ -27,6 +27,8 @@ public class RestaurantManager {
     private Restaurant mRestaurant;    //Creating resulting restaurant.
 
     private static RestaurantManager mRestaurantManager = null;
+
+    private static ArrayList<String> FiltersArray = null;
 
     //----Class Structure---!
     //----Constructors-------
@@ -51,80 +53,121 @@ public class RestaurantManager {
 
     public Restaurant getRandRestCar()
     {
+
+        double originLat = LocationHandler.getmLatitude();
+        double originLng = LocationHandler.getmLongitude();
+
         //Shuffle all because it is max radius
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
-        //Set origin location.
-        Location origin = new Location("origin");
-        origin.setLatitude(LocationHandler.getmLatitude());
-        origin.setLongitude(LocationHandler.getmLongitude());
+        //keep reshuffling until one is found.
 
-        //Set given Restuarant location.
-        Location location = new Location("newLocation");
-        location.setLatitude(mYelpData.businesses.get(0).location.coordinate.latitude);
-        location.setLongitude(mYelpData.businesses.get(0).location.coordinate.longitude);
+        for(int i =0; i < mYelpData.businesses.size(); i++) {
 
-        Restaurant restaurant = new Restaurant(mYelpData.businesses.get(0));
+            if (doesFitFilter(mYelpData.businesses.get(i)))
+            {
 
-        restaurant.setDistanceFrom(origin.distanceTo(location));
+                double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
+                double destLng = mYelpData.businesses.get(i).location.coordinate.longitude;
 
-        List<List<String>> Matrix = null;
+                LocationHelper somelocation = new LocationHelper(originLat, originLat, destLat, destLng);
 
-        Matrix = mYelpData.businesses.get(0).categories;
+                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
 
-        restaurant.setmCuisineStyle(Matrix.get(0).get(0));
+                new MarkerMapFactory(restaurant);
 
-        new MarkerMapFactory(restaurant);
+                restaurant.setDistanceFrom((float) somelocation.getDistanceFromOrigin());
 
-        //insert restaurant image so front-end won't make a second call
-        restaurant.setmRestImage(mYelpData.businesses.get(0).restImage);
+                //Set the restaurents filter.
+                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
-        //insert restaurant ratings
+                //insert restaurant image so front-end won't make a second call
+                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
-        restaurant.setRatingImage(mYelpData.businesses.get(0).restRatings);
+                //insert restaurant ratings
+
+                restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
 
 
-        //Returns a random restuarant name.
-        return restaurant;
+                //Returns a random restuarant name.
+                return restaurant;
+            }
+        }
+
+        return null;
+
     }
 
+    public Restaurant getFilterRestCar(ArrayList filter)
+    {
+        //Shuffle all because it is max radius
+        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+
+
+
+        for (int i=0; i < mYelpData.businesses.size(); i++){
+
+            for(int j=0; j <filter.size(); j++){
+
+//                Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
+                if(mYelpData.businesses.get(i).categories.get(0).get(1).equals((filter.get(j).toString().toLowerCase()))) {
+
+                    Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
+//
+//                    Log.i("YelpData", "Rest name: " + matchedRestaurant.getmRestName());
+                    return matchedRestaurant;
+
+
+                }
+
+
+            }
+
+        }
+
+        Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(0));
+        return matchedRestaurant; //if cannot find one restaurant's style matches the user's selection
+
+
+    }
     public Restaurant getRandRestBus()
     {
         final double BusRadius = 5632.7; //Bus radius in meters.
 
-        Location origin = new Location("origin");
-        origin.setLatitude(LocationHandler.getmLatitude());
-        origin.setLongitude(LocationHandler.getmLongitude());
+        double originLat = LocationHandler.getmLatitude();
+        double originLng = LocationHandler.getmLongitude();
 
         //Pre shuffle whole list again.
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
+        LocationHelper somelocation = new LocationHelper();
+
+
         //Loop to grab first Restaurant with bus distance.
         for(int i =0; i < mYelpData.businesses.size(); i++)
         {
-            Location location = new Location("newLocation");
-            location.setLatitude(mYelpData.businesses.get(i).location.coordinate.latitude);
-            location.setLongitude(mYelpData.businesses.get(i).location.coordinate.longitude);
+            double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
+            double destLng = mYelpData.businesses.get(i).location.coordinate.longitude;
 
-            if(origin.distanceTo(location) <= BusRadius)
+            float distance = (float) somelocation.getDistanceFromOrigin(originLat, originLng, destLat, destLng);
+
+            if(distance <= BusRadius && doesFitFilter(mYelpData.businesses.get(i)))
             {
                 Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
 
-                restaurant.setDistanceFrom(origin.distanceTo(location));
-
                 new MarkerMapFactory(restaurant);
 
-                List<List<String>> Matrix = null;
-
-                Matrix = mYelpData.businesses.get(0).categories;
-
-                restaurant.setmCuisineStyle(Matrix.get(0).get(0));
+                //Set distance from.
+                restaurant.setDistanceFrom(distance);
 
                 //insert image from here
                 restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
-                //Insert image rating to restaurant
+                //Insert to rating image to restuarant object.
                 restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+
+                //Set cuisin style string.
+                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
                 //Returns a random restuarant name.
                 return restaurant;
@@ -138,41 +181,40 @@ public class RestaurantManager {
     {
         final double WalkRadius = 2414.02; //Bus radius in meters.
 
-        Location origin = new Location("origin");
-        origin.setLatitude(LocationHandler.getmLatitude());
-        origin.setLongitude(LocationHandler.getmLongitude());
+        double originLat = LocationHandler.getmLatitude();
+        double originLng = LocationHandler.getmLongitude();
 
         //Pre shuffle whole list again.
         Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
+        LocationHelper somelocation = new LocationHelper();
+
         //Loop to grab first Restaurant with bus distance.
         for(int i =0; i < mYelpData.businesses.size(); i++)
         {
-            //Generating to calculate distance.
-            Location restlocation = new Location("RestLocation");
-            restlocation.setLatitude(mYelpData.businesses.get(i).location.coordinate.latitude);
-            restlocation.setLongitude(mYelpData.businesses.get(i).location.coordinate.longitude);
+            double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
+            double destLng = mYelpData.businesses.get(i).location.coordinate.longitude;
+
+            float distance = (float) somelocation.getDistanceFromOrigin(originLat, originLng, destLat, destLng);
 
             //Checks it is in Walking radius.
-            if(origin.distanceTo(restlocation) <= WalkRadius)
+            if(distance <= WalkRadius && doesFitFilter(mYelpData.businesses.get(i)))
             {
                 Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
 
-                restaurant.setDistanceFrom(origin.distanceTo(restlocation));
-
                 new MarkerMapFactory(restaurant);
 
-                List<List<String>> Matrix = null;
-
-                Matrix = mYelpData.businesses.get(0).categories;
-
-                restaurant.setmCuisineStyle(Matrix.get(0).get(0));
+                //Set distance from.
+                restaurant.setDistanceFrom(distance);
 
                 //insert image from here
                 restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //Insert to rating image to restuarant object.
                 restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+
+                //Set cuisin style string.
+                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
                 //Returns a random restuarant name.
                 return restaurant;
@@ -182,7 +224,6 @@ public class RestaurantManager {
         return null;
     }
 
-    //One call for all pass in the LocationHandler Lat and Long.
     public void populateYelpData(double pLatitude, double pLongitude, final Context pContext)
     {
         //Simplify the callback process.
@@ -261,26 +302,37 @@ public class RestaurantManager {
     }
 
 
-    private Restaurant getCarRestBasedOnFilter(String[] filter){
+    private Boolean doesFitFilter(YelpData.Business pRestaurant)
+    {
 
+        if(FiltersArray==null) {
+            return true; //That means all were check or none.
+        }else {
 
-        //Shuffle all because it is max radius
-        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+            for(int i = 0; i < FiltersArray.size(); i++) {
 
-        for (int i=0; i < mYelpData.businesses.size(); i++){
-            if(mYelpData.businesses.get(i).categories.equals(filter) ){
+                Log.i("categ",FiltersArray.get(i).toLowerCase() + " == " + pRestaurant.categories.get(0).get(1)
+                        +"?");
 
-                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
-
-                return restaurant;
+                if(pRestaurant.categories.get(0).get(1).equals((FiltersArray.get(i)
+                        .toLowerCase())))
+                {
+                    Log.i("categ", "I FOUND ONE!!!!");
+                    return true;
+                }
             }
 
+            return false;
         }
-        return null; //if cannot find one restaurant's style matches the user's selection
 
-    }//this handles the filter-ed restaurant within the Car distance
+    }
 
-
-
+    //Set the array list.
+    public void setFilters(ArrayList<String> object)
+    {
+        FiltersArray =  object;
+        Log.i("YelpData","filter: " + FiltersArray);
+    }
 
 }
+

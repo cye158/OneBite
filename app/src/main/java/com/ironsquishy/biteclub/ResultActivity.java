@@ -201,8 +201,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         Intent intent = new Intent(this, MapActivity.class);
 
         //This is important for Untappd activity, needs population data.
-
-
+        
         startActivity(intent);
     }
 
@@ -403,8 +402,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         mExtYelpInfo.setText("Cuisine Style: " + mRestaurant.getmCuisineStyle() + "\n" +
                                 "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
                                 "Distance: " + distanceFrom + " miles away");
-        mMoreYelpInfo.setText("Phone Number: " + mRestaurant.getPhoneNumber() + "\n" +
-                "Description: " + mRestaurant.getmDescription());
+        mMoreYelpInfo.setText("Phone Number: " + mRestaurant.getPhoneNumber() + "\n\n" +
+                "Description: " + mRestaurant.getmDescription() + "... ");
     }
 
 
@@ -480,4 +479,5 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         return marker;
     }
 }
+
 
