@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ApiManagers.RestaurantManager;
+
 /**
  * Created by CYE on 7/16/15.
  * @author Renz
@@ -71,7 +73,7 @@ public class FilterOption extends DialogFragment {
                 Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
 
                 /*Pass the filter list chosen by user to Restaurant Manager*/
-                //RestaurantManager.getInstance().setFilters(addFilter);
+                RestaurantManager.getInstance().setFilters(addFilter);
             }
         });
 
