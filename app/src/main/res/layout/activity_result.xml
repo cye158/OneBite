@@ -182,7 +182,8 @@
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_fave" />
+                            android:src="@drawable/result_fave"
+                            android:onClick="checkFavAdd" />
 
                         <TextView
                             android:id="@+id/checkToAddFav"
@@ -211,7 +212,8 @@
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_map" />
+                            android:src="@drawable/result_map"
+                            android:onClick="toNavi"/>
 
                         <ImageView
                             android:id="@+id/filterIcon"
@@ -225,7 +227,8 @@
                             android:padding="1dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_filter" />
+                            android:src="@drawable/result_filter"
+                            android:onClick="toFilter"/>
 
                         <TextView
                             android:id="@+id/checkToNavi"
