@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#330033"
-    tools:context="com.ssaurel.animationsprite.MainActivity" >
+    tools:context="com.ssaurel.animationsprite.MainActivity">
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -76,19 +77,25 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/untappdlogo"
-        android:src="@drawable/untappdlogo"
+        android:id="@+id/untappd"
+        android:src="@drawable/untappd"
+        android:adjustViewBounds="true"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toLeftOf="@+id/pacMan"
+        android:layout_toStartOf="@+id/pacMan" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/yelplogo"
-        android:src="@drawable/yelplogo"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/yelp"
+        android:src="@drawable/yelp"
+        android:adjustViewBounds="true"
+        android:maxHeight="55dp"
+        android:maxWidth="55dp"
+        android:layout_alignBottom="@+id/untappd"
+        android:layout_toRightOf="@+id/pacMan"
+        android:layout_toEndOf="@+id/pacMan" />
 
 </RelativeLayout>
