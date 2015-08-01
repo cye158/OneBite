@@ -201,7 +201,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         Intent intent = new Intent(this, MapActivity.class);
 
         //This is important for Untappd activity, needs population data.
-
+        
         startActivity(intent);
     }
 
@@ -479,4 +479,5 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         return marker;
     }
 }
+
 
