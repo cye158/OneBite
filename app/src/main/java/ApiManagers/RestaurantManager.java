@@ -201,6 +201,7 @@ public class RestaurantManager {
         return null;
     }
 
+
     public void populateYelpData(double pLatitude, double pLongitude, final Context pContext)
     {
         //Simplify the callback process.
