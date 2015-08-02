@@ -17,16 +17,18 @@ import ApiManagers.RestaurantManager;
 /**
  * Created by CYE on 7/16/15.
  * @author Renz
- * Description: FilterOption class that dislays a dialog box of food categories. The user can choose
- *             a category he/she would
+ * Description: FilterOption class that dislays a checkbox window with food cuisine style.
+ *              The user can choose their preferred cuisine style. The checked items are saved
+ *              the next time the filter is opened again. This class talks to the RestaurantManager
+ *              to repopulate the the result.
  **/
 public class FilterOption extends DialogFragment {
 
     /*List of the food cuisine style*/
-    ArrayList<String> addFilter = new ArrayList();
-    final String[] foodCuisine = { "NewAmerican", "Mexican", "Chinese", "Filipino", "Italian",
-            "Japanese", "Korean", "Vietnamese", "Thai", "Vegetarian", "Creperies", "Cafe",
-            "Desserts", "Seafood" };
+    ArrayList<String> addedFilter = new ArrayList();
+    final String[] foodCuisine = { "Chinese", "Filipino", "Italian", "Japanese",
+            "Korean", "Vietnamese", "Thai", "Mexican", "Vegetarian", "Creperies",
+            "Cafe", "Desserts", "Seafood", "Pizza" };
 
     /*List of boolean of items checked by user*/
     boolean[] itemsChecked = { false, false, false, false, false, false, false, false, false,
@@ -40,7 +42,7 @@ public class FilterOption extends DialogFragment {
         for(int i=0; i<itemsChecked.length; i++){
             itemsChecked[i] = loadFilter(i);
             if(itemsChecked[i]==true){
-                addFilter.add(foodCuisine[i]);
+                addedFilter.add(foodCuisine[i]);
             }
         }
 
@@ -51,11 +53,11 @@ public class FilterOption extends DialogFragment {
             /*Checked items from the category are saved in an array*/
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (isChecked) { //adds to addFilter
-                    addFilter.add(foodCuisine[which]);
+                if (isChecked) { //adds to addedFilter
+                    addedFilter.add(foodCuisine[which]);
                     itemsChecked[which] = true;
-                } else { //removes from addFilter
-                    addFilter.remove(foodCuisine[which]);
+                } else { //removes from addedFilter
+                    addedFilter.remove(foodCuisine[which]);
                     itemsChecked[which] = false;
                 }
             }
@@ -73,7 +75,7 @@ public class FilterOption extends DialogFragment {
                 Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
 
                 /*Pass the filter list chosen by user to Restaurant Manager*/
-                RestaurantManager.getInstance().setFilters(addFilter);
+                RestaurantManager.getInstance().setFilters(addedFilter);
             }
         });
 
@@ -96,19 +98,19 @@ public class FilterOption extends DialogFragment {
     */
     public void saveFilter(int  index, Boolean isChecked) {
         SharedPreferences filter_pref;
-        Editor editor;
-        filter_pref = getActivity().getSharedPreferences("filter_pref", Context.MODE_PRIVATE);
-        editor = filter_pref.edit();
-        editor.putBoolean("filters" + index, isChecked);
-        editor.commit();
+        Editor edit;
+        filter_pref = getActivity().getSharedPreferences("filter_preference", Context.MODE_PRIVATE);
+        edit = filter_pref.edit();
+        edit.putBoolean("checked_filters" + index, isChecked);
+        edit.commit();
     }
 
-    /*  Loads the boolean from filter_pref by using the index and returns it. Returns false as a
-        default if file is empty.
+    /*  Loads the boolean from filter_pref by using the index and returns it. Returns "false"
+        if checked_filters where the is empty.
     */
     public boolean loadFilter(int index) {
         SharedPreferences filter_pref;
-        filter_pref = getActivity().getSharedPreferences("filter_pref", Context.MODE_PRIVATE);
-        return filter_pref.getBoolean("filters" + index, false);
+        filter_pref = getActivity().getSharedPreferences("filter_preference", Context.MODE_PRIVATE);
+        return filter_pref.getBoolean("checked_filters" + index, false);
     }
 }
