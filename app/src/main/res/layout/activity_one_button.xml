@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_one"
+    android:background="@drawable/bg"
     android:scaleType = "centerCrop">
 
     <TextView
@@ -19,7 +19,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
 
-
     <Button
         android:id="@+id/one_button"
         android:layout_width="wrap_content"
@@ -30,8 +29,7 @@
         android:textColor="#FFFFFF"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/one_button_pulse"

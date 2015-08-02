@@ -16,10 +16,10 @@ import android.widget.Toast;
 import ApiManagers.LocationHandler;
 
 /**
- * Created by Renz on 7/2/2015.
+ * Created by CYE on 7/2/2015.
  * @author Renz
  * Description: Prompts the user for an address location. The input is then pass to the
- *              location handler to get the lcoation. <CURRENTLY IN THE WORKS>
+ *              location handler to get the lcoation
  **/
 public class InputLocationActivity extends DialogFragment implements View.OnClickListener {
 
@@ -27,7 +27,6 @@ public class InputLocationActivity extends DialogFragment implements View.OnClic
 
     private static EditText mAddress;
     private static Context mContext;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
