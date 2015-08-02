@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class InputLocationActivity extends DialogFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_input_location, null);
         Enter = (Button) view.findViewById(R.id.enterButton);
-        //getActivity().getActionBar().hide();
+        getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContext = view.getContext();
 
         mAddress = (EditText)view.findViewById(R.id.input_address);

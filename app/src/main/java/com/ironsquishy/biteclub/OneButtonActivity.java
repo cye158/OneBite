@@ -3,10 +3,8 @@ package com.ironsquishy.biteclub;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -74,7 +72,7 @@ public class OneButtonActivity extends Activity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // Start
-                        oneButton.setBackgroundResource(R.drawable.one_button_pressed);
+                        oneButton.setBackgroundResource(R.drawable.one_button);
                         oneButton.setTextSize(22);
                         oneButtonPulse.setAnimation(oneButtonPulseAnimation);
                         oneButtonPulse.clearAnimation();

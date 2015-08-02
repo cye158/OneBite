@@ -1,9 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_menu"
-    android:background="#330033"
+    android:background="@drawable/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="0dp"
@@ -183,7 +182,8 @@
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_fave" />
+                            android:src="@drawable/result_fave"
+                            android:onClick="checkFavAdd" />
 
                         <TextView
                             android:id="@+id/checkToAddFav"
@@ -212,7 +212,8 @@
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_map" />
+                            android:src="@drawable/result_map"
+                            android:onClick="toNavi"/>
 
                         <ImageView
                             android:id="@+id/filterIcon"
@@ -226,7 +227,8 @@
                             android:padding="1dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_filter" />
+                            android:src="@drawable/result_filter"
+                            android:onClick="toFilter"/>
 
                         <TextView
                             android:id="@+id/checkToNavi"
