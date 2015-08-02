@@ -40,7 +40,7 @@ public class RestaurantManager {
 
     private RestaurantManager()
     {
-        //Default constructor.
+        //Private constructor.
     }
 
     public static RestaurantManager getInstance() {
@@ -49,6 +49,12 @@ public class RestaurantManager {
         }
 
         return mRestaurantManager;
+    }
+
+    //Set the array list.
+    public void setFilters(ArrayList<String> object)
+    {
+        FiltersArray =  object;
     }
 
     public Restaurant getRandRestCar()
@@ -98,38 +104,10 @@ public class RestaurantManager {
 
     }
 
-    public Restaurant getFilterRestCar(ArrayList filter)
-    {
-        //Shuffle all because it is max radius
-        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
 
 
 
-        for (int i=0; i < mYelpData.businesses.size(); i++){
 
-            for(int j=0; j <filter.size(); j++){
-
-//                Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
-                if(mYelpData.businesses.get(i).categories.get(0).get(1).equals((filter.get(j).toString().toLowerCase()))) {
-
-                    Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
-//
-//                    Log.i("YelpData", "Rest name: " + matchedRestaurant.getmRestName());
-                    return matchedRestaurant;
-
-
-                }
-
-
-            }
-
-        }
-
-        Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(0));
-        return matchedRestaurant; //if cannot find one restaurant's style matches the user's selection
-
-
-    }
     public Restaurant getRandRestBus()
     {
         final double BusRadius = 5632.7; //Bus radius in meters.
@@ -220,7 +198,6 @@ public class RestaurantManager {
                 return restaurant;
             }
         }
-
         return null;
     }
 
@@ -240,6 +217,7 @@ public class RestaurantManager {
         NetworkRequestManager.getInstance().populateYelpData(generalCallback,"8046.72", pContext);
     }
 
+    //Get all restuarant images.
     private void getAllRestuarantImages(Context pContext)
     {
         final Context context = pContext;
@@ -301,7 +279,7 @@ public class RestaurantManager {
         }
     }
 
-
+    //Help to find filter restuarant.
     private Boolean doesFitFilter(YelpData.Business pRestaurant)
     {
 
@@ -321,18 +299,40 @@ public class RestaurantManager {
                     return true;
                 }
             }
-
             return false;
         }
 
     }
 
-    //Set the array list.
-    public void setFilters(ArrayList<String> object)
+
+     /*
+    public Restaurant getFilterRestCar(ArrayList filter)
     {
-        FiltersArray =  object;
-        Log.i("YelpData","filter: " + FiltersArray);
-    }
+        //Shuffle all because it is max radius
+        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+
+        for (int i=0; i < mYelpData.businesses.size(); i++){
+
+            for(int j=0; j <filter.size(); j++){
+
+                Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
+                if(mYelpData.businesses.get(i).categories.get(0).get(1).equals((filter.get(j).toString().toLowerCase()))) {
+
+                    Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
+
+                Log.i("YelpData", "Rest name: " + matchedRestaurant.getmRestName());
+                    return matchedRestaurant;
+
+                }
+
+
+            }
+
+        }
+
+        Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(0));
+        return matchedRestaurant; //if cannot find one restaurant's style matches the user's selection
+    }*/
 
 }
 
