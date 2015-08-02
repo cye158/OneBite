@@ -80,6 +80,13 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check out Comments"
+                android:id="@+id/untappdButton"
+                android:onClick="toUntappdList" />
+
         </LinearLayout>
 
         <TextView
@@ -96,13 +103,5 @@
 
     </RelativeLayout>
     </android.support.v7.widget.CardView>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Check out Comments"
-        android:id="@+id/untappdButton"
-        android:layout_gravity="center_horizontal|bottom"
-        android:onClick="toUntappdList" />
 
 </FrameLayout>

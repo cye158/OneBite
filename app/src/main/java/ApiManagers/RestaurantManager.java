@@ -214,7 +214,6 @@ public class RestaurantManager {
             }
         };
 
-
         NetworkRequestManager.getInstance().populateYelpData(generalCallback,"8046.72", pContext);
     }
 
