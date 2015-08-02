@@ -187,8 +187,8 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
         Log.i(TAG, "Latitude & Longitude: " + mLatitude + ", " + mLongitude);
 
         //Start service to fetch addresses.
-        Intent intent = new Intent(mContext, FetchLocationAddress.class);
-        mContext.startService(intent);
+        //Intent intent = new Intent(mContext, FetchLocationAddress.class);
+        //mContext.startService(intent);
 
     }
 

@@ -251,7 +251,6 @@ public class RestaurantManager {
 
                     mYelpData.businesses.get(index).restImage = mYelpImage;
 
-                    Log.i("YelpData", "Image count: " + index);
 
                 }
             };
@@ -270,8 +269,6 @@ public class RestaurantManager {
                     mYelpImage = (Bitmap) object;
 
                     mYelpData.businesses.get(index).restRatings = mYelpImage;
-
-                    Log.i("YelpData", "Image count: " + index);
 
                 }
             };

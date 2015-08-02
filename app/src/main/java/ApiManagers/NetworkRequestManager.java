@@ -115,7 +115,6 @@ public class NetworkRequestManager {
      * */
     public static void getYelpSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
     {
-        Log.i(YELP, "Trying to retrive the image url @ " + URL);
 
         ImageRequest imageRequest =  generalImageRequest(generalCallback, URL);
 
@@ -131,8 +130,6 @@ public class NetworkRequestManager {
      * */
     public static void getUntappdSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
     {
-
-        Log.i(TAG, "Trying to retrive the image url @ " + URL);
 
 
         ImageRequest imageRequest = generalImageRequest(generalCallback, URL);
@@ -154,8 +151,6 @@ public class NetworkRequestManager {
         ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap bitmap) {
-
-                Log.i("Image", "Responded with image");
 
                 generalCallback.runWithResponse(bitmap);
             }
