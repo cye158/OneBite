@@ -127,7 +127,7 @@ public class UntappdManager {
 
     public String getRandomDrink()
     {
-        Log.i("UNTAPPD", "Number of Beers: " + mData.response.checkins.items.size());
+
         Collections.shuffle(mData.response.checkins.items, new Random(System.nanoTime()));
 
         return mData.response.checkins.items.get(0).beer.beer_name;
@@ -163,12 +163,6 @@ public class UntappdManager {
      * */
     public void populateUntappdData(double pLatitdude, double pLongitude, final Context pContext)
     {
-        /*final ProgressDialog progressDialog = new ProgressDialog(pContext);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setTitle("Loading....");
-        progressDialog.setMessage("Getting Untappd data.");
-        progressDialog.setCancelable(false);
-        progressDialog.show();*/
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
@@ -181,7 +175,6 @@ public class UntappdManager {
                 getAllBeerImages(pContext);
                 Log.i("UNTAPPD", "Manager retrieved data...");
 
-                //progressDialog.dismiss();
             }
         };
 
@@ -254,8 +247,6 @@ public class UntappdManager {
                 mBitmap = (Bitmap) object;
 
                 mItems.get(count).beerImage = mBitmap;
-
-                Log.i("UNTAPPD", "Set Bitmap image");
             }
         };
 

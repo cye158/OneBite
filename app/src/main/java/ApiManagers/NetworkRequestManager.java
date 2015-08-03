@@ -29,8 +29,8 @@ public class NetworkRequestManager {
 
     /**Data Fields*/
     private static NetworkRequestManager singleton = null;
-    private static UntappdManager mData;
-
+    private final static int YELP_CALL = 0;
+    private final static int UNTAPPD_CALL =1;
 
     //Log cat tags....
     private static final String TAG = "UNTAPPD";
@@ -38,6 +38,7 @@ public class NetworkRequestManager {
 
     //------Constructors------
     //------Helper Methods----
+
 
     /**
      * @author Allen Space
@@ -72,34 +73,11 @@ public class NetworkRequestManager {
      * */
     public void populateUntappdFeed(final GeneralCallback generalCallback, double pLatitude, double pLongitude, Context pContext)
     {
+        //Build Untappd request query.
         final String url = new UntappdApiHandler().untappdURL(pLatitude, pLongitude);
 
-
-        JsonObjectRequest jsObjectReq = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        Log.i(TAG,"Returned response, populating Untappd data for OneBite.");
-
-                        //Need for populating UntappdData.
-                        UntappdData mData = new Gson().fromJson(response.toString(), UntappdData.class);
-
-                        generalCallback.runWithResponse(mData);
-
-                        Log.i(TAG, "Finished populated data exiting out.");
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Handle error and prompt user.
-                        Log.i("UNTAPPD", "Failed Response from untappd.");
-
-                    }
-                });
+        //Gather information.
+        JsonObjectRequest jsObjectReq = generalJSONRequest(generalCallback, url, UNTAPPD_CALL);
 
 
         //Adds the Untappd request on the stack.
@@ -116,32 +94,11 @@ public class NetworkRequestManager {
         final double latitude = LocationHandler.getmLatitude();
         final double longitude = LocationHandler.getmLongitude();
 
+        //Authenticate request query.
         final String sendJsonRequestURL = new YelpApiHandler().buildYelpAuthenticationUrl(pRadius, latitude, longitude);
 
-        JsonObjectRequest jsObjectReq = new JsonObjectRequest
-                (Request.Method.GET, sendJsonRequestURL, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        long seed = System.nanoTime();
-
-                        Log.i(YELP, "Yelp Responded, populating data for OneBite.");
-
-                        YelpData businessesResponse = new Gson().fromJson(response.toString(), YelpData.class);
-
-                        generalCallback.runWithResponse(businessesResponse);
-
-                        Log.i(YELP, "Finished Populating Data for OneBite.");
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Handle error and prompt user.
-                        Log.i(YELP, "Failed to retrieve response.");
-                    }
-                });
+        //Gather information.
+       JsonObjectRequest jsObjectReq = generalJSONRequest(generalCallback, sendJsonRequestURL, YELP_CALL);
 
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
@@ -158,45 +115,49 @@ public class NetworkRequestManager {
      * */
     public static void getYelpSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
     {
-        Log.i(YELP, "Trying to retrive the image url @ " + URL);
 
-        ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap bitmap) {
-
-                Log.i(YELP, "Responded with image");
-
-                generalCallback.runWithResponse(bitmap);
-            }
-        }, 0, 0, null, new Response.ErrorListener() {
-            public void onErrorResponse(VolleyError error) {
-                Log.i(YELP, "Could not get image.");
-
-                Bitmap bitmap = null;
-
-                generalCallback.runWithResponse(bitmap);
-            }
-        });
+        ImageRequest imageRequest =  generalImageRequest(generalCallback, URL);
 
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
     }
 
+
+    /**
+     * @author Allen Space
+     * @param generalCallback GeneralCallback from CallBack package.
+     * @param URL The url string needed for requests.
+     * @param pContext The context of the activity  being used.
+     * */
     public static void getUntappdSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
     {
 
-        Log.i(TAG, "Trying to retrive the image url @ " + URL);
 
+        ImageRequest imageRequest = generalImageRequest(generalCallback, URL);
+
+
+        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
+    }
+
+
+
+    /**
+     * @author Allen Space
+     * @param generalCallback from Image requestee methods.
+     * @param URL Simply passing it down the line.
+     * Description: This to generalize the image requests call. Divide up teh code easier to read.
+     * */
+    private static ImageRequest generalImageRequest(final GeneralCallback generalCallback, String URL)
+    {
         ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap bitmap) {
-
-                Log.i(TAG, "Responded with image");
 
                 generalCallback.runWithResponse(bitmap);
             }
         }, 0, 0, null, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
-                Log.i(YELP, "Could not get image.");
+
+                Log.e("Image", "Could not get Image!");
 
                 Bitmap bitmap = null;
 
@@ -204,7 +165,46 @@ public class NetworkRequestManager {
             }
         });
 
-        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
+        return imageRequest;
+    }
+
+    /**
+     * @author Allen Space
+     * @param generalCallback Passing down from populate methods.
+     * @param URL String to call JSON object.
+     * @param FLAG For gathering which info.
+     * Descrition: Call for the JSON object and returns data dependent on the Flag bein passed in.
+     * */
+    private static JsonObjectRequest generalJSONRequest(final GeneralCallback generalCallback, String URL, final int FLAG)
+    {
+        JsonObjectRequest jsObjectReq = new JsonObjectRequest
+                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        if(FLAG == YELP_CALL){
+                            YelpData businessesResponse = new Gson().fromJson(response.toString(), YelpData.class);
+
+                            generalCallback.runWithResponse(businessesResponse);
+
+                        }else if(FLAG == UNTAPPD_CALL){
+
+                            UntappdData mData = new Gson().fromJson(response.toString(), UntappdData.class);
+
+                            generalCallback.runWithResponse(mData);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("NRM", "Failed to get Data.");
+                    }
+                });
+
+        return jsObjectReq;
     }
 
 }
