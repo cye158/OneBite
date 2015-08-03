@@ -34,5 +34,18 @@ public class UntappdApiHandler {
         return url;
     }
 
+    public String untappdURLForBeer(int BID)
+    {
+        String url = UntappdAuthKeys.API_HOST
+                + UntappdAuthKeys.BEER_ENDPOINT
+                + String.valueOf(BID) + "/method_name?"
+                + UntappdAuthKeys.CLIENT_ID
+                + UntappdAuthKeys.ClientID + "&"
+                + UntappdAuthKeys.CLIENT_SECRET
+                + UntappdAuthKeys.ClientSecret;
+
+        return url;
+    }
+
 
 }

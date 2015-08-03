@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,18 +22,26 @@ import apihelpers.Untappd.OneUntappd;
 
 public class UntappdActivity extends Activity{
 
-    private static TextView mRestResult;
-    private static EditText mPopDrink;
-    private static TextView mRndDrink;
+
     private static Context mContext;
     private static UntappdManager mUntappdManager;
-    private static List<String> mBeerList = null;
+    private static String mFilledComments;
+
     private static TextView mResultTextView;
     private static TextView mComments;
+    private static TextView mRsltStyle;
+    private static TextView mTotalRatings;
+    private static TextView mDescription;
+
 
     private static ImageView mImageView;
 
+    private static ListView mUntappdListV;
+
     private static OneUntappd mOneUntappd;
+
+    private static int resource = android.R.layout.simple_list_item_1;
+    private static int textViewResourceID = android.R.id.text1;
 
     private static Intent mIntent;
 
@@ -47,13 +57,20 @@ public class UntappdActivity extends Activity{
 
         mResultTextView = (TextView) findViewById(R.id.resultText);
 
+        mRsltStyle = (TextView) findViewById(R.id.BeerStyle);
+
+        mTotalRatings = (TextView) findViewById(R.id.BeerNumberOfReview);
+
+        mDescription = (TextView) findViewById(R.id.BeerDescriptionText);
+
         mImageView = (ImageView) findViewById(R.id.YelpImage);
 
+        mUntappdListV = (ListView) findViewById(R.id.untappdList);
 
 
-        mUntappdManager = new UntappdManager();
+        mUntappdManager = new UntappdManager(mContext);
 
-        mOneUntappd = mUntappdManager.getMostPopularDrink();
+        mOneUntappd = mUntappdManager.getOneTappd();
 
         displayResultDrink();
 
@@ -72,19 +89,6 @@ public class UntappdActivity extends Activity{
         startActivity(intent);
     }
 
-    private void displayRestaurant()
-    {
-        final String restaurantRslt = mIntent.getStringExtra("restname");
-
-        mRestResult.setText(restaurantRslt);
-    }
-
-    private void displayPopularDrink()
-    {
-        String popularSTR = "I will work on Algorithm!";
-
-        mPopDrink.setText(popularSTR);
-    }
 
     /** When user clicks "What poeple are saying!"*/
     public void onCommentClick(View view)
@@ -101,31 +105,27 @@ public class UntappdActivity extends Activity{
             public void run() {
 
                 mResultTextView.setText(mOneUntappd.getBeerName());
-
                 mImageView.setImageBitmap(mOneUntappd.getBeerImage());
+
+                mRsltStyle.setText(mOneUntappd.getmBeerStyle());
+
+                mTotalRatings.setText(String.valueOf(mOneUntappd.getmTotalReviews()));
+
+                if (mOneUntappd.getmDescription() == "")
+                {
+                    mDescription.setText("No Description provided.");
+                } else {
+                    mDescription.setText(mOneUntappd.getmDescription());
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
+                        resource, textViewResourceID, mOneUntappd.getmFilledComments());
+
+                mUntappdListV.setAdapter(adapter);
 
             }
 
         }, 500);
-
-    }
-
-
-    private void waitForUntappd() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
-            }
-        });
-
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 
