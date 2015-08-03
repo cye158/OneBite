@@ -121,8 +121,8 @@
 
                         <com.melnykov.fab.FloatingActionButton
                             android:id="@+id/Untappd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_below="@id/YelpImage"
@@ -131,7 +131,7 @@
                             android:layout_marginTop="-25dp"
                             android:onClick="toInfo"
                             fab:fab_colorNormal="#FFCC00"
-                            android:src="@drawable/untappdhq2"/>
+                            android:src="@drawable/untappd_logo"/>
 
                         <TextView
                             android:id="@+id/filter"

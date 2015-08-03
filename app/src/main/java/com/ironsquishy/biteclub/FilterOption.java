@@ -9,9 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import ApiManagers.RestaurantManager;
 
 /**
