@@ -130,7 +130,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //This one walks
         walk_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
                 randomizeYelpResponse(WALK);
 
                 //saves the mode of transportation chosen.
@@ -174,6 +174,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
+        UntappdManager untappdManager = new UntappdManager(this);
+        untappdManager.setMostPopularDrink();
     }
 
     /** Check for favorite. - Guan Editted by Eric and Darin**/

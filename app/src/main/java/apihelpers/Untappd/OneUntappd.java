@@ -2,18 +2,21 @@ package apihelpers.Untappd;
 
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 /**
  * Created by Allen Space on 7/29/2015.
  */
 public class OneUntappd {
 
-    private String mBeerName;
-    private Bitmap mBeerImage;
-    private String mBeerStyle;
-    private double mRatings;
-    private int mTotalReviews;
-    private String mDescription;
-    private String mReviews;
+    private static String mBeerName;
+    private static Bitmap mBeerImage;
+    private static String mBeerStyle;
+    private static double mRatings;
+    private static int mTotalReviews;
+    private static String mDescription;
+    private static String mReviews;
+    private static List<String> mFilledComments;
 
     public OneUntappd()
     {
@@ -21,13 +24,16 @@ public class OneUntappd {
     }
 
 
-    public OneUntappd(String pBeerName, Bitmap pBeerImage, BeerData.Beer pBeer)
+    public OneUntappd(String pBeerName, Bitmap pBeerImage, BeerData.Beer pBeer, List<String> pFilledComments)
     {
         this.mBeerName = pBeerName;
         this.mBeerImage = pBeerImage;
 
         this.mBeerStyle = pBeer.beer_style;
         this.mTotalReviews = pBeer.rating_count;
+        this.mDescription = pBeer.beer_description;
+
+        mFilledComments = pFilledComments;
 
     }
 
@@ -60,7 +66,7 @@ public class OneUntappd {
     }
 
     public String getmDescription() {
-        return mDescription;
+        return this.mDescription;
     }
 
     public void setmDescription(String mDescription) {
@@ -68,7 +74,7 @@ public class OneUntappd {
     }
 
     public int getmTotalReviews() {
-        return mTotalReviews;
+        return this.mTotalReviews;
     }
 
     public void setmTotalReviews(int mTotalReviews) {
@@ -88,6 +94,11 @@ public class OneUntappd {
     }
 
     public void setmBeerStyle(String mBeerStyle) {
-        this.mBeerStyle = mBeerStyle;
+        mBeerStyle = mBeerStyle;
+    }
+
+    public List<String> getmFilledComments()
+    {
+        return mFilledComments;
     }
 }

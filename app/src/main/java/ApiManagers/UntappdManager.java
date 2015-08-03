@@ -3,6 +3,8 @@ package ApiManagers;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -25,6 +27,7 @@ import apihelpers.Untappd.OneUntappd;
 import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.YelpData;
+import apihelpers.networkhelper.LRUBitmapCache;
 
 /**
  * Created by Allen Space on 7/12/2015.
@@ -49,6 +52,14 @@ public class UntappdManager {
     private static OneUntappd mOneUntappd;
 
     private static Context mContext;
+
+    private static Bitmap mBeerImage;
+
+
+    public UntappdManager()
+    {
+        //default constructor.
+    }
 
     /**
      * @author Allen Space
@@ -75,7 +86,6 @@ public class UntappdManager {
     public String getShortDescription(int index) {
 
         String comment = mData.response.checkins.items.get(index).checkin_comment;
-        ;
 
         final String str = "Comment: " + comment;
 
@@ -138,11 +148,12 @@ public class UntappdManager {
     public List<String> getFilledComments() {
         List<String> filledComments = new ArrayList<String>();
 
-        int count = 0;
 
-        for (int i = 0; i < mData.response.checkins.items.size(); i++) {
-            if (mData.response.checkins.items.get(i).checkin_comment != "") {
-                filledComments.add(mData.response.checkins.items.get(i).checkin_comment);
+        for (int i = 0; i < mBeerData.checkins.items.size(); i++) {
+
+            if (mBeerData.checkins.items.get(i).checkin_comment != "")
+            {
+                filledComments.add(mBeerData.checkins.items.get(i).checkin_comment);
             }
         }
 
@@ -180,30 +191,28 @@ public class UntappdManager {
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, pLatitdude, pLongitude, pContext);
     }
 
-    public OneUntappd getMostPopularDrink() {
-        List<String> mostBeers = new ArrayList<String>();
+    public void setMostPopularDrink() {
+       List<String> mostBeers = new ArrayList<String>();
         List<String> allBeers = new ArrayList<String>();
 
         String finalResult;
-        Bitmap finalResultImage;
 
         for (int i = 0; i < mItems.size(); i++) {
             allBeers.add(mItems.get(i).beer.beer_name);
         }
 
-        mostBeers = mode(allBeers);
-
         if (mostBeers.size() < 1) {
 
+            mostBeers = mode(allBeers);
             finalResult = mostBeers.get(0);
-
-            finalResultImage = getBeerImageFromMostBeer(finalResult);
-
             mMostPopularBeer = finalResult;
+
+            mBeerImage = findRsltImage(finalResult);
 
             mMostPopularBeerBID = findBeerBID();
 
-            return new OneUntappd(finalResult, finalResultImage, mBeerData);
+            getBeerData(mMostPopularBeerBID, mContext);
+            //return new OneUntappd(finalResult, finalResultImage, mBeerData);
 
         } else {
 
@@ -211,14 +220,15 @@ public class UntappdManager {
 
             finalResult = mostBeers.get(0);
             mMostPopularBeer = finalResult;
+
+            mBeerImage = findRsltImage(finalResult);
+
             mMostPopularBeerBID = findBeerBID();
 
-            getBeerData(mMostPopularBeerBID,mContext);
+            getBeerData(mMostPopularBeerBID, mContext);
 
-            finalResultImage = getBeerImageFromMostBeer(finalResult);
-
-            return new OneUntappd(finalResult, finalResultImage, mBeerData);
         }
+
     }
 
     //Thank you RosettaCode
@@ -249,10 +259,6 @@ public class UntappdManager {
             @Override
             public void runWithResponse(Object object) {
 
-                mBitmap = (Bitmap) object;
-
-                mItems.get(count).beerImage = mBitmap;
-
             }
         };
 
@@ -271,18 +277,6 @@ public class UntappdManager {
         }
     }
 
-    private Bitmap getBeerImageFromMostBeer(String finalResult) {
-        Bitmap bitmap = null;
-
-
-        for (int i = 0; i < mItems.size(); i++) {
-            if (mItems.get(i).beer.beer_name == finalResult && mItems.get(i).beer.beer_label != "") {
-                return mItems.get(i).beerImage;
-            }
-        }
-
-        return null;
-    }
 
     private int findBeerBID() {
 
@@ -297,17 +291,51 @@ public class UntappdManager {
     private static void getBeerData(final int BID, Context pContext)
     {
 
+        final ProgressDialog progressDialog = new ProgressDialog(pContext);
+        progressDialog.setTitle("Loading..");
+        progressDialog.setMessage("Getting beer info.");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+
+        Log.i("UNTAPPD", "Building beer info string.");
+
         final String url = mUntappdHandler.untappdURLForBeer(BID);
+
+        Log.i("UNTAPPD", "Genertating call back.");
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
 
+                Log.i("UNTAPPD", "Retrieved beer data.");
                 mBeerData = (BeerData.Beer) object;
 
+                progressDialog.dismiss();
             }
         };
 
+        Log.i("UNTAPPD", "Making beer request.");
         NetworkRequestManager.getInstance().populateBeerInfo(generalCallback, url, pContext);
+
+    }
+
+    private Bitmap findRsltImage(final String pBeerToLookFor)
+    {
+        final String URL;
+        for(int i = 0; i < mItems.size(); i++)
+        {
+            if(pBeerToLookFor == mItems.get(i).beer.beer_name){
+
+                return NetworkRequestManager.getInstance().getBitmapOnLRU(mItems.get(i).beer.beer_label);
+            }
+        }
+
+        return null;
+    }
+
+    public OneUntappd getOneTappd()
+    {
+        return new OneUntappd(mMostPopularBeer, mBeerImage, mBeerData, getFilledComments());
     }
 }

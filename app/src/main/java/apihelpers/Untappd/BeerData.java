@@ -21,6 +21,8 @@ public class BeerData {
         public String beer_ibu;
         public String beer_style;
 
+        public String beer_description;
+
         public int rating_count;
 
         public Brewery brewery;

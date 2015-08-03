@@ -36,10 +36,6 @@ public class UntappdData {
         public Beer beer;
         public Brewery brewery;
         public Venue venue;
-        public Bitmap beerImage;
-
-        public BeerData.Beer mBeerInfo;
-
     }
 
     public class Beer{

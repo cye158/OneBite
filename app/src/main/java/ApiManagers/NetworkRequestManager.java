@@ -31,6 +31,7 @@ public class NetworkRequestManager {
 
     /**Data Fields*/
     private static NetworkRequestManager singleton = null;
+    private static Context mContext;
     private final static int YELP_CALL = 0;
     private final static int UNTAPPD_CALL =1;
     private final static int BEER_CALL = 2;
@@ -40,6 +41,7 @@ public class NetworkRequestManager {
     private static final String YELP = "YelpData";
 
     private static LRUBitmapCache mLRUBitmapStack;
+
     //------Constructors------
     //------Helper Methods----
 
@@ -50,7 +52,7 @@ public class NetworkRequestManager {
      * */
     private NetworkRequestManager()
     {
-        mLRUBitmapStack = new LRUBitmapCache(40);
+
     }
 
     /**
@@ -225,6 +227,21 @@ public class NetworkRequestManager {
         return jsObjectReq;
     }
 
+    public static Bitmap getBitmapOnLRU(final String URL)
+    {
+        return mLRUBitmapStack.getBitmap(URL);
+    }
+
+    public static void initContext(Context pContext)
+    {
+        if(mContext == null)
+        {
+            mContext = pContext.getApplicationContext();
+
+            mLRUBitmapStack = new LRUBitmapCache(mContext);
+        }
+
+    }
 }
 
 
