@@ -242,7 +242,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      * @param pAddress String value of th address from user.
      * Description: With passing of an address string this will grab
      *               the lat and long points of the entered address.
-     *                 
+     *
      * */
     public void fetchByAdress(String pAddress, Context pContext)
     {

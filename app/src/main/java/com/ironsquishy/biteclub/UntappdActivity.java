@@ -49,9 +49,7 @@ public class UntappdActivity extends Activity{
 
         mImageView = (ImageView) findViewById(R.id.YelpImage);
 
-
-
-        mUntappdManager = new UntappdManager();
+        mUntappdManager = new UntappdManager(mContext);
 
         mOneUntappd = mUntappdManager.getMostPopularDrink();
 
@@ -110,23 +108,5 @@ public class UntappdActivity extends Activity{
 
     }
 
-
-    private void waitForUntappd() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mUntappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
-            }
-        });
-
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 }

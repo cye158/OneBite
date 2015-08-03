@@ -88,7 +88,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        mUntappdManager = new UntappdManager();
+        mUntappdManager = new UntappdManager(mContext);
 
         car_button = (ImageView) findViewById(R.id.car_button);
         bus_button = (ImageView) findViewById(R.id.bus_button);

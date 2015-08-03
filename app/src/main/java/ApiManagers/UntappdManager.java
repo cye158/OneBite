@@ -20,7 +20,9 @@ import java.util.Random;
 
 import Callbacks.GeneralCallback;
 import Callbacks.UntappdResultRunnable;
+import apihelpers.Untappd.BeerData;
 import apihelpers.Untappd.OneUntappd;
+import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.YelpData;
 
@@ -33,41 +35,47 @@ public class UntappdManager {
 
     private static List<UntappdData.Item> mItems;
 
+    private static BeerData.Beer mBeerData;
+
     private static NetworkRequestManager mNetworkRequestManager;
 
-    private static String createdAt;
-    private static String comment;
-    private static String drink;
-    private static String breweryName;
-    private static String venueAddress;
+    private static UntappdApiHandler mUntappdHandler;
+
+    private static String mMostPopularBeer;
+    private static int mMostPopularBeerBID;
 
     private static Bitmap mBitmap;
 
     private static OneUntappd mOneUntappd;
 
+    private static Context mContext;
+
     /**
      * @author Allen Space
-     * */
-    public UntappdManager()
-    {
-        //default.
+     */
+    public UntappdManager(Context pContext) {
+
+        mContext = pContext;
+
+        mUntappdHandler = new UntappdApiHandler();
     }
 
-    public UntappdManager(UntappdData data)
-    {
+    public UntappdManager(UntappdData data) {
         mData = data;
 
         mItems = mData.response.checkins.items;
 
+        mUntappdHandler = new UntappdApiHandler();
+
     }
+
     /**
      * @author Allen Space
-     *
-     * */
-    public String getShortDescription(int index)
-    {
+     */
+    public String getShortDescription(int index) {
 
-        String comment = mData.response.checkins.items.get(index).checkin_comment;;
+        String comment = mData.response.checkins.items.get(index).checkin_comment;
+        ;
 
         final String str = "Comment: " + comment;
 
@@ -76,9 +84,9 @@ public class UntappdManager {
 
     /**
      * @author Allen Space.
-     * */
-    public String getLongDescription(int index)
-    {
+     */
+    public String getLongDescription(int index) {
+
         String created_at = mData.response.checkins.items.get(index).created_at;
 
         String comment = mData.response.checkins.items.get(index).checkin_comment;
@@ -90,68 +98,58 @@ public class UntappdManager {
         String venueAddress = mData.response.checkins.items.get(index).venue.location.venue_address;
 
         String str = "Drink: " + drink + "\n"
-                     + "Brewery: " + breweryName + "\n"
-                     + "Comment: " + comment + "\n"
-                     + "Venue Address: " + venueAddress + "\n";
+                + "Brewery: " + breweryName + "\n"
+                + "Comment: " + comment + "\n"
+                + "Venue Address: " + venueAddress + "\n";
 
         return str;
     }
 
-    public String getBeerTitle(int pIndex)
-    {
+    public String getBeerTitle(int pIndex) {
         String drink = mData.response.checkins.items.get(pIndex).beer.beer_name;
-        String str ="Drink: " + drink;
+        String str = "Drink: " + drink;
         return str;
     }
 
 
-    public int getItemSize()
-    {
+    public int getItemSize() {
         return mData.response.checkins.items.size();
     }
 
-    public double getSingleItemLatitude(int pIndex)
-    {
+    public double getSingleItemLatitude(int pIndex) {
         return mData.response.checkins.items.get(pIndex).venue.location.lat;
     }
 
-    public double getSingleItemLongitude(int pIndex)
-    {
+    public double getSingleItemLongitude(int pIndex) {
         return mData.response.checkins.items.get(pIndex).venue.location.lng;
     }
 
-    public List<UntappdData.Item> getListItems()
-    {
+    public List<UntappdData.Item> getListItems() {
         return mData.response.checkins.items;
     }
 
-    public String getRandomDrink()
-    {
+    public String getRandomDrink() {
 
         Collections.shuffle(mData.response.checkins.items, new Random(System.nanoTime()));
 
         return mData.response.checkins.items.get(0).beer.beer_name;
     }
 
-    public List<String> getFilledComments()
-    {
+    public List<String> getFilledComments() {
         List<String> filledComments = new ArrayList<String>();
 
         int count = 0;
 
-        for(int i = 0; i < mData.response.checkins.items.size();i++)
-        {
-          if(mData.response.checkins.items.get(i).checkin_comment != "")
-          {
-              filledComments.add(mData.response.checkins.items.get(i).checkin_comment);
-          }
+        for (int i = 0; i < mData.response.checkins.items.size(); i++) {
+            if (mData.response.checkins.items.get(i).checkin_comment != "") {
+                filledComments.add(mData.response.checkins.items.get(i).checkin_comment);
+            }
         }
 
         return filledComments;
     }
 
-    public String getPopularBeerStyle()
-    {
+    public String getPopularBeerStyle() {
         final String str;
 
 
@@ -160,9 +158,8 @@ public class UntappdManager {
 
     /**
      * @author Allen Space
-     * */
-    public void populateUntappdData(double pLatitdude, double pLongitude, final Context pContext)
-    {
+     */
+    public void populateUntappdData(double pLatitdude, double pLongitude, final Context pContext) {
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
@@ -172,8 +169,10 @@ public class UntappdManager {
 
                 mItems = mData.response.checkins.items;
 
-                getAllBeerImages(pContext);
                 Log.i("UNTAPPD", "Manager retrieved data...");
+
+                getAllBeerImages(pContext);
+
 
             }
         };
@@ -181,37 +180,44 @@ public class UntappdManager {
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, pLatitdude, pLongitude, pContext);
     }
 
-    public OneUntappd getMostPopularDrink()
-    {
+    public OneUntappd getMostPopularDrink() {
         List<String> mostBeers = new ArrayList<String>();
         List<String> allBeers = new ArrayList<String>();
 
         String finalResult;
         Bitmap finalResultImage;
 
-        for(int i = 0; i < mItems.size(); i++)
-        {
+        for (int i = 0; i < mItems.size(); i++) {
             allBeers.add(mItems.get(i).beer.beer_name);
         }
 
         mostBeers = mode(allBeers);
 
-        if(mostBeers.size() < 1){
+        if (mostBeers.size() < 1) {
 
             finalResult = mostBeers.get(0);
 
             finalResultImage = getBeerImageFromMostBeer(finalResult);
 
-             return new OneUntappd(finalResult,finalResultImage);
-        }else{
+            mMostPopularBeer = finalResult;
+
+            mMostPopularBeerBID = findBeerBID();
+
+            return new OneUntappd(finalResult, finalResultImage, mBeerData);
+
+        } else {
 
             Collections.shuffle(mostBeers, new Random(System.nanoTime()));
 
             finalResult = mostBeers.get(0);
+            mMostPopularBeer = finalResult;
+            mMostPopularBeerBID = findBeerBID();
+
+            getBeerData(mMostPopularBeerBID,mContext);
 
             finalResultImage = getBeerImageFromMostBeer(finalResult);
 
-         return new OneUntappd(finalResult, finalResultImage);
+            return new OneUntappd(finalResult, finalResultImage, mBeerData);
         }
     }
 
@@ -237,8 +243,7 @@ public class UntappdManager {
     }
 
 
-    private void getUntappdBeerImage(String URL, Context pContext, final int count)
-    {
+    private void getUntappdBeerImage(String URL, Context pContext, final int count) {
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
@@ -247,6 +252,7 @@ public class UntappdManager {
                 mBitmap = (Bitmap) object;
 
                 mItems.get(count).beerImage = mBitmap;
+
             }
         };
 
@@ -254,35 +260,54 @@ public class UntappdManager {
 
     }
 
-    private void getAllBeerImages(final Context pContext)
-    {
+    private void getAllBeerImages(final Context pContext) {
         int count = 0;
 
-        for (int i = 0; i < mItems.size();i++)
-        {
+        for (int i = 0; i < mItems.size(); i++) {
             //Get restaurant image..
             getUntappdBeerImage(mItems.get(i).beer.beer_label, pContext, count);
-
             count++;
 
         }
     }
 
-    private Bitmap getBeerImageFromMostBeer(String finalResult)
-    {
+    private Bitmap getBeerImageFromMostBeer(String finalResult) {
         Bitmap bitmap = null;
 
 
-        for(int i = 0; i < mItems.size();i++)
-        {
-            if(mItems.get(i).beer.beer_name == finalResult && mItems.get(i).beer.beer_label != "")
-            {
+        for (int i = 0; i < mItems.size(); i++) {
+            if (mItems.get(i).beer.beer_name == finalResult && mItems.get(i).beer.beer_label != "") {
                 return mItems.get(i).beerImage;
             }
         }
 
-
         return null;
     }
-}
 
+    private int findBeerBID() {
+
+        for (int i = 0; i < mItems.size(); i++) {
+            if (mMostPopularBeer == mItems.get(i).beer.beer_name)
+                return mItems.get(i).beer.bid;
+        }
+
+        return 16630;
+    }
+
+    private static void getBeerData(final int BID, Context pContext)
+    {
+
+        final String url = mUntappdHandler.untappdURLForBeer(BID);
+
+        GeneralCallback generalCallback = new GeneralCallback() {
+            @Override
+            public void runWithResponse(Object object) {
+
+                mBeerData = (BeerData.Beer) object;
+
+            }
+        };
+
+        NetworkRequestManager.getInstance().populateBeerInfo(generalCallback, url, pContext);
+    }
+}

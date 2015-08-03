@@ -7,6 +7,7 @@ public class UntappdAuthKeys {
     //Unapptd Host API url set
     public static final String API_HOST = "https://api.untappd.com/v4/";
     public static final String ENDPOINT = "thepub/local/method_name?";
+    public static final String BEER_ENDPOINT = "beer/info/";
     public static final String LATITUDE = "lat=";
     public static final String LONGITUDE = "lng=";
     public static final String CLIENT_ID = "client_id=";

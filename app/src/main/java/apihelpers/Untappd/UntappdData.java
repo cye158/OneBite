@@ -38,9 +38,12 @@ public class UntappdData {
         public Venue venue;
         public Bitmap beerImage;
 
+        public BeerData.Beer mBeerInfo;
+
     }
 
     public class Beer{
+        public int bid;
         public String beer_name;
         public String beer_label;
         public String beer_style;
