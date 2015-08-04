@@ -79,11 +79,11 @@ public class CustomProgressDialog extends ProgressDialog {
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
         //sets string text to layout
-        String textLeft = "DETECTING RESTAURANTS ψ(｀∇´)ψ";
+        String textLeft = "SEARCH RESTAURANTS ψ(｀∇´)ψ";
         nowSearchingText.setText(textLeft);
         nowSearchingText.setTextColor(Color.parseColor("#FFFFFF"));
         nowSearchingText.setTypeface(null, Typeface.BOLD);
-        nowSearchingText.setTextSize(20);
+        nowSearchingText.setTextSize(18);
         nowSearchingText.setGravity(Gravity.CENTER);
 
         oneButtonPingFeedback = MediaPlayer.create(getContext(), R.raw.sonar_one_ping_feedback);

@@ -29,7 +29,8 @@
             android:orientation="vertical"
             android:layout_weight="3"
             android:textSize="10dp"
-            android:text="SEARCH BY MODE\nOF TRANSPORTATION:"
+            android:text="RESTAURANT\n
+                        BY TRANSPORTATION:"
             android:textStyle="bold" />
 
         <ImageView
