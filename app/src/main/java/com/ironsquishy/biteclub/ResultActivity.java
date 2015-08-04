@@ -172,6 +172,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
+        UntappdManager untappdManager = new UntappdManager(this);
+        untappdManager.setMostPopularDrink();
+
     }
 
     /** Check for favorite. - Guan Edited by Eric and Darin**/

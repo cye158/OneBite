@@ -30,7 +30,7 @@
         android:id="@+id/orangewhole"
         android:visibility="invisible"
         android:layout_centerVertical="true"
-        android:background="@drawable/splash_orange_w"
+        android:background="@drawable/splash_orange_bite_no"
         android:layout_alignBottom="@+id/pacMan"
         android:layout_centerHorizontal="true" />
 
@@ -40,7 +40,7 @@
         android:id="@+id/orangebite"
         android:visibility="invisible"
         android:layout_centerVertical="true"
-        android:background="@drawable/splash_orange_b"
+        android:background="@drawable/splash_orange_bite"
         android:layout_alignBottom="@+id/pacMan"
         android:layout_centerHorizontal="true" />
     <ImageView

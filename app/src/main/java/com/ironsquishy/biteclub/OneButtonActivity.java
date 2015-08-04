@@ -99,7 +99,7 @@ public class OneButtonActivity extends Activity {
         });
         RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
-        UntappdManager untappdManager = new UntappdManager();
+        UntappdManager untappdManager = new UntappdManager(mContext);
 
         untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }

@@ -26,7 +26,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      */
     private static GoogleApiClient mGoogleClient;
     private static Context mContext;
-   // private static MapFragment mapFragment;
+    // private static MapFragment mapFragment;
 
     //Following double's are set to San Francisco.
     private static double mLongitude = -122.431297;
@@ -96,6 +96,8 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     /**
      * @author Allen Space
+     * @param mGoogleClient Google Api object.
+     * Description: Start the Connection for google services.
      */
     public static void setmGoogleClient(GoogleApiClient mGoogleClient) {
         LocationHandler.mGoogleClient = mGoogleClient;
@@ -112,7 +114,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     /**
      * @param mLatitude Double mLatitude.
-     *                  <p/>
+     *
      *                  Description: Setter for mLatitude data member.
      * @author Allen Space
      */
@@ -234,7 +236,13 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     }
 
-
+    /**
+     * @author Allen Space
+     * @param pAddress String value of th address from user.
+     * Description: With passing of an address string this will grab
+     *               the lat and long points of the entered address.
+     *
+     * */
     public void fetchByAdress(String pAddress, Context pContext)
     {
         Log.i(TAG, "Getting by address of: " + pAddress);
@@ -247,6 +255,5 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
         mContext.startService(intent);
     }
 }
-
 
 

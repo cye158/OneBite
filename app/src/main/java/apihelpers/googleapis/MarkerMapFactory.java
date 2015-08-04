@@ -99,7 +99,7 @@ public class MarkerMapFactory {
      */
     private Bitmap convertToBitmapMarkers(int id) {
         Bitmap marker = BitmapFactory.decodeResource(context.getResources(), id);
-        marker = Bitmap.createScaledBitmap(marker, 200, 225, false);
+        marker = Bitmap.createScaledBitmap(marker, 100, 132, true);
 
         return marker;
     }

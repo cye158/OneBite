@@ -121,7 +121,7 @@ public class RestaurantManager {
         LocationHelper somelocation = new LocationHelper();
 
 
-        //Loop to grab first Restaurant with trans_bus distance.
+        //Loop to grab first Restaurant with bus distance.
         for(int i =0; i < mYelpData.businesses.size(); i++)
         {
             double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
@@ -167,7 +167,7 @@ public class RestaurantManager {
 
         LocationHelper somelocation = new LocationHelper();
 
-        //Loop to grab first Restaurant with trans_bus distance.
+        //Loop to grab first Restaurant with bus distance.
         for(int i =0; i < mYelpData.businesses.size(); i++)
         {
             double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
@@ -201,6 +201,7 @@ public class RestaurantManager {
         return null;
     }
 
+
     public void populateYelpData(double pLatitude, double pLongitude, final Context pContext)
     {
         //Simplify the callback process.
@@ -213,7 +214,7 @@ public class RestaurantManager {
             }
         };
 
-
+        NetworkRequestManager.getInstance().initContext(pContext);
         NetworkRequestManager.getInstance().populateYelpData(generalCallback,"8046.72", pContext);
     }
 
@@ -332,4 +333,3 @@ public class RestaurantManager {
     }*/
 
 }
-
