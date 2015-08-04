@@ -1,7 +1,5 @@
 package apihelpers.Untappd;
 
-import android.graphics.Bitmap;
-
 import java.util.List;
 
 /**
@@ -36,11 +34,10 @@ public class UntappdData {
         public Beer beer;
         public Brewery brewery;
         public Venue venue;
-        public Bitmap beerImage;
-
     }
 
     public class Beer{
+        public int bid;
         public String beer_name;
         public String beer_label;
         public String beer_style;
@@ -65,7 +62,6 @@ public class UntappdData {
         public double lng;
     }
 }
-
 
 
 

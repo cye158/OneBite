@@ -3,8 +3,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#330033"
-    >
+    android:background="@drawable/background"
+    android:scaleType = "centerCrop">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,48 +19,57 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
 
-
-    <Button
+    <ImageButton
         android:id="@+id/one_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/one_button"
-        android:scaleType="center"
-        android:text="Press Me \nSo We Can \nFeed You"
-        android:textSize="25dp"
-        android:textColor="#FFFFFF"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/one_button_up"
+        android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/one_button_pulse"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/one_button_pulse"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_alignLeft="@+id/one_button"
+        android:layout_alignStart="@+id/one_button"
+        android:layout_alignRight="@+id/one_button"
+        android:layout_alignEnd="@+id/one_button"
+        android:layout_alignBottom="@+id/one_button"
+        android:layout_alignTop="@+id/one_button" />
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/untappdlogo"
-        android:src="@drawable/untappdlogo"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/untappd"
+        android:src="@drawable/untappd"
+        android:adjustViewBounds="true"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_alignBottom="@+id/yelp"
+        android:layout_alignLeft="@+id/moto"
+        android:layout_alignStart="@+id/moto" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/yelplogo"
-        android:src="@drawable/yelplogo"
+        android:id="@+id/yelp"
+        android:src="@drawable/yelp"
+        android:adjustViewBounds="true"
+        android:maxHeight="55dp"
+        android:maxWidth="55dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginBottom="18dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/untappd"
+        android:layout_toEndOf="@+id/untappd" />
 
 
 </RelativeLayout>

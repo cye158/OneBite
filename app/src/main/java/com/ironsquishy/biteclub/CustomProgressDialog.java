@@ -66,24 +66,25 @@ public class CustomProgressDialog extends ProgressDialog {
         nowSearchingText = (TextView) findViewById(R.id.textanimation);
 
         //sets animation to layout as a background image
-        orangePacMan.setBackgroundResource(R.drawable.pac_man_progress_dialog_animation);
+        orangePacMan.setBackgroundResource(R.drawable.animation_pac_man_progress_dialog);
         orangePacMan.bringToFront();
         orangePacMan.setTranslationX(-5);
 
         animation = (AnimationDrawable) orangePacMan.getBackground();
 
         //creates the slide to left animation
-        animationToLeft = new TranslateAnimation(1500, -675, 0, 0);
-        animationToLeft.setDuration(2500);
+        animationToLeft = new TranslateAnimation(1500, -1100, 0, 0);
+        animationToLeft.setDuration(3450);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
         //sets string text to layout
-        String textLeft = "DETECTING NEARBY RESTAURANTS!";
+        String textLeft = "SEARCH RESTAURANTS ψ(｀∇´)ψ";
         nowSearchingText.setText(textLeft);
         nowSearchingText.setTextColor(Color.parseColor("#FFFFFF"));
         nowSearchingText.setTypeface(null, Typeface.BOLD);
-
+        nowSearchingText.setTextSize(18);
+        nowSearchingText.setGravity(Gravity.CENTER);
 
         oneButtonPingFeedback = MediaPlayer.create(getContext(), R.raw.sonar_one_ping_feedback);
 

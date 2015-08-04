@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#330033"
-    tools:context="com.ssaurel.animationsprite.MainActivity" >
+    tools:context="com.ssaurel.animationsprite.MainActivity">
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -15,40 +16,41 @@
         />
     <ImageView
         android:id="@+id/pacMan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:visibility="invisible"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/pac_man_animation"
+        android:background="@drawable/animation_pac_man"
         android:cropToPadding="false" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
         android:id="@+id/orangewhole"
         android:visibility="invisible"
-        android:background="@drawable/orangewhole"
+        android:layout_centerVertical="true"
+        android:background="@drawable/splash_orange_bite_no"
         android:layout_alignBottom="@+id/pacMan"
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
         android:id="@+id/orangebite"
         android:visibility="invisible"
-        android:background="@drawable/orangebite"
+        android:layout_centerVertical="true"
+        android:background="@drawable/splash_orange_bite"
         android:layout_alignBottom="@+id/pacMan"
         android:layout_centerHorizontal="true" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="239dp"
+        android:layout_height="112dp"
         android:id="@+id/onebite"
         android:visibility="invisible"
-        android:background="@drawable/onebite"
+        android:background="@drawable/splash_onebite"
         android:layout_alignBottom="@+id/pacMan"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,32 +65,38 @@
         android:textColor="#FFFFFF" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/bigPacMan"
-        android:layout_above="@+id/pacMan"
-        android:background="@drawable/big_pac_man_animation"
+        android:background="@drawable/animation_big_pac_man"
         android:visibility="invisible"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/pacMan"
+        android:layout_alignLeft="@+id/onebite"
+        android:layout_alignStart="@+id/onebite" />
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/untappdlogo"
-        android:src="@drawable/untappdlogo"
+        android:id="@+id/untappd"
+        android:src="@drawable/untappd"
+        android:adjustViewBounds="true"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toLeftOf="@+id/pacMan"
+        android:layout_toStartOf="@+id/pacMan" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/yelplogo"
-        android:src="@drawable/yelplogo"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/yelp"
+        android:src="@drawable/yelp"
+        android:adjustViewBounds="true"
+        android:maxHeight="55dp"
+        android:maxWidth="55dp"
+        android:layout_alignBottom="@+id/untappd"
+        android:layout_toRightOf="@+id/pacMan"
+        android:layout_toEndOf="@+id/pacMan" />
 
 </RelativeLayout>
