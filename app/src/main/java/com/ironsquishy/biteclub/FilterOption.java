@@ -22,21 +22,21 @@ import ApiManagers.RestaurantManager;
  **/
 public class FilterOption extends DialogFragment {
 
-    /*List of the food cuisine style*/
+    /*Array of Strings to be used for sending the data to back-end*/
     ArrayList<String> addedFilter = new ArrayList();
-    final String[] foodCuisine = { "Chinese", "Filipino", "Italian", "Japanese",
-            "Korean", "Vietnamese", "Thai", "Mexican", "Vegetarian", "Creperies",
-            "Cafe", "Desserts", "Seafood", "Pizza" };
+
+    /*List of the food cuisine style*/
+    final String[] foodCuisine = { "Chinese", "Filipino", "Italian", "Japanese", "Korean",
+            "Vietnamese", "Thai", "Pizza" };
 
     /*List of boolean of items checked by user*/
-    boolean[] itemsChecked = { false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false };
+    boolean[] itemsChecked = { false, false, false, false, false, false, false, false };
 
     /*Dialog*/
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
 
-        /*Loads the boolean array*/
+        /*Loads the boolean array from preference*/
         for(int i=0; i<itemsChecked.length; i++){
             itemsChecked[i] = loadFilter(i);
             if(itemsChecked[i]==true){
