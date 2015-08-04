@@ -72,7 +72,7 @@ public class DatabaseManager {
      */
     public List<VisitedPlace> getAllVisitedPlaces()
     {
-       return mDBHandler.getContentFromTable();
+        return mDBHandler.getContentFromTable();
     }
 
     /**
@@ -91,8 +91,8 @@ public class DatabaseManager {
      */
     public void removeFromDatabase(String place) {
         //VisitedPlace visitedPlace = new VisitedPlace(place,
-                //mSelectedBusiness.getRestLatitude(),
-                //mSelectedBusiness.getRestLongitdude());
+        //mSelectedBusiness.getRestLatitude(),
+        //mSelectedBusiness.getRestLongitdude());
 
         //mDBHandler.deleteVisitedPlace(visitedPlace);
     }
@@ -105,10 +105,9 @@ public class DatabaseManager {
      */
     public boolean checkIfInDatabase(String place, Double latitude, Double longitude) {
         //return mDBHandler.isExistInDatabase(place,
-                //mSelectedBusiness.getRestLatitude(),
-                //mSelectedBusiness.getRestLongitdude());
+        //mSelectedBusiness.getRestLatitude(),
+        //mSelectedBusiness.getRestLongitdude());
         return mDBHandler.isExistInDatabase(place, latitude, longitude);
     }
 }
-
 

@@ -67,7 +67,7 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        <!-- Untappd activity as a dialog of ResultActivity -->
+        <!-- Untappd activity  -->
         <activity
             android:name=".UntappdActivity"
             android:label="@string/title_activity_untappd"

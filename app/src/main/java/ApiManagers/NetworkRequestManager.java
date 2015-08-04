@@ -15,9 +15,11 @@ import org.json.JSONObject;
 
 import Callbacks.GeneralCallback;
 
+import apihelpers.Untappd.BeerData;
 import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.YelpApiHandler.YelpApiHandler;
 import apihelpers.YelpApiHandler.YelpData;
+import apihelpers.networkhelper.LRUBitmapCache;
 import apihelpers.networkhelper.SingleRequest;
 import apihelpers.Untappd.UntappdData;
 
@@ -29,12 +31,16 @@ public class NetworkRequestManager {
 
     /**Data Fields*/
     private static NetworkRequestManager singleton = null;
+    private static Context mContext;
     private final static int YELP_CALL = 0;
     private final static int UNTAPPD_CALL =1;
+    private final static int BEER_CALL = 2;
 
     //Log cat tags....
     private static final String TAG = "UNTAPPD";
     private static final String YELP = "YelpData";
+
+    private static LRUBitmapCache mLRUBitmapStack;
 
     //------Constructors------
     //------Helper Methods----
@@ -46,7 +52,7 @@ public class NetworkRequestManager {
      * */
     private NetworkRequestManager()
     {
-        //singleton
+
     }
 
     /**
@@ -84,6 +90,13 @@ public class NetworkRequestManager {
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
     }
 
+    public void populateBeerInfo(final GeneralCallback generalCallback, final String URL, Context pContext)
+    {
+        JsonObjectRequest jsonObjectRequest = generalJSONRequest(generalCallback, URL, BEER_CALL);
+
+        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
 
     /**
      * @author Allen Space
@@ -98,7 +111,7 @@ public class NetworkRequestManager {
         final String sendJsonRequestURL = new YelpApiHandler().buildYelpAuthenticationUrl(pRadius, latitude, longitude);
 
         //Gather information.
-       JsonObjectRequest jsObjectReq = generalJSONRequest(generalCallback, sendJsonRequestURL, YELP_CALL);
+        JsonObjectRequest jsObjectReq = generalJSONRequest(generalCallback, sendJsonRequestURL, YELP_CALL);
 
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
@@ -146,11 +159,13 @@ public class NetworkRequestManager {
      * @param URL Simply passing it down the line.
      * Description: This to generalize the image requests call. Divide up teh code easier to read.
      * */
-    private static ImageRequest generalImageRequest(final GeneralCallback generalCallback, String URL)
+    private static ImageRequest generalImageRequest(final GeneralCallback generalCallback, final String URL)
     {
         ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap bitmap) {
+
+                mLRUBitmapStack.putBitmap(URL,bitmap);
 
                 generalCallback.runWithResponse(bitmap);
             }
@@ -193,6 +208,11 @@ public class NetworkRequestManager {
                             UntappdData mData = new Gson().fromJson(response.toString(), UntappdData.class);
 
                             generalCallback.runWithResponse(mData);
+                        }else if(FLAG == BEER_CALL)
+                        {
+                            BeerData beer = new Gson().fromJson(response.toString(), BeerData.class);
+
+                            generalCallback.runWithResponse(beer.response.beer);
                         }
 
                     }
@@ -207,6 +227,30 @@ public class NetworkRequestManager {
         return jsObjectReq;
     }
 
-}
+    /**
+     * @author Allen Space
+     * @param URL String of bitmap of specified ur.
+     * Description: Keeping intergity of data this method hides away the LRUBitmapClass.
+     * */
+    public static Bitmap getBitmapOnLRU(final String URL)
+    {
+        return mLRUBitmapStack.getBitmap(URL);
+    }
 
+    /**
+     * @author Allen Space
+     * @param pContext Context data memeber for LRUbitmapCache.
+     * Description: Init the LRUBitmapCache class object based on Context of App.
+     * */
+    public static void initContext(Context pContext)
+    {
+        if(mContext == null)
+        {
+            mContext = pContext.getApplicationContext();
+
+            mLRUBitmapStack = new LRUBitmapCache(mContext);
+        }
+
+    }
+}
 
