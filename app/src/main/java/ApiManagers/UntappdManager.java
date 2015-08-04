@@ -1,33 +1,21 @@
 package ApiManagers;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.beust.jcommander.Strings;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Random;
 
 import Callbacks.GeneralCallback;
-import Callbacks.UntappdResultRunnable;
 import apihelpers.Untappd.BeerData;
 import apihelpers.Untappd.OneUntappd;
 import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.Untappd.UntappdData;
-import apihelpers.YelpApiHandler.YelpData;
-import apihelpers.networkhelper.LRUBitmapCache;
 
 /**
  * Created by Allen Space on 7/12/2015.
@@ -198,7 +186,7 @@ public class UntappdManager {
      * Description: Set up for UntappdActivity needs to be called before call to get a OneUntappd object.
      * */
     public void setMostPopularDrink() {
-       List<String> mostBeers = new ArrayList<String>();
+        List<String> mostBeers = new ArrayList<String>();
         List<String> allBeers = new ArrayList<String>();
 
         String finalResult;

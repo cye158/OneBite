@@ -111,7 +111,7 @@ public class NetworkRequestManager {
         final String sendJsonRequestURL = new YelpApiHandler().buildYelpAuthenticationUrl(pRadius, latitude, longitude);
 
         //Gather information.
-       JsonObjectRequest jsObjectReq = generalJSONRequest(generalCallback, sendJsonRequestURL, YELP_CALL);
+        JsonObjectRequest jsObjectReq = generalJSONRequest(generalCallback, sendJsonRequestURL, YELP_CALL);
 
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
@@ -253,5 +253,4 @@ public class NetworkRequestManager {
 
     }
 }
-
 

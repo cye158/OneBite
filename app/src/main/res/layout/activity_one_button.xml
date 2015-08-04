@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/background"
     android:scaleType = "centerCrop">
 
     <TextView
@@ -19,14 +19,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/one_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/one_button"
-        android:scaleType="center"
-        android:textSize="25dp"
-        android:textColor="#FFFFFF"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/one_button_up"
+        android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -36,11 +34,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/one_button_pulse"
-        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/one_button"
         android:layout_alignStart="@+id/one_button"
         android:layout_alignRight="@+id/one_button"
-        android:layout_alignEnd="@+id/one_button" />
+        android:layout_alignEnd="@+id/one_button"
+        android:layout_alignBottom="@+id/one_button"
+        android:layout_alignTop="@+id/one_button" />
 
 
     <ImageView

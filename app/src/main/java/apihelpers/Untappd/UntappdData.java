@@ -1,7 +1,5 @@
 package apihelpers.Untappd;
 
-import android.graphics.Bitmap;
-
 import java.util.List;
 
 /**
@@ -63,7 +61,6 @@ public class UntappdData {
         public double lng;
     }
 }
-
 
 
 

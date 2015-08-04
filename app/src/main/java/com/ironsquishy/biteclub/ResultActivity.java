@@ -46,7 +46,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int BUS = 1;
     private final static int CAR = 2;
     private static int defaultTransportation = 2;
-    private int transportModePreference = defaultTransportation;
+    private int transportModePreference = defaultTransportation; //Is used for shared preference.
 
     private static TextView addToData;
     private static ImageView mYelpImage, mYelpRating;
@@ -88,7 +88,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        mUntappdManager = new UntappdManager(mContext);
+        mUntappdManager = new UntappdManager();
 
         car_button = (ImageView) findViewById(R.id.car_button);
         bus_button = (ImageView) findViewById(R.id.bus_button);
@@ -109,7 +109,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
          * @Author Darin modified by Eric
          * Description: Transportation modes
          */
-
+        //This one Car
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
@@ -118,21 +118,19 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
-        //This one Buses
+        //This one Bus
         bus_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(BUS);
-
                 //saves the mode of transportation chosen.
                 saveTransportation(BUS);
             }
         });
 
-        //This one walks
+        //This one Walk
         walk_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 randomizeYelpResponse(WALK);
-
                 //saves the mode of transportation chosen.
                 saveTransportation(WALK);
             }
@@ -176,9 +174,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         UntappdManager untappdManager = new UntappdManager(this);
         untappdManager.setMostPopularDrink();
+
     }
 
-    /** Check for favorite. - Guan Editted by Eric and Darin**/
+    /** Check for favorite. - Guan Edited by Eric and Darin**/
     public void checkFavAdd(View view) {
         if (mDatabaseManager.checkIfInDatabase(mRestaurant.getmRestName(),
                 mRestaurant.getmLatitude(),
@@ -244,8 +243,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
-                Toast.makeText(getApplicationContext(), "A restaurant within walking distance is shown",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within WALK distance",
+                        Toast.LENGTH_LONG).show();
                 highlightSelection(WALK);
 
                 //Get a random restuarant based on walking distance
@@ -253,17 +252,17 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 break;
 
             case BUS:
-                Toast.makeText(getApplicationContext(), "A restaurant within bus distance is shown",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within BUS distance",
+                        Toast.LENGTH_LONG).show();
                 highlightSelection(BUS);
 
-                //Get a random restuarant based on bus distance
+                //Get a random restuarant based on trans_bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
                 break;
 
             case CAR:
-                Toast.makeText(getApplicationContext(), "A restaurant within driving distance is shown",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within CAR distance",
+                        Toast.LENGTH_LONG).show();
                 highlightSelection(CAR);
 
                 //Get a random restuarant based on driving distance
@@ -402,16 +401,57 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         String distanceFrom = String.format("%.2f", distanceMiles);
 
         mExtYelpInfo.setText("Cuisine Style: " + mRestaurant.getmCuisineStyle() + "\n" +
-                                "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                                "Distance: " + distanceFrom + " miles away");
+                "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
+                "Distance: " + distanceFrom + " miles away");
         mMoreYelpInfo.setText("Phone Number: " + mRestaurant.getPhoneNumber() + "\n\n" +
                 "Description: " + mRestaurant.getmDescription() + "... ");
     }
 
+    /**
+     * @Author Eric Chen
+     * Description: This highlights the transportation mode
+     * Edited the icons and rescaling by Renz 7/30/15
+     **/
+    private void highlightSelection(int transportation) {
+        switch (transportation){
+            case CAR:
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car_select));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
+                break;
+            case BUS:
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus_select));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
+                break;
+            case WALK:
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk_select));
+                break;
+            default:
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
+                break;
+        }
+    }
+
+    /**Copied & modified from google marker class to be used in this class - Renz 7/30/15
+     *
+     * @author: Guan
+     * Description: turn a non .bmp image into bitmap and resize to prevent blurriness
+     * @param id the resource ID of the image data
+     * @return Bitmap object of resized image
+     **/
+    private Bitmap toBitmap(int id) {
+        Bitmap marker = BitmapFactory.decodeResource(this.getResources(), id);
+        marker = Bitmap.createScaledBitmap(marker, 220, 220, true);
+        return marker;
+    }
 
     /** Shared preference for transportation by Renz - 7/29/15 **/
-    /*
-        Save method to store the transportation mode preference into a file named
+    /*Save method to store the transportation mode preference into a file named
         "transport_preference". The file will be used by loadTransportation method.
     */
     public void saveTransportation(int defaultTransportation) {
@@ -423,8 +463,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         editor.commit();
     }
 
-    /*
-        Load method that loads the mode of transportation from "transport_preference" file. Then
+    /** Shared preference for transportation by Renz - 7/29/15 **/
+    /*  Load method that loads the mode of transportation from "transport_preference" file. Then
         passes the integer that corresponds to the saved transportation mode as the new
         defaultTransportation. If the file is empty then it returns the same mode(default value).
     */
@@ -432,53 +472,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         SharedPreferences transport_pref;
         transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
         return transport_pref.getInt("transportation_mode", defaultTransportation);
-    }
-
-    /**
-     * @Author Eric Chen
-     * Description: This highlights the transportation mode.
-     *
-     * Edited the icons and rescaling by Renz 7/30/15
-     **/
-    private void highlightSelection(int transportation) {
-        switch (transportation){
-            case CAR:
-                car_button.setImageBitmap(toBitmap(R.drawable.car_s));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
-                break;
-            case BUS:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus_s));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
-                break;
-            case WALK:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk_s));
-                break;
-            default:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
-                break;
-        }
-    }
-
-    /**
-     *
-     * Copied & modified from google marker class to be used in this class - Renz 7/30/15
-     *
-     * @author: Guan
-     * Description: turn a non .bmp image into bitmap and resize to prevent blurriness
-     * @param id the resource ID of the image data
-     * @return Bitmap object of resized image
-     *
-     */
-    private Bitmap toBitmap(int id) {
-        Bitmap marker = BitmapFactory.decodeResource(this.getResources(), id);
-        marker = Bitmap.createScaledBitmap(marker, 220, 220, true);
-        return marker;
     }
 }
 

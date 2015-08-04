@@ -10,10 +10,9 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.ironsquishy.biteclub.MapFragment;
+import com.google.android.gms.location.LocationServices;
 
 import apihelpers.googleapis.FetchLocationAddress;
 
@@ -27,7 +26,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
      */
     private static GoogleApiClient mGoogleClient;
     private static Context mContext;
-   // private static MapFragment mapFragment;
+    // private static MapFragment mapFragment;
 
     //Following double's are set to San Francisco.
     private static double mLongitude = -122.431297;
@@ -256,6 +255,5 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
         mContext.startService(intent);
     }
 }
-
 
 
