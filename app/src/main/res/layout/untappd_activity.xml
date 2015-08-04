@@ -44,7 +44,8 @@
                         android:layout_height="fill_parent"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
-                        android:src="@drawable/untappdyellow" />
+                        android:src="@drawable/untappdyellow"
+                        android:onClick="onClickImage" />
 
                 </LinearLayout>
 

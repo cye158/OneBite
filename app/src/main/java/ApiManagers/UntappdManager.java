@@ -55,6 +55,8 @@ public class UntappdManager {
 
     private static Bitmap mBeerImage;
 
+    private static String mSavedURL;
+
 
     public UntappdManager()
     {
@@ -191,6 +193,10 @@ public class UntappdManager {
         NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, pLatitdude, pLongitude, pContext);
     }
 
+    /**
+     * @author Allen SPace
+     * Description: Set up for UntappdActivity needs to be called before call to get a OneUntappd object.
+     * */
     public void setMostPopularDrink() {
        List<String> mostBeers = new ArrayList<String>();
         List<String> allBeers = new ArrayList<String>();
@@ -201,6 +207,7 @@ public class UntappdManager {
             allBeers.add(mItems.get(i).beer.beer_name);
         }
 
+        //Check for equal occurances.
         if (mostBeers.size() < 1) {
 
             mostBeers = mode(allBeers);
@@ -212,7 +219,6 @@ public class UntappdManager {
             mMostPopularBeerBID = findBeerBID();
 
             getBeerData(mMostPopularBeerBID, mContext);
-            //return new OneUntappd(finalResult, finalResultImage, mBeerData);
 
         } else {
 
@@ -226,6 +232,7 @@ public class UntappdManager {
             mMostPopularBeerBID = findBeerBID();
 
             getBeerData(mMostPopularBeerBID, mContext);
+
 
         }
 
@@ -253,12 +260,19 @@ public class UntappdManager {
     }
 
 
-    private void getUntappdBeerImage(String URL, Context pContext, final int count) {
+    /**
+     * @author Allen Space
+     * @param URL String for url.
+     * @param pContext Context data memember.
+     *
+     * */
+    private void getUntappdBeerImage(String URL, Context pContext)
+    {
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
-
+                //do nothing images are put into LRU bitmap cache.
             }
         };
 
@@ -266,13 +280,15 @@ public class UntappdManager {
 
     }
 
-    private void getAllBeerImages(final Context pContext) {
-        int count = 0;
-
+    /**
+     * @author Allen space
+     * Description: Helper to get all images.
+     **/
+    private void getAllBeerImages(final Context pContext)
+    {
         for (int i = 0; i < mItems.size(); i++) {
-            //Get restaurant image..
-            getUntappdBeerImage(mItems.get(i).beer.beer_label, pContext, count);
-            count++;
+            //Get all beer images..
+            getUntappdBeerImage(mItems.get(i).beer.beer_label, pContext);
 
         }
     }
@@ -291,18 +307,10 @@ public class UntappdManager {
     private static void getBeerData(final int BID, Context pContext)
     {
 
-        final ProgressDialog progressDialog = new ProgressDialog(pContext);
-        progressDialog.setTitle("Loading..");
-        progressDialog.setMessage("Getting beer info.");
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
-
-        Log.i("UNTAPPD", "Building beer info string.");
-
         final String url = mUntappdHandler.untappdURLForBeer(BID);
 
-        Log.i("UNTAPPD", "Genertating call back.");
+        //Saved for webView later.
+        mSavedURL = url;
 
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
@@ -311,7 +319,6 @@ public class UntappdManager {
                 Log.i("UNTAPPD", "Retrieved beer data.");
                 mBeerData = (BeerData.Beer) object;
 
-                progressDialog.dismiss();
             }
         };
 
@@ -336,6 +343,6 @@ public class UntappdManager {
 
     public OneUntappd getOneTappd()
     {
-        return new OneUntappd(mMostPopularBeer, mBeerImage, mBeerData, getFilledComments());
+        return new OneUntappd(mMostPopularBeer, mBeerImage, mBeerData, getFilledComments(), mSavedURL);
     }
 }

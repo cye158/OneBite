@@ -227,11 +227,21 @@ public class NetworkRequestManager {
         return jsObjectReq;
     }
 
+    /**
+     * @author Allen Space
+     * @param URL String of bitmap of specified ur.
+     * Description: Keeping intergity of data this method hides away the LRUBitmapClass.
+     * */
     public static Bitmap getBitmapOnLRU(final String URL)
     {
         return mLRUBitmapStack.getBitmap(URL);
     }
 
+    /**
+     * @author Allen Space
+     * @param pContext Context data memeber for LRUbitmapCache.
+     * Description: Init the LRUBitmapCache class object based on Context of App.
+     * */
     public static void initContext(Context pContext)
     {
         if(mContext == null)

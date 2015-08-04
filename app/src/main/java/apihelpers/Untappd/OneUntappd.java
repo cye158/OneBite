@@ -16,6 +16,7 @@ public class OneUntappd {
     private static int mTotalReviews;
     private static String mDescription;
     private static String mReviews;
+    private static String mBeerURL;
     private static List<String> mFilledComments;
 
     public OneUntappd()
@@ -24,7 +25,7 @@ public class OneUntappd {
     }
 
 
-    public OneUntappd(String pBeerName, Bitmap pBeerImage, BeerData.Beer pBeer, List<String> pFilledComments)
+    public OneUntappd(String pBeerName, Bitmap pBeerImage, BeerData.Beer pBeer, List<String> pFilledComments, String pBeerURL)
     {
         this.mBeerName = pBeerName;
         this.mBeerImage = pBeerImage;
@@ -34,6 +35,8 @@ public class OneUntappd {
         this.mDescription = pBeer.beer_description;
 
         mFilledComments = pFilledComments;
+
+        mBeerURL = pBeerURL;
 
     }
 
@@ -100,5 +103,13 @@ public class OneUntappd {
     public List<String> getmFilledComments()
     {
         return mFilledComments;
+    }
+
+    public static String getBeerURL() {
+        return mBeerURL;
+    }
+
+    public static void setBeerURL(String mBeerURL) {
+        OneUntappd.mBeerURL = mBeerURL;
     }
 }

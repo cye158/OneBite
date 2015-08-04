@@ -3,8 +3,10 @@ package com.ironsquishy.biteclub;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,26 +24,30 @@ import apihelpers.Untappd.OneUntappd;
 
 public class UntappdActivity extends Activity{
 
-
+    /**Data Fields*/
     private static Context mContext;
     private static UntappdManager mUntappdManager;
-    private static String mFilledComments;
+    private static OneUntappd mOneUntappd;
 
+    //Text view objects
     private static TextView mResultTextView;
     private static TextView mComments;
     private static TextView mRsltStyle;
     private static TextView mTotalRatings;
     private static TextView mDescription;
 
-
+    //Image view objects
     private static ImageView mImageView;
 
+    //List view objects
     private static ListView mUntappdListV;
-
-    private static OneUntappd mOneUntappd;
-
     private static int resource = android.R.layout.simple_list_item_1;
     private static int textViewResourceID = android.R.id.text1;
+
+
+
+
+
 
     private static Intent mIntent;
 
@@ -51,7 +57,9 @@ public class UntappdActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.untappd_activity);
 
-        mIntent =  this.getIntent();
+        //Init all objects in the during creation of the activity.
+
+        mIntent = this.getIntent();
 
         mContext = this;
 
@@ -76,30 +84,23 @@ public class UntappdActivity extends Activity{
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        displayResultDrink();
-    }
-
-    public void toUntappdList(View view)
+    /**When the user clicks on the beer image.*/
+    public void onClickImage(View view)
     {
-        Intent intent = new Intent(this, UntappdList.class);
+        Log.i("UNTAPPD", "Call to webView");
+
+        Uri uri = Uri.parse("https://untappd.com/beer/top_rated");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 
-
-    /** When user clicks "What poeple are saying!"*/
-    public void onCommentClick(View view)
-    {
-        Intent intent = new Intent(this, UntappdList.class);
-        startActivity(intent);
-    }
-
+    /**
+     * @author Allen Space
+     * Descrition: A helper method for populating data on the view.
+     * */
     private void displayResultDrink()
     {
-        //Created to simulate loading.
+        //Try to land objects.
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -111,6 +112,7 @@ public class UntappdActivity extends Activity{
 
                 mTotalRatings.setText(String.valueOf(mOneUntappd.getmTotalReviews()));
 
+                //Check if Description string is empty.
                 if (mOneUntappd.getmDescription() == "")
                 {
                     mDescription.setText("No Description provided.");
@@ -118,6 +120,7 @@ public class UntappdActivity extends Activity{
                     mDescription.setText(mOneUntappd.getmDescription());
                 }
 
+                //For ListView under Reviews text.
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext,
                         resource, textViewResourceID, mOneUntappd.getmFilledComments());
 
@@ -125,7 +128,7 @@ public class UntappdActivity extends Activity{
 
             }
 
-        }, 500);
+        }, 250);
 
     }
 
