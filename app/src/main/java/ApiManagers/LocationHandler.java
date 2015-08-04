@@ -10,10 +10,9 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.ironsquishy.biteclub.MapFragment;
+import com.google.android.gms.location.LocationServices;
 
 import apihelpers.googleapis.FetchLocationAddress;
 
@@ -97,8 +96,6 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     /**
      * @author Allen Space
-     * @param mGoogleClient Google Api object.
-     * Description: Start the Connection for google services.
      */
     public static void setmGoogleClient(GoogleApiClient mGoogleClient) {
         LocationHandler.mGoogleClient = mGoogleClient;
@@ -115,7 +112,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     /**
      * @param mLatitude Double mLatitude.
-     *
+     *                  <p/>
      *                  Description: Setter for mLatitude data member.
      * @author Allen Space
      */
@@ -237,13 +234,7 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
 
     }
 
-    /**
-     * @author Allen Space
-     * @param pAddress String value of th address from user.
-     * Description: With passing of an address string this will grab
-     *               the lat and long points of the entered address.
-     *
-     * */
+
     public void fetchByAdress(String pAddress, Context pContext)
     {
         Log.i(TAG, "Getting by address of: " + pAddress);

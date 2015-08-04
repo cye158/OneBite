@@ -61,7 +61,7 @@ public class MarkerMapFactory {
                 .title("You")
                 .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
 
-        Bitmap userIcon = convertToBitmapMarkers(R.drawable.user);
+        Bitmap userIcon = convertToBitmapMarkers(R.drawable.gmarker_user);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(userIcon));
         Marker  clientMarker = mGoogleMap.addMarker(markerOptions);
 
@@ -81,7 +81,7 @@ public class MarkerMapFactory {
                 .position(new LatLng(mRestaurant.getmLatitude(), mRestaurant.getmLongitude()))
                 .title(mRestaurant.getmRestName());
 
-        Bitmap burgerIcon = convertToBitmapMarkers(R.drawable.burger);
+        Bitmap burgerIcon = convertToBitmapMarkers(R.drawable.gmarker_burger);
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(burgerIcon));
 
@@ -115,7 +115,7 @@ public class MarkerMapFactory {
         if (!mDatabaseManager.isDatabaseEmpty()) {
             restaurants = mDatabaseManager.getAllVisitedPlaces();
 
-            Bitmap starIcon = convertToBitmapMarkers(R.drawable.star);
+            Bitmap starIcon = convertToBitmapMarkers(R.drawable.gmarker_star);
 
             for (int i = 0; i < restaurants.size(); i++) {
                 MarkerOptions markerOptions = new MarkerOptions();

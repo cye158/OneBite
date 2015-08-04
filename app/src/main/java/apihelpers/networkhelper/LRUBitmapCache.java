@@ -3,7 +3,6 @@ package apihelpers.networkhelper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -31,12 +30,11 @@ public class LRUBitmapCache extends LruCache<String, Bitmap> implements ImageLoa
 
     @Override
     public Bitmap getBitmap(String url) {
-        return get(url);
+        return null;
     }
 
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
-        put(url,bitmap);
 
     }
 

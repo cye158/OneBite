@@ -74,7 +74,7 @@ public class OneButtonActivity extends Activity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // Start
-                        oneButton.setBackgroundResource(R.drawable.button_down);
+                        oneButton.setBackgroundResource(R.drawable.one_button_down);
                         oneButtonPulse.setAnimation(oneButtonPulseAnimation);
                         oneButtonPulse.clearAnimation();
                         if (oneButtonPing.isPlaying()) {
@@ -86,7 +86,7 @@ public class OneButtonActivity extends Activity {
                         break;
                     case MotionEvent.ACTION_UP:
                         // End
-                        oneButton.setBackgroundResource(R.drawable.button_up);
+                        oneButton.setBackgroundResource(R.drawable.one_button_up);
                         oneButtonPing.start();
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         progressDialog.show();
@@ -97,10 +97,9 @@ public class OneButtonActivity extends Activity {
 
             }
         });
-
         RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
-        UntappdManager untappdManager = new UntappdManager(mContext);
+        UntappdManager untappdManager = new UntappdManager();
 
         untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }

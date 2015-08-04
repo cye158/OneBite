@@ -88,7 +88,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        mUntappdManager = new UntappdManager(mContext);
+        mUntappdManager = new UntappdManager();
 
         car_button = (ImageView) findViewById(R.id.car_button);
         bus_button = (ImageView) findViewById(R.id.bus_button);
@@ -172,8 +172,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
-        UntappdManager untappdManager = new UntappdManager(this);
-        untappdManager.setMostPopularDrink();
     }
 
     /** Check for favorite. - Guan Edited by Eric and Darin**/
@@ -242,8 +240,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
-                Toast.makeText(getApplicationContext(), "A restaurant within walking distance is shown",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within WALK distance",
+                        Toast.LENGTH_LONG).show();
                 highlightSelection(WALK);
 
                 //Get a random restuarant based on walking distance
@@ -251,17 +249,17 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 break;
 
             case BUS:
-                Toast.makeText(getApplicationContext(), "A restaurant within bus distance is shown",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within BUS distance",
+                        Toast.LENGTH_LONG).show();
                 highlightSelection(BUS);
 
-                //Get a random restuarant based on bus distance
+                //Get a random restuarant based on trans_bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
                 break;
 
             case CAR:
-                Toast.makeText(getApplicationContext(), "A restaurant within driving distance is shown",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within CAR distance",
+                        Toast.LENGTH_LONG).show();
                 highlightSelection(CAR);
 
                 //Get a random restuarant based on driving distance
@@ -414,24 +412,24 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private void highlightSelection(int transportation) {
         switch (transportation){
             case CAR:
-                car_button.setImageBitmap(toBitmap(R.drawable.car_s));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car_select));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
             case BUS:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus_s));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus_select));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
             case WALK:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk_s));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk_select));
                 break;
             default:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
         }
     }

@@ -16,40 +16,41 @@
         />
     <ImageView
         android:id="@+id/pacMan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:visibility="invisible"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/pac_man_animation"
+        android:background="@drawable/animation_pac_man"
         android:cropToPadding="false" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
         android:id="@+id/orangewhole"
         android:visibility="invisible"
-        android:background="@drawable/orangewhole"
+        android:layout_centerVertical="true"
+        android:background="@drawable/splash_orange_w"
         android:layout_alignBottom="@+id/pacMan"
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
         android:id="@+id/orangebite"
         android:visibility="invisible"
-        android:background="@drawable/orangebite"
+        android:layout_centerVertical="true"
+        android:background="@drawable/splash_orange_b"
         android:layout_alignBottom="@+id/pacMan"
         android:layout_centerHorizontal="true" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="239dp"
+        android:layout_height="112dp"
         android:id="@+id/onebite"
         android:visibility="invisible"
-        android:background="@drawable/onebite"
+        android:background="@drawable/splash_onebite"
         android:layout_alignBottom="@+id/pacMan"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,14 +65,14 @@
         android:textColor="#FFFFFF" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/bigPacMan"
-        android:layout_above="@+id/pacMan"
-        android:background="@drawable/big_pac_man_animation"
+        android:background="@drawable/animation_big_pac_man"
         android:visibility="invisible"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/pacMan"
+        android:layout_alignLeft="@+id/onebite"
+        android:layout_alignStart="@+id/onebite" />
 
 
     <ImageView
