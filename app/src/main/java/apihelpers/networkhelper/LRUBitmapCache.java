@@ -35,7 +35,11 @@ public class LRUBitmapCache extends LruCache<String, Bitmap> implements ImageLoa
 
     @Override
     public void putBitmap(String url, Bitmap bitmap) {
+<<<<<<< HEAD
             put(url,bitmap);
+=======
+        put(url,bitmap);
+>>>>>>> bf7380c2da6bf7d8460391847994beba71ccf6cd
     }
 
     public static int getCacheSize(Context pContex)

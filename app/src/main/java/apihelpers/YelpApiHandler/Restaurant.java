@@ -3,6 +3,7 @@ package apihelpers.YelpApiHandler;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,8 +74,12 @@ public class Restaurant {
             Log.e("YelpData", "Failed to get instance!!!!!!!!!!!!!");
         }
     }
-    public String getmRestName() {
-        return mRestName;
+    public String getmRestName()
+    {
+        if(mRestName == null)
+            return "No Restaurant found.";
+        else
+            return mRestName;
     }
 
     public void setmRestName(String mRestName) {
@@ -95,10 +100,19 @@ public class Restaurant {
     //Image of the restuarant ratings from Yelp
     public Bitmap getRatingImage()
     {
-        return this.mRatingImage;
+        if(mRatingImage != null)
+            return this.mRatingImage;
+        else
+            return null;
     }
 
-    public Bitmap getmRestImage(){ return mRestImage; }
+    public Bitmap getmRestImage()
+    {
+        if(mRestImage != null )
+            return mRestImage;
+        else
+            return null;
+    }
 
 
     public void setmDescription(String mDescription) {

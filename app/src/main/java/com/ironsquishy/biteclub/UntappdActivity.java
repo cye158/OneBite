@@ -106,6 +106,7 @@ public class UntappdActivity extends Activity{
             public void run() {
 
                 mResultTextView.setText(mOneUntappd.getBeerName());
+
                 mImageView.setImageBitmap(mOneUntappd.getBeerImage());
 
                 mRsltStyle.setText(mOneUntappd.getmBeerStyle());
