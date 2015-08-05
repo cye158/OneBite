@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -225,6 +226,13 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     public void toFilter(View view) {
         FilterOption dialog = new FilterOption();
         dialog.show(getFragmentManager(), "Filter Dialog Box");
+    }
+
+    public void onClickYelpImage(View view)
+    {
+        String restName = mRestaurant.getmRestName();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.yelp.com/search?find_desc=" + restName));
+        startActivity(intent);
     }
 
     /**
