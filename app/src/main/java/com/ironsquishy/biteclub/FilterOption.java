@@ -22,21 +22,21 @@ import ApiManagers.RestaurantManager;
  **/
 public class FilterOption extends DialogFragment {
 
-    /*List of the food cuisine style*/
+    /*Array of Strings to be used for sending the data to back-end*/
     ArrayList<String> addedFilter = new ArrayList();
-    final String[] foodCuisine = { "Chinese", "Filipino", "Italian", "Japanese",
-            "Korean", "Vietnamese", "Thai", "Mexican", "Vegetarian", "Creperies",
-            "Cafe", "Desserts", "Seafood", "Pizza" };
+
+    /*List of the food cuisine style*/
+    final String[] foodCuisine = { "Chinese", "Filipino", "Italian", "Japanese", "Korean",
+            "Vietnamese", "Thai", "Pizza" };
 
     /*List of boolean of items checked by user*/
-    boolean[] itemsChecked = { false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false };
+    boolean[] itemsChecked = { false, false, false, false, false, false, false, false };
 
     /*Dialog*/
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
 
-        /*Loads the boolean array*/
+        /*Loads the boolean array from preference*/
         for(int i=0; i<itemsChecked.length; i++){
             itemsChecked[i] = loadFilter(i);
             if(itemsChecked[i]==true){
@@ -47,19 +47,20 @@ public class FilterOption extends DialogFragment {
         /*Alert dialog declaration*/
         final AlertDialog.Builder filterDialog = new AlertDialog.Builder(getActivity());
         filterDialog.setTitle("Food Category:");
-        filterDialog.setMultiChoiceItems(foodCuisine, itemsChecked, new DialogInterface.OnMultiChoiceClickListener() {
-            /*Checked items from the category are saved in an array*/
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (isChecked) { //adds to addedFilter
-                    addedFilter.add(foodCuisine[which]);
-                    itemsChecked[which] = true;
-                } else { //removes from addedFilter
-                    addedFilter.remove(foodCuisine[which]);
-                    itemsChecked[which] = false;
-                }
-            }
-        });
+        filterDialog.setMultiChoiceItems(foodCuisine, itemsChecked,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                    /*Checked items from the category are saved in an array*/
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) { //adds to addedFilter
+                            addedFilter.add(foodCuisine[which]);
+                            itemsChecked[which] = true;
+                        } else { //removes from addedFilter
+                            addedFilter.remove(foodCuisine[which]);
+                            itemsChecked[which] = false;
+                        }
+                    }
+                });
 
         /*OK Button*/
         filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -72,6 +73,9 @@ public class FilterOption extends DialogFragment {
                 }
                 Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
 
+                if (isAllTrue(itemsChecked) || isAllFalse(itemsChecked)) {
+                    addedFilter=null;
+                };
                 /*Pass the filter list chosen by user to Restaurant Manager*/
                 RestaurantManager.getInstance().setFilters(addedFilter);
             }
@@ -89,6 +93,24 @@ public class FilterOption extends DialogFragment {
         setCancelable(false);
         AlertDialog objDialog = filterDialog.create();
         return objDialog;
+    }
+
+    /*Checker for a boolean array is all data stored are true*/
+    private static boolean isAllTrue(boolean[] isTrue) {
+        for (boolean value : isTrue) {
+            if (!value)
+                return false;
+        }
+        return true;
+    }
+
+    /*Checker for a boolean array is all data stored are false*/
+    private static boolean isAllFalse(boolean[] isFalse) {
+        for (boolean value : isFalse) {
+            if (value)
+                return false;
+        }
+        return true;
     }
 
     /*  Shared preference method to store the pref into a file named filter_pref and is committed
