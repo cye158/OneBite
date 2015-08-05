@@ -1,6 +1,7 @@
 package ApiManagers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.ironsquishy.biteclub.SplashActivity;
 
 import org.json.JSONObject;
 
@@ -118,7 +120,7 @@ public class NetworkRequestManager {
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
     }
-
+    /**Call for direction.*/
     public static void populateDirectionData(final GeneralCallback generalCallback, String URL, final Context pContext)
     {
         JsonObjectRequest jsonObjectRequest = generalJSONRequest(generalCallback, URL, DIRECTION_CALL);
@@ -235,6 +237,12 @@ public class NetworkRequestManager {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("NRM", "Failed to get Data.");
+
+                        Intent intent = new Intent(mContext, SplashActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        mContext.startActivity(intent);
                     }
                 });
 

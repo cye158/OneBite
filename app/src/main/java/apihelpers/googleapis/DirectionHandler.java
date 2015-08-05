@@ -10,8 +10,10 @@ import java.util.List;
 import com.google.*;
 import com.google.maps.android.PolyUtil;
 
+import ApiManagers.LocationHandler;
 import ApiManagers.NetworkRequestManager;
 import Callbacks.GeneralCallback;
+import apihelpers.YelpApiHandler.Restaurant;
 
 /**
  * Created by Allen Space on 8/4/2015.
@@ -23,6 +25,8 @@ public class DirectionHandler {
     private static List<LatLng> mListLatLng;
 
     private static Context mContext;
+
+    private static String mStatus;
 
 
     public DirectionHandler()
@@ -37,13 +41,23 @@ public class DirectionHandler {
 
     public String directionURLBuilder(double pLat, double pLng)
     {
-        String hardURL = "https://maps.googleapis.com/maps/api/directions/json?origin=SanFracisco&destination=DalyCity";
+        String latitude = String.valueOf(LocationHandler.getmLatitude());
+        String longitude = String.valueOf(LocationHandler.getmLongitude());
+
+        String dLatitude = String.valueOf(pLat);
+        String dLongitude = String.valueOf(pLng);
+
+        String hardURL = "https://maps.googleapis.com/maps/api/directions/json?origin=" + latitude
+                            + "%20" + longitude +"&destination=" + dLatitude + "%20" + dLongitude;
 
         return hardURL;
     }
 
-    public void populateJSONDirections(double pLatitude, double pLongitude, Context pContext)
+    public void populateJSONDirections(Restaurant pRestuarant)
     {
+
+        final String url = directionURLBuilder(pRestuarant.getmLatitude(), pRestuarant.getmLongitude());
+
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
             public void runWithResponse(Object object) {
@@ -52,15 +66,11 @@ public class DirectionHandler {
                 mDirectData = (DirectionData) object;
 
                 mListLatLng = decodePolyPoints(mDirectData.routes.get(0).overview_polyline.points);
-
-                for(int i = 0; i < mListLatLng.size(); i++)
-                {
-                    Log.i("LOCATION", "Point : " + mListLatLng.get(i));
-                }
+                mStatus = mDirectData.status;
             }
         };
 
-        NetworkRequestManager.getInstance().populateDirectionData(generalCallback, directionURLBuilder(0.0, 0.0), pContext);
+        NetworkRequestManager.getInstance().populateDirectionData(generalCallback, url, mContext);
     }
 
     private List<LatLng> decodePolyPoints(final String polyPoints)

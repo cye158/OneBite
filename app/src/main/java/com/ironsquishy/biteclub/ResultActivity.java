@@ -24,6 +24,7 @@ import ApiManagers.DatabaseManager;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
+import apihelpers.googleapis.DirectionHandler;
 
 
 /**
@@ -243,6 +244,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     private void randomizeYelpResponse(int tranState) {
 
+        DirectionHandler directionHandler = new DirectionHandler(this);
+
         switch (tranState) {
             case WALK:
                 Toast.makeText(getApplicationContext(), "A restaurant within walking distance is shown",
@@ -251,6 +254,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //Get a random restuarant based on walking distance
                 mRestaurant = mRestaurantManager.getRandRestWalk();
+
+                directionHandler.populateJSONDirections(mRestaurant);//Set directions
+
                 break;
 
             case BUS:
@@ -260,6 +266,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //Get a random restuarant based on bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
+
+                directionHandler.populateJSONDirections(mRestaurant);//Set directions
+
                 break;
 
             case CAR:
@@ -269,6 +278,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //Get a random restuarant based on driving distance
                 mRestaurant = mRestaurantManager.getRandRestCar();
+
+                directionHandler.populateJSONDirections(mRestaurant);//set directions
+
                 break;
         }
         setYelpInfo();

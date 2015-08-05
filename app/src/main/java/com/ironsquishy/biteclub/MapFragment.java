@@ -40,6 +40,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static double mLatitude = LATITUDE;
     private static LocationHandler mLocation;
 
+    private static GoogleMap mGoogleMap;
+
     private static Context mContext;
 
     private static MarkerMapFactory markerMapFactory;
@@ -133,6 +135,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         Log.i(TAG, "Building Map.");
 
+        mGoogleMap = googleMap;
+
         populateGoogleMaps(googleMap, mContext);
 
     }
@@ -160,11 +164,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * */
     private void populateGoogleMaps(GoogleMap pGoogleMap, Context pContext)
     {
-        //DirectionHandler directionHandler = new DirectionHandler();
 
-        //Log.i("LOCATION", "Drawing lines.");
-
-        //pGoogleMap.addPolyline(new PolylineOptions().addAll(directionHandler.getListOfLngLat()).width(10.0f).color(Color.CYAN));
 
         markerMapFactory = new MarkerMapFactory(pGoogleMap, mContext);
 
@@ -181,6 +181,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // display favorites markers
         markerMapFactory.createHistoryMarkers();
 
+        GetDirections();
+
+    }
+
+    private static void GetDirections()
+    {
+        DirectionHandler directionHandler = new DirectionHandler();
+
+        Log.i("LOCATION", "Drawing lines.");
+
+        mGoogleMap.addPolyline(new PolylineOptions().addAll(directionHandler.getListOfLngLat()).width(8.0f).color(Color.MAGENTA));
     }
 
 }
