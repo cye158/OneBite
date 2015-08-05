@@ -19,6 +19,7 @@ import apihelpers.Untappd.BeerData;
 import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.YelpApiHandler.YelpApiHandler;
 import apihelpers.YelpApiHandler.YelpData;
+import apihelpers.googleapis.DirectionData;
 import apihelpers.networkhelper.LRUBitmapCache;
 import apihelpers.networkhelper.SingleRequest;
 import apihelpers.Untappd.UntappdData;
@@ -35,6 +36,7 @@ public class NetworkRequestManager {
     private final static int YELP_CALL = 0;
     private final static int UNTAPPD_CALL =1;
     private final static int BEER_CALL = 2;
+    private final static int DIRECTION_CALL = 3;
 
     //Log cat tags....
     private static final String TAG = "UNTAPPD";
@@ -115,6 +117,13 @@ public class NetworkRequestManager {
 
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
+    }
+
+    public static void populateDirectionData(final GeneralCallback generalCallback, String URL, final Context pContext)
+    {
+        JsonObjectRequest jsonObjectRequest = generalJSONRequest(generalCallback, URL, DIRECTION_CALL);
+
+        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 
@@ -213,6 +222,11 @@ public class NetworkRequestManager {
                             BeerData beer = new Gson().fromJson(response.toString(), BeerData.class);
 
                             generalCallback.runWithResponse(beer.response.beer);
+                        }else if(FLAG == DIRECTION_CALL)
+                        {
+                            DirectionData directData =  new Gson().fromJson(response.toString(), DirectionData.class);
+
+                            generalCallback.runWithResponse(directData);
                         }
 
                     }

@@ -1,6 +1,7 @@
 package com.ironsquishy.biteclub;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +19,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import ApiManagers.LocationHandler;
+import apihelpers.googleapis.DirectionHandler;
 import apihelpers.googleapis.MarkerMapFactory;
 
 /**
@@ -156,6 +160,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * */
     private void populateGoogleMaps(GoogleMap pGoogleMap, Context pContext)
     {
+        //DirectionHandler directionHandler = new DirectionHandler();
+
+        //Log.i("LOCATION", "Drawing lines.");
+
+        //pGoogleMap.addPolyline(new PolylineOptions().addAll(directionHandler.getListOfLngLat()).width(10.0f).color(Color.CYAN));
+
         markerMapFactory = new MarkerMapFactory(pGoogleMap, mContext);
 
         moveCameraToClient(pGoogleMap);

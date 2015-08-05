@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
+import apihelpers.googleapis.DirectionHandler;
 
 /**
  * Created by Edward Yao on 7/28/2015.
