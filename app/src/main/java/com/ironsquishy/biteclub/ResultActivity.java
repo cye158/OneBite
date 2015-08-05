@@ -420,7 +420,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                             "<b>Number of Reviews: </b>" + mRestaurant.getReviewCount() + "<br>" +
                             "<b>Distance: </b>" + distanceFrom + " miles away";
 
-        String moreYelpInfo = "<b>Phone Number: </b>" + mRestaurant.getPhoneNumber() + "<br><br>" +
+        String moreYelpInfo = "<b>Phone Number: </b>" + formatPhoneNum(mRestaurant.getPhoneNumber()) + "<br><br>" +
                                 "<b>Review: </b>" + mRestaurant.getmDescription() + "... ";
 
         mExtYelpInfo.setText(Html.fromHtml(yelpInfo));
