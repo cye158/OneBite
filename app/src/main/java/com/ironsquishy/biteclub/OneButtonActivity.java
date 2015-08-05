@@ -116,8 +116,15 @@ public class OneButtonActivity extends Activity {
                         oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
                         oneButton.setBackgroundResource(R.drawable.one_button_up);
                         oneButtonPing.start();
+
+                        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+
+                        UntappdManager untappdManager = new UntappdManager(mContext);
+
+                        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         progressDialog.show();
+
                         break;
                 }
 
@@ -125,11 +132,7 @@ public class OneButtonActivity extends Activity {
 
             }
         });
-        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
-        UntappdManager untappdManager = new UntappdManager(mContext);
-
-        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }
 
     @Override
