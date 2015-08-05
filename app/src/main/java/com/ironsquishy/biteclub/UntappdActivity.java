@@ -116,7 +116,7 @@ public class UntappdActivity extends Activity{
 
                 mTotalRatings.setText(String.valueOf(mOneUntappd.getmTotalReviews()));
 
-                mRatings.setText(String.valueOf(mOneUntappd.getmRatings()));
+                //mRatings.setText(String.valueOf(mOneUntappd.getmRatings()));
 
                 //Check if Description string is empty.
                 if (mOneUntappd.getmDescription() == "")

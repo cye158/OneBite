@@ -56,7 +56,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="7dp"
                             android:gravity="center"
-                            android:text="(Click Here To Go To Untappd Website)"
+                            android:text="(Tap Here To Go To Untappd Website)"
                             android:textColor="#808080"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -81,7 +81,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="3dp"
+                            android:layout_marginBottom="2dp"
                             android:gravity="center"
                             android:text="BEER OF THE HOUR"
                             android:textSize="25sp"
@@ -158,8 +158,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/resultText"
-                            android:layout_marginTop="15dp"
-                            android:text="ratings here" />
+                            android:layout_marginTop="10dp"
+                            android:text=" " />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -209,7 +209,7 @@
                         android:id="@+id/BeerNumberOfReviewLayer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="7dp">
 
                         <TextView
                             android:id="@+id/BeerNumberOfReviewHeader"
@@ -290,7 +290,7 @@
                 <LinearLayout
                     android:id="@+id/BeerReviewLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/BeerDescriptionBoarder"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
@@ -299,7 +299,7 @@
                         android:id="@+id/BeerReview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Review:   "
+                        android:text="Review(s):   "
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#000000"
                         android:textSize="15sp"
@@ -308,7 +308,7 @@
                     <ScrollView
                         android:id="@+id/UntappdReviewScroll"
                         android:layout_width="match_parent"
-                        android:layout_height="75dp"
+                        android:layout_height="100dp"
                         android:layout_below="@id/BeerReview"
                         android:layout_marginTop="0dp"
                         android:fillViewport="true"

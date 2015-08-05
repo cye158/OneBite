@@ -117,6 +117,17 @@
                             android:layout_alignStart="@+id/resultText"
                             android:layout_marginTop="-40dp"/>
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/YelpImage"
+                            android:layout_centerHorizontal="true"
+                            android:layout_toLeftOf="@+id/Untappd"
+                            android:layout_marginRight="20dp"
+                            android:text="(Tap On Image To Go To Yelp Website)"
+                            android:textColor="#808080"
+                            android:textSize="10dp"/>
+
                         <com.melnykov.fab.FloatingActionButton
                             android:id="@+id/Untappd"
                             android:layout_width="25dp"
