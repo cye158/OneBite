@@ -35,7 +35,6 @@ public class UntappdList extends ActionBarActivity {
 
         mUntappdManager = new UntappdManager(this);
 
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 resource, textViewResourceID, mUntappdManager.getFilledComments());
 

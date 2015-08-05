@@ -2,14 +2,17 @@ package com.ironsquishy.biteclub;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +49,8 @@ public class UntappdActivity extends Activity{
 
     private static Intent mIntent;
 
+    private static LinearLayout untappdUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +71,7 @@ public class UntappdActivity extends Activity{
 
         mDescription = (TextView) findViewById(R.id.BeerDescriptionText);
 
-        mImageView = (ImageView) findViewById(R.id.YelpImage);
+        mImageView = (ImageView) findViewById(R.id.UntappdImage);
 
         mUntappdListV = (ListView) findViewById(R.id.untappdList);
 
@@ -77,17 +82,17 @@ public class UntappdActivity extends Activity{
 
         displayResultDrink();
 
+        untappdUrl = (LinearLayout) this.findViewById(R.id.UntappdUrlHeaderImage);
+
+        untappdUrl.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.untappd.com"));
+                startActivity(intent);
+            }
+        });
+
     }
 
-    /**When the user clicks on the beer image.*/
-    public void onClickImage(View view)
-    {
-        Log.i("UNTAPPD", "Call to webView");
-
-        Uri uri = Uri.parse("https://untappd.com/beer/top_rated");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
 
     /**
      * @author Allen Space
