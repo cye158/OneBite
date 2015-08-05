@@ -124,7 +124,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_toLeftOf="@+id/Untappd"
                             android:layout_marginRight="20dp"
-                            android:text="(Tap On Image To Go To Yelp Page)"
+                            android:text="(Tap On Image To Go To Yelp Website)"
                             android:textColor="#808080"
                             android:textSize="10dp"/>
 
