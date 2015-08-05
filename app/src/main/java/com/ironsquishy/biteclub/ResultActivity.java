@@ -488,9 +488,13 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      * @return A string of formated phone number
      */
     private String formatPhoneNum(String phoneNum) {
-        return "(" + phoneNum.substring(0, 3) + ")-" +
-                phoneNum.substring(3, 6) + "-" +
-                phoneNum.substring(6, 10);
+        if (phoneNum != null) {
+            return "(" + phoneNum.substring(0, 3) + ")-" +
+                    phoneNum.substring(3, 6) + "-" +
+                    phoneNum.substring(6, 10);
+        }
+
+        return " Not Available";
     }
 }
 
