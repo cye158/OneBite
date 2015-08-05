@@ -248,7 +248,7 @@ public class NetworkRequestManager {
         {
             mContext = pContext.getApplicationContext();
 
-            mLRUBitmapStack = new LRUBitmapCache(mContext);
+            mLRUBitmapStack = new LRUBitmapCache(65);
         }
 
     }

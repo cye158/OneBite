@@ -317,7 +317,7 @@ public class UntappdManager {
 
     private Bitmap findRsltImage(final String pBeerToLookFor)
     {
-        final String URL;
+
         for(int i = 0; i < mItems.size(); i++)
         {
             if(pBeerToLookFor == mItems.get(i).beer.beer_name){

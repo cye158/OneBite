@@ -233,7 +233,7 @@
 
                 <ListView
                     android:id="@+id/untappdList"
-                    android:layout_height="fill_parent"
+                    android:layout_height="400dp"
                     android:layout_width="275dp"
                     android:divider="#78323333"
                     android:dividerHeight="1dp"

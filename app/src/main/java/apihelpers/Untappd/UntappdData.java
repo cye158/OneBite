@@ -6,7 +6,6 @@ import java.util.List;
  * Created by Allen Space on 7/12/2015.
  */
 public class UntappdData {
-    //TODO add more object fields from Json.
     public Response response;
 
     public class Response
