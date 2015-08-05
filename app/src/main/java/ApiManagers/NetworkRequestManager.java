@@ -1,6 +1,7 @@
 package ApiManagers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.ironsquishy.biteclub.SplashActivity;
 
 import org.json.JSONObject;
 
@@ -19,6 +21,7 @@ import apihelpers.Untappd.BeerData;
 import apihelpers.Untappd.UntappdApiHandler;
 import apihelpers.YelpApiHandler.YelpApiHandler;
 import apihelpers.YelpApiHandler.YelpData;
+import apihelpers.googleapis.DirectionData;
 import apihelpers.networkhelper.LRUBitmapCache;
 import apihelpers.networkhelper.SingleRequest;
 import apihelpers.Untappd.UntappdData;
@@ -35,6 +38,7 @@ public class NetworkRequestManager {
     private final static int YELP_CALL = 0;
     private final static int UNTAPPD_CALL =1;
     private final static int BEER_CALL = 2;
+    private final static int DIRECTION_CALL = 3;
 
     //Log cat tags....
     private static final String TAG = "UNTAPPD";
@@ -115,6 +119,13 @@ public class NetworkRequestManager {
 
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
+    }
+    /**Call for direction.*/
+    public static void populateDirectionData(final GeneralCallback generalCallback, String URL, final Context pContext)
+    {
+        JsonObjectRequest jsonObjectRequest = generalJSONRequest(generalCallback, URL, DIRECTION_CALL);
+
+        SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 
@@ -213,6 +224,11 @@ public class NetworkRequestManager {
                             BeerData beer = new Gson().fromJson(response.toString(), BeerData.class);
 
                             generalCallback.runWithResponse(beer.response.beer);
+                        }else if(FLAG == DIRECTION_CALL)
+                        {
+                            DirectionData directData =  new Gson().fromJson(response.toString(), DirectionData.class);
+
+                            generalCallback.runWithResponse(directData);
                         }
 
                     }
@@ -221,6 +237,12 @@ public class NetworkRequestManager {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("NRM", "Failed to get Data.");
+
+                        Intent intent = new Intent(mContext, SplashActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        mContext.startActivity(intent);
                     }
                 });
 

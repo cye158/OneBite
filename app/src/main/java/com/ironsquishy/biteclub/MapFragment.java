@@ -1,6 +1,7 @@
 package com.ironsquishy.biteclub;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +19,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import ApiManagers.LocationHandler;
+import apihelpers.googleapis.DirectionHandler;
 import apihelpers.googleapis.MarkerMapFactory;
 
 /**
@@ -35,6 +39,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static double mLongitude = LONGITUDE;
     private static double mLatitude = LATITUDE;
     private static LocationHandler mLocation;
+
+    private static GoogleMap mGoogleMap;
 
     private static Context mContext;
 
@@ -129,6 +135,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         Log.i(TAG, "Building Map.");
 
+        mGoogleMap = googleMap;
+
         populateGoogleMaps(googleMap, mContext);
 
     }
@@ -156,6 +164,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * */
     private void populateGoogleMaps(GoogleMap pGoogleMap, Context pContext)
     {
+
+
         markerMapFactory = new MarkerMapFactory(pGoogleMap, mContext);
 
         moveCameraToClient(pGoogleMap);
@@ -171,6 +181,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // display favorites markers
         markerMapFactory.createHistoryMarkers();
 
+        GetDirections();
+
+    }
+
+    private static void GetDirections()
+    {
+        DirectionHandler directionHandler = new DirectionHandler();
+
+        Log.i("LOCATION", "Drawing lines.");
+
+        mGoogleMap.addPolyline(new PolylineOptions().addAll(directionHandler.getListOfLngLat()).width(8.0f).color(Color.MAGENTA));
     }
 
 }

@@ -221,7 +221,6 @@ public class UntappdManager {
 
             getBeerData(mMostPopularBeerBID, mContext);
 
-
         }
 
     }
