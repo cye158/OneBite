@@ -405,7 +405,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                                 "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
                                 "Distance: " + distanceFrom + " miles away");
         mMoreYelpInfo.setText("Phone Number: " + formatPhoneNum(mRestaurant.getPhoneNumber()) + "\n\n" +
-                "Description: " + mRestaurant.getmDescription() + "... ");
+                "Review: " + mRestaurant.getmDescription() + "... ");
     }
 
 
