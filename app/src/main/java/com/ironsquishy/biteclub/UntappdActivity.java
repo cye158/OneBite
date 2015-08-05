@@ -89,7 +89,7 @@ public class UntappdActivity extends Activity{
 
         untappdUrl.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.untappd.com"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.untappd.com/beer/top_rated"));
                 startActivity(intent);
             }
         });
