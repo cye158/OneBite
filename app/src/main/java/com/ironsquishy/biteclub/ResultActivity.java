@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -46,7 +47,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private final static int BUS = 1;
     private final static int CAR = 2;
     private static int defaultTransportation = 2;
-    private int transportModePreference = defaultTransportation; //Is used for shared preference.
+    private int transportModePreference = defaultTransportation;
 
     private static TextView addToData;
     private static ImageView mYelpImage, mYelpRating;
@@ -88,7 +89,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        mUntappdManager = new UntappdManager();
+        mUntappdManager = new UntappdManager(this);
 
         car_button = (ImageView) findViewById(R.id.car_button);
         bus_button = (ImageView) findViewById(R.id.bus_button);
@@ -109,7 +110,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
          * @Author Darin modified by Eric
          * Description: Transportation modes
          */
-        //This one Car
+
         car_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(CAR);
@@ -118,19 +119,21 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
-        //This one Bus
+        //This one Buses
         bus_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 randomizeYelpResponse(BUS);
+
                 //saves the mode of transportation chosen.
                 saveTransportation(BUS);
             }
         });
 
-        //This one Walk
+        //This one walks
         walk_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 randomizeYelpResponse(WALK);
+
                 //saves the mode of transportation chosen.
                 saveTransportation(WALK);
             }
@@ -172,12 +175,11 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
-        UntappdManager untappdManager = new UntappdManager(this);
-        untappdManager.setMostPopularDrink();
+        mUntappdManager.setMostPopularDrink();
 
     }
 
-    /** Check for favorite. - Guan Edited by Eric and Darin**/
+    /** Check for favorite. - Guan Editted by Eric and Darin**/
     public void checkFavAdd(View view) {
         if (mDatabaseManager.checkIfInDatabase(mRestaurant.getmRestName(),
                 mRestaurant.getmLatitude(),
@@ -202,7 +204,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         Intent intent = new Intent(this, MapActivity.class);
 
         //This is important for Untappd activity, needs population data.
-        
+
         startActivity(intent);
     }
 
@@ -243,8 +245,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         switch (tranState) {
             case WALK:
-                Toast.makeText(getApplicationContext(), "A restaurant within WALK distance",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within walking distance is shown",
+                        Toast.LENGTH_SHORT).show();
                 highlightSelection(WALK);
 
                 //Get a random restuarant based on walking distance
@@ -252,17 +254,17 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 break;
 
             case BUS:
-                Toast.makeText(getApplicationContext(), "A restaurant within BUS distance",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within bus distance is shown",
+                        Toast.LENGTH_SHORT).show();
                 highlightSelection(BUS);
 
-                //Get a random restuarant based on trans_bus distance
+                //Get a random restuarant based on bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
                 break;
 
             case CAR:
-                Toast.makeText(getApplicationContext(), "A restaurant within CAR distance",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "A restaurant within driving distance is shown",
+                        Toast.LENGTH_SHORT).show();
                 highlightSelection(CAR);
 
                 //Get a random restuarant based on driving distance
@@ -372,6 +374,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     /**
      * @Author Eric Chen
      * Description: Gets yelp information from Restaurant class
+     *
+     * Edited the labels are now bolded Edward Yao 8/04/15
      */
     private void setYelpInfo() {
         //Set the Text name.
@@ -400,16 +404,47 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         String distanceFrom = String.format("%.2f", distanceMiles);
 
-        mExtYelpInfo.setText("Cuisine Style: " + mRestaurant.getmCuisineStyle() + "\n" +
-                "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                "Distance: " + distanceFrom + " miles away");
-        mMoreYelpInfo.setText("Phone Number: " + mRestaurant.getPhoneNumber() + "\n\n" +
-                "Description: " + mRestaurant.getmDescription() + "... ");
+        String yelpInfo = "<b>Cuisine Style: </b>" + mRestaurant.getmCuisineStyle() + "<br>" +
+                            "<b>Number of Reviews: </b>" + mRestaurant.getReviewCount() + "<br>" +
+                            "<b>Distance: </b>" + distanceFrom + " miles away";
+
+        String moreYelpInfo = "<b>Phone Number: </b>" + mRestaurant.getPhoneNumber() + "<br><br>" +
+                                "<b>Review: </b>" + mRestaurant.getmDescription() + "... ";
+
+        mExtYelpInfo.setText(Html.fromHtml(yelpInfo));
+        mMoreYelpInfo.setText(Html.fromHtml(moreYelpInfo));
+    }
+
+
+    /** Shared preference for transportation by Renz - 7/29/15 **/
+    /*
+        Save method to store the transportation mode preference into a file named
+        "transport_preference". The file will be used by loadTransportation method.
+    */
+    public void saveTransportation(int defaultTransportation) {
+        SharedPreferences transport_pref;
+        SharedPreferences.Editor editor;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        editor = transport_pref.edit();
+        editor.putInt("transportation_mode", defaultTransportation);
+        editor.commit();
+    }
+
+    /*
+        Load method that loads the mode of transportation from "transport_preference" file. Then
+        passes the integer that corresponds to the saved transportation mode as the new
+        defaultTransportation. If the file is empty then it returns the same mode(default value).
+    */
+    public Integer loadTransportation(int defaultTransportation) {
+        SharedPreferences transport_pref;
+        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
+        return transport_pref.getInt("transportation_mode", defaultTransportation);
     }
 
     /**
      * @Author Eric Chen
-     * Description: This highlights the transportation mode
+     * Description: This highlights the transportation mode.
+     *
      * Edited the icons and rescaling by Renz 7/30/15
      **/
     private void highlightSelection(int transportation) {
@@ -437,41 +472,36 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         }
     }
 
-    /**Copied & modified from google marker class to be used in this class - Renz 7/30/15
+    /**
+     *
+     * Copied & modified from google marker class to be used in this class - Renz 7/30/15
      *
      * @author: Guan
      * Description: turn a non .bmp image into bitmap and resize to prevent blurriness
      * @param id the resource ID of the image data
      * @return Bitmap object of resized image
-     **/
+     *
+     */
     private Bitmap toBitmap(int id) {
         Bitmap marker = BitmapFactory.decodeResource(this.getResources(), id);
         marker = Bitmap.createScaledBitmap(marker, 220, 220, true);
         return marker;
     }
 
-    /** Shared preference for transportation by Renz - 7/29/15 **/
-    /*Save method to store the transportation mode preference into a file named
-        "transport_preference". The file will be used by loadTransportation method.
-    */
-    public void saveTransportation(int defaultTransportation) {
-        SharedPreferences transport_pref;
-        SharedPreferences.Editor editor;
-        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
-        editor = transport_pref.edit();
-        editor.putInt("transportation_mode", defaultTransportation);
-        editor.commit();
-    }
+    /**
+     * @author: Guan
+     * Description: Format US phone number (ONLY)
+     * @param phoneNum A string value of phone number
+     * @return A string of formated phone number
+     */
+    private String formatPhoneNum(String phoneNum) {
+        if (phoneNum != null) {
+            return "(" + phoneNum.substring(0, 3) + ") " +
+                    phoneNum.substring(3, 6) + "-" +
+                    phoneNum.substring(6, 10);
+        }
 
-    /** Shared preference for transportation by Renz - 7/29/15 **/
-    /*  Load method that loads the mode of transportation from "transport_preference" file. Then
-        passes the integer that corresponds to the saved transportation mode as the new
-        defaultTransportation. If the file is empty then it returns the same mode(default value).
-    */
-    public Integer loadTransportation(int defaultTransportation) {
-        SharedPreferences transport_pref;
-        transport_pref = getApplicationContext().getSharedPreferences("transport_preference", Context.MODE_PRIVATE);
-        return transport_pref.getInt("transportation_mode", defaultTransportation);
+        return " Not Available";
     }
 }
 

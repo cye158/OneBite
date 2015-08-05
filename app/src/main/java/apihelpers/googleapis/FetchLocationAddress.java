@@ -102,8 +102,15 @@ public class FetchLocationAddress extends IntentService{
         Address address = addresses.get(0);
 
         //Sets Lat lng in LocationHandler
-        LocationHandler.setmLatitude(address.getLatitude());
-        LocationHandler.setmLongitude(address.getLongitude());
+
+        if(address.getLatitude() != 0.0) {
+            LocationHandler.setmLatitude(address.getLatitude());
+            LocationHandler.setmLongitude(address.getLongitude());
+        }else
+        {
+            LocationHandler.setmLatitude(37.773972);
+            LocationHandler.setmLongitude(-122.431297);
+        }
 
     }
 

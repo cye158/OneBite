@@ -74,7 +74,7 @@ public class CustomProgressDialog extends ProgressDialog {
 
         //creates the slide to left animation
         animationToLeft = new TranslateAnimation(1500, -1100, 0, 0);
-        animationToLeft.setDuration(3450);
+        animationToLeft.setDuration(3500);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
 
@@ -83,7 +83,7 @@ public class CustomProgressDialog extends ProgressDialog {
         nowSearchingText.setText(textLeft);
         nowSearchingText.setTextColor(Color.parseColor("#FFFFFF"));
         nowSearchingText.setTypeface(null, Typeface.BOLD);
-        nowSearchingText.setTextSize(18);
+        nowSearchingText.setTextSize(20);
         nowSearchingText.setGravity(Gravity.CENTER);
 
         oneButtonPingFeedback = MediaPlayer.create(getContext(), R.raw.sonar_one_ping_feedback);

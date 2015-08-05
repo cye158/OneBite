@@ -3,6 +3,7 @@ package apihelpers.YelpApiHandler;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,20 +13,20 @@ public class Restaurant {
 
 
     /**Data Fields**/
-    private String mRestName;
-    private String mDescription;
-    private Bitmap mRestImage;//this handles the displayed yelp image, but won't be in the restaurant object
-    private Bitmap mRatingImage; //this handles the displayed yelp rating star image.
-    private double mLatitude;
-    private double mLongitude;
-    private double mRatings;
-    private List<List<String>> mCategogy;
-    private int mReviewCount;
-    private boolean mIsClosed;
-    private String mCuisineStyle;
-    private double mDistancefrom;
+    private static String mRestName;
+    private static String mDescription;
+    private static Bitmap mRestImage;//this handles the displayed yelp image, but won't be in the restaurant object
+    private static Bitmap mRatingImage; //this handles the displayed yelp rating star image.
+    private static double mLatitude;
+    private static double mLongitude;
+    private static double mRatings;
+    private static List<List<String>> mCategogy;
+    private static int mReviewCount;
+    private static boolean mIsClosed;
+    private static String mCuisineStyle;
+    private static double mDistancefrom;
 
-    private String mPhoneNumber;
+    private static String mPhoneNumber;
 
 
     private apihelpers.YelpApiHandler.YelpData.Business restaurant;
@@ -73,8 +74,12 @@ public class Restaurant {
             Log.e("YelpData", "Failed to get instance!!!!!!!!!!!!!");
         }
     }
-    public String getmRestName() {
-        return mRestName;
+    public String getmRestName()
+    {
+        if(mRestName == null)
+            return "No Restaurant found.";
+        else
+            return mRestName;
     }
 
     public void setmRestName(String mRestName) {
@@ -95,10 +100,19 @@ public class Restaurant {
     //Image of the restuarant ratings from Yelp
     public Bitmap getRatingImage()
     {
-        return this.mRatingImage;
+        if(mRatingImage != null)
+            return this.mRatingImage;
+        else
+            return null;
     }
 
-    public Bitmap getmRestImage(){ return mRestImage; }
+    public Bitmap getmRestImage()
+    {
+        if(mRestImage != null )
+            return mRestImage;
+        else
+            return null;
+    }
 
 
     public void setmDescription(String mDescription) {

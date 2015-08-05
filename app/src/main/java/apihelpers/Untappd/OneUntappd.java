@@ -42,12 +42,12 @@ public class OneUntappd {
 
     public String getBeerName()
     {
-        return this.mBeerName;
+        return mBeerName;
     }
 
     public Bitmap getBeerImage()
     {
-        return this.mBeerImage;
+        return mBeerImage;
     }
 
     public void setBeerName(String pBeerName)
