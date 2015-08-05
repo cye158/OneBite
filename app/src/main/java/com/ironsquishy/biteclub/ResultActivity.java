@@ -441,24 +441,24 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private void highlightSelection(int transportation) {
         switch (transportation){
             case CAR:
-                car_button.setImageBitmap(toBitmap(R.drawable.car_s));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car_select));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
             case BUS:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus_s));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus_select));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
             case WALK:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk_s));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk_select));
                 break;
             default:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
         }
     }
