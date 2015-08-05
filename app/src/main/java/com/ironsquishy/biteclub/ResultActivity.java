@@ -489,7 +489,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     private String formatPhoneNum(String phoneNum) {
         if (phoneNum != null) {
-            return "(" + phoneNum.substring(0, 3) + ")-" +
+            return "(" + phoneNum.substring(0, 3) + ") " +
                     phoneNum.substring(3, 6) + "-" +
                     phoneNum.substring(6, 10);
         }
