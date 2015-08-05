@@ -22,7 +22,8 @@ public class RestaurantManager {
 
     /**Data Fields**/
     private static YelpData mYelpData; //This will need to populated before hand!!!!!!!!!!!!!
-    private static Bitmap mYelpImage; //
+    private static Bitmap mYelpRestImage;
+    private static Bitmap mYelpRatingImage;
     private static Context mContext; //Volly need to pass in the context
 
     private Restaurant mRestaurant;    //Creating resulting restaurant.
@@ -89,11 +90,12 @@ public class RestaurantManager {
                 carRestuarant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
                 //insert restaurant image so front-end won't make a second call
-                carRestuarant.setmRestImage(mYelpData.businesses.get(i).restImage);
+                mYelpRestImage = getCacheImage(mYelpData.businesses.get(i).image_url);
+                carRestuarant.setRestImage(mYelpRestImage);
 
                 //insert restaurant ratings
-
-                carRestuarant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+                mYelpRatingImage = getCacheImage(mYelpData.businesses.get(i).rating_img_url_large);
+                carRestuarant.setRatingImage(mYelpRatingImage);
 
 
                 //Returns a random restuarant name.
@@ -107,8 +109,6 @@ public class RestaurantManager {
         return carRestuarant;
 
     }
-
-
 
 
 
@@ -144,11 +144,14 @@ public class RestaurantManager {
                 //Set distance from.
                 busRestuarant.setDistanceFrom(distance);
 
-                //insert image from here
-                busRestuarant.setmRestImage(mYelpData.businesses.get(i).restImage);
+                //insert restaurant image so front-end won't make a second call
+                mYelpRestImage = getCacheImage(mYelpData.businesses.get(i).image_url);
+                busRestuarant.setRestImage(mYelpRestImage);
 
-                //Insert to rating image to restuarant object.
-                busRestuarant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+                //insert restaurant ratings
+                mYelpRatingImage = getCacheImage(mYelpData.businesses.get(i).rating_img_url_large);
+                busRestuarant.setRatingImage(mYelpRatingImage);
+
 
                 //Set cuisin style string.
                 busRestuarant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
@@ -196,11 +199,13 @@ public class RestaurantManager {
                 //Set distance from.
                 walkRestuarant.setDistanceFrom(distance);
 
-                //insert image from here
-                walkRestuarant.setmRestImage(mYelpData.businesses.get(i).restImage);
+                //insert restaurant image so front-end won't make a second call
+                mYelpRestImage = getCacheImage(mYelpData.businesses.get(i).image_url);
+                walkRestuarant.setRestImage(mYelpRestImage);
 
-                //Insert to rating image to restuarant object.
-                walkRestuarant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+                //insert restaurant ratings
+                mYelpRatingImage = getCacheImage(mYelpData.businesses.get(i).rating_img_url_large);
+                walkRestuarant.setRatingImage(mYelpRatingImage);
 
                 //Set cuisin style string.
                 walkRestuarant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
@@ -230,7 +235,7 @@ public class RestaurantManager {
         };
 
         NetworkRequestManager.getInstance().initContext(pContext);
-        NetworkRequestManager.getInstance().populateYelpData(generalCallback,"8046.72", pContext);
+        NetworkRequestManager.getInstance().populateYelpData(generalCallback, "8046.72", pContext);
     }
 
     //Get all restuarant images.
@@ -258,13 +263,12 @@ public class RestaurantManager {
         if (flag == true) {
 
 
-
             GeneralCallback generalCallback = new GeneralCallback() {
                 @Override
                 public void runWithResponse(Object object) {
-                    mYelpImage = (Bitmap) object;
+                    //mYelpRestImage = (Bitmap) object;
 
-                    mYelpData.businesses.get(index).restImage = mYelpImage;
+                    //mYelpData.businesses.get(index).restImage = mYelpRestImage;
 
 
                 }
@@ -281,9 +285,9 @@ public class RestaurantManager {
             GeneralCallback generalCallback = new GeneralCallback() {
                 @Override
                 public void runWithResponse(Object object) {
-                    mYelpImage = (Bitmap) object;
+                   //mYelpRatingImage = (Bitmap) object;
 
-                    mYelpData.businesses.get(index).restRatings = mYelpImage;
+                    //mYelpData.businesses.get(index).restRatings = mYelpRatingImage;
 
                 }
             };
@@ -301,9 +305,6 @@ public class RestaurantManager {
         }else {
 
             for(int i = 0; i < FiltersArray.size(); i++) {
-
-                Log.i("categ",FiltersArray.get(i).toLowerCase() + " == " + pRestaurant.categories.get(0).get(1)
-                        +"?");
 
                 if(pRestaurant.categories.get(0).get(1).equals((FiltersArray.get(i)
                         .toLowerCase())))
@@ -323,34 +324,11 @@ public class RestaurantManager {
                 Toast.LENGTH_SHORT).show();
     }
 
-
-     /*
-    public Restaurant getFilterRestCar(ArrayList filter)
+    private Bitmap getCacheImage(String URL)
     {
-        //Shuffle all because it is max radius
-        Collections.shuffle(mYelpData.businesses, new Random(System.nanoTime()));
+        URL = URL.replaceAll("ms.jpg" , "o.jpg");
 
-        for (int i=0; i < mYelpData.businesses.size(); i++){
-
-            for(int j=0; j <filter.size(); j++){
-
-                Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
-                if(mYelpData.businesses.get(i).categories.get(0).get(1).equals((filter.get(j).toString().toLowerCase()))) {
-
-                    Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(i));
-
-                Log.i("YelpData", "Rest name: " + matchedRestaurant.getmRestName());
-                    return matchedRestaurant;
-
-                }
-
-
-            }
-
-        }
-
-        Restaurant matchedRestaurant = new Restaurant(mYelpData.businesses.get(0));
-        return matchedRestaurant; //if cannot find one restaurant's style matches the user's selection
-    }*/
+        return NetworkRequestManager.getInstance().getBitmapOnLRU(URL);
+    }
 
 }

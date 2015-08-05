@@ -92,24 +92,33 @@ public class Restaurant {
 
     public void setRatingImage(Bitmap bitmap)
     {
-        this.mRatingImage = bitmap;
+        mRatingImage = bitmap;
     }
     //Picture of Restuarant from yelp.
-    public void setmRestImage(Bitmap mRestImage)  { this.mRestImage = mRestImage; }
+    public void setRestImage(Bitmap bitmap)
+    {
+        mRestImage = bitmap;
+    }
 
     //Image of the restuarant ratings from Yelp
     public Bitmap getRatingImage()
     {
+
         if(mRatingImage != null)
+        {
+            Log.i("YelpData", "Returning rating image.");
             return this.mRatingImage;
+        }
         else
             return null;
     }
 
     public Bitmap getmRestImage()
     {
-        if(mRestImage != null )
+        if(mRestImage != null ) {
+            Log.i("YelpData", "Returning restuarant image.");
             return mRestImage;
+        }
         else
             return null;
     }
