@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -68,9 +69,19 @@ public class OneButtonActivity extends Activity {
 
         mContext = this;
 
+        final Rect r = new Rect();
+
         oneButton.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                //get the views rect relative to its parent
+                v.getHitRect(r);
+                // offset the touch coordinates with the values from r
+                // to obtain meaningful coordinates
+                final float x = event.getX() + r.left;
+                final float y = event.getY() + r.top;
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // Start
@@ -81,21 +92,39 @@ public class OneButtonActivity extends Activity {
                             oneButtonPing.reset();
                             oneButtonPing.release();
                             oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
-
                         }
                         break;
+
+
                     case MotionEvent.ACTION_UP:
                         // End
+
+                        //if the touch coordinates are not in the View of rerct
+                        if (!r.contains((int) x, (int) y)) {
+                            oneButton.setBackgroundResource(R.drawable.one_button_up);
+                            oneButtonPing.start();
+                            oneButtonPulse.startAnimation(oneButtonPulseAnimation);
+                            oneButtonPing.reset();
+                            oneButtonPing.release();
+                            oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_one_ping);
+                            oneButtonPing.start();
+                            break;
+                        }
+
+                        oneButtonPing.reset();
+                        oneButtonPing.release();
+                        oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
                         oneButton.setBackgroundResource(R.drawable.one_button_up);
                         oneButtonPing.start();
-                        oneButtonPulse.startAnimation(oneButtonPulseAnimation);
-                        progressDialog.show();
 
                         RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
                         UntappdManager untappdManager = new UntappdManager(mContext);
 
                         untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+                        oneButtonPulse.startAnimation(oneButtonPulseAnimation);
+                        progressDialog.show();
+
                         break;
                 }
 
