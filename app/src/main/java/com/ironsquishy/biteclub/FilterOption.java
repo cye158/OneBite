@@ -47,19 +47,20 @@ public class FilterOption extends DialogFragment {
         /*Alert dialog declaration*/
         final AlertDialog.Builder filterDialog = new AlertDialog.Builder(getActivity());
         filterDialog.setTitle("Food Category:");
-        filterDialog.setMultiChoiceItems(foodCuisine, itemsChecked, new DialogInterface.OnMultiChoiceClickListener() {
-            /*Checked items from the category are saved in an array*/
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (isChecked) { //adds to addedFilter
-                    addedFilter.add(foodCuisine[which]);
-                    itemsChecked[which] = true;
-                } else { //removes from addedFilter
-                    addedFilter.remove(foodCuisine[which]);
-                    itemsChecked[which] = false;
-                }
-            }
-        });
+        filterDialog.setMultiChoiceItems(foodCuisine, itemsChecked,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                    /*Checked items from the category are saved in an array*/
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) { //adds to addedFilter
+                            addedFilter.add(foodCuisine[which]);
+                            itemsChecked[which] = true;
+                        } else { //removes from addedFilter
+                            addedFilter.remove(foodCuisine[which]);
+                            itemsChecked[which] = false;
+                        }
+                    }
+                });
 
         /*OK Button*/
         filterDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -72,6 +73,9 @@ public class FilterOption extends DialogFragment {
                 }
                 Toast.makeText(getActivity(), "Filters entered", Toast.LENGTH_SHORT).show();
 
+                if (isAllTrue(itemsChecked) || isAllFalse(itemsChecked)) {
+                    addedFilter=null;
+                };
                 /*Pass the filter list chosen by user to Restaurant Manager*/
                 RestaurantManager.getInstance().setFilters(addedFilter);
             }
@@ -89,6 +93,24 @@ public class FilterOption extends DialogFragment {
         setCancelable(false);
         AlertDialog objDialog = filterDialog.create();
         return objDialog;
+    }
+
+    /*Checker for a boolean array is all data stored are true*/
+    private static boolean isAllTrue(boolean[] isTrue) {
+        for (boolean value : isTrue) {
+            if (!value)
+                return false;
+        }
+        return true;
+    }
+
+    /*Checker for a boolean array is all data stored are false*/
+    private static boolean isAllFalse(boolean[] isFalse) {
+        for (boolean value : isFalse) {
+            if (value)
+                return false;
+        }
+        return true;
     }
 
     /*  Shared preference method to store the pref into a file named filter_pref and is committed
