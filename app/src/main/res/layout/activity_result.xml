@@ -104,7 +104,8 @@
                             android:layout_height="200dp"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/placeholder_yelp" />
+                            android:src="@drawable/placeholder_yelp"
+                            android:onClick="onClickYelpImage" />
                             
                         <ImageView
                             android:layout_width="120dp"
