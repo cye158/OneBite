@@ -12,6 +12,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="One Bite, One Button, One Result"
         android:textColor="#FFFFFF"
+        android:alpha="0"
         android:textSize="20dp"
         android:textStyle="bold"
         android:id="@+id/moto"
@@ -80,6 +81,18 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/untappd"
         android:layout_toEndOf="@+id/untappd" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/smallbite"
+        android:src="@drawable/one_button_onebite"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:paddingTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
