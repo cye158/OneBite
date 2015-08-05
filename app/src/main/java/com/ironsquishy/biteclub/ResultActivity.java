@@ -88,7 +88,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        mUntappdManager = new UntappdManager();
+        mUntappdManager = new UntappdManager(this);
 
         car_button = (ImageView) findViewById(R.id.car_button);
         bus_button = (ImageView) findViewById(R.id.bus_button);
@@ -130,7 +130,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //This one walks
         walk_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
                 randomizeYelpResponse(WALK);
 
                 //saves the mode of transportation chosen.
@@ -173,6 +173,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
                 collapse();
             }
         });
+
+        mUntappdManager.setMostPopularDrink();
 
     }
 
