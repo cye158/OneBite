@@ -125,7 +125,7 @@ public class UntappdManager {
     }
 
     public List<UntappdData.Item> getListItems() {
-        return mData.response.checkins.items;
+        return mItems;
     }
 
     public String getRandomDrink() {
