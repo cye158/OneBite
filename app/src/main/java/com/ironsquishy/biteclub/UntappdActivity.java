@@ -30,6 +30,7 @@ public class UntappdActivity extends Activity{
     private static TextView mRsltStyle;
     private static TextView mTotalRatings;
     private static TextView mDescription;
+    private static TextView mRatings;
 
     //Image view objects
     private static ImageView mImageView;
@@ -61,6 +62,8 @@ public class UntappdActivity extends Activity{
         mResultTextView = (TextView) findViewById(R.id.resultText);
 
         mRsltStyle = (TextView) findViewById(R.id.BeerStyle);
+
+        mRatings = (TextView) findViewById(R.id.BeerRating);
 
         mTotalRatings = (TextView) findViewById(R.id.BeerNumberOfReview);
 
@@ -107,6 +110,8 @@ public class UntappdActivity extends Activity{
                 mRsltStyle.setText(mOneUntappd.getmBeerStyle());
 
                 mTotalRatings.setText(String.valueOf(mOneUntappd.getmTotalReviews()));
+
+                mRatings.setText(String.valueOf(mOneUntappd.getmRatings()));
 
                 //Check if Description string is empty.
                 if (mOneUntappd.getmDescription() == "")

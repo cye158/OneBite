@@ -90,6 +90,12 @@ public class OneButtonActivity extends Activity {
                         oneButtonPing.start();
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         progressDialog.show();
+
+                        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+
+                        UntappdManager untappdManager = new UntappdManager(mContext);
+
+                        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
                         break;
                 }
 
@@ -97,11 +103,7 @@ public class OneButtonActivity extends Activity {
 
             }
         });
-        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
-        UntappdManager untappdManager = new UntappdManager(mContext);
-
-        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }
 
     @Override

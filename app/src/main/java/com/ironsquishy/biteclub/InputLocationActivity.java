@@ -32,7 +32,9 @@ public class InputLocationActivity extends DialogFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_input_location, null);
         Enter = (Button) view.findViewById(R.id.enterButton);
-        getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         mContext = view.getContext();
 
         mAddress = (EditText)view.findViewById(R.id.input_address);

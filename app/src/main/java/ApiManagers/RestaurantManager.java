@@ -3,6 +3,7 @@ package ApiManagers;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +60,7 @@ public class RestaurantManager {
 
     public Restaurant getRandRestCar()
     {
-
+        Restaurant carRestuarant = new Restaurant();
         double originLat = LocationHandler.getmLatitude();
         double originLng = LocationHandler.getmLongitude();
 
@@ -76,31 +77,34 @@ public class RestaurantManager {
                 double destLat = mYelpData.businesses.get(i).location.coordinate.latitude;
                 double destLng = mYelpData.businesses.get(i).location.coordinate.longitude;
 
-                LocationHelper somelocation = new LocationHelper(originLat, originLat, destLat, destLng);
+                LocationHelper somelocation = new LocationHelper(originLat, originLng, destLat, destLng);
 
-                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+                carRestuarant = new Restaurant(mYelpData.businesses.get(i));
 
-                new MarkerMapFactory(restaurant);
+                new MarkerMapFactory(carRestuarant);
 
-                restaurant.setDistanceFrom((float) somelocation.getDistanceFromOrigin());
+                carRestuarant.setDistanceFrom((float) somelocation.getDistanceFromOrigin());
 
                 //Set the restaurents filter.
-                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
+                carRestuarant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
                 //insert restaurant image so front-end won't make a second call
-                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
+                carRestuarant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //insert restaurant ratings
 
-                restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+                carRestuarant.setRatingImage(mYelpData.businesses.get(i).restRatings);
 
 
                 //Returns a random restuarant name.
-                return restaurant;
+                return carRestuarant;
             }
         }
 
-        return null;
+
+        showToast(mContext);
+
+        return carRestuarant;
 
     }
 
@@ -111,6 +115,8 @@ public class RestaurantManager {
     public Restaurant getRandRestBus()
     {
         final double BusRadius = 5632.7; //Bus radius in meters.
+
+        Restaurant busRestuarant = new Restaurant();
 
         double originLat = LocationHandler.getmLatitude();
         double originLng = LocationHandler.getmLongitude();
@@ -131,33 +137,38 @@ public class RestaurantManager {
 
             if(distance <= BusRadius && doesFitFilter(mYelpData.businesses.get(i)))
             {
-                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+                busRestuarant = new Restaurant(mYelpData.businesses.get(i));
 
-                new MarkerMapFactory(restaurant);
+                new MarkerMapFactory(busRestuarant);
 
                 //Set distance from.
-                restaurant.setDistanceFrom(distance);
+                busRestuarant.setDistanceFrom(distance);
 
                 //insert image from here
-                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
+                busRestuarant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //Insert to rating image to restuarant object.
-                restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+                busRestuarant.setRatingImage(mYelpData.businesses.get(i).restRatings);
 
                 //Set cuisin style string.
-                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
+                busRestuarant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
                 //Returns a random restuarant name.
-                return restaurant;
+                return busRestuarant;
             }
         }
 
-        return null;
+        showToast(mContext);
+
+        return busRestuarant;
     }
 
     public Restaurant getRandRestWalk()
     {
         final double WalkRadius = 2414.02; //Bus radius in meters.
+
+
+        Restaurant walkRestuarant = new Restaurant();
 
         double originLat = LocationHandler.getmLatitude();
         double originLng = LocationHandler.getmLongitude();
@@ -178,32 +189,36 @@ public class RestaurantManager {
             //Checks it is in Walking radius.
             if(distance <= WalkRadius && doesFitFilter(mYelpData.businesses.get(i)))
             {
-                Restaurant restaurant = new Restaurant(mYelpData.businesses.get(i));
+                walkRestuarant = new Restaurant(mYelpData.businesses.get(i));
 
-                new MarkerMapFactory(restaurant);
+                new MarkerMapFactory(walkRestuarant);
 
                 //Set distance from.
-                restaurant.setDistanceFrom(distance);
+                walkRestuarant.setDistanceFrom(distance);
 
                 //insert image from here
-                restaurant.setmRestImage(mYelpData.businesses.get(i).restImage);
+                walkRestuarant.setmRestImage(mYelpData.businesses.get(i).restImage);
 
                 //Insert to rating image to restuarant object.
-                restaurant.setRatingImage(mYelpData.businesses.get(i).restRatings);
+                walkRestuarant.setRatingImage(mYelpData.businesses.get(i).restRatings);
 
                 //Set cuisin style string.
-                restaurant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
+                walkRestuarant.setmCuisineStyle(mYelpData.businesses.get(i).categories.get(0).get(0));
 
                 //Returns a random restuarant name.
-                return restaurant;
+                return walkRestuarant;
             }
         }
-        return null;
+
+        showToast(mContext);
+
+        return walkRestuarant;
     }
 
 
     public void populateYelpData(double pLatitude, double pLongitude, final Context pContext)
     {
+        mContext = pContext.getApplicationContext();
         //Simplify the callback process.
         GeneralCallback generalCallback = new GeneralCallback() {
             @Override
@@ -300,6 +315,12 @@ public class RestaurantManager {
             return false;
         }
 
+    }
+
+    private void showToast(Context pContex)
+    {
+        Toast.makeText(pContex, "No restaurant found!",
+                Toast.LENGTH_SHORT).show();
     }
 
 
