@@ -12,10 +12,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.ironsquishy.biteclub.R;
 
 import java.util.List;
+import java.util.Objects;
 
 import ApiManagers.DatabaseManager;
 import ApiManagers.LocationHandler;
+import ApiManagers.NetworkRequestManager;
+import ApiManagers.UntappdManager;
 import apihelpers.SQLiteHandler.VisitedPlace;
+import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.Restaurant;
 
 
@@ -130,32 +134,30 @@ public class MarkerMapFactory {
     }
 
     public void createUntappdMarkers(Context context)
-    {   /*
-        SelectedBusiness mResult = new SelectedBusiness();
+    {
+        UntappdManager untappdManager = new UntappdManager();
 
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                UntappdManager untappdFeedData = (UntappdManager) object;
+        List<UntappdData.Item> listItems;
 
-                for(int i = 0; i < untappdFeedData.getItemSize(); i++)
-                {
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(new LatLng(untappdFeedData.getSingleItemLatitude(i), untappdFeedData.getSingleItemLongitude(i)));
-                    markerOptions.title(untappdFeedData.getBeerTitle(i));
-                    markerOptions.snippet(untappdFeedData.getShortDescription(i));
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        listItems = untappdManager.getListItems();
 
-                    // use this line for custom marker
-                    //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.beer));
+        for(int i = 0; i < listItems.size(); i++)
+        {
+            final double beerLat = listItems.get(i).venue.location.lat;
+            final double beerLng = listItems.get(i).venue.location.lng;
+            final String beerTitle = listItems.get(i).beer.beer_name;
 
-                    Marker marker = mGoogleMap.addMarker(markerOptions);
-                }
-            }
-        };
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(beerLat, beerLng));
+            markerOptions.title("Drink: " + beerTitle);
 
-        NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
-        */
+            // use this line for custom marker
+            Bitmap bitmap = convertToBitmapMarkers(R.drawable.gmarker_beer);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+
+            Marker marker = mGoogleMap.addMarker(markerOptions);
+        }
+
     }
 
 }
