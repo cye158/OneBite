@@ -33,9 +33,9 @@ import apihelpers.googleapis.DirectionHandler;
  * */
 public class OneButtonActivity extends Activity {
 
-    ImageView oneButtonPulse;
+    ImageView oneButtonPulse, oneButtonText;
     ImageButton oneButton;
-    Animation oneButtonPulseAnimation, oneButtonStopPulseAnimation;
+    Animation oneButtonPulseAnimation, oneButtonStopPulseAnimation, oneButtonTextAnimation;
     MediaPlayer oneButtonPing;
     ProgressDialog progressDialog;
 
@@ -52,10 +52,12 @@ public class OneButtonActivity extends Activity {
         progressDialog = CustomProgressDialog.initiateProgressDialog(this);
 
         oneButtonPing = MediaPlayer.create(this, R.raw.sonar_three_ping);
-
+        oneButtonText = (ImageView) findViewById(R.id.one_button_text);
         oneButton = (ImageButton)findViewById(R.id.one_button);
         oneButtonPulse = (ImageView)findViewById(R.id.one_button_pulse);
 
+        oneButtonTextAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        oneButtonText.startAnimation(oneButtonTextAnimation);
     }
 
     @Override

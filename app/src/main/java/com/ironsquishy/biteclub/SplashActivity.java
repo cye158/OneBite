@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import ApiManagers.LocationHandler;
 
+/**
+ * @author Edward Yao
+ *         Description: Splash Screen with frame by frame animation and text animation
+ */
 public class SplashActivity extends Activity {
 
     TextView txt;

@@ -56,7 +56,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="7dp"
                             android:gravity="center"
-                            android:text="(Click Here To Goto Untappd Website)"
+                            android:text="(Click Here To Go To Untappd Website)"
                             android:textColor="#808080"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -72,7 +72,7 @@
                         android:background="@android:color/darker_gray" />
 
                     <LinearLayout
-                        android:id="@+id/UntappdBeerOfTheDay"
+                        android:id="@+id/UntappdBeerOfTheHour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/BeerLogoBoarder"
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
                             android:gravity="center"
-                            android:text="BEER OF THE DAY"
+                            android:text="BEER OF THE HOUR"
                             android:textSize="25sp"
                             android:textStyle="bold" />
 

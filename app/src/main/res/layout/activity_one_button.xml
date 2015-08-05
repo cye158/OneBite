@@ -30,6 +30,16 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
+        android:id="@+id/one_button_text"
+        android:layout_width="252dp"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:src="@drawable/one_button_text"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
         android:id="@+id/one_button_pulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

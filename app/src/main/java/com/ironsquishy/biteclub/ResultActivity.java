@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -373,6 +374,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     /**
      * @Author Eric Chen
      * Description: Gets yelp information from Restaurant class
+     *
+     * Edited the labels are now bolded Edward Yao 8/04/15
      */
     private void setYelpInfo() {
         //Set the Text name.
@@ -401,11 +404,15 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         String distanceFrom = String.format("%.2f", distanceMiles);
 
-        mExtYelpInfo.setText("Cuisine Style: " + mRestaurant.getmCuisineStyle() + "\n" +
-                                "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                                "Distance: " + distanceFrom + " miles away");
-        mMoreYelpInfo.setText("Phone Number: " + formatPhoneNum(mRestaurant.getPhoneNumber()) + "\n\n" +
-                "Review: " + mRestaurant.getmDescription() + "... ");
+        String yelpInfo = "<b>Cuisine Style: </b>" + mRestaurant.getmCuisineStyle() + "<br>" +
+                            "<b>Number of Reviews: </b>" + mRestaurant.getReviewCount() + "<br>" +
+                            "<b>Distance: </b>" + distanceFrom + " miles away";
+
+        String moreYelpInfo = "<b>Phone Number: </b>" + mRestaurant.getPhoneNumber() + "<br><br>" +
+                                "<b>Review: </b>" + mRestaurant.getmDescription() + "... ";
+
+        mExtYelpInfo.setText(Html.fromHtml(yelpInfo));
+        mMoreYelpInfo.setText(Html.fromHtml(moreYelpInfo));
     }
 
 
