@@ -62,8 +62,8 @@ public class MarkerMapFactory {
     {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(LocationHandler.getmLatitude(), LocationHandler.getmLongitude()))
-                .title("You")
-                .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
+                .title("You're Here!");
+                //.snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
 
         Bitmap userIcon = convertToBitmapMarkers(R.drawable.gmarker_user);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(userIcon));
