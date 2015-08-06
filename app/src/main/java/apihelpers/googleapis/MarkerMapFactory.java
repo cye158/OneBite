@@ -25,7 +25,7 @@ import apihelpers.YelpApiHandler.Restaurant;
 
 /**
  * Created by Allen Space on 7/14/2015.
- * Edited by Guan
+ * Edited by Guan .
  * Edited by Renz icons 7/29/15
  */
 public class MarkerMapFactory {
