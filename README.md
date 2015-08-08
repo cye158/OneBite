@@ -1,5 +1,5 @@
 # t4
-Team 4 android app project file. Proposal name for android appilication is "BiteClub."
+Team 4 android app project file. Proposal name for android appilication is "OneBite."
 
 Not part of the master branch, all developement must happen on this branch before changing master branch.
 

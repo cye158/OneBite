@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -23,6 +25,7 @@ import ApiManagers.DatabaseManager;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
+import apihelpers.googleapis.DirectionHandler;
 
 
 /**
@@ -88,7 +91,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         mRestaurantManager = RestaurantManager.getInstance();
 
-        mUntappdManager = new UntappdManager();
+        mUntappdManager = new UntappdManager(this);
 
         car_button = (ImageView) findViewById(R.id.car_button);
         bus_button = (ImageView) findViewById(R.id.bus_button);
@@ -130,7 +133,7 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //This one walks
         walk_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
                 randomizeYelpResponse(WALK);
 
                 //saves the mode of transportation chosen.
@@ -174,6 +177,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
             }
         });
 
+        mUntappdManager.setMostPopularDrink();
+
     }
 
     /** Check for favorite. - Guan Editted by Eric and Darin**/
@@ -202,7 +207,6 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         //This is important for Untappd activity, needs population data.
 
-
         startActivity(intent);
     }
 
@@ -224,6 +228,13 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         dialog.show(getFragmentManager(), "Filter Dialog Box");
     }
 
+    public void onClickYelpImage(View view)
+    {
+        String restName = mRestaurant.getmRestName();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.yelp.com/search?find_desc=" + restName));
+        startActivity(intent);
+    }
+
     /**
      * @Author Allen Space
      * Description: On start, creates process dialog
@@ -241,6 +252,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
      */
     private void randomizeYelpResponse(int tranState) {
 
+        DirectionHandler directionHandler = new DirectionHandler(this);
+
         switch (tranState) {
             case WALK:
                 Toast.makeText(getApplicationContext(), "A restaurant within walking distance is shown",
@@ -249,6 +262,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //Get a random restuarant based on walking distance
                 mRestaurant = mRestaurantManager.getRandRestWalk();
+
+                directionHandler.populateJSONDirections(mRestaurant);//Set directions
+
                 break;
 
             case BUS:
@@ -258,6 +274,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //Get a random restuarant based on bus distance
                 mRestaurant = mRestaurantManager.getRandRestBus();
+
+                directionHandler.populateJSONDirections(mRestaurant);//Set directions
+
                 break;
 
             case CAR:
@@ -267,6 +286,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
                 //Get a random restuarant based on driving distance
                 mRestaurant = mRestaurantManager.getRandRestCar();
+
+                directionHandler.populateJSONDirections(mRestaurant);//set directions
+
                 break;
         }
         setYelpInfo();
@@ -372,6 +394,8 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     /**
      * @Author Eric Chen
      * Description: Gets yelp information from Restaurant class
+     *
+     * Edited the labels are now bolded Edward Yao 8/04/15
      */
     private void setYelpInfo() {
         //Set the Text name.
@@ -400,11 +424,15 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
 
         String distanceFrom = String.format("%.2f", distanceMiles);
 
-        mExtYelpInfo.setText("Cuisine Style: " + mRestaurant.getmCuisineStyle() + "\n" +
-                                "Number of Reviews: " + mRestaurant.getReviewCount() + "\n" +
-                                "Distance: " + distanceFrom + " miles away");
-        mMoreYelpInfo.setText("Phone Number: " + mRestaurant.getPhoneNumber() + "\n\n" +
-                "Description: " + mRestaurant.getmDescription() + "... ");
+        String yelpInfo = "<b>Cuisine Style: </b>" + mRestaurant.getmCuisineStyle() + "<br>" +
+                            "<b>Number of Reviews: </b>" + mRestaurant.getReviewCount() + "<br>" +
+                            "<b>Distance: </b>" + distanceFrom + " miles away";
+
+        String moreYelpInfo = "<b>Phone Number: </b>" + formatPhoneNum(mRestaurant.getPhoneNumber()) + "<br><br>" +
+                                "<b>Review: </b>" + mRestaurant.getmDescription() + "... ";
+
+        mExtYelpInfo.setText(Html.fromHtml(yelpInfo));
+        mMoreYelpInfo.setText(Html.fromHtml(moreYelpInfo));
     }
 
 
@@ -442,24 +470,24 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     private void highlightSelection(int transportation) {
         switch (transportation){
             case CAR:
-                car_button.setImageBitmap(toBitmap(R.drawable.car_s));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car_select));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
             case BUS:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus_s));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus_select));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
             case WALK:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk_s));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk_select));
                 break;
             default:
-                car_button.setImageBitmap(toBitmap(R.drawable.car));
-                bus_button.setImageBitmap(toBitmap(R.drawable.bus));
-                walk_button.setImageBitmap(toBitmap(R.drawable.walk));
+                car_button.setImageBitmap(toBitmap(R.drawable.trans_car));
+                bus_button.setImageBitmap(toBitmap(R.drawable.trans_bus));
+                walk_button.setImageBitmap(toBitmap(R.drawable.trans_walk));
                 break;
         }
     }
@@ -479,5 +507,22 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
         marker = Bitmap.createScaledBitmap(marker, 220, 220, true);
         return marker;
     }
+
+    /**
+     * @author: Guan
+     * Description: Format US phone number (ONLY)
+     * @param phoneNum A string value of phone number
+     * @return A string of formated phone number
+     */
+    private String formatPhoneNum(String phoneNum) {
+        if (phoneNum != null) {
+            return "(" + phoneNum.substring(0, 3) + ") " +
+                    phoneNum.substring(3, 6) + "-" +
+                    phoneNum.substring(6, 10);
+        }
+
+        return " Not Available";
+    }
 }
+
 

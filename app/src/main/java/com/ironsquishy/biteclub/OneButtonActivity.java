@@ -3,22 +3,24 @@ package com.ironsquishy.biteclub;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
+import apihelpers.googleapis.DirectionHandler;
 
 /**
  * Created by Edward Yao on 7/28/2015.
@@ -31,9 +33,9 @@ import ApiManagers.UntappdManager;
  * */
 public class OneButtonActivity extends Activity {
 
-    ImageView oneButtonPulse;
-    Button oneButton;
-    Animation oneButtonPulseAnimation, oneButtonStopPulseAnimation;
+    ImageView oneButtonPulse, oneButtonText;
+    ImageButton oneButton;
+    Animation oneButtonPulseAnimation, oneButtonStopPulseAnimation, oneButtonTextAnimation;
     MediaPlayer oneButtonPing;
     ProgressDialog progressDialog;
 
@@ -50,10 +52,12 @@ public class OneButtonActivity extends Activity {
         progressDialog = CustomProgressDialog.initiateProgressDialog(this);
 
         oneButtonPing = MediaPlayer.create(this, R.raw.sonar_three_ping);
-
-        oneButton = (Button)findViewById(R.id.one_button);
+        oneButtonText = (ImageView) findViewById(R.id.one_button_text);
+        oneButton = (ImageButton)findViewById(R.id.one_button);
         oneButtonPulse = (ImageView)findViewById(R.id.one_button_pulse);
 
+        oneButtonTextAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        oneButtonText.startAnimation(oneButtonTextAnimation);
     }
 
     @Override
@@ -68,30 +72,62 @@ public class OneButtonActivity extends Activity {
 
         mContext = this;
 
+        final Rect r = new Rect();
+
         oneButton.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                //get the views rect relative to its parent
+                v.getHitRect(r);
+                // offset the touch coordinates with the values from r
+                // to obtain meaningful coordinates
+                final float x = event.getX() + r.left;
+                final float y = event.getY() + r.top;
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // Start
-                        oneButton.setBackgroundResource(R.drawable.one_button_pressed);
-                        oneButton.setTextSize(22);
+                        oneButton.setBackgroundResource(R.drawable.one_button_down);
                         oneButtonPulse.setAnimation(oneButtonPulseAnimation);
                         oneButtonPulse.clearAnimation();
                         if (oneButtonPing.isPlaying()) {
                             oneButtonPing.reset();
                             oneButtonPing.release();
                             oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
-
                         }
                         break;
+
+
                     case MotionEvent.ACTION_UP:
                         // End
-                        oneButton.setBackgroundResource(R.drawable.one_button);
-                        oneButton.setTextSize(25);
+
+                        //if the touch coordinates are not in the View of rerct
+                        if (!r.contains((int) x, (int) y)) {
+                            oneButton.setBackgroundResource(R.drawable.one_button_up);
+                            oneButtonPing.start();
+                            oneButtonPulse.startAnimation(oneButtonPulseAnimation);
+                            oneButtonPing.reset();
+                            oneButtonPing.release();
+                            oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_one_ping);
+                            oneButtonPing.start();
+                            break;
+                        }
+
+                        oneButtonPing.reset();
+                        oneButtonPing.release();
+                        oneButtonPing = MediaPlayer.create(getApplicationContext(), R.raw.sonar_two_ping);
+                        oneButton.setBackgroundResource(R.drawable.one_button_up);
                         oneButtonPing.start();
+
+                        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+
+                        UntappdManager untappdManager = new UntappdManager(mContext);
+
+                        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         progressDialog.show();
+
                         break;
                 }
 
@@ -99,11 +135,7 @@ public class OneButtonActivity extends Activity {
 
             }
         });
-        RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
 
-        UntappdManager untappdManager = new UntappdManager();
-
-        untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
     }
 
     @Override
@@ -144,6 +176,17 @@ public class OneButtonActivity extends Activity {
 
         }};
 
-
+    /**Copied & modified from google marker class to be used in this class - Renz 7/30/15
+     *
+     * @author: Guan
+     * Description: turn a non .bmp image into bitmap and resize to prevent blurriness
+     * @param id the resource ID of the image data
+     * @return Bitmap object of resized image
+     **/
+    private Bitmap toBitmap(int id) {
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(), id);
+        //icon = Bitmap.createScaledBitmap(icon, 240, 240, true);
+        return icon;
+    }
 
 }

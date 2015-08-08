@@ -12,16 +12,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.ironsquishy.biteclub.R;
 
 import java.util.List;
+import java.util.Objects;
 
 import ApiManagers.DatabaseManager;
 import ApiManagers.LocationHandler;
+import ApiManagers.NetworkRequestManager;
+import ApiManagers.UntappdManager;
 import apihelpers.SQLiteHandler.VisitedPlace;
+import apihelpers.Untappd.UntappdData;
 import apihelpers.YelpApiHandler.Restaurant;
 
 
 /**
  * Created by Allen Space on 7/14/2015.
- * Edited by Guan
+ * Edited by Guan .
  * Edited by Renz icons 7/29/15
  */
 public class MarkerMapFactory {
@@ -58,10 +62,10 @@ public class MarkerMapFactory {
     {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(LocationHandler.getmLatitude(), LocationHandler.getmLongitude()))
-                .title("You")
-                .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
+                .title("You're Here!");
+                //.snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
 
-        Bitmap userIcon = convertToBitmapMarkers(R.drawable.user);
+        Bitmap userIcon = convertToBitmapMarkers(R.drawable.gmarker_user);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(userIcon));
         Marker  clientMarker = mGoogleMap.addMarker(markerOptions);
 
@@ -81,7 +85,7 @@ public class MarkerMapFactory {
                 .position(new LatLng(mRestaurant.getmLatitude(), mRestaurant.getmLongitude()))
                 .title(mRestaurant.getmRestName());
 
-        Bitmap burgerIcon = convertToBitmapMarkers(R.drawable.burger);
+        Bitmap burgerIcon = convertToBitmapMarkers(R.drawable.gmarker_burger);
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(burgerIcon));
 
@@ -99,7 +103,7 @@ public class MarkerMapFactory {
      */
     private Bitmap convertToBitmapMarkers(int id) {
         Bitmap marker = BitmapFactory.decodeResource(context.getResources(), id);
-        marker = Bitmap.createScaledBitmap(marker, 200, 225, false);
+        marker = Bitmap.createScaledBitmap(marker, 100, 132, true);
 
         return marker;
     }
@@ -115,7 +119,7 @@ public class MarkerMapFactory {
         if (!mDatabaseManager.isDatabaseEmpty()) {
             restaurants = mDatabaseManager.getAllVisitedPlaces();
 
-            Bitmap starIcon = convertToBitmapMarkers(R.drawable.star);
+            Bitmap starIcon = convertToBitmapMarkers(R.drawable.gmarker_star);
 
             for (int i = 0; i < restaurants.size(); i++) {
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -130,32 +134,30 @@ public class MarkerMapFactory {
     }
 
     public void createUntappdMarkers(Context context)
-    {   /*
-        SelectedBusiness mResult = new SelectedBusiness();
+    {
+        UntappdManager untappdManager = new UntappdManager();
 
-        GeneralCallback generalCallback = new GeneralCallback() {
-            @Override
-            public void runWithResponse(Object object) {
-                UntappdManager untappdFeedData = (UntappdManager) object;
+        List<UntappdData.Item> listItems;
 
-                for(int i = 0; i < untappdFeedData.getItemSize(); i++)
-                {
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(new LatLng(untappdFeedData.getSingleItemLatitude(i), untappdFeedData.getSingleItemLongitude(i)));
-                    markerOptions.title(untappdFeedData.getBeerTitle(i));
-                    markerOptions.snippet(untappdFeedData.getShortDescription(i));
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        listItems = untappdManager.getListItems();
 
-                    // use this line for custom marker
-                    //markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.beer));
+        for(int i = 0; i < listItems.size(); i++)
+        {
+            final double beerLat = listItems.get(i).venue.location.lat;
+            final double beerLng = listItems.get(i).venue.location.lng;
+            final String beerTitle = listItems.get(i).beer.beer_name;
 
-                    Marker marker = mGoogleMap.addMarker(markerOptions);
-                }
-            }
-        };
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(beerLat, beerLng));
+            markerOptions.title("Drink: " + beerTitle);
 
-        NetworkRequestManager.getInstance().populateUntappdFeed(generalCallback, mResult.getRestLatitude(), mResult.getRestLongitdude(), context);
-        */
+            // use this line for custom marker
+            Bitmap bitmap = convertToBitmapMarkers(R.drawable.gmarker_beer);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+
+            Marker marker = mGoogleMap.addMarker(markerOptions);
+        }
+
     }
 
 }

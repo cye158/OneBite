@@ -42,8 +42,6 @@ public class YelpData {
 
         public Location location;
 
-        public Bitmap restImage;
-        public Bitmap restRatings;
     }
 
     public class Deal {

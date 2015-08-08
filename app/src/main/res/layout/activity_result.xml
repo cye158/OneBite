@@ -1,9 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_menu"
-    android:background="#330033"
+    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="0dp"
@@ -29,8 +28,8 @@
             android:layout_marginRight="20dp"
             android:orientation="vertical"
             android:layout_weight="3"
-            android:textSize="11dp"
-            android:text="SEARCH BY MODE\nOF TRANSPORTATION:"
+            android:textSize="10dp"
+            android:text="RESTAURANT BY\nTRANSPORTATION:"
             android:textStyle="bold" />
 
         <ImageView
@@ -41,8 +40,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/transportation"
             android:onClick="toCar"
-            android:layout_weight="1"
-            android:src="@drawable/car_icon001" />
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/bus_button"
@@ -52,8 +50,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/car_button"
             android:onClick="toBus"
-            android:layout_weight="1"
-            android:src="@drawable/bus_icon000" />
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/walk_button"
@@ -63,8 +60,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/bus_button"
             android:onClick="toWalk"
-            android:layout_weight="1"
-            android:src="@drawable/walk_icon000" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -108,7 +104,8 @@
                             android:layout_height="200dp"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/placeholder_yelp" />
+                            android:src="@drawable/placeholder_yelp"
+                            android:onClick="onClickYelpImage" />
                             
                         <ImageView
                             android:layout_width="120dp"
@@ -120,10 +117,21 @@
                             android:layout_alignStart="@+id/resultText"
                             android:layout_marginTop="-40dp"/>
 
-                        <com.melnykov.fab.FloatingActionButton
-                            android:id="@+id/Untappd"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/YelpImage"
+                            android:layout_centerHorizontal="true"
+                            android:layout_toLeftOf="@+id/Untappd"
+                            android:layout_marginRight="20dp"
+                            android:text="(Tap On Image To Go To Yelp Website)"
+                            android:textColor="#808080"
+                            android:textSize="10dp"/>
+
+                        <com.melnykov.fab.FloatingActionButton
+                            android:id="@+id/Untappd"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_below="@id/YelpImage"
@@ -183,7 +191,8 @@
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_fave" />
+                            android:src="@drawable/result_fave"
+                            android:onClick="checkFavAdd" />
 
                         <TextView
                             android:id="@+id/checkToAddFav"
@@ -212,7 +221,8 @@
                             android:padding="1dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_map" />
+                            android:src="@drawable/result_map"
+                            android:onClick="toNavi"/>
 
                         <ImageView
                             android:id="@+id/filterIcon"
@@ -226,7 +236,8 @@
                             android:padding="1dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/result_filter" />
+                            android:src="@drawable/result_filter"
+                            android:onClick="toFilter"/>
 
                         <TextView
                             android:id="@+id/checkToNavi"
