@@ -25,7 +25,7 @@ import apihelpers.YelpApiHandler.Restaurant;
 
 /**
  * Created by Allen Space on 7/14/2015.
- * Edited by Guan
+ * Edited by Guan .
  * Edited by Renz icons 7/29/15
  */
 public class MarkerMapFactory {
@@ -62,8 +62,8 @@ public class MarkerMapFactory {
     {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(LocationHandler.getmLatitude(), LocationHandler.getmLongitude()))
-                .title("You")
-                .snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
+                .title("You're Here!");
+                //.snippet(LocationHandler.streetAddress + ": " + LocationHandler.cityAddress);
 
         Bitmap userIcon = convertToBitmapMarkers(R.drawable.gmarker_user);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(userIcon));
