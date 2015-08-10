@@ -178,7 +178,7 @@ public class NetworkRequestManager {
 
                 mLRUBitmapStack.putBitmap(URL,bitmap);
 
-                generalCallback.runWithResponse(bitmap);
+                //generalCallback.runWithResponse(bitmap);
             }
         }, 0, 0, null, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
@@ -187,7 +187,7 @@ public class NetworkRequestManager {
 
                 Bitmap bitmap = null;
 
-                generalCallback.runWithResponse(bitmap);
+                //generalCallback.runWithResponse(bitmap);
             }
         });
 
