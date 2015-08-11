@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
-import apihelpers.googleapis.DirectionHandler;
 
 /**
  * Created by Edward Yao on 7/28/2015.
@@ -46,6 +45,11 @@ public class OneButtonActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_button);
+
+        //Get started LocationHandler and start connection.
+        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
+        //Connect to google services.
+        LocationHandler.startConnect();
 
         mContext = this;
 
