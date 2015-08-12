@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ApiManagers.DatabaseManager;
+import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
 import apihelpers.YelpApiHandler.Restaurant;
@@ -242,7 +243,10 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     @Override
     protected void onStart() {
         super.onStart();
-
+        //Get started LocationHandler and start connection.
+        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
+        //Connect to google services.
+        LocationHandler.startConnect();
     }
 
     /**

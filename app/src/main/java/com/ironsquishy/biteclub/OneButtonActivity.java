@@ -46,11 +46,6 @@ public class OneButtonActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_button);
 
-        //Get started LocationHandler and start connection.
-        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
-        //Connect to google services.
-        LocationHandler.startConnect();
-
         mContext = this;
 
         progressDialog = CustomProgressDialog.initiateProgressDialog(this);
