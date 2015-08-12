@@ -244,9 +244,9 @@ public class ResultActivity extends Activity implements SwipeRefreshLayout.OnRef
     protected void onStart() {
         super.onStart();
         //Get started LocationHandler and start connection.
-        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
+        //LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
         //Connect to google services.
-        LocationHandler.startConnect();
+        //LocationHandler.startConnect();
     }
 
     /**

@@ -119,11 +119,12 @@ public class OneButtonActivity extends Activity {
                         oneButton.setBackgroundResource(R.drawable.one_button_up);
                         oneButtonPing.start();
 
+                        //Dont Move this code!!
                         RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
-
                         UntappdManager untappdManager = new UntappdManager(mContext);
-
                         untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+                        //end..
+
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         progressDialog.show();
 
