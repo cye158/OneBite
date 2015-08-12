@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by Allen Space on 8/4/2015.
+ * Description: POJO class
  */
 public class DirectionData {
 
