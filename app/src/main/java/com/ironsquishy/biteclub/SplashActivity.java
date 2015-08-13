@@ -11,6 +11,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import ApiManagers.LocationHandler;
 
 /**
@@ -34,9 +35,9 @@ public class SplashActivity extends Activity {
 
         //TODO Find an optimal point to put LocationHandler instantiation
         //Get started LocationHandler and start connection.
-        LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
+        //LocationHandler.getInstance().setGoogleApiConnection(getApplicationContext());
         //Connect to google services.
-        LocationHandler.startConnect();
+        //LocationHandler.startConnect();
 
         mContext = this;
 
@@ -150,7 +151,6 @@ public class SplashActivity extends Activity {
                     }
                     finally
                     {
-
                         Intent i = new Intent(getBaseContext(), LocationCheckActivity.class);
                         startActivity(i);
                         finish();

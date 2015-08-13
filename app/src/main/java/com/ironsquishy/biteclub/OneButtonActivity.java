@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import ApiManagers.LocationHandler;
 import ApiManagers.RestaurantManager;
 import ApiManagers.UntappdManager;
-import apihelpers.googleapis.DirectionHandler;
 
 /**
  * Created by Edward Yao on 7/28/2015.
@@ -120,11 +119,12 @@ public class OneButtonActivity extends Activity {
                         oneButton.setBackgroundResource(R.drawable.one_button_up);
                         oneButtonPing.start();
 
+                        //Dont Move this code!!
                         RestaurantManager.getInstance().populateYelpData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
-
                         UntappdManager untappdManager = new UntappdManager(mContext);
-
                         untappdManager.populateUntappdData(LocationHandler.getmLatitude(), LocationHandler.getmLongitude(), mContext);
+                        //end..
+
                         oneButtonPulse.startAnimation(oneButtonPulseAnimation);
                         progressDialog.show();
 

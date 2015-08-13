@@ -262,33 +262,25 @@ public class RestaurantManager {
 
         if (flag == true) {
 
-
+            //General Call back for images is no needed recommend remove appropriate param.
             GeneralCallback generalCallback = new GeneralCallback() {
                 @Override
                 public void runWithResponse(Object object) {
-                    //mYelpRestImage = (Bitmap) object;
-
-                    //mYelpData.businesses.get(index).restImage = mYelpRestImage;
-
-
+                    //Not needed put in LRU bitmap cache.
                 }
             };
 
             URL = URL.replaceAll("ms.jpg" , "o.jpg"); //replace the image size
 
-
             NetworkRequestManager.getInstance().getYelpSingleImage(generalCallback, URL, pContext);
 
         }else
         {
-
+            //General Call back for images is no needed recommend remove appropriate param.
             GeneralCallback generalCallback = new GeneralCallback() {
                 @Override
                 public void runWithResponse(Object object) {
-                   //mYelpRatingImage = (Bitmap) object;
-
-                    //mYelpData.businesses.get(index).restRatings = mYelpRatingImage;
-
+                   //Not needed put in LRU bitmap cache.
                 }
             };
 
@@ -299,7 +291,6 @@ public class RestaurantManager {
     //Help to find filter restuarant.
     private Boolean doesFitFilter(YelpData.Business pRestaurant)
     {
-
         if(FiltersArray==null) {
             return true; //That means all were check or none.
         }else {
@@ -309,7 +300,6 @@ public class RestaurantManager {
                 if(pRestaurant.categories.get(0).get(1).equals((FiltersArray.get(i)
                         .toLowerCase())))
                 {
-                    Log.i("categ", "I FOUND ONE!!!!");
                     return true;
                 }
             }
@@ -318,15 +308,21 @@ public class RestaurantManager {
 
     }
 
+    //Used if No restuarant were found.
     private void showToast(Context pContex)
     {
         Toast.makeText(pContex, "No restaurant found!",
                 Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * @author Allen Space
+     * Description: Helper for the retrival of bitmap images.
+     *              From NetworkRequestManager.
+     * */
     private Bitmap getCacheImage(String URL)
     {
-        URL = URL.replaceAll("ms.jpg" , "o.jpg");
+        URL = URL.replaceAll("ms.jpg" , "o.jpg"); //Needed for appropirate query.
 
         return NetworkRequestManager.getInstance().getBitmapOnLRU(URL);
     }

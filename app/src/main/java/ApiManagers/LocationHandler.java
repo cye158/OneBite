@@ -29,8 +29,8 @@ public class LocationHandler implements ConnectionCallbacks, OnConnectionFailedL
     // private static MapFragment mapFragment;
 
     //Following double's are set to San Francisco.
-    private static double mLongitude = -122.431297;
-    private static double mLatitude = 37.773972;
+    private static double mLongitude;
+    private static double mLatitude;
 
     public static String streetAddress = null;
     public static String cityAddress = null;

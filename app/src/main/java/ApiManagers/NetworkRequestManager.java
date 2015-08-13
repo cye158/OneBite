@@ -56,7 +56,7 @@ public class NetworkRequestManager {
      * */
     private NetworkRequestManager()
     {
-
+        //Private constructor.
     }
 
     /**
@@ -96,6 +96,7 @@ public class NetworkRequestManager {
 
     public void populateBeerInfo(final GeneralCallback generalCallback, final String URL, Context pContext)
     {
+        //Json request for Untappd beer info.
         JsonObjectRequest jsonObjectRequest = generalJSONRequest(generalCallback, URL, BEER_CALL);
 
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsonObjectRequest);
@@ -119,10 +120,14 @@ public class NetworkRequestManager {
 
         // Adds Yelp request on the stack.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsObjectReq);
+
     }
+
+
     /**Call for direction.*/
     public static void populateDirectionData(final GeneralCallback generalCallback, String URL, final Context pContext)
     {
+        //Json request for directions
         JsonObjectRequest jsonObjectRequest = generalJSONRequest(generalCallback, URL, DIRECTION_CALL);
 
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(jsonObjectRequest);
@@ -155,10 +160,10 @@ public class NetworkRequestManager {
     public static void getUntappdSingleImage(final GeneralCallback generalCallback, String URL, Context pContext)
     {
 
-
+        //Image request for unttappd images
         ImageRequest imageRequest = generalImageRequest(generalCallback, URL);
 
-
+        //Put on the stack for Http queue.
         SingleRequest.getInstance(pContext.getApplicationContext()).addToRequestQueue(imageRequest);
     }
 
@@ -178,7 +183,6 @@ public class NetworkRequestManager {
 
                 mLRUBitmapStack.putBitmap(URL,bitmap);
 
-                generalCallback.runWithResponse(bitmap);
             }
         }, 0, 0, null, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
@@ -187,7 +191,8 @@ public class NetworkRequestManager {
 
                 Bitmap bitmap = null;
 
-                generalCallback.runWithResponse(bitmap);
+                mLRUBitmapStack.putBitmap(URL,bitmap);
+
             }
         });
 

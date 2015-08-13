@@ -128,12 +128,7 @@ public class UntappdManager {
         return mItems;
     }
 
-    public String getRandomDrink() {
 
-        Collections.shuffle(mData.response.checkins.items, new Random(System.nanoTime()));
-
-        return mData.response.checkins.items.get(0).beer.beer_name;
-    }
 
     public List<String> getFilledComments() {
         List<String> filledComments = new ArrayList<String>();
@@ -148,13 +143,6 @@ public class UntappdManager {
         }
 
         return filledComments;
-    }
-
-    public String getPopularBeerStyle() {
-        final String str;
-
-
-        return null;
     }
 
     /**
@@ -225,26 +213,7 @@ public class UntappdManager {
 
     }
 
-    //Thank you RosettaCode
-    public static <T> List<T> mode(List<? extends T> coll) {
-        Map<T, Integer> seen = new HashMap<T, Integer>();
-        int max = 0;
-        List<T> maxElems = new ArrayList<T>();
-        for (T value : coll) {
-            if (seen.containsKey(value))
-                seen.put(value, seen.get(value) + 1);
-            else
-                seen.put(value, 1);
-            if (seen.get(value) > max) {
-                max = seen.get(value);
-                maxElems.clear();
-                maxElems.add(value);
-            } else if (seen.get(value) == max) {
-                maxElems.add(value);
-            }
-        }
-        return maxElems;
-    }
+
 
 
     /**
@@ -332,4 +301,33 @@ public class UntappdManager {
     {
         return new OneUntappd(mMostPopularBeer, mBeerImage, mBeerData, getFilledComments(), mSavedURL);
     }
+
+    /**
+     * @author Allen Space
+     * Description: Used for getting most frequent object in a list.
+     *              Credit to RosettaCode. Thank you.
+     * */
+    public static <T> List<T> mode(List<? extends T> collection) {
+        Map<T, Integer> seen = new HashMap<T, Integer>();
+        List<T> maxElems = new ArrayList<T>();
+
+        int max = 0;
+
+        for (T value : collection) { //Check each object in collection.
+
+            if (seen.containsKey(value))
+                seen.put(value, seen.get(value) + 1);
+            else
+                seen.put(value, 1);
+            if (seen.get(value) > max) {
+                max = seen.get(value);
+                maxElems.clear();
+                maxElems.add(value);
+            } else if (seen.get(value) == max) {
+                maxElems.add(value);
+            }
+        }
+        return maxElems;
+    }
+
 }
